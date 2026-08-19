@@ -1,0 +1,190 @@
+{
+  "schemaVersion": 1,
+  "flowId": "6932329b-8d73-40c3-a3f9-e90b9ac40fb4",
+  "name": "New workflow",
+  "description": "",
+  "globalValues": {},
+  "nodes": [
+    {
+      "id": "1a7ab0c9-311d-43fc-a97f-fb3fc73f29fd",
+      "name": "Start",
+      "category": "Module",
+      "nodeType": "Start",
+      "x": 39,
+      "y": 90,
+      "width": 200,
+      "height": 102,
+      "executionMode": "Enabled",
+      "settings": {
+        "Register": "BBR",
+        "LdmInstructionId": "Hoest_KultArv_Start"
+      },
+      "portPlacements": {},
+      "flippedPortSides": []
+    },
+    {
+      "id": "aeafc4c7-8c05-4e2c-a066-14c12e686274",
+      "name": "Exit",
+      "category": "Module",
+      "nodeType": "Exit",
+      "x": 1452,
+      "y": 644,
+      "width": 200,
+      "height": 102,
+      "executionMode": "Enabled",
+      "settings": {},
+      "portPlacements": {
+        "I:Fail": "Top"
+      },
+      "flippedPortSides": []
+    },
+    {
+      "id": "b22ffc64-6baa-4f46-a8db-d383b38d2a6e",
+      "name": "ILogger",
+      "category": "Module",
+      "nodeType": "ILogger",
+      "x": 1219,
+      "y": 89,
+      "width": 200,
+      "height": 102,
+      "executionMode": "Enabled",
+      "settings": {
+        "Registry": "False",
+        "ErrorFile": ""
+      },
+      "portPlacements": {
+        "O:Out": "Bottom"
+      },
+      "flippedPortSides": []
+    },
+    {
+      "id": "9454a0b9-b249-4252-867e-00a899c79d4c",
+      "name": "Display",
+      "category": "Module",
+      "nodeType": "Display",
+      "x": 649,
+      "y": 401,
+      "width": 200,
+      "height": 102,
+      "executionMode": "Enabled",
+      "settings": {
+        "Text": "\u00A4{LdmInstructionId}\u00A4"
+      },
+      "portPlacements": {},
+      "flippedPortSides": []
+    },
+    {
+      "id": "bd8fe7af-9a98-4d1b-ba25-84177681d364",
+      "name": "Notify LDM",
+      "category": "Module",
+      "nodeType": "NotifyLdm",
+      "x": 386,
+      "y": 94,
+      "width": 200,
+      "height": 102,
+      "executionMode": "Enabled",
+      "settings": {
+        "AliasTable": "dbo.alias",
+        "LdmInstructionPostfix": "1",
+        "LdmSystemDB": "\u00A4[LdmSysDb]\u00A4",
+        "OriginalInstrkId": "\u00A4{LdmInstructionId}\u00A4",
+        "Priority": "117",
+        "State": "1"
+      },
+      "portPlacements": {
+        "O:Out": "Bottom"
+      },
+      "flippedPortSides": []
+    },
+    {
+      "id": "ddac0509-16b8-4e3c-b015-f39ed4e0573e",
+      "name": "Display 2",
+      "category": "Module",
+      "nodeType": "Display",
+      "x": 859,
+      "y": 62,
+      "width": 200,
+      "height": 102,
+      "executionMode": "Enabled",
+      "settings": {
+        "Text": "\u00A4{Message}\u00A4"
+      },
+      "portPlacements": {},
+      "flippedPortSides": []
+    }
+  ],
+  "connections": [
+    {
+      "id": "cb561372-25e6-4e7c-a9e6-e80eeb118962",
+      "fromNodeId": "b22ffc64-6baa-4f46-a8db-d383b38d2a6e",
+      "fromPort": "Out",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "aeafc4c7-8c05-4e2c-a066-14c12e686274",
+      "toPort": "Fail",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "19f1bcc6-446e-4c1b-b0cc-646bb9532e62",
+      "fromNodeId": "1a7ab0c9-311d-43fc-a97f-fb3fc73f29fd",
+      "fromPort": "Out",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "bd8fe7af-9a98-4d1b-ba25-84177681d364",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "b58cf9b9-dada-4373-9d41-989d614cb8c1",
+      "fromNodeId": "bd8fe7af-9a98-4d1b-ba25-84177681d364",
+      "fromPort": "Out",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "9454a0b9-b249-4252-867e-00a899c79d4c",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "b7878251-43eb-4e2b-93e6-e07bed463e20",
+      "fromNodeId": "9454a0b9-b249-4252-867e-00a899c79d4c",
+      "fromPort": "Out",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "aeafc4c7-8c05-4e2c-a066-14c12e686274",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "5a3a0fd6-6324-40d5-b9e9-a5d40224255e",
+      "fromNodeId": "bd8fe7af-9a98-4d1b-ba25-84177681d364",
+      "fromPort": "Fail",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "ddac0509-16b8-4e3c-b015-f39ed4e0573e",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "5d09f403-7df9-4f2b-a9c1-104bcfe7cd1c",
+      "fromNodeId": "ddac0509-16b8-4e3c-b015-f39ed4e0573e",
+      "fromPort": "Out",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "b22ffc64-6baa-4f46-a8db-d383b38d2a6e",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    }
+  ]
+}

@@ -1,0 +1,473 @@
+{
+  "schemaVersion": 1,
+  "flowId": "8ce973ef-388f-4edf-a355-c865d8bc27c5",
+  "name": "New workflow",
+  "description": "Dette flow udtr\u00E6kker Schema DAI01, klippet med Odense (BBOX polygon) fra postgres, konverterer til EPSG:4326 og gemmer som Geopackage i \u00E9n zippet fil",
+  "globalValues": {
+    "LogFile": "\u00A4[WorkingFolder]\u00A4\\Diagnose\\Errors.txt",
+    "SdkRoot": "c:\\App\\Gdal\\release-1929-x64-gdal-3-12-1-mapserver-8-6-0\\"
+  },
+  "nodes": [
+    {
+      "id": "e24ec092-d44c-4f21-b928-9a069713eeb2",
+      "name": "Start",
+      "category": "Module",
+      "nodeType": "Start",
+      "x": 56,
+      "y": 98,
+      "width": 190,
+      "height": 92,
+      "executionMode": "Enabled",
+      "settings": {
+        "CutArea": "Odense",
+        "Loop": "1",
+        "SourceSchema": "dai01"
+      },
+      "portPlacements": {
+        "O:Out": "Bottom"
+      },
+      "flippedPortSides": []
+    },
+    {
+      "id": "80e55e8a-9afc-477f-966f-d1f34afdfdeb",
+      "name": "Exit",
+      "category": "Module",
+      "nodeType": "Exit",
+      "x": 1571.0000000000114,
+      "y": 396.66666666666663,
+      "width": 190,
+      "height": 92,
+      "executionMode": "Enabled",
+      "settings": {
+        "ExitCode": "0",
+        "ExitMessage": ""
+      },
+      "portPlacements": {},
+      "flippedPortSides": []
+    },
+    {
+      "id": "4f093012-ad9f-4a6c-ae00-78798c90a66f",
+      "name": "Loop PG Tables",
+      "category": "Module",
+      "nodeType": "SqlIterator",
+      "x": 565.7777777777811,
+      "y": 744.6666666666716,
+      "width": 190,
+      "height": 92,
+      "executionMode": "Enabled",
+      "settings": {
+        "ConnectionString": "\u00A4[GrunddataDB]\u00A4",
+        "DBMS": "Postgres",
+        "MaxParallelism": "10",
+        "Mode": "Sequential",
+        "ResultType": "Recordset",
+        "Sql": "select schemaname, tablename from pg_tables where schemaname ilike \u0027\u00A4{SourceSchema}\u00A4\u0027 order by tablename",
+        "SqlTimeout": ""
+      },
+      "portPlacements": {
+        "O:Item": "Top",
+        "I:LoopBack": "Top"
+      },
+      "flippedPortSides": [
+        "Top"
+      ]
+    },
+    {
+      "id": "c693eabc-37c1-4380-a47f-a884de1a6ca0",
+      "name": "Area to WKT",
+      "category": "Module",
+      "nodeType": "AreaToWKT",
+      "x": 66.88888888888445,
+      "y": 437.444444444445,
+      "width": 190,
+      "height": 92,
+      "executionMode": "Enabled",
+      "settings": {
+        "Area": "\u00A4{CutArea}\u00A4"
+      },
+      "portPlacements": {
+        "O:Out": "Bottom",
+        "I:In": "Top"
+      },
+      "flippedPortSides": [
+        "Right"
+      ]
+    },
+    {
+      "id": "834b7255-651b-4431-8c48-fdb2e5c96c65",
+      "name": "OGR2OGR (external)",
+      "category": "Module",
+      "nodeType": "OGR2OGRExternal",
+      "x": 823.3333333333387,
+      "y": 498.7777777777669,
+      "width": 190,
+      "height": 92,
+      "executionMode": "Enabled",
+      "settings": {
+        "AdditionalArguments": "-lco GEOMETRY_NAME=geometri -lco OVERWRITE=YES -makevalid",
+        "AdditionalEnvironment": "",
+        "Destination": "\u00A4{EnsuredDirectory}\u00A4\\\u00A4{tablename}\u00A4.gpkg",
+        "GeometryType": "",
+        "LayerName": "\u00A4{tablename}\u00A4",
+        "Mode": "Overwrite",
+        "OgrExecutable": "\u00A4[SdkRoot]\u00A4bin\\gdal\\apps\\ogr2ogr.exe",
+        "OutputFormat": "",
+        "SdkRoot": "\u00A4[SdkRoot]\u00A4",
+        "SelectFields": "",
+        "Source": "\u00A4[GrunddataOGR]\u00A4",
+        "SourceSrs": "",
+        "Sql": "select \u00A4{SqlFields}\u00A4 from \u00A4{schemaname}\u00A4.\u00A4{tablename}\u00A4 where ST_Intersects (\u00A4{GeometryColumn}\u00A4, ST_GeomFromText (\u0027\u00A4{AreaWKT}\u00A4\u0027, 25832))",
+        "TargetSrs": "",
+        "Where": "",
+        "XsdFile": "",
+        "XsdTableName": ""
+      },
+      "portPlacements": {
+        "I:In": "Top",
+        "O:Success": "Bottom"
+      },
+      "flippedPortSides": []
+    },
+    {
+      "id": "bad23fee-eb7f-40df-962c-96ca02e25562",
+      "name": "ILogger",
+      "category": "Module",
+      "nodeType": "ILogger",
+      "x": 1220.2222222222194,
+      "y": 108,
+      "width": 190,
+      "height": 92,
+      "executionMode": "Enabled",
+      "settings": {
+        "ErrorFile": "\u00A4[LogFile]\u00A4",
+        "Registry": "False"
+      },
+      "portPlacements": {},
+      "flippedPortSides": []
+    },
+    {
+      "id": "8fe46592-4d9d-4e6d-8697-725c7ed3f81c",
+      "name": "Get SQL Fields",
+      "category": "Module",
+      "nodeType": "GetSqlFields",
+      "x": 542.8888888888865,
+      "y": 359.44444444444343,
+      "width": 190,
+      "height": 92,
+      "executionMode": "Enabled",
+      "settings": {
+        "ConnectionString": "\u00A4[GrunddataDB]\u00A4",
+        "DBMS": "Postgres",
+        "GeometryOperations": "ST_MakeValid\r\nST_Transform (4326)",
+        "MakeGeometryBinary": "No",
+        "Schema": "\u00A4{schemaname}\u00A4",
+        "Table": "\u00A4{tablename}\u00A4"
+      },
+      "portPlacements": {
+        "O:Out": "Bottom",
+        "I:In": "Bottom"
+      },
+      "flippedPortSides": [
+        "Right",
+        "Bottom"
+      ]
+    },
+    {
+      "id": "e91c9a31-9b77-4a23-9c96-e406c9005789",
+      "name": "Ensure Directory",
+      "category": "Module",
+      "nodeType": "EnsureDirectory",
+      "x": 56,
+      "y": 230.22222222222217,
+      "width": 190,
+      "height": 92,
+      "executionMode": "Enabled",
+      "settings": {
+        "Directory": "\u00A4[WorkingFolder]\u00A4\\Export\\\u00A4[SYS_GUID]\u00A4"
+      },
+      "portPlacements": {
+        "I:In": "Top",
+        "O:Success": "Bottom"
+      },
+      "flippedPortSides": [
+        "Right"
+      ]
+    },
+    {
+      "id": "bf7f689a-8f18-42a8-9452-3795b4a8a11e",
+      "name": "Zip File",
+      "category": "Module",
+      "nodeType": "ZipFile",
+      "x": 912.2222222222321,
+      "y": 804.9999999999998,
+      "width": 190,
+      "height": 92,
+      "executionMode": "Enabled",
+      "settings": {
+        "Append": "No",
+        "Compression": "1",
+        "InputFiles": "\u00A4{EnsuredDirectory}\u00A4\\*.gpkg",
+        "Password": "\u00A4[ZipPassword]\u00A4",
+        "ZipFile": "\u00A4[WorkingFolder]\u00A4\\Export\\\u00A4{SourceSchema}\u00A4_\u00A4{CutArea}\u00A4.zip"
+      },
+      "portPlacements": {
+        "O:Fail": "Top"
+      },
+      "flippedPortSides": []
+    },
+    {
+      "id": "07e82510-e968-42ca-8402-ec4089122868",
+      "name": "Delete Directory",
+      "category": "Module",
+      "nodeType": "DeleteDirectory",
+      "x": 1300.8888888888894,
+      "y": 737.0000000000051,
+      "width": 190,
+      "height": 92,
+      "executionMode": "Enabled",
+      "settings": {
+        "Directory": "\u00A4{EnsuredDirectory}\u00A4"
+      },
+      "portPlacements": {
+        "O:Fail": "Top"
+      },
+      "flippedPortSides": []
+    },
+    {
+      "id": "c3fad396-c6d7-4f4a-ad12-7e96a3fe3d24",
+      "name": "Assign Variable 2",
+      "category": "Module",
+      "nodeType": "AssignVariable",
+      "x": 215.5555555555611,
+      "y": 664.0000000000011,
+      "width": 190,
+      "height": 92,
+      "executionMode": "Enabled",
+      "settings": {},
+      "portPlacements": {
+        "O:Fail": "Top"
+      },
+      "flippedPortSides": [
+        "Right"
+      ]
+    }
+  ],
+  "connections": [
+    {
+      "id": "0f2b94bd-9560-4ea2-9ead-fb1f40a9f690",
+      "fromNodeId": "bad23fee-eb7f-40df-962c-96ca02e25562",
+      "fromPort": "Out",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "80e55e8a-9afc-477f-966f-d1f34afdfdeb",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "7a4e86fe-e00a-4126-9ad5-3c03d529d1b8",
+      "fromNodeId": "c693eabc-37c1-4380-a47f-a884de1a6ca0",
+      "fromPort": "Fail",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "bad23fee-eb7f-40df-962c-96ca02e25562",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "28d3f418-2905-4772-946f-b1da95f40ca0",
+      "fromNodeId": "834b7255-651b-4431-8c48-fdb2e5c96c65",
+      "fromPort": "Fail",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "bad23fee-eb7f-40df-962c-96ca02e25562",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "81a71e9d-6a6d-438d-adb7-185129675199",
+      "fromNodeId": "4f093012-ad9f-4a6c-ae00-78798c90a66f",
+      "fromPort": "Item",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "8fe46592-4d9d-4e6d-8697-725c7ed3f81c",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "222104c9-4cee-4709-a772-532fce8bdfe0",
+      "fromNodeId": "8fe46592-4d9d-4e6d-8697-725c7ed3f81c",
+      "fromPort": "Out",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "834b7255-651b-4431-8c48-fdb2e5c96c65",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "2f33d777-fd03-4457-9420-31fe8c0fb7be",
+      "fromNodeId": "8fe46592-4d9d-4e6d-8697-725c7ed3f81c",
+      "fromPort": "Fail",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "bad23fee-eb7f-40df-962c-96ca02e25562",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "460b90ff-db21-4238-a575-7deaedd55c00",
+      "fromNodeId": "e24ec092-d44c-4f21-b928-9a069713eeb2",
+      "fromPort": "Out",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "e91c9a31-9b77-4a23-9c96-e406c9005789",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "a7545c98-23f1-41bf-9939-1647fbfd3ca6",
+      "fromNodeId": "e91c9a31-9b77-4a23-9c96-e406c9005789",
+      "fromPort": "Success",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "c693eabc-37c1-4380-a47f-a884de1a6ca0",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "60d7845d-98a0-49b8-a523-4dec3410e6ea",
+      "fromNodeId": "bf7f689a-8f18-42a8-9452-3795b4a8a11e",
+      "fromPort": "Fail",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "bad23fee-eb7f-40df-962c-96ca02e25562",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "719c7397-e18b-4bd7-b045-bf933c07f584",
+      "fromNodeId": "bf7f689a-8f18-42a8-9452-3795b4a8a11e",
+      "fromPort": "Success",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "07e82510-e968-42ca-8402-ec4089122868",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "05671dab-856f-4dc6-9596-00a4f1bc43f9",
+      "fromNodeId": "07e82510-e968-42ca-8402-ec4089122868",
+      "fromPort": "Success",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "80e55e8a-9afc-477f-966f-d1f34afdfdeb",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "e7d31f49-bd31-462b-aaf3-6989167cbf37",
+      "fromNodeId": "e91c9a31-9b77-4a23-9c96-e406c9005789",
+      "fromPort": "Fail",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "bad23fee-eb7f-40df-962c-96ca02e25562",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "ea40da58-4045-49e8-808b-96a24b886495",
+      "fromNodeId": "07e82510-e968-42ca-8402-ec4089122868",
+      "fromPort": "Fail",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "bad23fee-eb7f-40df-962c-96ca02e25562",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "3dad22c8-390b-4d3e-8188-11de70808a8d",
+      "fromNodeId": "4f093012-ad9f-4a6c-ae00-78798c90a66f",
+      "fromPort": "Done",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "bf7f689a-8f18-42a8-9452-3795b4a8a11e",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "6c59b17a-4f54-4248-8e32-da0a1ef0b678",
+      "fromNodeId": "c693eabc-37c1-4380-a47f-a884de1a6ca0",
+      "fromPort": "Out",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "c3fad396-c6d7-4f4a-ad12-7e96a3fe3d24",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "aff68365-aabc-4770-8c08-c06b4677cdf4",
+      "fromNodeId": "c3fad396-c6d7-4f4a-ad12-7e96a3fe3d24",
+      "fromPort": "Out",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "4f093012-ad9f-4a6c-ae00-78798c90a66f",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "d7cf5116-815b-427e-8c91-04a3fbca831b",
+      "fromNodeId": "834b7255-651b-4431-8c48-fdb2e5c96c65",
+      "fromPort": "Success",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "4f093012-ad9f-4a6c-ae00-78798c90a66f",
+      "toPort": "LoopBack",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "5db16e57-4da8-485d-817d-f01b356ed84d",
+      "fromNodeId": "c3fad396-c6d7-4f4a-ad12-7e96a3fe3d24",
+      "fromPort": "Fail",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "bad23fee-eb7f-40df-962c-96ca02e25562",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    }
+  ]
+}

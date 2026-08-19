@@ -1,0 +1,152 @@
+{
+  "schemaVersion": 1,
+  "name": "New workflow",
+  "globalValues": {
+    "WorkingFolder": "t:\\work"
+  },
+  "nodes": [
+    {
+      "id": "d359b6b0-070b-4a0c-8805-d4f40f240288",
+      "name": "Start",
+      "category": "Module",
+      "nodeType": "Start",
+      "x": 120,
+      "y": 119,
+      "width": 190,
+      "height": 92,
+      "executionMode": "Enabled",
+      "settings": {},
+      "portPlacements": {}
+    },
+    {
+      "id": "7abdc3e1-3798-4faa-b3bd-1865f34be6f6",
+      "name": "Exit",
+      "category": "Module",
+      "nodeType": "Exit",
+      "x": 1013,
+      "y": 217,
+      "width": 190,
+      "height": 92,
+      "executionMode": "Enabled",
+      "settings": {},
+      "portPlacements": {}
+    },
+    {
+      "id": "f8e57ffa-3a2c-478d-943f-5b810ca0837f",
+      "name": "Generate DDL",
+      "category": "Module",
+      "nodeType": "GenerateDDL",
+      "x": 443,
+      "y": 170,
+      "width": 190,
+      "height": 92,
+      "executionMode": "Disabled",
+      "settings": {
+        "ConnectionString": "\u00A4[GrunddataDB]\u00A4",
+        "DDLFile": "\u00A4{WorkingFolder}\u00A4\\DDL\\bes_naturtyper_nst.ddl",
+        "DestinationDBMS": "MSSQL",
+        "SourceDBMS": "Postgres",
+        "SQL": "SELECT ogc_fid, wkb_geometry, gml_id, temakode, temanavn, objekt_id FROM dai01.bes_naturtyper_nst;"
+      },
+      "portPlacements": {}
+    },
+    {
+      "id": "ac42b68b-2ebf-4e05-8318-ccf47a52a604",
+      "name": "Export Data",
+      "category": "Module",
+      "nodeType": "ExportData",
+      "x": 417,
+      "y": 348,
+      "width": 190,
+      "height": 92,
+      "executionMode": "Enabled",
+      "settings": {
+        "ConnectionString": "",
+        "DBMS": "Postgres",
+        "SQL": "",
+        "OutputFile": "",
+        "Format": "CSV",
+        "StagingSchema": "dbo",
+        "BcpNativeBinaryColumns": ""
+      },
+      "portPlacements": {}
+    },
+    {
+      "id": "173df65d-02ff-4d37-8f52-673a54efbc4a",
+      "name": "Display",
+      "category": "Module",
+      "nodeType": "Display",
+      "x": 763,
+      "y": 361,
+      "width": 190,
+      "height": 92,
+      "executionMode": "Enabled",
+      "settings": {
+        "Text": "\u00A4{Message}\u00A4"
+      },
+      "portPlacements": {}
+    }
+  ],
+  "connections": [
+    {
+      "id": "d56eef0a-24bc-4d94-a177-ff29e8e37d25",
+      "fromNodeId": "d359b6b0-070b-4a0c-8805-d4f40f240288",
+      "fromPort": "Out",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "f8e57ffa-3a2c-478d-943f-5b810ca0837f",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "f5af43f3-197d-41cc-8e45-edd8bf327df0",
+      "fromNodeId": "f8e57ffa-3a2c-478d-943f-5b810ca0837f",
+      "fromPort": "Out",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "7abdc3e1-3798-4faa-b3bd-1865f34be6f6",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "0a0b8b31-6c57-45b7-8631-3a294d080ada",
+      "fromNodeId": "d359b6b0-070b-4a0c-8805-d4f40f240288",
+      "fromPort": "Out",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "ac42b68b-2ebf-4e05-8318-ccf47a52a604",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "d602817c-02a6-4857-a7c0-d7f45a95e627",
+      "fromNodeId": "ac42b68b-2ebf-4e05-8318-ccf47a52a604",
+      "fromPort": "Out",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "173df65d-02ff-4d37-8f52-673a54efbc4a",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "8ac2070f-564a-4a35-a948-e126f6515837",
+      "fromNodeId": "173df65d-02ff-4d37-8f52-673a54efbc4a",
+      "fromPort": "Out",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "7abdc3e1-3798-4faa-b3bd-1865f34be6f6",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    }
+  ]
+}

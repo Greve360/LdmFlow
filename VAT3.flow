@@ -1,0 +1,1180 @@
+{
+  "schemaVersion": 1,
+  "flowId": "65900602-a0f8-476c-9ece-1dd3ca9862bd",
+  "name": "Export PG Scema to MSSQL",
+  "description": "",
+  "globalValues": {},
+  "nodes": [
+    {
+      "id": "4c0ff98e-fd94-49bd-b4ff-892661567c29",
+      "name": "Start",
+      "category": "Module",
+      "nodeType": "Start",
+      "x": 123,
+      "y": 70,
+      "width": 200,
+      "height": 102,
+      "executionMode": "Enabled",
+      "settings": {
+        "PostgresSchema": "daf_dagi"
+      },
+      "portPlacements": {
+        "O:Out": "Bottom"
+      },
+      "flippedPortSides": []
+    },
+    {
+      "id": "83160ff8-63d8-4eab-ad39-2e7235f86ce5",
+      "name": "Exit",
+      "category": "Module",
+      "nodeType": "Exit",
+      "x": 708.6529013883925,
+      "y": 430.790316838731,
+      "width": 200,
+      "height": 102,
+      "executionMode": "Enabled",
+      "settings": {
+        "ExitCode": "0",
+        "ExitMessage": ""
+      },
+      "portPlacements": {
+        "I:In": "Bottom",
+        "I:Fail": "Top"
+      },
+      "flippedPortSides": [
+        "Left"
+      ]
+    },
+    {
+      "id": "ec1771f2-0ab1-4696-b7f4-c7ef959610db",
+      "name": "Init",
+      "category": "Module",
+      "nodeType": "ExecuteSQL",
+      "x": 116,
+      "y": 210,
+      "width": 200,
+      "height": 102,
+      "executionMode": "Nop",
+      "settings": {
+        "ConnectionString": "\u00A4[DafDataDB]\u00A4",
+        "DBMS": "Postgres",
+        "FilePath": "",
+        "MaxRows": "0",
+        "QueryType": "NonQuery",
+        "ResultVariable": "",
+        "SQL": "CREATE SCHEMA IF NOT EXISTS tmp;\r\nCREATE SCHEMA IF NOT EXISTS vat3;\r\nCREATE OR REPLACE FUNCTION fmod (dividend double precision, divisor double precision) RETURNS double precision LANGUAGE sql IMMUTABLE as \u0027SELECT dividend - floor(dividend / divisor) * divisor\u0027;\r\n"
+      },
+      "portPlacements": {
+        "I:In": "Top",
+        "O:Success": "Bottom"
+      },
+      "flippedPortSides": [
+        "Right"
+      ]
+    },
+    {
+      "id": "fdb4fe13-c0f6-47fc-97b1-ed64d838f93a",
+      "name": "ILogger",
+      "category": "Module",
+      "nodeType": "ILogger",
+      "x": 564.4699181203251,
+      "y": 130.0049839800641,
+      "width": 200,
+      "height": 102,
+      "executionMode": "Enabled",
+      "settings": {
+        "ErrorFile": "\u00A4[WorkingFolder]\u00A4\\Diagnose\\errors_\u00A4[SYS_FLOWID]\u00A4.txt",
+        "Registry": "False"
+      },
+      "portPlacements": {
+        "O:Out": "Bottom"
+      },
+      "flippedPortSides": []
+    },
+    {
+      "id": "4fbc672a-424f-4d37-9dad-2f73d9e0e3a4",
+      "name": "TMP Vejsegment",
+      "category": "Module",
+      "nodeType": "ExecuteSQL",
+      "x": 118,
+      "y": 342,
+      "width": 200,
+      "height": 102,
+      "executionMode": "Enabled",
+      "settings": {
+        "ConnectionString": "\u00A4[DafDataDB]\u00A4",
+        "DBMS": "Postgres",
+        "FilePath": "",
+        "MaxRows": "0",
+        "QueryType": "NonQuery",
+        "ResultVariable": "",
+        "SQL": "CREATE TABLE tmp.vejsegment AS\r\n    SELECT \r\n\t    t.fid, t.id_namespace, t.id_lokalid, t.status, t.geometristatus, t.registreringsspecifikation, t.dataansvar, t.forretningshaendelse, \r\n\t    t.forretningsomraade, t.registreringsaktoer, t.registreringfra, t.registreringtil, t.virkningsaktoer, t.virkningfra, t.virkningtil, t.plannoejagtighed, t.planstedfaestelsesmetode, \r\n\t    t.vertikalnoejagtighed, t.vertikalstedfaestelsesmetode, t.applikation, t.vejmidtetype, t.vejmyndighed, t.cvfadmnr, t.kommunekode, t.vejkode, t.vejkategori, t.trafikart, t.overflade, \r\n\t    t.tilogfrakoersel, t.rundkoersel, t.kommentar, t.forretningsproces, t.tempid, t.niveau,\r\n        dmp.geom AS linesegment\r\n    FROM\r\n        daf_gdk.vejmidte t,\r\n        LATERAL ST_Dump(t.geometri) AS dmp\r\n    where\r\n        lower (t.vejmidtetype)=\u0027vej\u0027\r\n        and t.geometri IS NOT null\r\n        and t.registreringtil is null \r\n        and t.virkningtil     is null;\r\n\r\n CREATE INDEX vejsegment_geometri_idx ON tmp.vejsegment using gist (linesegment);"
+      },
+      "portPlacements": {
+        "I:In": "Top",
+        "O:Success": "Bottom"
+      },
+      "flippedPortSides": [
+        "Right"
+      ]
+    },
+    {
+      "id": "fe983b13-9f48-4e01-aab9-133857460d19",
+      "name": "TMP Adresse \u0026 Husnummer",
+      "category": "Module",
+      "nodeType": "ExecuteSQL",
+      "x": 106,
+      "y": 651,
+      "width": 249,
+      "height": 92,
+      "executionMode": "Enabled",
+      "settings": {
+        "ConnectionString": "\u00A4[DafDataDB]\u00A4",
+        "DBMS": "Postgres",
+        "FilePath": "",
+        "MaxRows": "0",
+        "QueryType": "NonQuery",
+        "ResultVariable": "",
+        "SQL": "drop table if exists tmp.adressepunkt_new; \r\nCREATE UNLOGGED TABLE tmp.adressepunkt_new as SELECT *, ST_GeomFromText(position, 25832)::geometry(Point, 25832) AS position_geom FROM daf_dar.adressepunkt where registreringtil is null and virkningtil is null;\r\n\r\ndrop table if exists tmp.husnummer_new; \r\nCREATE UNLOGGED TABLE tmp.husnummer_new as SELECT *, ST_GeomFromText(husnummerretning, 25832)::geometry(Point, 25832) AS husnummerretning_geom FROM daf_dar.husnummer;\r\n\r\n    CREATE INDEX husnummer_new_aktive_idx ON tmp.husnummer_new (navngivenvej, postnummer, adgangspunkt, supplerendebynavn) WHERE registreringtil IS NULL AND virkningtil IS NULL;\r\n\r\n    CREATE INDEX husnummer_new_id_lokalid_aktive_idx\r\n    ON tmp.husnummer_new (id_lokalid)\r\n    WHERE registreringtil IS NULL\r\n      AND virkningtil IS NULL;\r\n\r\n    CREATE INDEX adressepunkt_new_id_lokalid_aktive_idx\r\n    ON tmp.adressepunkt_new (id_lokalid)\r\n    WHERE registreringtil IS NULL\r\n      AND virkningtil IS NULL;\r\n\r\n    CREATE INDEX navngivenvej_id_lokalid_aktive_idx\r\n    ON daf_dar.navngivenvej (id_lokalid)\r\n    WHERE registreringtil IS NULL\r\n      AND virkningtil IS NULL;\r\n\r\n    CREATE INDEX postnummer_id_lokalid_aktive_idx\r\n    ON daf_dar.postnummer (id_lokalid)\r\n    WHERE registreringtil IS NULL\r\n      AND virkningtil IS NULL;\r\n\r\n    CREATE INDEX supplerendebynavn_id_lokalid_aktive_idx\r\n    ON daf_dar.supplerendebynavn (id_lokalid)\r\n    WHERE registreringtil IS NULL\r\n      AND virkningtil IS NULL;\r\n\r\nvacuum analyze tmp.husnummer_new;\r\nvacuum analyze tmp.adressepunkt_new;\r\nvacuum analyze dar.navngivenvej;\r\nvacuum analyze dar.supplerendebynavn;\r\nvacuum analyze dar.postnummer;\r\n"
+      },
+      "portPlacements": {
+        "I:In": "Top",
+        "O:Success": "Bottom"
+      },
+      "flippedPortSides": [
+        "Right"
+      ]
+    },
+    {
+      "id": "0b20b7a5-5615-4ede-8600-cabe0ea5fc53",
+      "name": "Update POST",
+      "category": "Module",
+      "nodeType": "ExecuteSQL",
+      "x": 123,
+      "y": 2111,
+      "width": 200,
+      "height": 102,
+      "executionMode": "Enabled",
+      "settings": {
+        "ConnectionString": "\u00A4[DafDataDB]\u00A4",
+        "DBMS": "Postgres",
+        "FilePath": "",
+        "MaxRows": "0",
+        "QueryType": "NonQuery",
+        "ResultVariable": "",
+        "SQL": "UPDATE vat3.v3_postdistrikt p\r\nset XKoor = round(ST_X(m.center) ::numeric, 3),\r\nYKoor = round(ST_Y(m.center) ::numeric, 3)\r\nFROM(\r\n    select id,\r\n    (ST_MaximumInscribedCircle(geometri)).center AS center\r\n    FROM vat3.v3_postdistrikt) m\r\n    WHERE p.id = m.id;\r\n    delete from vat3.v3_postdistrikt\r\n    where ST_GeometryType(geometri) in(\u0027ST_MultiLineString\u0027, \u0027ST_LineString\u0027, \u0027ST_MultiPoint\u0027, \u0027ST_Point\u0027);\r\n\r\nupdate vat3.v3_postdistrikt   set geometri = ST_Multi(ST_CollectionExtract(geometri, 3))    where ST_GeometryType(geometri) = \u0027ST_GeometryCollection\u0027;\r\nupdate vat3.v3_postdistrikt    set geometri = ST_Multi(ST_Buffer(ST_Buffer(geometri, 0.1), - 0.1));\r\nupdate vat3.v3_postdistrikt    set geometri = ST_Multi(ST_Buffer(ST_Buffer(geometri, - 0.05), 0.05));\r\nupdate vat3.v3_postdistrikt    set geometri = ST_Normalize(geometri);\r\nupdate vat3.v3_postdistrikt    set geometri = ST_Simplify(geometri, 0.05);\r\nupdate vat3.v3_postdistrikt    set geometri = ST_Multi(geometri);"
+      },
+      "portPlacements": {
+        "I:In": "Top",
+        "O:Success": "Bottom"
+      },
+      "flippedPortSides": [
+        "Right"
+      ]
+    },
+    {
+      "id": "e3d8295a-3d48-47b8-8224-73e527ae44d9",
+      "name": "V3 Adresse ",
+      "category": "Module",
+      "nodeType": "ExecuteSQL",
+      "x": 111,
+      "y": 1178,
+      "width": 249,
+      "height": 92,
+      "executionMode": "Enabled",
+      "settings": {
+        "ConnectionString": "\u00A4[DafDataDB]\u00A4",
+        "DBMS": "Postgres",
+        "FilePath": "",
+        "MaxRows": "0",
+        "QueryType": "NonQuery",
+        "ResultVariable": "",
+        "SQL": "drop table if exists vat3.v3_adresse;\r\nselect  \r\n    hn.id_lokalid as husnr_lokalid\r\n    , hn.adgangsadressebetegnelse\r\n    , nv.vejnavn \r\n    , substring (hn.vejmidte || \u0027\u0027000000000\u0027\u0027, 1, 4)::int4 as kommune\r\n    , substring (hn.vejmidte || \u0027\u0027000000000\u0027\u0027, 6, 4)::int4 as vejkode\r\n    , hn.husnummertekst  \r\n    , pn.postnr \r\n    , pn.navn as postdistrikt\r\n    , sbn.navn as supplerendebynavn\r\n    , 5::int2 as placering\r\n    , hn.jordstykke as jordstykke_lokalid\r\n    , js.ejerlavlokalid\r\n    , js.matrikelnummer\r\n\t, ap.oprindelse_kilde\r\n\t, ap.\u0022oprindelse_n\u00F8jagtighedsklasse\u0022 as oprindelse_noejagtighedsklasse\r\n\t, ap.oprindelse_registrering\r\n\t, ap.oprindelse_tekniskstandard\t    \r\n\t, ap.registreringfra as adr_registreringfra\r\n\t, ap.virkningfra as adr_virkningfra\r\n\t, ap.id_lokalid as adressepunkt\r\n\t, hn.vejpunkt\r\n\t, hn.adgangspunkt \r\n\t, hn.\u0022placeretp\u00E5forel\u00F8bigtjordstykke\u0022 as placeretpaaforeloebigtjordstykke\r\n\t, hn.geodanmarkbygning\r\n\t, hn.adgangtilbygning\r\n\t, hn.\u0022adgangtiltekniskanl\u00E6g\u0022 as adgangtiltekniskanlaeg\r\n\t, hn.vejmidte\r\n\t, hn.\u0022afstemningsomr\u00E5de\u0022 as afstemningsomraade\r\n\t, hn.\u0022menighedsr\u00E5dsafstemningsomr\u00E5de\u0022 as menighedsraadsafstemningsomraade\r\n\t, hn.sogneinddeling\r\n\t, hn.navngivenvej\t\t\r\n    , ap.position_geom as geometri\r\n    , degrees(atan2(ST_Y(husnummerretning_geom), ST_X(husnummerretning_geom))) AS angle_raw\r\n    , fmod ((degrees(atan2(ST_Y(husnummerretning_geom), ST_X(husnummerretning_geom))) \u002B 360.0), 360.0) AS angle_deg\r\n    , 0.0::float8 as angle_gon\r\ninto \r\n    vat3.v3_adresse\r\nfrom \r\n    tmp.adressepunkt_new ap\r\ninner join \r\n    tmp.husnummer_new hn on ap.id_lokalid  = hn.adgangspunkt and hn.registreringtil is null and hn.virkningtil is null\r\nleft outer join \r\n    daf_mat.jordstykke js on hn.jordstykke = js.id_lokalid and js.registreringtil is null and js.virkningtil is null and js.status = \u0027\u0027Gaeldende\u0027\u0027\r\nleft outer join \r\n    daf_dar.navngivenvej nv on nv.id_lokalid = hn.navngivenvej and nv.registreringtil is null and nv.virkningtil is null\r\nleft outer join \r\n    daf_dar.postnummer pn on hn.postnummer = pn.id_lokalid and pn.registreringtil is null and pn.virkningtil is null\r\nleft outer join \r\n    daf_dar.supplerendebynavn sbn on sbn.id_lokalid  = hn.supplerendebynavn  and sbn.registreringtil is null and sbn.virkningtil is null\r\nwhere ap.registreringtil is null and ap.virkningtil is null and ap.oprindelse_tekniskstandard in (\u0027\u0027TA\u0027\u0027,\u0027\u0027TD\u0027\u0027,\u0027\u0027TK\u0027\u0027,\u0027\u0027TN\u0027\u0027,\u0027\u0027UF\u0027\u0027);\r\n\r\nupdate vat3.v3_adresse set angle_gon = 400.0 / 360.0 * angle_deg;  \r\n"
+      },
+      "portPlacements": {
+        "I:In": "Top",
+        "O:Success": "Bottom"
+      },
+      "flippedPortSides": [
+        "Right"
+      ]
+    },
+    {
+      "id": "4e971e5a-13c1-4e93-919d-1313800098f4",
+      "name": "Analyze Vejsegment",
+      "category": "Module",
+      "nodeType": "ExecuteSQL",
+      "x": 121,
+      "y": 500,
+      "width": 200,
+      "height": 102,
+      "executionMode": "Enabled",
+      "settings": {
+        "ConnectionString": "\u00A4[DafDataDB]\u00A4",
+        "DBMS": "Postgres",
+        "FilePath": "",
+        "MaxRows": "0",
+        "QueryType": "NonQuery",
+        "ResultVariable": "",
+        "SQL": "vacuum analyze tmp.vejsegment;"
+      },
+      "portPlacements": {
+        "I:In": "Top",
+        "O:Success": "Bottom"
+      },
+      "flippedPortSides": [
+        "Right"
+      ]
+    },
+    {
+      "id": "f58a60d8-c22b-4539-a781-60fe9fdcc6bb",
+      "name": "Analyze rest",
+      "category": "Module",
+      "nodeType": "ExecuteSQL",
+      "x": 140,
+      "y": 1004,
+      "width": 200,
+      "height": 102,
+      "executionMode": "Enabled",
+      "settings": {
+        "ConnectionString": "\u00A4[DafDataDB]\u00A4",
+        "DBMS": "Postgres",
+        "FilePath": "",
+        "MaxRows": "0",
+        "QueryType": "NonQuery",
+        "ResultVariable": "",
+        "SQL": "vacuum analyze dar.husnummer_new;\r\nvacuum analyze dar.adressepunkt_new;\r\nvacuum analyze dar.navngivenvej;\r\nvacuum analyze dar.supplerendebynavn;\r\nvacuum analyze dar.postnummer;"
+      },
+      "portPlacements": {
+        "I:In": "Top",
+        "O:Success": "Bottom"
+      },
+      "flippedPortSides": [
+        "Right"
+      ]
+    },
+    {
+      "id": "9c15d687-03a1-42e9-80b6-df4c78a530b0",
+      "name": "Indexes?",
+      "category": "Module",
+      "nodeType": "ExecuteSQL",
+      "x": 149,
+      "y": 816,
+      "width": 200,
+      "height": 102,
+      "executionMode": "Enabled",
+      "settings": {
+        "ConnectionString": "\u00A4[DafDataDB]\u00A4",
+        "DBMS": "Postgres",
+        "FilePath": "",
+        "MaxRows": "0",
+        "QueryType": "NonQuery",
+        "ResultVariable": "",
+        "SQL": "    CREATE INDEX IF NOT EXISTS husnummer_new_aktive_idx\r\n    ON tmp.husnummer_new (navngivenvej, postnummer, adgangspunkt, supplerendebynavn)\r\n    WHERE registreringtil IS NULL\r\n      AND virkningtil IS NULL;\r\n\r\n    CREATE INDEX IF NOT EXISTS husnummer_new_id_lokalid_aktive_idx\r\n    ON tmp.husnummer_new (id_lokalid)\r\n    WHERE registreringtil IS NULL\r\n      AND virkningtil IS NULL;\r\n\r\n    CREATE INDEX IF NOT EXISTS  adressepunkt_new_id_lokalid_aktive_idx\r\n    ON tmp.adressepunkt_new (id_lokalid)\r\n    WHERE registreringtil IS NULL\r\n      AND virkningtil IS NULL;\r\n\r\n    CREATE INDEX IF NOT EXISTS  navngivenvej_id_lokalid_aktive_idx\r\n    ON daf_dar.navngivenvej (id_lokalid)\r\n    WHERE registreringtil IS NULL\r\n      AND virkningtil IS NULL;\r\n\r\n    CREATE INDEX IF NOT EXISTS  postnummer_id_lokalid_aktive_idx\r\n    ON daf_dar.postnummer (id_lokalid)\r\n    WHERE registreringtil IS NULL\r\n      AND virkningtil IS NULL;\r\n\r\n    CREATE INDEX IF NOT EXISTS  supplerendebynavn_id_lokalid_aktive_idx\r\n    ON daf_dar.supplerendebynavn (id_lokalid)\r\n    WHERE registreringtil IS NULL\r\n      AND virkningtil IS NULL;"
+      },
+      "portPlacements": {
+        "I:In": "Top",
+        "O:Success": "Bottom"
+      },
+      "flippedPortSides": [
+        "Right"
+      ]
+    },
+    {
+      "id": "d29c5d4c-c3d8-4d38-9980-9388a5142a90",
+      "name": "V3 AdresseKoor",
+      "category": "Module",
+      "nodeType": "ExecuteSQL",
+      "x": 118,
+      "y": 1350,
+      "width": 249,
+      "height": 92,
+      "executionMode": "Enabled",
+      "settings": {
+        "ConnectionString": "\u00A4[DafDataDB]\u00A4",
+        "DBMS": "Postgres",
+        "FilePath": "",
+        "MaxRows": "0",
+        "QueryType": "NonQuery",
+        "ResultVariable": "",
+        "SQL": "drop table if exists vat3.v3_adressekoor;\r\n    select  \r\n\t    husnr_lokalid\r\n\t    , kommune\r\n\t    , vejkode\r\n\t    , ST_X(geometri)\r\n\t    , ST_Y(geometri)\r\n    into \r\n\t    vat3.v3_adressekoor\r\n    from \r\n\t    vat3.v3_adresse"
+      },
+      "portPlacements": {
+        "I:In": "Top",
+        "O:Success": "Bottom"
+      },
+      "flippedPortSides": [
+        "Right"
+      ]
+    },
+    {
+      "id": "f8213d9b-db1e-4127-b3ff-cf3697ab34ea",
+      "name": "V3 Postdistrikt Init",
+      "category": "Module",
+      "nodeType": "ExecuteSQL",
+      "x": 126,
+      "y": 1526,
+      "width": 249,
+      "height": 92,
+      "executionMode": "Enabled",
+      "settings": {
+        "ConnectionString": "\u00A4[DafDataDB]\u00A4",
+        "DBMS": "Postgres",
+        "FilePath": "",
+        "MaxRows": "0",
+        "QueryType": "NonQuery",
+        "ResultVariable": "",
+        "SQL": "CREATE INDEX IF NOT EXISTS dagi_postnummerinddeling_geometri_gix ON daf_dagi.postnummerinddeling USING GIST(geometri);\r\nCREATE INDEX IF NOT EXISTS dagi_kommuneinddeling_geometri_gix ON daf_dagi.kommuneinddeling USING GIST(geometri);\r\nCREATE INDEX IF NOT EXISTS dagi_postnummerinddeling_postnummer_idx ON daf_dagi.postnummerinddeling(postnummer);\r\nCREATE INDEX IF NOT EXISTS dagi_kommuneinddeling_kommunekode_idx ON daf_dagi.kommuneinddeling(kommunekode);"
+      },
+      "portPlacements": {
+        "I:In": "Top",
+        "O:Success": "Bottom"
+      },
+      "flippedPortSides": [
+        "Right"
+      ]
+    },
+    {
+      "id": "e982e10e-5ce1-40a9-83c0-9eaab320c28a",
+      "name": "Analyze DAGI",
+      "category": "Module",
+      "nodeType": "ExecuteSQL",
+      "x": 147,
+      "y": 1676,
+      "width": 200,
+      "height": 102,
+      "executionMode": "Enabled",
+      "settings": {
+        "ConnectionString": "\u00A4[DafDataDB]\u00A4",
+        "DBMS": "Postgres",
+        "FilePath": "",
+        "MaxRows": "0",
+        "QueryType": "NonQuery",
+        "ResultVariable": "",
+        "SQL": "vacuum analyze daf_dagi.postnummerinddeling;\r\nvacuum analyze daf_dagi.kommuneinddeling;"
+      },
+      "portPlacements": {
+        "I:In": "Top",
+        "O:Success": "Bottom"
+      },
+      "flippedPortSides": [
+        "Right"
+      ]
+    },
+    {
+      "id": "70315bc2-2cd3-4c9a-a46d-66865adaf2ec",
+      "name": "V3 Postdistrikt ",
+      "category": "Module",
+      "nodeType": "ExecuteSQL",
+      "x": 119,
+      "y": 1823,
+      "width": 249,
+      "height": 92,
+      "executionMode": "Enabled",
+      "settings": {
+        "ConnectionString": "\u00A4[DafDataDB]\u00A4",
+        "DBMS": "Postgres",
+        "FilePath": "",
+        "MaxRows": "0",
+        "QueryType": "NonQuery",
+        "ResultVariable": "",
+        "SQL": "drop table if exists vat3.v3_postdistrikt;\r\n\r\nCREATE TABLE vat3.v3_postdistrikt AS\r\nselect cast(kommunekode as integer) * 10000 \u002B cast(postnummer as integer) as id,\r\nkommunekode,\r\npostnummer,\r\nMAX(navn) as postdistrikt,\r\ncast(0.0 as float) as XKoor,\r\ncast(0.0 as float) as YKoor,\r\nST_RemoveRepeatedPoints(ST_Multi(ST_Union(geom))) AS geometri\r\nFROM(\r\n    SELECT k.kommunekode,\r\n    p.postnummer,\r\n    p.navn,\r\n    ST_Intersection(p.geometri, k.geometri) AS geom\r\n    FROM daf_dagi.postnummerinddeling p\r\n    JOIN daf_dagi.kommuneinddeling k ON ST_Intersects(p.geometri, k.geometri)) x\r\n    WHERE NOT ST_IsEmpty(geom)\r\n    GROUP BY kommunekode,\r\n    postnummer;\r\n    update vat3.v3_postdistrikt\r\n    set geometri = ST_MakeValid(geometri)\r\n    where not ST_IsValid(geometri);\r\n\r\nALTER TABLE vat3.v3_postdistrikt ADD CONSTRAINT v3_postdistrikt_pkey PRIMARY KEY(id);"
+      },
+      "portPlacements": {
+        "I:In": "Top",
+        "O:Success": "Bottom"
+      },
+      "flippedPortSides": [
+        "Right"
+      ]
+    },
+    {
+      "id": "c30394e8-8e72-48d0-91f4-ed6875ace924",
+      "name": "Analyze POST",
+      "category": "Module",
+      "nodeType": "ExecuteSQL",
+      "x": 127,
+      "y": 1953,
+      "width": 200,
+      "height": 102,
+      "executionMode": "Enabled",
+      "settings": {
+        "ConnectionString": "\u00A4[DafDataDB]\u00A4",
+        "DBMS": "Postgres",
+        "FilePath": "",
+        "MaxRows": "0",
+        "QueryType": "NonQuery",
+        "ResultVariable": "",
+        "SQL": "vacuum analyze vat3.v3_postdistrikt;"
+      },
+      "portPlacements": {
+        "I:In": "Top",
+        "O:Success": "Bottom"
+      },
+      "flippedPortSides": [
+        "Right"
+      ]
+    },
+    {
+      "id": "c27bc3be-1b2e-4ab0-9a00-0c0e7f7fc140",
+      "name": "Update POST",
+      "category": "Module",
+      "nodeType": "ExecuteSQL",
+      "x": 240,
+      "y": 2330,
+      "width": 200,
+      "height": 102,
+      "executionMode": "Enabled",
+      "settings": {
+        "ConnectionString": "\u00A4[DafDataDB]\u00A4",
+        "DBMS": "Postgres",
+        "FilePath": "",
+        "MaxRows": "0",
+        "QueryType": "NonQuery",
+        "ResultVariable": "",
+        "SQL": "UPDATE vat3.v3_postdistrikt p\r\nset XKoor = round(ST_X(m.center) ::numeric, 3),\r\nYKoor = round(ST_Y(m.center) ::numeric, 3)\r\nFROM(\r\n    select id,\r\n    (ST_MaximumInscribedCircle(geometri)).center AS center\r\n    FROM vat3.v3_postdistrikt) m\r\n    WHERE p.id = m.id;\r\n    delete from vat3.v3_postdistrikt\r\n    where ST_GeometryType(geometri) in(\u0027ST_MultiLineString\u0027, \u0027ST_LineString\u0027, \u0027ST_MultiPoint\u0027, \u0027ST_Point\u0027);\r\n\r\nupdate vat3.v3_postdistrikt   set geometri = ST_Multi(ST_CollectionExtract(geometri, 3))    where ST_GeometryType(geometri) = \u0027ST_GeometryCollection\u0027;\r\nupdate vat3.v3_postdistrikt    set geometri = ST_Multi(ST_Buffer(ST_Buffer(geometri, 0.1), - 0.1));\r\nupdate vat3.v3_postdistrikt    set geometri = ST_Multi(ST_Buffer(ST_Buffer(geometri, - 0.05), 0.05));\r\nupdate vat3.v3_postdistrikt    set geometri = ST_Normalize(geometri);\r\nupdate vat3.v3_postdistrikt    set geometri = ST_Simplify(geometri, 0.05);\r\nupdate vat3.v3_postdistrikt    set geometri = ST_Multi(geometri);"
+      },
+      "portPlacements": {
+        "I:In": "Top",
+        "O:Success": "Top"
+      },
+      "flippedPortSides": [
+        "Right"
+      ]
+    },
+    {
+      "id": "e38478d2-c72b-44d7-94c1-f8474ba3b872",
+      "name": "V3 VejnavnKoor",
+      "category": "Module",
+      "nodeType": "ExecuteSQL",
+      "x": 384,
+      "y": 2124,
+      "width": 200,
+      "height": 102,
+      "executionMode": "Enabled",
+      "settings": {
+        "ConnectionString": "\u00A4[DafDataDB]\u00A4",
+        "DBMS": "Postgres",
+        "FilePath": "",
+        "MaxRows": "0",
+        "QueryType": "NonQuery",
+        "ResultVariable": "",
+        "SQL": "    CREATE SEQUENCE if not exists vat3.vejnavn_id\r\n        START 1\r\n        INCREMENT 1\r\n        MINVALUE 1\r\n        NO MAXVALUE\r\n        CACHE 1;\r\n\r\ndrop table if exists vat3.v3_vejnavnkoor;\t\r\n\r\nselect  \r\n    nextval(\u0027vat3.vejnavn_id\u0027) as id  \r\n    , vs.id_lokalid as vejsegment_lokalid\r\n    , nvk.kommune \r\n    , vs.vejkode\r\n    , nv.vejnavn \r\n    , vs.status\r\n    , vs.vejkategori\r\n    , vs.trafikart\r\n    , vs.overflade\r\n    , vs.tilogfrakoersel  --  bool \r\n    , vs.rundkoersel -- bool \r\n    , vs.niveau\t\r\n    , vs.linesegment\r\n    , cast (0 as int4) as vejkategori_enum\r\n    , cast (0 as int4) as trafikart_enum\r\n    , cast (0 as int4) as overflade_enum\r\n    , cast (0 as int4) as niveau_enum\r\n    , cast (0 as int4) as status_enum\r\n    , cast (0.0 as decimal(18,3)) as offset_x\r\n    , cast (0.0 as decimal(18,3)) as offset_y \r\n    , \u0027\u0027GeoDK6.Vejmidte\u0027\u0027 as orgtabel\r\n    , ST_Force2D(ST_LineInterpolatePoint (linesegment, 0.5)) as label\r\n    , 0.0::float8 AS angle_raw\r\n    , 0.0::float8 AS angle_deg\r\n    , 0.0::float8 AS angle_gon\r\n    , ST_Length (vs.linesegment) as len\r\ninto \r\n    vat3.v3_vejnavnkoor\r\nfrom \r\n    tmp.vejsegment vs\r\nleft outer join \r\n    daf_dar.navngivenvejkommunedel nvk  on nvk.kommune::int4 = vs.kommunekode::int4  and nvk.vejkode::int4 = vs.vejkode::int4  and nvk.registreringtil is null and nvk.virkningtil is null\r\nleft outer join \r\n    daf_dar.navngivenvej nv  on nv.id_lokalid  = nvk.navngivenvej and nv.registreringtil is null and nv.virkningtil is null\r\nwhere\r\n    ST_Length (vs.linesegment) \u003E 40.0   -- Dont label small linesegments\r\n    and nv.vejnavn is not null          -- No need to render \u0022invisible\u0022 adresses\r\n\r\n    WITH segments AS (\r\n      SELECT\r\n        id,\r\n        ST_PointN(v.linesegment, gs)   AS p1,\r\n        ST_PointN(v.linesegment, gs\u002B1) AS p2,\r\n        v.label\r\n      FROM vat3.v3_vejnavnkoor v\r\n      CROSS JOIN generate_series(1, ST_NPoints(v.linesegment)-1) gs\r\n    ),\r\n    hit AS (\r\n      SELECT distinct on (s.id)\r\n  \t    s.id, s.p1, s.p2\r\n      FROM segments s\r\n      WHERE ST_DWithin(ST_MakeLine(s.p1,s.p2), s.label, 1e-6) -- label lies on this segment\r\n    )\r\n    update vat3.v3_vejnavnkoor vn\r\n    set angle_deg = cast (180 - (degrees(atan2(ST_Y(p2)-ST_Y(p1), ST_X(p2)-ST_X(p1)))) as int4) % 360\r\n       ,angle_raw = fmod(((pi()/2 - ST_Azimuth(p1, p2)) \u002B 2*pi()), 2*pi()) \r\n    FROM hit h\r\n    WHERE vn.id = h.id;\r\n\r\nupdate vat3.v3_vejnavnkoor set angle_gon = 400.0 / 360.0 * angle_deg;\r\n\r\nupdate vat3.v3_vejnavnkoor set offset_x = 1*cos(angle_raw \u002B 0.5*PI()), offset_y = 1.0*sin(angle_raw \u002B 0.5*PI()) where angle_raw between 0 and PI()/2;        -- Q1\r\nupdate vat3.v3_vejnavnkoor set offset_x = -1*cos(angle_raw \u002B 0.5*PI()), offset_y = -1.0*sin(angle_raw \u002B 0.5*PI()) where angle_raw between PI()/2 and PI();     -- Q2\r\nupdate vat3.v3_vejnavnkoor set offset_x = -1*cos(angle_raw \u002B 0.5*PI()), offset_y = -1.0*sin(angle_raw \u002B 0.5*PI()) where angle_raw between PI() and 1.5*PI();   -- Q3\r\nupdate vat3.v3_vejnavnkoor set offset_x = 1*cos(angle_raw \u002B 0.5*PI()), offset_y = 1.0*sin(angle_raw \u002B 0.5*PI()) where angle_raw between 1.5*PI() and 2*PI(); -- Q4\r\n\r\nCREATE INDEX IF NOT EXISTS vejnavn_label_idx ON vat3.v3_vejnavnkoor using gist (label);"
+      },
+      "portPlacements": {
+        "I:In": "Bottom",
+        "O:Success": "Top"
+      },
+      "flippedPortSides": [
+        "Right"
+      ]
+    },
+    {
+      "id": "5a70bd38-26f3-4644-8d93-5a6550dcae2a",
+      "name": "Analyze VejKoor",
+      "category": "Module",
+      "nodeType": "ExecuteSQL",
+      "x": 442,
+      "y": 1944,
+      "width": 200,
+      "height": 102,
+      "executionMode": "Enabled",
+      "settings": {
+        "ConnectionString": "\u00A4[DafDataDB]\u00A4",
+        "DBMS": "Postgres",
+        "FilePath": "",
+        "MaxRows": "0",
+        "QueryType": "NonQuery",
+        "ResultVariable": "",
+        "SQL": "vacuum analyze vat3.v3_vejnavnkoor;"
+      },
+      "portPlacements": {
+        "I:In": "Bottom",
+        "O:Success": "Top"
+      },
+      "flippedPortSides": [
+        "Right"
+      ]
+    },
+    {
+      "id": "1988163a-358e-485a-9c75-a5d579e412cf",
+      "name": "V3 ENUM VejnavnKoor",
+      "category": "Module",
+      "nodeType": "ExecuteSQL",
+      "x": 483,
+      "y": 1732,
+      "width": 200,
+      "height": 102,
+      "executionMode": "Enabled",
+      "settings": {
+        "ConnectionString": "\u00A4[DafDataDB]\u00A4",
+        "DBMS": "Postgres",
+        "FilePath": "",
+        "MaxRows": "0",
+        "QueryType": "NonQuery",
+        "ResultVariable": "",
+        "SQL": "    CREATE TABLE if not exists vat3.enum_vejnavnkoor (\r\n        feltnavn varchar(50) NOT NULL,\r\n        kode smallint NOT NULL DEFAULT nextval(\u0027\u0027vat3.enum_kode\u0027\u0027),\r\n        value varchar(50) NULL,\r\n        CONSTRAINT pk_enum_vejnavn PRIMARY KEY (feltnavn, kode)\r\n        );\r\n\r\n    ;with cte as (\r\n\t    select distinct vejkategori from vat3.v3_vejnavnkoor  where vejkategori not in (select value from vat3.enum_vejnavnkoor where feltnavn=\u0027vejkategori\u0027) )\r\n    INSERT INTO vat3.enum_vejnavnkoor (\u0022feltnavn\u0022, \u0022value\u0022) select \u0027\u0027vejkategori\u0027\u0027, vejkategori from cte;\r\n\r\n    ;with cte as (\r\n\t    select distinct trafikart from vat3.v3_vejnavnkoor  where trafikart not in (select value from vat3.enum_vejnavnkoor where feltnavn=\u0027trafikart\u0027) )\r\n    INSERT INTO vat3.enum_vejnavnkoor (\u0022feltnavn\u0022, \u0022value\u0022) select \u0027\u0027trafikart\u0027\u0027, trafikart from cte;\r\n\r\n    ;with cte as (\r\n\t    select distinct overflade from vat3.v3_vejnavnkoor  where overflade not in (select value from vat3.enum_vejnavnkoor where feltnavn=\u0027overflade\u0027) )\r\n    INSERT INTO vat3.enum_vejnavnkoor (\u0022feltnavn\u0022, \u0022value\u0022) select \u0027\u0027overflade\u0027\u0027, overflade from cte;\r\n\r\n    ;with cte as (\r\n\t    select distinct niveau from vat3.v3_vejnavnkoor  where niveau not in (select value from vat3.enum_vejnavnkoor where feltnavn=\u0027niveau\u0027) )\r\n    INSERT INTO vat3.enum_vejnavnkoor (\u0022feltnavn\u0022, \u0022value\u0022) select \u0027\u0027niveau\u0027\u0027, niveau from cte;\r\n\r\n;with cte as (\r\n    select distinct status from vat3.v3_vejnavnkoor  where status not in (select value from vat3.enum_vejnavnkoor where feltnavn=\u0027status\u0027) )\r\nINSERT INTO vat3.enum_vejnavnkoor (\u0022feltnavn\u0022, \u0022value\u0022) select \u0027\u0027status\u0027\u0027, status from cte ;\r\n\r\nUPDATE vat3.v3_vejnavnkoor v SET vejkategori_enum = ev.kode FROM vat3.enum_vejnavnkoor ev WHERE ev.feltnavn=\u0027vejkategori\u0027 and LOWER(ev.value) = LOWER(v.vejkategori);\r\nUPDATE vat3.v3_vejnavnkoor v SET trafikart_enum = ev.kode   FROM vat3.enum_vejnavnkoor ev WHERE ev.feltnavn=\u0027trafikart\u0027   and LOWER(ev.value) = LOWER(v.trafikart);\r\nUPDATE vat3.v3_vejnavnkoor v SET overflade_enum = ev.kode   FROM vat3.enum_vejnavnkoor ev WHERE ev.feltnavn=\u0027overflaide\u0027   and LOWER(ev.value) = LOWER(v.overflade);\r\nUPDATE vat3.v3_vejnavnkoor v SET niveau_enum = ev.kode      FROM vat3.enum_vejnavnkoor ev WHERE ev.feltnavn=\u0027niveau\u0027      and LOWER(ev.value) = LOWER(v.niveau);\r\nUPDATE vat3.v3_vejnavnkoor v SET status_enum = ev.kode      FROM vat3.enum_vejnavnkoor ev WHERE ev.feltnavn=\u0027status\u0027      and LOWER(ev.value) = LOWER(v.status);\r\n\r\n\r\n\r\n"
+      },
+      "portPlacements": {
+        "I:In": "Bottom",
+        "O:Success": "Top"
+      },
+      "flippedPortSides": [
+        "Right"
+      ]
+    },
+    {
+      "id": "24079265-8eeb-4515-8dfc-f227a00abe73",
+      "name": "V3 Vejnavn",
+      "category": "Module",
+      "nodeType": "ExecuteSQL",
+      "x": 519.2200535545664,
+      "y": 1547.4751485609404,
+      "width": 200,
+      "height": 102,
+      "executionMode": "Enabled",
+      "settings": {
+        "ConnectionString": "\u00A4[DafDataDB]\u00A4",
+        "DBMS": "Postgres",
+        "FilePath": "",
+        "MaxRows": "0",
+        "QueryType": "NonQuery",
+        "ResultVariable": "",
+        "SQL": "    drop table if exists vat3.v3_vejnavn;\r\n    select  \r\n\t    vm.id_lokalid as id\r\n\t    , nvk.kommune \r\n\t    , vm.vejkode\r\n\t    , nv.vejnavn \r\n\t    , vm.geometri\r\n    into \r\n\t    vat3.v3_vejnavn\r\n    from \r\n\t    daf_gdk.vejmidte vm\r\n    left outer join \r\n\t    daf_dar.navngivenvejkommunedel nvk  on nvk.kommune::int4 = vm.kommunekode::int4  and nvk.vejkode::int4 = vm.vejkode::int4  and nvk.registreringtil is null and nvk.virkningtil is null\r\n    left outer join \r\n\t    daf_dar.navngivenvej nv  on nv.id_lokalid  = nvk.navngivenvej and nv.registreringtil is null and nv.virkningtil is null\r\n    where vm.registreringtil is null and vm.virkningtil is null;"
+      },
+      "portPlacements": {
+        "I:In": "Bottom",
+        "O:Success": "Top"
+      },
+      "flippedPortSides": [
+        "Right"
+      ]
+    },
+    {
+      "id": "71a2dbd3-916c-4e6a-9ce0-3c0029f0da9b",
+      "name": "V3 Vejmidte",
+      "category": "Module",
+      "nodeType": "ExecuteSQL",
+      "x": 564.1114739888883,
+      "y": 1395.339157104908,
+      "width": 200,
+      "height": 102,
+      "executionMode": "Enabled",
+      "settings": {
+        "ConnectionString": "\u00A4[DafDataDB]\u00A4",
+        "DBMS": "Postgres",
+        "FilePath": "",
+        "MaxRows": "0",
+        "QueryType": "NonQuery",
+        "ResultVariable": "",
+        "SQL": "drop table if exists vat3.v3_vejmidte;\t\r\n;with cte as (\r\nselect  \r\n    id_lokalid as id\r\n    , vejkode\r\n    , status\r\n    , vejkategori\r\n    , trafikart\r\n    , overflade\r\n    , vejmidtetype \r\n    , vejmyndighed \r\n    , tilogfrakoersel  --  bool \r\n    , rundkoersel -- bool \r\n    , niveau\t\r\n    , geometri\r\n\t, kommunekode\r\nfrom\r\n    daf_gdk.vejmidte \r\nwhere registreringtil is null and virkningtil is null)\r\nselect \r\n\tid \r\n    , nvk.kommune \r\n    , cte.vejkode\r\n    , nv.vejnavn \r\n    , cte.status\r\n    , cte.vejkategori\r\n    , cte.trafikart\r\n    , cte.overflade\r\n    , cte.vejmidtetype \r\n    , cte.vejmyndighed \r\n    , cte.tilogfrakoersel  --  bool \r\n    , cte.rundkoersel -- bool \r\n    , cte.niveau\t\r\n    , cast (0 as int4) as vejkategori_enum\r\n    , cast (0 as int4) as trafikart_enum\r\n    , cast (0 as int4) as overflade_enum\r\n    , cast (0 as int4) as niveau_enum\r\n    , cast (0 as int4) as status_enum\r\n    , cast (0.0 as decimal(18,3)) as offset_x\r\n    , cast (0.0 as decimal(18,3)) as offset_y \r\n    , \u0027\u0027GeoDK6.Vejmidte\u0027\u0027 as orgtabel\r\n    , cte.geometri\r\ninto \r\n    vat3.v3_vejmidte\r\nfrom cte \t\r\nleft outer join \r\n    daf_dar.navngivenvejkommunedel nvk  on nvk.kommune::int4 = cte.kommunekode::int4  and nvk.vejkode::int4 = cte.vejkode::int4   and nvk.registreringtil is null and nvk.virkningtil is null\r\nleft outer join \r\n    daf_dar.navngivenvej nv  on nv.id_lokalid  = nvk.navngivenvej and nv.registreringtil is null and nv.virkningtil is null"
+      },
+      "portPlacements": {
+        "I:In": "Bottom",
+        "O:Success": "Top"
+      },
+      "flippedPortSides": [
+        "Right"
+      ]
+    },
+    {
+      "id": "52f459b9-a99e-4b6c-bff3-55da7669eaa8",
+      "name": "V3 Vejmidte ENUM",
+      "category": "Module",
+      "nodeType": "ExecuteSQL",
+      "x": 605.1047100159407,
+      "y": 1205.8411150970733,
+      "width": 200,
+      "height": 102,
+      "executionMode": "Enabled",
+      "settings": {
+        "ConnectionString": "\u00A4[DafDataDB]\u00A4",
+        "DBMS": "Postgres",
+        "FilePath": "",
+        "MaxRows": "0",
+        "QueryType": "NonQuery",
+        "ResultVariable": "",
+        "SQL": ";with cte as (select distinct vejkategori from vat3.v3_vejmidte where vejkategori not in (select value from vat3.enum_vejnavnkoor where feltnavn=\u0027vejkategori\u0027) )\r\n    INSERT INTO vat3.enum_vejnavnkoor (feltnavn, value) select \u0027vejkategori\u0027, vejkategori from cte \r\n\r\n    ;with cte as (\r\n\t    select distinct trafikart from vat3.v3_vejmidte  where trafikart not in (select value from vat3.enum_vejnavnkoor where feltnavn=\u0027\u0027trafikart\u0027\u0027) )\r\n    INSERT INTO vat3.enum_vejnavnkoor (\u0022feltnavn\u0022, \u0022value\u0022) select \u0027\u0027trafikart\u0027\u0027, trafikart from cte \r\n\r\n    ;with cte as (\r\n\t    select distinct overflade from vat3.v3_vejmidte  where overflade not in (select value from vat3.enum_vejnavnkoor where feltnavn=\u0027\u0027overflade\u0027\u0027) )\r\n    INSERT INTO vat3.enum_vejnavnkoor (\u0022feltnavn\u0022, \u0022value\u0022) select \u0027\u0027overflade\u0027\u0027, overflade from cte \r\n\r\n    ;with cte as (\r\n\t    select distinct niveau from vat3.v3_vejmidte  where niveau not in (select value from vat3.enum_vejnavnkoor where feltnavn=\u0027\u0027niveau\u0027\u0027) )\r\n    INSERT INTO vat3.enum_vejnavnkoor (\u0022feltnavn\u0022, \u0022value\u0022) select \u0027\u0027niveau\u0027\u0027, niveau from cte \r\n\r\n    ;with cte as (\r\n\t    select distinct status from vat3.v3_vejmidte  where status not in (select value from vat3.enum_vejnavnkoor where feltnavn=\u0027\u0027status\u0027\u0027) )\r\n    INSERT INTO vat3.enum_vejnavnkoor (\u0022feltnavn\u0022, \u0022value\u0022) select \u0027\u0027status\u0027\u0027, status from cte ;\r\n\r\nUPDATE vat3.v3_vejmidte v SET vejkategori_enum = ev.kode FROM vat3.enum_vejnavnkoor ev WHERE ev.feltnavn=\u0027\u0027vejkategori\u0027\u0027 and LOWER(ev.value) = LOWER(v.vejkategori);\r\nUPDATE vat3.v3_vejmidte v SET trafikart_enum = ev.kode   FROM vat3.enum_vejnavnkoor ev WHERE ev.feltnavn=\u0027\u0027trafikart\u0027\u0027   and LOWER(ev.value) = LOWER(v.trafikart);\r\nUPDATE vat3.v3_vejmidte v SET overflade_enum = ev.kode   FROM vat3.enum_vejnavnkoor ev WHERE ev.feltnavn=\u0027\u0027overflade\u0027\u0027   and LOWER(ev.value) = LOWER(v.overflade);\r\nUPDATE vat3.v3_vejmidte v SET niveau_enum = ev.kode      FROM vat3.enum_vejnavnkoor ev WHERE ev.feltnavn=\u0027\u0027niveau\u0027\u0027      and LOWER(ev.value) = LOWER(v.niveau);\r\nUPDATE vat3.v3_vejmidte v SET status_enum = ev.kode      FROM vat3.enum_vejnavnkoor ev WHERE ev.feltnavn=\u0027\u0027status\u0027\u0027      and LOWER(ev.value) = LOWER(v.status);"
+      },
+      "portPlacements": {
+        "I:In": "Bottom",
+        "O:Success": "Top"
+      },
+      "flippedPortSides": [
+        "Right"
+      ]
+    },
+    {
+      "id": "a5db89f4-4b77-4f7c-afa6-e72891a6e034",
+      "name": "Indexes",
+      "category": "Module",
+      "nodeType": "ExecuteSQL",
+      "x": 608.9138947792038,
+      "y": 1003.0287263466312,
+      "width": 200,
+      "height": 102,
+      "executionMode": "Enabled",
+      "settings": {
+        "ConnectionString": "\u00A4[DafDataDB]\u00A4",
+        "DBMS": "Postgres",
+        "FilePath": "",
+        "MaxRows": "0",
+        "QueryType": "NonQuery",
+        "ResultVariable": "",
+        "SQL": "CREATE INDEX IF NOT EXISTS idx_v3_adresse_geom     ON vat3.v3_adresse USING gist (geometri)     WITH (fillfactor=90, buffering=auto)     TABLESPACE pg_default;\r\n\r\nCREATE INDEX IF NOT EXISTS idx_v3_adressekoor     ON vat3.v3_adressekoor \r\n   USING btree     (husnr_lokalid COLLATE pg_catalog.\u0022default\u0022 ASC NULLS LAST, kommune ASC NULLS LAST, vejkode ASC NULLS LAST)\r\n    WITH (fillfactor=100, deduplicate_items=True)  TABLESPACE pg_default;\r\n\r\nCREATE INDEX IF NOT EXISTS idx_v3_vejmidte_geometri ON vat3.v3_vejmidte USING gist (geometri)  WITH (fillfactor=90, buffering=auto) TABLESPACE pg_default;\r\n\r\nCREATE INDEX IF NOT EXISTS idx_v3_vejnavn_geometri  ON vat3.v3_vejnavn USING gist  (geometri)  WITH (fillfactor=90, buffering=auto)  TABLESPACE pg_default;\r\n\r\nCREATE INDEX CONCURRENTLY IF NOT EXISTS v3_adresse_ins_search_postnr_partial_idx  ON vat3.v3_adresse (postnr)\r\n    WHERE geometri IS NOT NULL  AND vejnavn IS NOT NULL  AND husnummertekst IS NOT NULL\r\n\r\nCREATE INDEX CONCURRENTLY IF NOT EXISTS v3_adresse_postnr_idx  ON vat3.v3_adresse (postnr);\r\n\r\nCREATE INDEX CONCURRENTLY IF NOT EXISTS v3_adresse_husnr_idx ON vat3.v3_adresse (husnummertekst);\r\n\r\nCREATE INDEX CONCURRENTLY IF NOT EXISTS v3_adresse_vejnavn_idx ON vat3.v3_adresse (vejnavn);"
+      },
+      "portPlacements": {
+        "I:In": "Bottom",
+        "O:Success": "Top"
+      },
+      "flippedPortSides": [
+        "Right"
+      ]
+    },
+    {
+      "id": "518f7476-f821-4eb6-a482-bb08b2458cf1",
+      "name": "Anakyze",
+      "category": "Module",
+      "nodeType": "ExecuteSQL",
+      "x": 607.9882984815878,
+      "y": 800.7503354601946,
+      "width": 200,
+      "height": 102,
+      "executionMode": "Enabled",
+      "settings": {
+        "ConnectionString": "\u00A4[DafDataDB]\u00A4",
+        "DBMS": "Postgres",
+        "FilePath": "",
+        "MaxRows": "0",
+        "QueryType": "NonQuery",
+        "ResultVariable": "",
+        "SQL": "vacuum analyze vat3.v3_adresse;\r\nvacuum analyze vat3.v3_adressekoor;\r\nvacuum analyze vat3.v3_vejmidte;\r\nvacuum analyze vat3.v3_vejnavn;\r\nvacuum analyze vat3.v3_vejnavnkoor;"
+      },
+      "portPlacements": {
+        "I:In": "Bottom",
+        "O:Success": "Top"
+      },
+      "flippedPortSides": [
+        "Right"
+      ]
+    }
+  ],
+  "connections": [
+    {
+      "id": "8eab1dd1-d151-4595-816d-35a3c6d91714",
+      "fromNodeId": "fdb4fe13-c0f6-47fc-97b1-ed64d838f93a",
+      "fromPort": "Out",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "83160ff8-63d8-4eab-ad39-2e7235f86ce5",
+      "toPort": "Fail",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "74222419-87cb-4ab0-bc6e-6f722ded787a",
+      "fromNodeId": "ec1771f2-0ab1-4696-b7f4-c7ef959610db",
+      "fromPort": "Fail",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "fdb4fe13-c0f6-47fc-97b1-ed64d838f93a",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "ed0b686c-4478-4fc6-9832-3e8a26b2309a",
+      "fromNodeId": "4c0ff98e-fd94-49bd-b4ff-892661567c29",
+      "fromPort": "Out",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "ec1771f2-0ab1-4696-b7f4-c7ef959610db",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "faf2b911-fd98-4a0f-9911-d80480c12a2f",
+      "fromNodeId": "ec1771f2-0ab1-4696-b7f4-c7ef959610db",
+      "fromPort": "Success",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "4fbc672a-424f-4d37-9dad-2f73d9e0e3a4",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "8ca72987-ecaf-4f22-9d3d-92d37992d993",
+      "fromNodeId": "4fbc672a-424f-4d37-9dad-2f73d9e0e3a4",
+      "fromPort": "Fail",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "fdb4fe13-c0f6-47fc-97b1-ed64d838f93a",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "2650f515-be31-4c2c-8d97-f71382328bc6",
+      "fromNodeId": "fe983b13-9f48-4e01-aab9-133857460d19",
+      "fromPort": "Fail",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "fdb4fe13-c0f6-47fc-97b1-ed64d838f93a",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "23a606a7-129f-411e-85d9-cda453a51737",
+      "fromNodeId": "e3d8295a-3d48-47b8-8224-73e527ae44d9",
+      "fromPort": "Fail",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "fdb4fe13-c0f6-47fc-97b1-ed64d838f93a",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "2b19a65a-518a-4b7c-aeba-9a83094b176f",
+      "fromNodeId": "0b20b7a5-5615-4ede-8600-cabe0ea5fc53",
+      "fromPort": "Fail",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "fdb4fe13-c0f6-47fc-97b1-ed64d838f93a",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "c498c706-4ec7-4f39-aab1-56b39070e72b",
+      "fromNodeId": "4fbc672a-424f-4d37-9dad-2f73d9e0e3a4",
+      "fromPort": "Success",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "4e971e5a-13c1-4e93-919d-1313800098f4",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "3dc3f091-b651-4180-b916-8965e187a23c",
+      "fromNodeId": "4e971e5a-13c1-4e93-919d-1313800098f4",
+      "fromPort": "Success",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "fe983b13-9f48-4e01-aab9-133857460d19",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "8179596a-c49e-470a-9ea0-bab5fd92b679",
+      "fromNodeId": "f58a60d8-c22b-4539-a781-60fe9fdcc6bb",
+      "fromPort": "Success",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "e3d8295a-3d48-47b8-8224-73e527ae44d9",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "7bc96329-2646-4db1-8692-dfe09e43179f",
+      "fromNodeId": "fe983b13-9f48-4e01-aab9-133857460d19",
+      "fromPort": "Success",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "9c15d687-03a1-42e9-80b6-df4c78a530b0",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "091f9f56-1345-4e92-aed8-13bcdcd6081f",
+      "fromNodeId": "9c15d687-03a1-42e9-80b6-df4c78a530b0",
+      "fromPort": "Success",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "f58a60d8-c22b-4539-a781-60fe9fdcc6bb",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "e127119f-c7f1-4285-8d7d-6c396073b77c",
+      "fromNodeId": "e3d8295a-3d48-47b8-8224-73e527ae44d9",
+      "fromPort": "Success",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "d29c5d4c-c3d8-4d38-9980-9388a5142a90",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "cabe61eb-5315-4272-933d-343e865bf0c0",
+      "fromNodeId": "d29c5d4c-c3d8-4d38-9980-9388a5142a90",
+      "fromPort": "Success",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "f8213d9b-db1e-4127-b3ff-cf3697ab34ea",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "b937e3ea-7390-483d-ace1-b3bcc05da9a4",
+      "fromNodeId": "f8213d9b-db1e-4127-b3ff-cf3697ab34ea",
+      "fromPort": "Success",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "e982e10e-5ce1-40a9-83c0-9eaab320c28a",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "4256b035-8f76-4e0e-9eb4-87beb84154d8",
+      "fromNodeId": "e982e10e-5ce1-40a9-83c0-9eaab320c28a",
+      "fromPort": "Success",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "70315bc2-2cd3-4c9a-a46d-66865adaf2ec",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "484d8f78-0630-49ec-9b06-bde782aba09f",
+      "fromNodeId": "70315bc2-2cd3-4c9a-a46d-66865adaf2ec",
+      "fromPort": "Success",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "c30394e8-8e72-48d0-91f4-ed6875ace924",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "3d52e029-4a53-4f58-9cb9-d8d7dede68fa",
+      "fromNodeId": "c30394e8-8e72-48d0-91f4-ed6875ace924",
+      "fromPort": "Success",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "0b20b7a5-5615-4ede-8600-cabe0ea5fc53",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "5cfa6006-08aa-4ca5-b4fd-ce500cd76870",
+      "fromNodeId": "0b20b7a5-5615-4ede-8600-cabe0ea5fc53",
+      "fromPort": "Success",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "c27bc3be-1b2e-4ab0-9a00-0c0e7f7fc140",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "67748769-32d4-4c40-83cb-6bb9f2c6d7b7",
+      "fromNodeId": "c27bc3be-1b2e-4ab0-9a00-0c0e7f7fc140",
+      "fromPort": "Fail",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "fdb4fe13-c0f6-47fc-97b1-ed64d838f93a",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "07be13fc-b1e0-4e85-87b1-9d074b6c7be6",
+      "fromNodeId": "c30394e8-8e72-48d0-91f4-ed6875ace924",
+      "fromPort": "Fail",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "fdb4fe13-c0f6-47fc-97b1-ed64d838f93a",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "c7bae666-5147-44b2-aa02-fc9307113d47",
+      "fromNodeId": "70315bc2-2cd3-4c9a-a46d-66865adaf2ec",
+      "fromPort": "Fail",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "fdb4fe13-c0f6-47fc-97b1-ed64d838f93a",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "04f407cf-29b1-4116-888c-1adeadc52b5f",
+      "fromNodeId": "e982e10e-5ce1-40a9-83c0-9eaab320c28a",
+      "fromPort": "Fail",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "fdb4fe13-c0f6-47fc-97b1-ed64d838f93a",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "4b82a677-adbf-4332-815f-62b11fc2863a",
+      "fromNodeId": "f8213d9b-db1e-4127-b3ff-cf3697ab34ea",
+      "fromPort": "Fail",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "fdb4fe13-c0f6-47fc-97b1-ed64d838f93a",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "6b722c75-b361-4802-885b-eed8531c30b0",
+      "fromNodeId": "d29c5d4c-c3d8-4d38-9980-9388a5142a90",
+      "fromPort": "Fail",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "fdb4fe13-c0f6-47fc-97b1-ed64d838f93a",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "c862b370-1ffc-4f66-b117-a40cef113261",
+      "fromNodeId": "f58a60d8-c22b-4539-a781-60fe9fdcc6bb",
+      "fromPort": "Fail",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "fdb4fe13-c0f6-47fc-97b1-ed64d838f93a",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "e2d2dc43-48fe-4003-92e6-8e11ff2a9afe",
+      "fromNodeId": "9c15d687-03a1-42e9-80b6-df4c78a530b0",
+      "fromPort": "Fail",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "fdb4fe13-c0f6-47fc-97b1-ed64d838f93a",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "abbcaa27-76d2-4dc2-b8c5-2aa1d127cdf5",
+      "fromNodeId": "4e971e5a-13c1-4e93-919d-1313800098f4",
+      "fromPort": "Fail",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "fdb4fe13-c0f6-47fc-97b1-ed64d838f93a",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "85211d56-3e3f-46fd-b3c0-649997e8c6ca",
+      "fromNodeId": "c27bc3be-1b2e-4ab0-9a00-0c0e7f7fc140",
+      "fromPort": "Success",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "e38478d2-c72b-44d7-94c1-f8474ba3b872",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "e63061b8-06f4-422d-bf2d-77cda9ed1b5e",
+      "fromNodeId": "e38478d2-c72b-44d7-94c1-f8474ba3b872",
+      "fromPort": "Success",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "5a70bd38-26f3-4644-8d93-5a6550dcae2a",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "3e095a4a-9c5e-47d8-8003-50737c6ceb76",
+      "fromNodeId": "5a70bd38-26f3-4644-8d93-5a6550dcae2a",
+      "fromPort": "Success",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "1988163a-358e-485a-9c75-a5d579e412cf",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "b0583417-fb18-4303-8d4e-71c404efee85",
+      "fromNodeId": "1988163a-358e-485a-9c75-a5d579e412cf",
+      "fromPort": "Success",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "24079265-8eeb-4515-8dfc-f227a00abe73",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "4c8e13b3-9362-492f-9451-ac32447ca85d",
+      "fromNodeId": "24079265-8eeb-4515-8dfc-f227a00abe73",
+      "fromPort": "Success",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "71a2dbd3-916c-4e6a-9ce0-3c0029f0da9b",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "b87d5354-e902-4bba-ad26-50bb0ef7c751",
+      "fromNodeId": "24079265-8eeb-4515-8dfc-f227a00abe73",
+      "fromPort": "Fail",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "fdb4fe13-c0f6-47fc-97b1-ed64d838f93a",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "f7988881-7859-42ab-aa59-e574e3234b8e",
+      "fromNodeId": "71a2dbd3-916c-4e6a-9ce0-3c0029f0da9b",
+      "fromPort": "Fail",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "fdb4fe13-c0f6-47fc-97b1-ed64d838f93a",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "3b301a02-d4d1-47b6-9917-43e73c67e529",
+      "fromNodeId": "1988163a-358e-485a-9c75-a5d579e412cf",
+      "fromPort": "Fail",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "fdb4fe13-c0f6-47fc-97b1-ed64d838f93a",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "17eb9740-535b-4256-a678-0d2507ef6f28",
+      "fromNodeId": "5a70bd38-26f3-4644-8d93-5a6550dcae2a",
+      "fromPort": "Fail",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "fdb4fe13-c0f6-47fc-97b1-ed64d838f93a",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "94312fa4-e0f6-49a5-9828-40830b865bbe",
+      "fromNodeId": "e38478d2-c72b-44d7-94c1-f8474ba3b872",
+      "fromPort": "Fail",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "fdb4fe13-c0f6-47fc-97b1-ed64d838f93a",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "7759340b-f3ba-4936-8b8d-78a4f7f378f4",
+      "fromNodeId": "71a2dbd3-916c-4e6a-9ce0-3c0029f0da9b",
+      "fromPort": "Success",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "52f459b9-a99e-4b6c-bff3-55da7669eaa8",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "036396ff-8bfe-428a-ab1f-8c46285381cc",
+      "fromNodeId": "52f459b9-a99e-4b6c-bff3-55da7669eaa8",
+      "fromPort": "Success",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "a5db89f4-4b77-4f7c-afa6-e72891a6e034",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "79ee58f4-278c-4571-8cd6-2db394eb7fbe",
+      "fromNodeId": "a5db89f4-4b77-4f7c-afa6-e72891a6e034",
+      "fromPort": "Success",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "518f7476-f821-4eb6-a482-bb08b2458cf1",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "954311f8-23bf-4323-970a-ab3cd5aabe44",
+      "fromNodeId": "518f7476-f821-4eb6-a482-bb08b2458cf1",
+      "fromPort": "Success",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "83160ff8-63d8-4eab-ad39-2e7235f86ce5",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    }
+  ]
+}

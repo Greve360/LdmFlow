@@ -1,0 +1,198 @@
+{
+  "schemaVersion": 1,
+  "name": "WFS Download",
+  "globalValues": {},
+  "nodes": [
+    {
+      "id": "aa8d92f0-ae89-4ae7-87f9-52b306a5253b",
+      "name": "Start",
+      "category": "Module",
+      "nodeType": "Start",
+      "x": 63,
+      "y": 205,
+      "settings": {
+        "WorkFolder": "t:\\Work"
+      },
+      "portPlacements": {}
+    },
+    {
+      "id": "a73ff3c8-b6aa-440b-a52d-642c081a6408",
+      "name": "Exit",
+      "category": "Module",
+      "nodeType": "Exit",
+      "x": 1426,
+      "y": 111,
+      "settings": {},
+      "portPlacements": {}
+    },
+    {
+      "id": "daa2c4e1-ce6a-44cf-bafc-05783435b496",
+      "name": "Text File Iterator",
+      "category": "Module",
+      "nodeType": "TextFileIterator",
+      "x": 740,
+      "y": 193,
+      "settings": {
+        "FieldQualifier": "\"",
+        "FieldSeparator": ",",
+        "FilePath": "¤{WorkFolder}¤\\csvtest.txt",
+        "Format": "CSV",
+        "SkipEmptyLines": "No",
+        "SkipHeaderRow": "Yes",
+        "Mode": "Sequential",
+        "MaxParallelism": "4"
+      },
+      "portPlacements": {}
+    },
+    {
+      "id": "0918adcd-73bf-4f5f-a104-ce95ca0a0113",
+      "name": "Capabilities Download",
+      "category": "Module",
+      "nodeType": "HttpsDownload",
+      "x": 829,
+      "y": 498,
+      "settings": {
+        "ContinueOnError": "Ja",
+        "Destination": "¤{WorkFolder}¤\\Capabilities\\¤{CSV_1}¤.xml",
+        "Url": "¤{CSV_2}¤?Service=WFS&Request=GetCapabilities",
+        "User": "¤{CSV_3}¤",
+        "Password": "¤[WfsPassword]¤"
+      },
+      "portPlacements": {
+        "I:In": "Right",
+        "O:Out": "Left",
+        "O:Fail": "Bottom"
+      }
+    },
+    {
+      "id": "7229f302-261d-4ede-9b5b-1394cfe8ad7f",
+      "name": "Delete File",
+      "category": "Module",
+      "nodeType": "DeleteFile",
+      "x": 360,
+      "y": 209,
+      "settings": {
+        "Files": "¤{WorkFolder}¤\\Diagnose\\Variables.txt\r\n¤{WorkFolder}¤\\CsvTokens.txt\r\n¤{WorkFolder}¤\\Diagnose\\Errors.txt\r\n¤{WorkFolder}¤\\Capabilities\\*.xml",
+        "Recursive": "No"
+      },
+      "portPlacements": {}
+    },
+    {
+      "id": "faf50c9e-9cc8-4985-a1d8-1533ec3a5a59",
+      "name": "ILogger",
+      "category": "Module",
+      "nodeType": "ILogger",
+      "x": 348,
+      "y": 370,
+      "settings": {
+        "Registry": "False",
+        "ErrorFile": "¤{WorkFolder}¤\\Diagnose\\Errors.txt"
+      },
+      "portPlacements": {}
+    }
+  ],
+  "connections": [
+    {
+      "id": "5123737c-2d96-4165-bb1b-b80cb690f9a9",
+      "fromNodeId": "daa2c4e1-ce6a-44cf-bafc-05783435b496",
+      "fromPort": "Item",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "0918adcd-73bf-4f5f-a104-ce95ca0a0113",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": [
+        {
+          "x": 1029,
+          "y": 376.5,
+          "incomingControlDx": -37.00000000000001,
+          "incomingControlDy": -66.25000000000001,
+          "outgoingControlDx": 37.00000000000001,
+          "outgoingControlDy": 66.25000000000001
+        }
+      ]
+    },
+    {
+      "id": "9d6c191b-1264-4cf6-b82c-57ab85869f4d",
+      "fromNodeId": "aa8d92f0-ae89-4ae7-87f9-52b306a5253b",
+      "fromPort": "Out",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "7229f302-261d-4ede-9b5b-1394cfe8ad7f",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "059b0d56-75c5-4510-a9d1-7a2e48e1dd73",
+      "fromNodeId": "7229f302-261d-4ede-9b5b-1394cfe8ad7f",
+      "fromPort": "Success",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "daa2c4e1-ce6a-44cf-bafc-05783435b496",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "0108e7bd-fe96-4b3f-8c1a-eaaa31ef98e2",
+      "fromNodeId": "0918adcd-73bf-4f5f-a104-ce95ca0a0113",
+      "fromPort": "Out",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "daa2c4e1-ce6a-44cf-bafc-05783435b496",
+      "toPort": "LoopBack",
+      "toControlDx": -57.52057299651551,
+      "toControlDy": 71,
+      "waypoints": [
+        {
+          "x": 698,
+          "y": 481.5,
+          "incomingControlDx": 0,
+          "incomingControlDy": 66.25,
+          "outgoingControlDx": 0,
+          "outgoingControlDy": -66.25
+        }
+      ]
+    },
+    {
+      "id": "4c26cd82-fba3-49db-84f3-671932fb8332",
+      "fromNodeId": "0918adcd-73bf-4f5f-a104-ce95ca0a0113",
+      "fromPort": "Fail",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "faf50c9e-9cc8-4985-a1d8-1533ec3a5a59",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "94dfa306-ba5a-4a0d-b911-5d17db52c8b1",
+      "fromNodeId": "faf50c9e-9cc8-4985-a1d8-1533ec3a5a59",
+      "fromPort": "Out",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "daa2c4e1-ce6a-44cf-bafc-05783435b496",
+      "toPort": "LoopBack",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "41e37d6d-cb9e-49e6-8f8a-413e07103af2",
+      "fromNodeId": "daa2c4e1-ce6a-44cf-bafc-05783435b496",
+      "fromPort": "Done",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "a73ff3c8-b6aa-440b-a52d-642c081a6408",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    }
+  ]
+}

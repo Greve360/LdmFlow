@@ -1,0 +1,340 @@
+{
+  "schemaVersion": 1,
+  "name": "WFS Download",
+  "globalValues": {},
+  "nodes": [
+    {
+      "id": "aa8d92f0-ae89-4ae7-87f9-52b306a5253b",
+      "name": "Start",
+      "category": "Module",
+      "nodeType": "Start",
+      "x": 63,
+      "y": 206,
+      "settings": {
+        "WorkFolder": "q:\\Work"
+      },
+      "portPlacements": {}
+    },
+    {
+      "id": "a73ff3c8-b6aa-440b-a52d-642c081a6408",
+      "name": "Exit",
+      "category": "Module",
+      "nodeType": "Exit",
+      "x": 1454,
+      "y": 367,
+      "settings": {},
+      "portPlacements": {}
+    },
+    {
+      "id": "6d7798cb-62b9-4529-a610-85bd19911ac7",
+      "name": "File_AddLine",
+      "category": "Module",
+      "nodeType": "File_AddLine",
+      "x": 1187,
+      "y": 170,
+      "settings": {
+        "Directory": "\u00A4{WorkFolder}\u00A4",
+        "Filename": "CsvTokens.txt",
+        "Text": "-------\\n1:\u00A4{csv_1}\u00A4\\n2:\u00A4{csv_2}\u00A4\\n3:\u00A4{csv_3}\u00A4\\n4:\u00A4{csv_4}\u00A4"
+      },
+      "portPlacements": {}
+    },
+    {
+      "id": "daa2c4e1-ce6a-44cf-bafc-05783435b496",
+      "name": "Text File Iterator",
+      "category": "Module",
+      "nodeType": "TextFileIterator",
+      "x": 681,
+      "y": 223,
+      "settings": {
+        "FieldQualifier": "\u0022",
+        "FieldSeparator": ",",
+        "FilePath": "\u00A4{WorkFolder}\u00A4\\csvtest.txt",
+        "Format": "CSV",
+        "SkipEmptyLines": "No",
+        "SkipHeaderRow": "Yes"
+      },
+      "portPlacements": {}
+    },
+    {
+      "id": "0918adcd-73bf-4f5f-a104-ce95ca0a0113",
+      "name": "Capabilities Download",
+      "category": "Module",
+      "nodeType": "HttpsDownload",
+      "x": 698,
+      "y": 388,
+      "settings": {
+        "ContinueOnError": "Ja",
+        "Destination": "\u00A4{WorkFolder}\u00A4\\Capabilities\\\u00A4{CSV_1}\u00A4.xml",
+        "Url": "\u00A4{CSV_2}\u00A4?Service=WFS\u0026Request=GetCapabilities"
+      },
+      "portPlacements": {
+        "I:In": "Right",
+        "O:Out": "Left"
+      }
+    },
+    {
+      "id": "1d453000-ee1d-41af-97cd-9887036daa3f",
+      "name": "DumpVariables",
+      "category": "Module",
+      "nodeType": "DumpVariables",
+      "x": 957,
+      "y": 78,
+      "settings": {
+        "DestinationFile": "\u00A4{WorkFolder}\u00A4\\Diagnose\\Variables.txt"
+      },
+      "portPlacements": {}
+    },
+    {
+      "id": "7229f302-261d-4ede-9b5b-1394cfe8ad7f",
+      "name": "Delete File",
+      "category": "Module",
+      "nodeType": "DeleteFile",
+      "x": 360,
+      "y": 209,
+      "settings": {
+        "Files": "\u00A4{WorkFolder}\u00A4\\Diagnose\\Variables.txt\r\n\u00A4{WorkFolder}\u00A4\\CsvTokens.txt",
+        "Recursive": "No"
+      },
+      "portPlacements": {}
+    },
+    {
+      "id": "6407621d-0f35-4867-94ce-1bbbbafaf2c8",
+      "name": "XPath Iterator",
+      "category": "Module",
+      "nodeType": "XPathIterator",
+      "x": 189,
+      "y": 390,
+      "settings": {
+        "FilePath": "\u00A4{WorkFolder}\u00A4\\Capabilities\\\u00A4{CSV_1}\u00A4.xml",
+        "XPath": "/wfs:WFS_Capabilities/wfs:FeatureTypeList/wfs:FeatureType/wfs:Name"
+      },
+      "portPlacements": {}
+    },
+    {
+      "id": "d9e08f60-a2c4-43fd-a3d0-6e8238cfede6",
+      "name": "Play Sound",
+      "category": "Module",
+      "nodeType": "PlaySound",
+      "x": 1159,
+      "y": 318,
+      "settings": {
+        "SoundEffect": "TaDa",
+        "VolumePercent": "100"
+      },
+      "portPlacements": {}
+    },
+    {
+      "id": "95693e5c-1854-4ed9-b983-9b00125e2046",
+      "name": "WFS Download",
+      "category": "Module",
+      "nodeType": "WfsDownload",
+      "x": 193,
+      "y": 572,
+      "settings": {
+        "AdditionalQueryParameters": "",
+        "BBox": "",
+        "CapabilitiesFile": "\u00A4{WorkFolder}\u00A4\\Capabilities\\\u00A4{CSV_1}\u00A4.xml",
+        "ContinueOnError": "Ja",
+        "Count": "",
+        "Destination": "\u00A4{WorkFolder}\u00A4\\WFS\\\u00A4{InnerXml}\u00A4.xml",
+        "FeatureIds": "",
+        "FilterXml": "",
+        "GetFeatureUrl": "",
+        "HttpMethod": "Auto",
+        "OutputFolder": "",
+        "OutputFormat": "",
+        "PropertyNames": "",
+        "ResultType": "",
+        "SortBy": "",
+        "SrsName": "",
+        "StartIndex": "",
+        "TypeName": "",
+        "Version": "Auto"
+      },
+      "portPlacements": {
+        "I:In": "Right",
+        "O:Out": "Left"
+      }
+    }
+  ],
+  "connections": [
+    {
+      "id": "25ccb0e8-81fe-4f7a-b219-8fda0576d2e9",
+      "fromNodeId": "daa2c4e1-ce6a-44cf-bafc-05783435b496",
+      "fromPort": "Item",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "6d7798cb-62b9-4529-a610-85bd19911ac7",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "5123737c-2d96-4165-bb1b-b80cb690f9a9",
+      "fromNodeId": "daa2c4e1-ce6a-44cf-bafc-05783435b496",
+      "fromPort": "Item",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "0918adcd-73bf-4f5f-a104-ce95ca0a0113",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": [
+        {
+          "x": 930,
+          "y": 375.5,
+          "incomingControlDx": -0,
+          "incomingControlDy": -59.25,
+          "outgoingControlDx": 0,
+          "outgoingControlDy": 59.25
+        }
+      ]
+    },
+    {
+      "id": "5dcb80dc-025e-48fd-b3dc-ed99569cf869",
+      "fromNodeId": "daa2c4e1-ce6a-44cf-bafc-05783435b496",
+      "fromPort": "Item",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "1d453000-ee1d-41af-97cd-9887036daa3f",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "9d6c191b-1264-4cf6-b82c-57ab85869f4d",
+      "fromNodeId": "aa8d92f0-ae89-4ae7-87f9-52b306a5253b",
+      "fromPort": "Out",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "7229f302-261d-4ede-9b5b-1394cfe8ad7f",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "059b0d56-75c5-4510-a9d1-7a2e48e1dd73",
+      "fromNodeId": "7229f302-261d-4ede-9b5b-1394cfe8ad7f",
+      "fromPort": "Success",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "daa2c4e1-ce6a-44cf-bafc-05783435b496",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "5761b67f-f54f-4563-ae8c-2baf2c7012ec",
+      "fromNodeId": "6407621d-0f35-4867-94ce-1bbbbafaf2c8",
+      "fromPort": "Item",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "daa2c4e1-ce6a-44cf-bafc-05783435b496",
+      "toPort": "LoopBack",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": [
+        {
+          "x": 563,
+          "y": 318,
+          "incomingControlDx": -86.5,
+          "incomingControlDy": -0,
+          "outgoingControlDx": 86.5,
+          "outgoingControlDy": 0
+        }
+      ]
+    },
+    {
+      "id": "e07c6be7-159a-4300-a36b-6c086849ef34",
+      "fromNodeId": "0918adcd-73bf-4f5f-a104-ce95ca0a0113",
+      "fromPort": "Out",
+      "fromControlDx": -38.65779393147852,
+      "fromControlDy": 146,
+      "toNodeId": "6407621d-0f35-4867-94ce-1bbbbafaf2c8",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": [
+        {
+          "x": 348,
+          "y": 642.5,
+          "incomingControlDx": 262,
+          "incomingControlDy": 33,
+          "outgoingControlDx": -143,
+          "outgoingControlDy": -68
+        }
+      ]
+    },
+    {
+      "id": "7ca84a7b-1dcf-470d-8fb0-a4c7eaf190ed",
+      "fromNodeId": "daa2c4e1-ce6a-44cf-bafc-05783435b496",
+      "fromPort": "Done",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "d9e08f60-a2c4-43fd-a3d0-6e8238cfede6",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "849fa771-0b7a-4074-89de-8252c926825a",
+      "fromNodeId": "d9e08f60-a2c4-43fd-a3d0-6e8238cfede6",
+      "fromPort": "Out",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "a73ff3c8-b6aa-440b-a52d-642c081a6408",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "b4409d02-e08d-4880-8248-4251da1e077f",
+      "fromNodeId": "6407621d-0f35-4867-94ce-1bbbbafaf2c8",
+      "fromPort": "Done",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "95693e5c-1854-4ed9-b983-9b00125e2046",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": [
+        {
+          "x": 412,
+          "y": 529,
+          "incomingControlDx": -0,
+          "incomingControlDy": -43,
+          "outgoingControlDx": 0,
+          "outgoingControlDy": 43
+        }
+      ]
+    },
+    {
+      "id": "1a99da70-ddb0-425e-a73c-f9d533eb82b2",
+      "fromNodeId": "95693e5c-1854-4ed9-b983-9b00125e2046",
+      "fromPort": "Out",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "6407621d-0f35-4867-94ce-1bbbbafaf2c8",
+      "toPort": "LoopBack",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": [
+        {
+          "x": 136,
+          "y": 534,
+          "incomingControlDx": -0,
+          "incomingControlDy": 43,
+          "outgoingControlDx": 0,
+          "outgoingControlDy": -43
+        }
+      ]
+    }
+  ]
+}

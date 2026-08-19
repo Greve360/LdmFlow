@@ -1,0 +1,383 @@
+{
+  "schemaVersion": 1,
+  "name": "Export Odense as BCP",
+  "globalValues": {
+    "WorkingFolder": "t:\\work"
+  },
+  "nodes": [
+    {
+      "id": "a04cc818-4f1e-46a9-8c9d-67f450b46159",
+      "name": "Start",
+      "category": "Module",
+      "nodeType": "Start",
+      "x": 9,
+      "y": 48,
+      "width": 190,
+      "height": 92,
+      "executionMode": "Enabled",
+      "settings": {
+        "SourceSchema": "dai01"
+      },
+      "portPlacements": {}
+    },
+    {
+      "id": "f8319aab-ad5c-4194-aec0-56a7048af8ef",
+      "name": "Exit",
+      "category": "Module",
+      "nodeType": "Exit",
+      "x": 1505,
+      "y": 93,
+      "width": 190,
+      "height": 92,
+      "executionMode": "Enabled",
+      "settings": {},
+      "portPlacements": {}
+    },
+    {
+      "id": "00ddebc5-bb2c-4ef4-957e-3d718e82e9f8",
+      "name": "Sql Iterator",
+      "category": "Module",
+      "nodeType": "SqlIterator",
+      "x": 349,
+      "y": 71,
+      "width": 190,
+      "height": 92,
+      "executionMode": "Enabled",
+      "settings": {
+        "ConnectionString": "¤[MSSQL_Sandbox]¤",
+        "DBMS": "MSSQL",
+        "MaxParallelism": "16",
+        "Mode": "Parallel",
+        "ResultType": "Recordset",
+        "Sql": "select TABLE_NAME from INFORMATION_SCHEMA.Tables where TABLE_SCHEMA='¤{SourceSchema}¤' and TABLE_TYPE='BASE TABLE' order by table_name",
+        "SqlTimeout": ""
+      },
+      "portPlacements": {}
+    },
+    {
+      "id": "4ff7f901-6130-4a8f-837d-edab39874b69",
+      "name": "BCP OUT",
+      "category": "Module",
+      "nodeType": "BcpOut",
+      "x": 884,
+      "y": 232,
+      "width": 190,
+      "height": 92,
+      "executionMode": "Enabled",
+      "retryAttempts": 3,
+      "retryDelaySeconds": 5,
+      "settings": {
+        "BcpArguments": "-T -w",
+        "BcpExecutable": "bcp",
+        "Database": "Sandbox",
+        "FormatFile": "",
+        "OutputFile": "¤[WorkingFolder]¤\\BCP\\¤{SourceSchema}¤_¤{TABLE_NAME}¤.bcp",
+        "Schema": "",
+        "Server": "NCC1701R\\MSSQLSERVER2025",
+        "SQL": "select * from ¤{SourceSchema}¤.¤{TABLE_NAME}¤ where wkb_geometry.STIntersects(geometry::STGeomFromText('¤{AreaWKT}¤', 25832)) = 1;",
+        "Table": ""
+      },
+      "portPlacements": {
+        "O:Success": "Bottom"
+      }
+    },
+    {
+      "id": "b5c9d6f7-996a-4ce1-975d-6dd5345d8cac",
+      "name": "ILogger",
+      "category": "Module",
+      "nodeType": "ILogger",
+      "x": 1284,
+      "y": 458,
+      "width": 190,
+      "height": 92,
+      "executionMode": "Enabled",
+      "settings": {
+        "ErrorFile": "¤[WorkingFolder]¤\\Diagnose\\errors.txt",
+        "Registry": "False"
+      },
+      "portPlacements": {}
+    },
+    {
+      "id": "bfb12a5e-fbea-443c-bd80-3c9189cd6cbc",
+      "name": "Display",
+      "category": "Module",
+      "nodeType": "Display",
+      "x": 673,
+      "y": 610,
+      "width": 406,
+      "height": 95,
+      "executionMode": "Enabled",
+      "settings": {
+        "Text": "¤{SourceSchema}¤_¤{TABLE_NAME}¤.bcp"
+      },
+      "portPlacements": {
+        "I:In": "Top",
+        "O:Out": "Left"
+      }
+    },
+    {
+      "id": "02a2d999-3b9c-448e-928f-aae04a1dc675",
+      "name": "Display 2",
+      "category": "Module",
+      "nodeType": "Display",
+      "x": 1073,
+      "y": 218,
+      "width": 350,
+      "height": 97,
+      "executionMode": "Enabled",
+      "settings": {
+        "Text": "¤{CommandLine}¤"
+      },
+      "portPlacements": {
+        "O:Out": "Bottom"
+      }
+    },
+    {
+      "id": "6d247828-7dc2-4070-8d8a-9d7d7688f368",
+      "name": "Zip File",
+      "category": "Module",
+      "nodeType": "ZipFile",
+      "x": 363,
+      "y": 406,
+      "width": 190,
+      "height": 92,
+      "executionMode": "Enabled",
+      "retryAttempts": 3,
+      "retryDelaySeconds": 5,
+      "settings": {
+        "ZipFile": "¤[WorkingFolder]¤\\BCP\\¤{SourceSchema}¤_¤{TABLE_NAME}¤.zip",
+        "InputFiles": "¤[WorkingFolder]¤\\BCP\\¤{SourceSchema}¤_¤{TABLE_NAME}¤.bcp",
+        "Append": "No",
+        "Compression": "6",
+        "Password": "¤[ZipPassword]¤"
+      },
+      "portPlacements": {
+        "I:In": "Bottom",
+        "O:Success": "Left"
+      }
+    },
+    {
+      "id": "aafbacc7-ea6e-4239-a53d-6a8b1c94b6a5",
+      "name": "Delete File",
+      "category": "Module",
+      "nodeType": "DeleteFile",
+      "x": 143,
+      "y": 291,
+      "width": 190,
+      "height": 92,
+      "executionMode": "Enabled",
+      "settings": {
+        "Files": "¤[WorkingFolder]¤\\BCP\\¤{SourceSchema}¤_¤{TABLE_NAME}¤.bcp",
+        "Recursive": "No"
+      },
+      "portPlacements": {}
+    },
+    {
+      "id": "34cd7ea4-1378-4847-8073-8753a877e6ce",
+      "name": "Area to WKT",
+      "category": "Module",
+      "nodeType": "AreaToWKT",
+      "x": 641,
+      "y": 230,
+      "width": 190,
+      "height": 92,
+      "executionMode": "Enabled",
+      "settings": {
+        "Area": "Odense"
+      },
+      "portPlacements": {}
+    },
+    {
+      "id": "9cc4ceef-b718-41f8-a09f-8f87ea7494c4",
+      "name": "Execute SQL",
+      "category": "Module",
+      "nodeType": "ExecuteSQL",
+      "x": 417,
+      "y": 247,
+      "width": 190,
+      "height": 92,
+      "executionMode": "Enabled",
+      "retryAttempts": 3,
+      "retryDelaySeconds": 5,
+      "settings": {
+        "ConnectionString": "¤[MSSQL_Sandbox]¤",
+        "DBMS": "MSSQL",
+        "FilePath": "",
+        "SQL": "update ¤{SourceSchema}¤.¤{TABLE_NAME}¤ set wkb_geometry =  wkb_geometry.MakeValid() where wkb_geometry.STIsValid() = 0"
+      },
+      "portPlacements": {
+        "I:In": "Top"
+      }
+    }
+  ],
+  "connections": [
+    {
+      "id": "5da523c6-50d8-45eb-ab62-088bb0bbd03e",
+      "fromNodeId": "a04cc818-4f1e-46a9-8c9d-67f450b46159",
+      "fromPort": "Out",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "00ddebc5-bb2c-4ef4-957e-3d718e82e9f8",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "e3f63449-b769-43e9-810a-3a5c6a83398b",
+      "fromNodeId": "00ddebc5-bb2c-4ef4-957e-3d718e82e9f8",
+      "fromPort": "Done",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "f8319aab-ad5c-4194-aec0-56a7048af8ef",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "d5a48060-1e9f-4a76-8a90-7a318de341dd",
+      "fromNodeId": "b5c9d6f7-996a-4ce1-975d-6dd5345d8cac",
+      "fromPort": "Out",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "f8319aab-ad5c-4194-aec0-56a7048af8ef",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "62299774-3de3-4604-b8c3-9c577c4af56b",
+      "fromNodeId": "4ff7f901-6130-4a8f-837d-edab39874b69",
+      "fromPort": "Success",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "bfb12a5e-fbea-443c-bd80-3c9189cd6cbc",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "322de6ff-88d3-42f8-9439-2a39b913aa9c",
+      "fromNodeId": "4ff7f901-6130-4a8f-837d-edab39874b69",
+      "fromPort": "Fail",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "02a2d999-3b9c-448e-928f-aae04a1dc675",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "3101b101-692e-428e-a150-6f378ffd935e",
+      "fromNodeId": "02a2d999-3b9c-448e-928f-aae04a1dc675",
+      "fromPort": "Out",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "b5c9d6f7-996a-4ce1-975d-6dd5345d8cac",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "97910371-1dd9-42bd-bb7a-77d858b91be2",
+      "fromNodeId": "bfb12a5e-fbea-443c-bd80-3c9189cd6cbc",
+      "fromPort": "Out",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "6d247828-7dc2-4070-8d8a-9d7d7688f368",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "5edfcb45-1121-44b5-b587-9d239b48c9b2",
+      "fromNodeId": "6d247828-7dc2-4070-8d8a-9d7d7688f368",
+      "fromPort": "Fail",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "b5c9d6f7-996a-4ce1-975d-6dd5345d8cac",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "a857e881-4aff-47e4-a974-9c79c802af1c",
+      "fromNodeId": "6d247828-7dc2-4070-8d8a-9d7d7688f368",
+      "fromPort": "Success",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "aafbacc7-ea6e-4239-a53d-6a8b1c94b6a5",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "505965fa-b024-4ad8-8ca3-6d017a63ab87",
+      "fromNodeId": "aafbacc7-ea6e-4239-a53d-6a8b1c94b6a5",
+      "fromPort": "Success",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "00ddebc5-bb2c-4ef4-957e-3d718e82e9f8",
+      "toPort": "LoopBack",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "02430f9e-1eba-46d2-9253-640d0c67e6a3",
+      "fromNodeId": "34cd7ea4-1378-4847-8073-8753a877e6ce",
+      "fromPort": "Out",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "4ff7f901-6130-4a8f-837d-edab39874b69",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "9b6e9aaa-a5d9-4b51-bfc4-cb2ba31f9a02",
+      "fromNodeId": "34cd7ea4-1378-4847-8073-8753a877e6ce",
+      "fromPort": "Fail",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "b5c9d6f7-996a-4ce1-975d-6dd5345d8cac",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "3e7b7214-15ec-4dca-8254-a45a4bc7af9e",
+      "fromNodeId": "00ddebc5-bb2c-4ef4-957e-3d718e82e9f8",
+      "fromPort": "Item",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "9cc4ceef-b718-41f8-a09f-8f87ea7494c4",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "1164dbde-f1da-40bb-9710-f47c51453483",
+      "fromNodeId": "9cc4ceef-b718-41f8-a09f-8f87ea7494c4",
+      "fromPort": "Success",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "34cd7ea4-1378-4847-8073-8753a877e6ce",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    }
+  ]
+}
