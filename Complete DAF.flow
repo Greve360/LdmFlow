@@ -24,8 +24,8 @@
       "name": "Exit",
       "category": "Module",
       "nodeType": "Exit",
-      "x": 1630,
-      "y": 79,
+      "x": 1496,
+      "y": 56,
       "width": 200,
       "height": 102,
       "executionMode": "Enabled",
@@ -47,7 +47,7 @@
       "y": 114,
       "width": 297,
       "height": 130,
-      "executionMode": "Nop",
+      "executionMode": "Enabled",
       "settings": {
         "BiTemporalFields": "id_lokalid, registreringfra, virkningfra",
         "DafDbSchema": "DAF_DAGI",
@@ -87,7 +87,7 @@
       "y": 270,
       "width": 297,
       "height": 130,
-      "executionMode": "Nop",
+      "executionMode": "Enabled",
       "settings": {
         "BiTemporalFields": "id_lokalid, registreringfra, virkningfra",
         "DafDbSchema": "DAF_FIKS",
@@ -113,7 +113,7 @@
       "y": 426,
       "width": 297,
       "height": 130,
-      "executionMode": "Nop",
+      "executionMode": "Enabled",
       "settings": {
         "BiTemporalFields": "id_lokalid, registreringfra, virkningfra",
         "DafDbSchema": "DAF_GDK",
@@ -157,7 +157,7 @@
       "y": 582,
       "width": 297,
       "height": 130,
-      "executionMode": "Nop",
+      "executionMode": "Enabled",
       "settings": {
         "BiTemporalFields": "id_lokalid, registreringfra, virkningfra",
         "DafDbSchema": "DAF_GDK",
@@ -183,7 +183,7 @@
       "y": 752,
       "width": 297,
       "height": 130,
-      "executionMode": "Nop",
+      "executionMode": "Enabled",
       "settings": {
         "BiTemporalFields": "id_lokalid, registreringfra, virkningfra, status",
         "DafDbSchema": "DAF_MAT",
@@ -329,7 +329,8 @@
         "MonitorErrorLen": "0",
         "MonitorErrors": "Fejl:\\n",
         "Register": "DAR",
-        "ExitCode": "0"
+        "ExitCode": "0",
+        "Laundry_RemoveDuplicates": ""
       },
       "portPlacements": {
         "I:In": "Right",
