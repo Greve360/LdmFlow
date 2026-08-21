@@ -55,7 +55,8 @@
         "Laundry_RemoveDuplicates": "yes",
         "Register": "DAGI",
         "ExitCode": "0",
-        "FamousLastWords": "none"
+        "FamousLastWords": "none",
+        "SingleTable": ""
       },
       "portPlacements": {},
       "flippedPortSides": []
@@ -95,7 +96,8 @@
         "FamousLastWords": "none",
         "Laundry_RemoveDuplicates": "hoejdefikspunktdnn",
         "Register": "FIKSPUNKT",
-        "ExitCode": "0"
+        "ExitCode": "0",
+        "SingleTable": ""
       },
       "portPlacements": {
         "I:In": "Right"
@@ -121,7 +123,8 @@
         "Laundry_RemoveDuplicates": "",
         "Register": "GEODKV",
         "ExitCode": "0",
-        "FamousLastWords": "none"
+        "FamousLastWords": "none",
+        "SingleTable": ""
       },
       "portPlacements": {
         "I:In": "Right"
@@ -165,7 +168,8 @@
         "Laundry_RemoveDuplicates": "",
         "Register": "DS",
         "ExitCode": "0",
-        "FamousLastWords": "none"
+        "FamousLastWords": "none",
+        "SingleTable": ""
       },
       "portPlacements": {
         "I:In": "Right"
@@ -191,7 +195,8 @@
         "Laundry_RemoveDuplicates": "bygningpaafremmedgrundpunkt\r\njordstykketemaflade\r\nmatrikelsogn\r\nmatrikulaersag\r\nsamletfastejendom\r\ntemalinje",
         "Register": "MAT",
         "ExitCode": "0",
-        "FamousLastWords": "none"
+        "FamousLastWords": "none",
+        "SingleTable": ""
       },
       "portPlacements": {
         "I:In": "Right"
