@@ -56,7 +56,8 @@
       "executionMode": "Enabled",
       "settings": {
         "ErrorFile": "\u00A4[WorkingFolder]\u00A4\\Diagnose\\errors_\u00A4[SYS_FLOWID]\u00A4.txt",
-        "Registry": "False"
+        "Registry": "False",
+        "LogTable": ""
       },
       "portPlacements": {
         "O:Out": "Top"
@@ -463,13 +464,73 @@
       "y": 742,
       "width": 200,
       "height": 102,
-      "executionMode": "Enabled",
+      "executionMode": "Disabled",
       "settings": {
         "BiTemporalFields": "id_lokalid\r\nregistreringfra\r\nvirkningfra",
         "DestinationMSSQL": "\u00A4[RegisterWorkDB]\u00A4",
         "DestinationSchema": "DAF_BBR_NY",
         "PostgresSchema": "daf_bbr",
         "RowLimiter": "limit 10000"
+      },
+      "portPlacements": {},
+      "flippedPortSides": []
+    },
+    {
+      "id": "ad20af02-dec1-4fa0-88cc-985f444d1f6d",
+      "name": "Start DAR",
+      "category": "Module",
+      "nodeType": "Start",
+      "x": 48,
+      "y": 885,
+      "width": 200,
+      "height": 102,
+      "executionMode": "Disabled",
+      "settings": {
+        "BiTemporalFields": "id_lokalid\r\nregistreringfra\r\nvirkningfra",
+        "DestinationMSSQL": "\u00A4[RegisterWorkDB]\u00A4",
+        "DestinationSchema": "DAF_DAR_NY",
+        "PostgresSchema": "daf_dar",
+        "RowLimiter": "limit 10000"
+      },
+      "portPlacements": {},
+      "flippedPortSides": []
+    },
+    {
+      "id": "62fe9446-8855-48c8-88fe-9b295b13a00d",
+      "name": "Start EBR",
+      "category": "Module",
+      "nodeType": "Start",
+      "x": 47,
+      "y": 1020,
+      "width": 200,
+      "height": 102,
+      "executionMode": "Disabled",
+      "settings": {
+        "BiTemporalFields": "id_lokalid\r\nregistreringfra\r\nvirkningfra",
+        "DestinationMSSQL": "\u00A4[RegisterWorkDB]\u00A4",
+        "DestinationSchema": "DAF_EBR_NY",
+        "PostgresSchema": "daf_ebr",
+        "RowLimiter": "limit 10000"
+      },
+      "portPlacements": {},
+      "flippedPortSides": []
+    },
+    {
+      "id": "20482311-b771-47dd-a979-8680a3d35725",
+      "name": "Start VUR",
+      "category": "Module",
+      "nodeType": "Start",
+      "x": 47,
+      "y": 1159,
+      "width": 200,
+      "height": 102,
+      "executionMode": "Enabled",
+      "settings": {
+        "BiTemporalFields": "id_lokalid\r\nregistreringfra\r\nvirkningfra",
+        "DestinationMSSQL": "\u00A4[RegisterWorkDB]\u00A4",
+        "DestinationSchema": "DAF_VUR_NY",
+        "PostgresSchema": "daf_vur",
+        "RowLimiter": ""
       },
       "portPlacements": {},
       "flippedPortSides": []
@@ -882,6 +943,45 @@
     {
       "id": "c576b9b6-b1e8-47be-8ac6-01c41982871a",
       "fromNodeId": "2cdcfd83-5462-433d-9cf0-41fc95497ee1",
+      "fromPort": "Out",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "77252a7b-75b6-4083-9598-606e20ed8050",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": [],
+      "directRoute": true
+    },
+    {
+      "id": "180ac553-9883-4601-b178-448c9981cbf9",
+      "fromNodeId": "ad20af02-dec1-4fa0-88cc-985f444d1f6d",
+      "fromPort": "Out",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "77252a7b-75b6-4083-9598-606e20ed8050",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": [],
+      "directRoute": true
+    },
+    {
+      "id": "d8c450ab-1d3c-4b10-b3d5-991ddac594d6",
+      "fromNodeId": "62fe9446-8855-48c8-88fe-9b295b13a00d",
+      "fromPort": "Out",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "77252a7b-75b6-4083-9598-606e20ed8050",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": [],
+      "directRoute": true
+    },
+    {
+      "id": "e127db50-955a-4f15-9bff-c07b41630130",
+      "fromNodeId": "20482311-b771-47dd-a979-8680a3d35725",
       "fromPort": "Out",
       "fromControlDx": null,
       "fromControlDy": null,
