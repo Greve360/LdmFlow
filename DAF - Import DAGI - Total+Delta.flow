@@ -280,8 +280,8 @@
       "name": "Store Total Generation",
       "category": "Module",
       "nodeType": "StoreVariable",
-      "x": 1981.6655932589747,
-      "y": 209.9108266580791,
+      "x": 2089.6655932589747,
+      "y": 70.91082665807909,
       "width": 208.34319526627124,
       "height": 95.6686390532538,
       "executionMode": "Enabled",
@@ -294,7 +294,9 @@
         "Value": "",
         "StoredName": ""
       },
-      "portPlacements": {},
+      "portPlacements": {
+        "O:Fail": "Bottom"
+      },
       "flippedPortSides": []
     },
     {
@@ -302,8 +304,8 @@
       "name": "Assign Variable 2",
       "category": "Module",
       "nodeType": "AssignVariable",
-      "x": 1643.5725623582707,
-      "y": 377.405895691612,
+      "x": 1689.5725623582707,
+      "y": 369.405895691612,
       "width": 190,
       "height": 92,
       "executionMode": "Enabled",
@@ -952,7 +954,8 @@
         "TableName": "\u00A4{DafDbSchema,L}\u00A4.\u00A4{entityname,L}\u00A4",
         "Unique": "False",
         "CommandTimeout": "0",
-        "IfNotExists": "False"
+        "IfNotExists": "False",
+        "EnsureNotNull": "False"
       },
       "portPlacements": {
         "I:In": "Top"
@@ -992,8 +995,8 @@
       "nodeType": "Display",
       "x": 1427.0725623582543,
       "y": 211.9058956916148,
-      "width": 305,
-      "height": 103,
+      "width": 265,
+      "height": 96,
       "executionMode": "Enabled",
       "settings": {
         "Text": "\u00A4{generationnumber}\u00A4 - \u00A4{entityname}\u00A4 "
@@ -1231,7 +1234,8 @@
         "TableName": "\u00A4{DafDbSchema,L}\u00A4.\u00A4{entityname,L}\u00A4",
         "Unique": "False",
         "CommandTimeout": "0",
-        "IfNotExists": "False"
+        "IfNotExists": "False",
+        "EnsureNotNull": "False"
       },
       "portPlacements": {
         "I:In": "Right",
@@ -1322,7 +1326,9 @@
         "ExitCode": "1",
         "FamousLastWords": "TOTAL"
       },
-      "portPlacements": {},
+      "portPlacements": {
+        "I:In": "Top"
+      },
       "flippedPortSides": []
     },
     {
@@ -1433,7 +1439,8 @@
         "IndexType": "btree",
         "Primary": "False",
         "TableName": "\u00A4{DafDbSchema,L}\u00A4.\u00A4{entityname,L}\u00A4",
-        "Unique": "False"
+        "Unique": "False",
+        "EnsureNotNull": "False"
       },
       "portPlacements": {
         "I:In": "Right",
@@ -2748,18 +2755,6 @@
       "waypoints": []
     },
     {
-      "id": "0c04ea9d-072d-4734-9416-0e320c2fa343",
-      "fromNodeId": "8546a445-75b3-4ff3-b5fe-3312eacb0fb3",
-      "fromPort": "Out",
-      "fromControlDx": null,
-      "fromControlDy": null,
-      "toNodeId": "54329973-d83f-4565-88c1-0925574efa89",
-      "toPort": "In",
-      "toControlDx": null,
-      "toControlDy": null,
-      "waypoints": []
-    },
-    {
       "id": "e704b0c3-0297-4a48-9c58-895bffff9fb2",
       "fromNodeId": "987b22e6-9f5f-443b-99b2-77544c9209f0",
       "fromPort": "Out",
@@ -2790,6 +2785,18 @@
       "fromControlDx": null,
       "fromControlDy": null,
       "toNodeId": "baed035e-0798-423a-b750-fc39885b9ca9",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "4718fdf2-c14d-4884-bda1-223d5df58542",
+      "fromNodeId": "8546a445-75b3-4ff3-b5fe-3312eacb0fb3",
+      "fromPort": "Out",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "54329973-d83f-4565-88c1-0925574efa89",
       "toPort": "In",
       "toControlDx": null,
       "toControlDy": null,
