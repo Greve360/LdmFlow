@@ -17,7 +17,7 @@
       "y": 244.10624260355144,
       "width": 190,
       "height": 92,
-      "executionMode": "Enabled",
+      "executionMode": "Disabled",
       "settings": {
         "BiTemporalFields": "id_lokalid, registreringfra, virkningfra",
         "ContainedFileFormat": "json",
@@ -104,8 +104,8 @@
       "name": "HTTPS Download",
       "category": "Module",
       "nodeType": "HttpsDownload",
-      "x": 1589.000000000001,
-      "y": 380.84624260355224,
+      "x": 1592.000000000001,
+      "y": 183.84624260355224,
       "width": 210,
       "height": 101,
       "executionMode": "Enabled",
@@ -122,7 +122,7 @@
       },
       "portPlacements": {
         "O:Out": "Bottom",
-        "I:In": "Top"
+        "I:In": "Right"
       },
       "flippedPortSides": []
     },
@@ -132,7 +132,7 @@
       "category": "Module",
       "nodeType": "DeleteFile",
       "x": 1607.500000000001,
-      "y": 948.7462426035504,
+      "y": 783.7462426035504,
       "width": 190,
       "height": 92,
       "executionMode": "Enabled",
@@ -144,7 +144,7 @@
       },
       "portPlacements": {
         "I:In": "Top",
-        "O:Success": "Left"
+        "O:Success": "Bottom"
       },
       "flippedPortSides": []
     },
@@ -234,8 +234,8 @@
       "name": "Store Variable",
       "category": "Module",
       "nodeType": "StoreVariable",
-      "x": 2236.9999999999973,
-      "y": 260.78624260355207,
+      "x": 2224.9999999999973,
+      "y": 257.78624260355207,
       "width": 190,
       "height": 92,
       "executionMode": "Enabled",
@@ -249,7 +249,9 @@
         "StoredName": ""
       },
       "portPlacements": {
-        "O:Out": "Bottom"
+        "O:Out": "Bottom",
+        "I:In": "Top",
+        "O:Fail": "Left"
       },
       "flippedPortSides": []
     },
@@ -258,8 +260,8 @@
       "name": "Assign Variable 2",
       "category": "Module",
       "nodeType": "AssignVariable",
-      "x": 1605.000000000001,
-      "y": 215.54624260355206,
+      "x": 1858.000000000001,
+      "y": 209.54624260355206,
       "width": 190,
       "height": 92,
       "executionMode": "Enabled",
@@ -268,7 +270,7 @@
       },
       "portPlacements": {
         "I:In": "Top",
-        "O:Out": "Bottom"
+        "O:Out": "Left"
       },
       "flippedPortSides": []
     },
@@ -277,8 +279,8 @@
       "name": "Schema \u002B Drop Table",
       "category": "Module",
       "nodeType": "ExecuteSQL",
-      "x": 1594.000000000001,
-      "y": 530.1462426035522,
+      "x": 1588.000000000001,
+      "y": 358.1462426035522,
       "width": 190,
       "height": 92,
       "executionMode": "Enabled",
@@ -399,8 +401,8 @@
       "name": "HTTPS Download",
       "category": "Module",
       "nodeType": "HttpsDownload",
-      "x": 708.9999999999998,
-      "y": 1542.7862426035495,
+      "x": 746.9999999999998,
+      "y": 1591.7862426035495,
       "width": 190,
       "height": 92,
       "executionMode": "Enabled",
@@ -426,8 +428,8 @@
       "name": "Delete Delta ZIP",
       "category": "Module",
       "nodeType": "DeleteFile",
-      "x": 718.0000000000007,
-      "y": 2018.7862426035495,
+      "x": 756.0000000000007,
+      "y": 2067.7862426035495,
       "width": 190,
       "height": 92,
       "executionMode": "Enabled",
@@ -448,8 +450,8 @@
       "name": "Execute SQL",
       "category": "Module",
       "nodeType": "ExecuteSQL",
-      "x": 705.9999999999998,
-      "y": 1693.7862426035495,
+      "x": 743.9999999999998,
+      "y": 1742.7862426035495,
       "width": 190,
       "height": 92,
       "executionMode": "Enabled",
@@ -574,8 +576,8 @@
       "nodeType": "Group",
       "x": 274.58136094674643,
       "y": 1168.2951183431974,
-      "width": 739,
-      "height": 962,
+      "width": 757,
+      "height": 1023,
       "executionMode": "Enabled",
       "settings": {
         "Text": "Delta"
@@ -620,8 +622,8 @@
       "name": "Has Columns",
       "category": "Module",
       "nodeType": "HasColumns",
-      "x": 734.9999999999998,
-      "y": 1410.7862426035495,
+      "x": 772.9999999999998,
+      "y": 1459.7862426035495,
       "width": 190,
       "height": 92,
       "executionMode": "Enabled",
@@ -685,8 +687,8 @@
       "name": "Drop All Indexes",
       "category": "Module",
       "nodeType": "DropAllIndexes",
-      "x": 1299.500000000001,
-      "y": 803.1462426035522,
+      "x": 1319.500000000001,
+      "y": 960.1462426035522,
       "width": 190,
       "height": 92,
       "executionMode": "Enabled",
@@ -698,7 +700,7 @@
       },
       "portPlacements": {
         "O:Out": "Top",
-        "I:In": "Bottom"
+        "I:In": "Right"
       },
       "flippedPortSides": [
         "Right"
@@ -709,8 +711,8 @@
       "name": "Create Index",
       "category": "Module",
       "nodeType": "CreateIndex",
-      "x": 1294.500000000001,
-      "y": 641.3462426035522,
+      "x": 1315.500000000001,
+      "y": 803.3462426035522,
       "width": 190,
       "height": 92,
       "executionMode": "Enabled",
@@ -738,8 +740,8 @@
       "name": "Has Columns",
       "category": "Module",
       "nodeType": "HasColumns",
-      "x": 1296.000000000001,
-      "y": 942.9462426035515,
+      "x": 1613.000000000001,
+      "y": 962.9462426035515,
       "width": 199,
       "height": 92,
       "executionMode": "Enabled",
@@ -750,9 +752,9 @@
         "Columns": "\u00A4{BiTemporalFields}\u00A4"
       },
       "portPlacements": {
-        "O:True": "Top",
-        "I:In": "Right",
-        "O:False": "Left"
+        "O:True": "Left",
+        "I:In": "Top",
+        "O:False": "Bottom"
       },
       "flippedPortSides": [
         "Bottom"
@@ -763,17 +765,15 @@
       "name": "Display",
       "category": "Module",
       "nodeType": "Display",
-      "x": 1609.5999999999985,
-      "y": 65.54624260355064,
+      "x": 1568.5999999999985,
+      "y": 60.54624260355064,
       "width": 190,
       "height": 92,
       "executionMode": "Enabled",
       "settings": {
         "Text": "\u00A4{entityname}\u00A4"
       },
-      "portPlacements": {
-        "O:Out": "Bottom"
-      },
+      "portPlacements": {},
       "flippedPortSides": []
     },
     {
@@ -781,8 +781,8 @@
       "name": "Learn DAF JSON",
       "category": "Module",
       "nodeType": "LearnDafJson",
-      "x": 1587.000000000001,
-      "y": 679.5862426035525,
+      "x": 1583.000000000001,
+      "y": 504.5862426035525,
       "width": 216,
       "height": 92,
       "executionMode": "Enabled",
@@ -805,8 +805,8 @@
       "name": "Import DAF JSON",
       "category": "Module",
       "nodeType": "ImportDafJson",
-      "x": 1591.3000000000043,
-      "y": 816.4262426035518,
+      "x": 1596.3000000000043,
+      "y": 662.4262426035518,
       "width": 213,
       "height": 92,
       "executionMode": "Enabled",
@@ -834,8 +834,8 @@
       "name": "Import DAF JSON",
       "category": "Module",
       "nodeType": "ImportDafJson",
-      "x": 699.0000000000007,
-      "y": 1853.7862426035517,
+      "x": 737.0000000000007,
+      "y": 1902.7862426035517,
       "width": 190,
       "height": 92,
       "executionMode": "Enabled",
@@ -892,8 +892,8 @@
       "name": "Display 2",
       "category": "Module",
       "nodeType": "Display",
-      "x": 706.9999999999993,
-      "y": 1276.7862426035495,
+      "x": 708.9999999999993,
+      "y": 1174.7862426035495,
       "width": 248,
       "height": 92,
       "executionMode": "Enabled",
@@ -1045,7 +1045,7 @@
       "y": 365.54624260355206,
       "width": 190,
       "height": 92,
-      "executionMode": "Disabled",
+      "executionMode": "Enabled",
       "settings": {
         "BiTemporalFields": "id_lokalid, registreringfra, virkningfra",
         "ContainedFileFormat": "json",
@@ -1100,8 +1100,8 @@
       "name": "Dataset Monitor Delta",
       "category": "Module",
       "nodeType": "DatasetMonitor",
-      "x": 284.0000000000006,
-      "y": 1490.7862426035495,
+      "x": 294.0000000000006,
+      "y": 1485.7862426035495,
       "width": 200,
       "height": 102,
       "executionMode": "Enabled",
@@ -1210,8 +1210,8 @@
       "name": "Append Monitor Error",
       "category": "Module",
       "nodeType": "AssignVariable",
-      "x": 466,
-      "y": 1339.7862426035495,
+      "x": 505,
+      "y": 1460.7862426035495,
       "width": 200,
       "height": 102,
       "executionMode": "Enabled",
@@ -1328,8 +1328,8 @@
       "name": "Assign Variable Tot1",
       "category": "Module",
       "nodeType": "AssignVariable",
-      "x": 1945.2600238848836,
-      "y": 262,
+      "x": 2200.2600238848836,
+      "y": 84,
       "width": 200,
       "height": 102,
       "executionMode": "Enabled",
@@ -1337,7 +1337,11 @@
         "FamousLastWords": "TOTAL",
         "ExitCode": "1"
       },
-      "portPlacements": {},
+      "portPlacements": {
+        "I:In": "Top",
+        "O:Out": "Bottom",
+        "O:Fail": "Left"
+      },
       "flippedPortSides": []
     },
     {
@@ -1617,6 +1621,92 @@
       "flippedPortSides": [
         "Right"
       ]
+    },
+    {
+      "id": "9ec1a315-c1dc-4f83-b1de-957e708bc02e",
+      "name": "Start CVR",
+      "category": "Module",
+      "nodeType": "Start",
+      "x": 29,
+      "y": 731,
+      "width": 190,
+      "height": 92,
+      "executionMode": "Disabled",
+      "settings": {
+        "BiTemporalFields": "id_lokalid\r\nregistreringfra\r\nvirkningfra",
+        "ContainedFileFormat": "json",
+        "DafDbSchema": "DAF_CVR",
+        "DataVersion": "2",
+        "ExitCode": "0",
+        "FamousLastWords": "none",
+        "Laundry_RemoveDuplicates": "",
+        "MonitorErrorLen": "0",
+        "Register": "CVR"
+      },
+      "portPlacements": {},
+      "flippedPortSides": []
+    },
+    {
+      "id": "ddaf7f17-11bf-49a0-8605-6e782997fc81",
+      "name": "Update Metadata",
+      "category": "Module",
+      "nodeType": "UpdateMetadata",
+      "x": 1298,
+      "y": 654,
+      "width": 200,
+      "height": 102,
+      "executionMode": "Enabled",
+      "settings": {
+        "ClearExisting": "No",
+        "ConnectionString": "\u00A4[DafDataDB]\u00A4",
+        "DBMS": "Postgres",
+        "RegisterName": "\u00A4{Register}\u00A4",
+        "RegisterType": "DAF",
+        "SchemaName": "\u00A4{DafDbSchema,L}\u00A4",
+        "TableName": "\u00A4{entityname,L}\u00A4"
+      },
+      "portPlacements": {
+        "O:Out": "Top",
+        "I:In": "Bottom"
+      },
+      "flippedPortSides": []
+    },
+    {
+      "id": "bd6a964d-f5c2-486d-92f6-3e7b5634e33b",
+      "name": "Notify parent Total",
+      "category": "Module",
+      "nodeType": "NotifyParent",
+      "x": 1850,
+      "y": 60,
+      "width": 200,
+      "height": 102,
+      "executionMode": "Enabled",
+      "settings": {
+        "Text": "Total: \u00A4{entityname}\u00A4"
+      },
+      "portPlacements": {
+        "O:Out": "Bottom"
+      },
+      "flippedPortSides": []
+    },
+    {
+      "id": "d7db03c6-28b1-4445-90f3-f88bba2a0632",
+      "name": "Notify parent Delta",
+      "category": "Module",
+      "nodeType": "NotifyParent",
+      "x": 775,
+      "y": 1306,
+      "width": 200,
+      "height": 102,
+      "executionMode": "Enabled",
+      "settings": {
+        "Text": "Delta: \u00A4{entityname}\u00A4"
+      },
+      "portPlacements": {
+        "I:In": "Top",
+        "O:Out": "Bottom"
+      },
+      "flippedPortSides": []
     }
   ],
   "connections": [
@@ -2168,18 +2258,6 @@
       "waypoints": []
     },
     {
-      "id": "808aa46f-d68c-409d-bf96-9fa504b10fb8",
-      "fromNodeId": "53ae3a0c-d667-40ca-a991-5d18dc78e4f3",
-      "fromPort": "Out",
-      "fromControlDx": null,
-      "fromControlDy": null,
-      "toNodeId": "4c5bea1a-3d55-4e9b-ab0b-3b3e5d959241",
-      "toPort": "In",
-      "toControlDx": null,
-      "toControlDy": null,
-      "waypoints": []
-    },
-    {
       "id": "f924dd74-a288-4d81-af68-a2b53162bbc4",
       "fromNodeId": "9e2a7b1e-2d17-4cb9-9550-3f6f3dbd7508",
       "fromPort": "Success",
@@ -2445,7 +2523,8 @@
       "toPort": "LoopBack",
       "toControlDx": null,
       "toControlDy": null,
-      "waypoints": []
+      "waypoints": [],
+      "directRoute": true
     },
     {
       "id": "90135074-9850-4b84-9d5f-d109b73f810b",
@@ -2634,18 +2713,6 @@
       "fromControlDx": null,
       "fromControlDy": null,
       "toNodeId": "818c44eb-cd6a-41ea-bc0c-8623754badcb",
-      "toPort": "In",
-      "toControlDx": null,
-      "toControlDy": null,
-      "waypoints": []
-    },
-    {
-      "id": "dab850ee-727b-4d48-8c6e-903c7be693a0",
-      "fromNodeId": "8546a445-75b3-4ff3-b5fe-3312eacb0fb3",
-      "fromPort": "Out",
-      "fromControlDx": null,
-      "fromControlDy": null,
-      "toNodeId": "54329973-d83f-4565-88c1-0925574efa89",
       "toPort": "In",
       "toControlDx": null,
       "toControlDy": null,
@@ -2917,18 +2984,6 @@
       "waypoints": []
     },
     {
-      "id": "89fd9bec-8f6b-4106-8ad2-21c0ea53c9a0",
-      "fromNodeId": "1f5b1267-cee8-4fc4-aaa8-284c9de5c5e3",
-      "fromPort": "Out",
-      "fromControlDx": null,
-      "fromControlDy": null,
-      "toNodeId": "ca1b8b19-b5e0-4de9-90b3-724b30a78168",
-      "toPort": "In",
-      "toControlDx": null,
-      "toControlDy": null,
-      "waypoints": []
-    },
-    {
       "id": "da0bcd3c-2100-4069-afe3-91b1f446a57d",
       "fromNodeId": "ca1b8b19-b5e0-4de9-90b3-724b30a78168",
       "fromPort": "Out",
@@ -3091,6 +3146,115 @@
       "fromControlDx": null,
       "fromControlDy": null,
       "toNodeId": "3ad43875-72dc-4c16-9287-756f5d32fc5d",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "b3bbf3ab-958d-4ab9-9299-552f014a7bcd",
+      "fromNodeId": "9ec1a315-c1dc-4f83-b1de-957e708bc02e",
+      "fromPort": "Out",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "987b22e6-9f5f-443b-99b2-77544c9209f0",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": [],
+      "directRoute": true
+    },
+    {
+      "id": "66b11e83-0509-4399-831e-56af2a130289",
+      "fromNodeId": "1f5b1267-cee8-4fc4-aaa8-284c9de5c5e3",
+      "fromPort": "Out",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "ddaf7f17-11bf-49a0-8605-6e782997fc81",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "1c6c8953-b4c5-4a4d-9b91-b9174f3d9bcf",
+      "fromNodeId": "ddaf7f17-11bf-49a0-8605-6e782997fc81",
+      "fromPort": "Out",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "ca1b8b19-b5e0-4de9-90b3-724b30a78168",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "df30d630-0617-48be-ae2a-efa4f8991c76",
+      "fromNodeId": "ddaf7f17-11bf-49a0-8605-6e782997fc81",
+      "fromPort": "Fail",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "3ad43875-72dc-4c16-9287-756f5d32fc5d",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "022e400c-46d9-427e-976f-6d831cc7a0df",
+      "fromNodeId": "3609d14b-8b72-4ead-9e56-b65c3ab778d5",
+      "fromPort": "Fail",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "3ad43875-72dc-4c16-9287-756f5d32fc5d",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "ed3540e1-3bd1-451d-8d6d-7c8e6bf12ead",
+      "fromNodeId": "8546a445-75b3-4ff3-b5fe-3312eacb0fb3",
+      "fromPort": "Out",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "bd6a964d-f5c2-486d-92f6-3e7b5634e33b",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "4bd9a1ba-890a-43fd-a5c4-563ec2065b03",
+      "fromNodeId": "bd6a964d-f5c2-486d-92f6-3e7b5634e33b",
+      "fromPort": "Out",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "54329973-d83f-4565-88c1-0925574efa89",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "e166126f-bc7c-4c0e-b008-dbde559e349e",
+      "fromNodeId": "53ae3a0c-d667-40ca-a991-5d18dc78e4f3",
+      "fromPort": "Out",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "d7db03c6-28b1-4445-90f3-f88bba2a0632",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "97d34912-300c-4628-bcd9-7873ba6d8b97",
+      "fromNodeId": "d7db03c6-28b1-4445-90f3-f88bba2a0632",
+      "fromPort": "Out",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "4c5bea1a-3d55-4e9b-ab0b-3b3e5d959241",
       "toPort": "In",
       "toControlDx": null,
       "toControlDy": null,
