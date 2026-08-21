@@ -13,7 +13,7 @@
       "category": "Module",
       "nodeType": "Start",
       "x": 44,
-      "y": 57,
+      "y": 56,
       "width": 190,
       "height": 92,
       "executionMode": "Enabled",
@@ -35,7 +35,10 @@
       "width": 190,
       "height": 92,
       "executionMode": "Enabled",
-      "settings": {},
+      "settings": {
+        "ExitCode": "0",
+        "ExitMessage": ""
+      },
       "portPlacements": {},
       "flippedPortSides": []
     },
@@ -83,8 +86,8 @@
       "name": "WFS Download",
       "category": "Module",
       "nodeType": "WfsDownload",
-      "x": 202,
-      "y": 769,
+      "x": 365,
+      "y": 820,
       "width": 190,
       "height": 92,
       "executionMode": "Enabled",
@@ -111,8 +114,8 @@
       },
       "portPlacements": {
         "I:In": "Right",
-        "O:Out": "Top",
-        "O:Fail": "Left"
+        "O:Out": "Left",
+        "O:Fail": "Top"
       },
       "flippedPortSides": []
     },
@@ -140,8 +143,8 @@
       "name": "Stream Edit",
       "category": "Module",
       "nodeType": "StreamEdit",
-      "x": 783,
-      "y": 761,
+      "x": 838,
+      "y": 790,
       "width": 190,
       "height": 92,
       "executionMode": "Enabled",
@@ -220,8 +223,8 @@
       "name": "OGR2OGR (external)",
       "category": "Module",
       "nodeType": "OGR2OGRExternal",
-      "x": 92,
-      "y": 559,
+      "x": 100,
+      "y": 825,
       "width": 190,
       "height": 92,
       "executionMode": "Enabled",
@@ -240,14 +243,18 @@
         "SourceSrs": "",
         "Sql": "",
         "TargetSrs": "",
-        "Where": ""
+        "Where": "",
+        "XsdFile": "",
+        "XsdTableName": ""
       },
       "portPlacements": {
-        "I:In": "Bottom",
-        "O:Fail": "Left"
+        "I:In": "Right",
+        "O:Fail": "Top",
+        "O:Success": "Top"
       },
       "flippedPortSides": [
-        "Right"
+        "Right",
+        "Top"
       ]
     },
     {
@@ -255,8 +262,8 @@
       "name": "IF_Then_Else",
       "category": "Module",
       "nodeType": "IF_Then_Else",
-      "x": 539,
-      "y": 742,
+      "x": 583,
+      "y": 805,
       "width": 190,
       "height": 92,
       "executionMode": "Enabled",
@@ -317,8 +324,8 @@
       "name": "ILogger WFS",
       "category": "Module",
       "nodeType": "ILogger",
-      "x": 70,
-      "y": 376,
+      "x": 75,
+      "y": 257,
       "width": 190,
       "height": 92,
       "executionMode": "Enabled",
@@ -357,8 +364,8 @@
       "name": "Delete File",
       "category": "Module",
       "nodeType": "DeleteFile",
-      "x": 553,
-      "y": 400,
+      "x": 556,
+      "y": 384,
       "width": 200,
       "height": 102,
       "executionMode": "Nop",
@@ -390,17 +397,21 @@
       "name": "Dataset Monitor 2",
       "category": "Module",
       "nodeType": "DatasetMonitor",
-      "x": 329,
-      "y": 505,
+      "x": 308,
+      "y": 432,
       "width": 200,
       "height": 102,
       "executionMode": "Enabled",
       "settings": {
-        "ComparisonMode": "Total",
+        "CommandTimeout": "0",
+        "ComparisonMode": "Ignore",
         "ConnectionString": "\u00A4[GrunddataDB]\u00A4",
         "DBMS": "Postgres",
+        "MaxGrowthPercent": "25",
         "MaximumAgeMinutes": "1440",
+        "MaximumRefreshIntervalMinutes": "1500",
         "MaxStandardDeviations": "3",
+        "MinGrowthRows": "1000",
         "MinimumRowCount": "0",
         "MinSamples": "5",
         "OnAnomaly": "Fail",
@@ -408,14 +419,11 @@
         "Schema": "\u00A4{Schema}\u00A4",
         "Table": "\u00A4{Edited}\u00A4",
         "TimestampColumn": "",
-        "WindowSize": "20",
-        "CommandTimeout": "0",
-        "MaxGrowthPercent": "25",
-        "MinGrowthRows": "1000",
-        "MaximumRefreshIntervalMinutes": "1500"
+        "WindowSize": "20"
       },
       "portPlacements": {
-        "O:Fail": "Top"
+        "O:Fail": "Top",
+        "I:In": "Bottom"
       },
       "flippedPortSides": []
     },
@@ -435,6 +443,32 @@
       "portPlacements": {
         "I:In": "Top",
         "O:Out": "Bottom"
+      },
+      "flippedPortSides": []
+    },
+    {
+      "id": "351fe941-a76d-40eb-b476-076f9fbf2eda",
+      "name": "Update Metadata",
+      "category": "Module",
+      "nodeType": "UpdateMetadata",
+      "x": 227,
+      "y": 593,
+      "width": 200,
+      "height": 102,
+      "executionMode": "Enabled",
+      "settings": {
+        "ClearExisting": "No",
+        "ConnectionString": "\u00A4[GrunddataDB]\u00A4",
+        "DBMS": "Postgres",
+        "RegisterName": "GD_\u00A4{Schema}\u00A4",
+        "RegisterType": "WFS",
+        "SchemaName": "\u00A4{Schema}\u00A4",
+        "TableName": "\u00A4{Edited}\u00A4"
+      },
+      "portPlacements": {
+        "I:In": "Bottom",
+        "O:Out": "Top",
+        "O:Fail": "Left"
       },
       "flippedPortSides": []
     }
@@ -722,18 +756,6 @@
       "waypoints": []
     },
     {
-      "id": "7ecfbe92-e745-42a7-bd55-c62570750e37",
-      "fromNodeId": "99e81463-54c1-4a21-bbdc-8305134dbdef",
-      "fromPort": "Success",
-      "fromControlDx": null,
-      "fromControlDy": null,
-      "toNodeId": "c7d29adb-f3a0-4b06-92ca-c14dcf086583",
-      "toPort": "In",
-      "toControlDx": null,
-      "toControlDy": null,
-      "waypoints": []
-    },
-    {
       "id": "d816c5d1-fa80-4f13-89af-539653ba394a",
       "fromNodeId": "c7d29adb-f3a0-4b06-92ca-c14dcf086583",
       "fromPort": "Out",
@@ -776,6 +798,42 @@
       "fromControlDx": null,
       "fromControlDy": null,
       "toNodeId": "126334ee-fc8d-4fe0-b8b9-9d4d3ceacefa",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "df3c233f-ae7e-4994-bd79-ee713207eb4d",
+      "fromNodeId": "99e81463-54c1-4a21-bbdc-8305134dbdef",
+      "fromPort": "Success",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "351fe941-a76d-40eb-b476-076f9fbf2eda",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "0bc070e2-643f-442f-a65f-6d2d3e592c0d",
+      "fromNodeId": "351fe941-a76d-40eb-b476-076f9fbf2eda",
+      "fromPort": "Out",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "c7d29adb-f3a0-4b06-92ca-c14dcf086583",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "96b3f0e4-c4f8-484a-9cc9-05f8f0ac43f4",
+      "fromNodeId": "351fe941-a76d-40eb-b476-076f9fbf2eda",
+      "fromPort": "Fail",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "fb85da72-2d73-4224-b354-41e057a2f7f5",
       "toPort": "In",
       "toControlDx": null,
       "toControlDy": null,
