@@ -1,0 +1,154 @@
+{
+  "schemaVersion": 1,
+  "flowId": "a4b99df6-acb0-4673-ab96-b8ae1dae17b6",
+  "name": "OAuth Test",
+  "description": "",
+  "globalValues": {
+    "OAuthClient": "97cca238-d3d1-4137-bdf6-1b3a4e768a50",
+    "OAuthSecret": "BlxDBsm4DXL3GL6hfQXzqrmiJTgFR4LS"
+  },
+  "nodes": [
+    {
+      "id": "44423f66-f7c5-4a08-8f30-2969f9377f35",
+      "name": "Start",
+      "category": "Module",
+      "nodeType": "Start",
+      "x": 120,
+      "y": 120,
+      "width": 200,
+      "height": 102,
+      "executionMode": "Enabled",
+      "settings": {},
+      "portPlacements": {},
+      "flippedPortSides": []
+    },
+    {
+      "id": "63dd07b7-a9d3-4ca9-9d6d-db8ce02a13e8",
+      "name": "Exit",
+      "category": "Module",
+      "nodeType": "Exit",
+      "x": 969,
+      "y": 364,
+      "width": 200,
+      "height": 102,
+      "executionMode": "Enabled",
+      "settings": {
+        "ExitCode": "0",
+        "ExitMessage": ""
+      },
+      "portPlacements": {},
+      "flippedPortSides": []
+    },
+    {
+      "id": "c34570d8-c06f-42d7-af7e-4233c6e8e56b",
+      "name": "HTTPS Download",
+      "category": "Module",
+      "nodeType": "HttpsDownload",
+      "x": 457,
+      "y": 138,
+      "width": 200,
+      "height": 102,
+      "executionMode": "Enabled",
+      "settings": {
+        "ContinueOnError": "Nej",
+        "Destination": "d:\\test.tst",
+        "OAuthCertificatePassword": "",
+        "OAuthCertificatePath": "",
+        "OAuthClientId": "\u00A4[OAuthClient]\u00A4",
+        "OAuthClientSecret": "\u00A4[OAuthSecret]\u00A4",
+        "OAuthMode": "SharedSecret",
+        "OAuthTokenUrl": "https://auth-oces.datafordeler.dk/realms/distribution/protocol/openid-connect/token",
+        "Password": "",
+        "SkipIfFileExists": "No",
+        "Url": "https://api.datafordeler.dk/FileDownloads/GetAvailableFileDownloads?Register=EJF",
+        "User": ""
+      },
+      "portPlacements": {},
+      "flippedPortSides": []
+    },
+    {
+      "id": "6e8bf30b-c55c-47cf-a08c-d7698810fb56",
+      "name": "ILogger",
+      "category": "Module",
+      "nodeType": "ILogger",
+      "x": 715,
+      "y": 449,
+      "width": 200,
+      "height": 102,
+      "executionMode": "Enabled",
+      "settings": {
+        "ErrorFile": "",
+        "Registry": "False",
+        "LogTable": ""
+      },
+      "portPlacements": {},
+      "flippedPortSides": []
+    },
+    {
+      "id": "24d74bf8-d1df-4158-bacd-d00513000ae5",
+      "name": "Area to WKT",
+      "category": "Module",
+      "nodeType": "AreaToWKT",
+      "x": 278,
+      "y": 497,
+      "width": 200,
+      "height": 102,
+      "executionMode": "Enabled",
+      "settings": {
+        "Area": ""
+      },
+      "portPlacements": {},
+      "flippedPortSides": []
+    }
+  ],
+  "connections": [
+    {
+      "id": "dde23185-e2e0-486a-a5f5-474a3fd394fc",
+      "fromNodeId": "44423f66-f7c5-4a08-8f30-2969f9377f35",
+      "fromPort": "Out",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "c34570d8-c06f-42d7-af7e-4233c6e8e56b",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "039a860b-4b48-4a91-ac40-9dd80f771b13",
+      "fromNodeId": "c34570d8-c06f-42d7-af7e-4233c6e8e56b",
+      "fromPort": "Out",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "63dd07b7-a9d3-4ca9-9d6d-db8ce02a13e8",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "fd12127a-f31d-4ebc-96bb-a8cff18516a2",
+      "fromNodeId": "c34570d8-c06f-42d7-af7e-4233c6e8e56b",
+      "fromPort": "Fail",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "6e8bf30b-c55c-47cf-a08c-d7698810fb56",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "8597b376-11c2-490e-bdeb-75b646b63e36",
+      "fromNodeId": "6e8bf30b-c55c-47cf-a08c-d7698810fb56",
+      "fromPort": "Out",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "63dd07b7-a9d3-4ca9-9d6d-db8ce02a13e8",
+      "toPort": "Fail",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    }
+  ]
+}
