@@ -269,7 +269,8 @@
       "executionMode": "Enabled",
       "settings": {
         "ErrorFile": "\u00A4[WorkingFolder]\u00A4\\Diagnose\\Errors.txt",
-        "Registry": "False"
+        "Registry": "False",
+        "LogTable": ""
       },
       "portPlacements": {},
       "flippedPortSides": []
