@@ -10,8 +10,8 @@
       "name": "Start",
       "category": "Module",
       "nodeType": "Start",
-      "x": 123,
-      "y": 70,
+      "x": 150.8,
+      "y": 70.44000000000001,
       "width": 200,
       "height": 102,
       "executionMode": "Enabled",
@@ -28,8 +28,8 @@
       "name": "Exit",
       "category": "Module",
       "nodeType": "Exit",
-      "x": 708.6529013883925,
-      "y": 430.790316838731,
+      "x": 1091.3,
+      "y": 252.60000000000002,
       "width": 200,
       "height": 102,
       "executionMode": "Enabled",
@@ -50,15 +50,18 @@
       "name": "Init",
       "category": "Module",
       "nodeType": "ExecuteSQL",
-      "x": 116,
-      "y": 210,
+      "x": 150.8,
+      "y": 222.24,
       "width": 200,
       "height": 102,
-      "executionMode": "Nop",
+      "executionMode": "Enabled",
       "settings": {
+        "CommandTimeout": "0",
         "ConnectionString": "\u00A4[DafDataDB]\u00A4",
         "DBMS": "Postgres",
+        "ExecuteEachLine": "False",
         "FilePath": "",
+        "InTransaction": "False",
         "MaxRows": "0",
         "QueryType": "NonQuery",
         "ResultVariable": "",
@@ -77,17 +80,18 @@
       "name": "ILogger",
       "category": "Module",
       "nodeType": "ILogger",
-      "x": 564.4699181203251,
-      "y": 130.0049839800641,
+      "x": 527,
+      "y": 40.08000000000001,
       "width": 200,
       "height": 102,
       "executionMode": "Enabled",
       "settings": {
-        "ErrorFile": "\u00A4[WorkingFolder]\u00A4\\Diagnose\\errors_\u00A4[SYS_FLOWID]\u00A4.txt",
+        "ErrorFile": "",
+        "LogTable": "workflow.ILogger",
         "Registry": "False"
       },
       "portPlacements": {
-        "O:Out": "Bottom"
+        "I:In": "Bottom"
       },
       "flippedPortSides": []
     },
@@ -96,19 +100,22 @@
       "name": "TMP Vejsegment",
       "category": "Module",
       "nodeType": "ExecuteSQL",
-      "x": 118,
-      "y": 342,
+      "x": 150.8,
+      "y": 374.04,
       "width": 200,
       "height": 102,
       "executionMode": "Enabled",
       "settings": {
+        "CommandTimeout": "0",
         "ConnectionString": "\u00A4[DafDataDB]\u00A4",
         "DBMS": "Postgres",
+        "ExecuteEachLine": "False",
         "FilePath": "",
+        "InTransaction": "False",
         "MaxRows": "0",
         "QueryType": "NonQuery",
         "ResultVariable": "",
-        "SQL": "CREATE TABLE tmp.vejsegment AS\r\n    SELECT \r\n\t    t.fid, t.id_namespace, t.id_lokalid, t.status, t.geometristatus, t.registreringsspecifikation, t.dataansvar, t.forretningshaendelse, \r\n\t    t.forretningsomraade, t.registreringsaktoer, t.registreringfra, t.registreringtil, t.virkningsaktoer, t.virkningfra, t.virkningtil, t.plannoejagtighed, t.planstedfaestelsesmetode, \r\n\t    t.vertikalnoejagtighed, t.vertikalstedfaestelsesmetode, t.applikation, t.vejmidtetype, t.vejmyndighed, t.cvfadmnr, t.kommunekode, t.vejkode, t.vejkategori, t.trafikart, t.overflade, \r\n\t    t.tilogfrakoersel, t.rundkoersel, t.kommentar, t.forretningsproces, t.tempid, t.niveau,\r\n        dmp.geom AS linesegment\r\n    FROM\r\n        daf_gdk.vejmidte t,\r\n        LATERAL ST_Dump(t.geometri) AS dmp\r\n    where\r\n        lower (t.vejmidtetype)=\u0027vej\u0027\r\n        and t.geometri IS NOT null\r\n        and t.registreringtil is null \r\n        and t.virkningtil     is null;\r\n\r\n CREATE INDEX vejsegment_geometri_idx ON tmp.vejsegment using gist (linesegment);"
+        "SQL": "DROP TABLE IF EXISTS tmp.vejsegment;\r\nCREATE UNLOGGED TABLE tmp.vejsegment AS\r\n    SELECT \r\n     t.fid, t.id_namespace, t.id_lokalid, t.status, t.geometristatus, t.registreringsspecifikation, t.dataansvar, t.forretningshaendelse, \r\n     t.forretningsomraade, t.registreringsaktoer, t.registreringfra, t.registreringtil, t.virkningsaktoer, t.virkningfra, t.virkningtil, t.plannoejagtighed, t.planstedfaestelsesmetode, \r\n     t.vertikalnoejagtighed, t.vertikalstedfaestelsesmetode, t.applikation, t.vejmidtetype, t.vejmyndighed, t.cvfadmnr, t.kommunekode, t.vejkode, t.vejkategori, t.trafikart, t.overflade, \r\n     t.tilogfrakoersel, t.rundkoersel, t.kommentar, t.forretningsproces, t.tempid, t.niveau, dmp.geom AS linesegment\r\n    FROM\r\n        daf_gdk.vejmidte t,\r\n        LATERAL ST_Dump(t.geometri) AS dmp\r\n    where\r\n        lower (t.vejmidtetype)=\u0027vej\u0027\r\n        and t.geometri IS NOT null\r\n        and t.registreringtil is null \r\n        and t.virkningtil     is null;\r\n\r\n CREATE INDEX vejsegment_geometri_idx ON tmp.vejsegment using gist (linesegment);\r\n"
       },
       "portPlacements": {
         "I:In": "Top",
@@ -123,19 +130,22 @@
       "name": "TMP Adresse \u0026 Husnummer",
       "category": "Module",
       "nodeType": "ExecuteSQL",
-      "x": 106,
-      "y": 651,
+      "x": 126.30000000000001,
+      "y": 682.6400000000001,
       "width": 249,
       "height": 92,
       "executionMode": "Enabled",
       "settings": {
+        "CommandTimeout": "0",
         "ConnectionString": "\u00A4[DafDataDB]\u00A4",
         "DBMS": "Postgres",
+        "ExecuteEachLine": "False",
         "FilePath": "",
+        "InTransaction": "False",
         "MaxRows": "0",
         "QueryType": "NonQuery",
         "ResultVariable": "",
-        "SQL": "drop table if exists tmp.adressepunkt_new; \r\nCREATE UNLOGGED TABLE tmp.adressepunkt_new as SELECT *, ST_GeomFromText(position, 25832)::geometry(Point, 25832) AS position_geom FROM daf_dar.adressepunkt where registreringtil is null and virkningtil is null;\r\n\r\ndrop table if exists tmp.husnummer_new; \r\nCREATE UNLOGGED TABLE tmp.husnummer_new as SELECT *, ST_GeomFromText(husnummerretning, 25832)::geometry(Point, 25832) AS husnummerretning_geom FROM daf_dar.husnummer;\r\n\r\n    CREATE INDEX husnummer_new_aktive_idx ON tmp.husnummer_new (navngivenvej, postnummer, adgangspunkt, supplerendebynavn) WHERE registreringtil IS NULL AND virkningtil IS NULL;\r\n\r\n    CREATE INDEX husnummer_new_id_lokalid_aktive_idx\r\n    ON tmp.husnummer_new (id_lokalid)\r\n    WHERE registreringtil IS NULL\r\n      AND virkningtil IS NULL;\r\n\r\n    CREATE INDEX adressepunkt_new_id_lokalid_aktive_idx\r\n    ON tmp.adressepunkt_new (id_lokalid)\r\n    WHERE registreringtil IS NULL\r\n      AND virkningtil IS NULL;\r\n\r\n    CREATE INDEX navngivenvej_id_lokalid_aktive_idx\r\n    ON daf_dar.navngivenvej (id_lokalid)\r\n    WHERE registreringtil IS NULL\r\n      AND virkningtil IS NULL;\r\n\r\n    CREATE INDEX postnummer_id_lokalid_aktive_idx\r\n    ON daf_dar.postnummer (id_lokalid)\r\n    WHERE registreringtil IS NULL\r\n      AND virkningtil IS NULL;\r\n\r\n    CREATE INDEX supplerendebynavn_id_lokalid_aktive_idx\r\n    ON daf_dar.supplerendebynavn (id_lokalid)\r\n    WHERE registreringtil IS NULL\r\n      AND virkningtil IS NULL;\r\n\r\nvacuum analyze tmp.husnummer_new;\r\nvacuum analyze tmp.adressepunkt_new;\r\nvacuum analyze dar.navngivenvej;\r\nvacuum analyze dar.supplerendebynavn;\r\nvacuum analyze dar.postnummer;\r\n"
+        "SQL": "drop table if exists tmp.adressepunkt_new; \r\nCREATE UNLOGGED TABLE tmp.adressepunkt_new as SELECT *, ST_GeomFromText(position, 25832)::geometry(Point, 25832) AS position_geom FROM daf_dar.adressepunkt where registreringtil is null and virkningtil is null;\r\n\r\ndrop table if exists tmp.husnummer_new; \r\nCREATE UNLOGGED TABLE tmp.husnummer_new as SELECT *, ST_GeomFromText(husnummerretning, 25832)::geometry(Point, 25832) AS husnummerretning_geom FROM daf_dar.husnummer;\r\n\r\nCREATE INDEX husnummer_new_aktive_idx ON tmp.husnummer_new (navngivenvej, postnummer, adgangspunkt, supplerendebynavn) WHERE registreringtil IS NULL AND virkningtil IS NULL;\r\n\r\nCREATE INDEX husnummer_new_id_lokalid_aktive_idx\r\nON tmp.husnummer_new (id_lokalid)\r\nWHERE registreringtil IS NULL\r\n  AND virkningtil IS NULL;\r\n\r\nCREATE INDEX adressepunkt_new_id_lokalid_aktive_idx\r\nON tmp.adressepunkt_new (id_lokalid)\r\nWHERE registreringtil IS NULL\r\n  AND virkningtil IS NULL;\r\n\r\nCREATE INDEX if not exists navngivenvej_id_lokalid_aktive_idx\r\nON daf_dar.navngivenvej (id_lokalid)\r\nWHERE registreringtil IS NULL\r\n  AND virkningtil IS NULL;\r\n\r\nCREATE INDEX if not exists postnummer_id_lokalid_aktive_idx\r\nON daf_dar.postnummer (id_lokalid)\r\nWHERE registreringtil IS NULL\r\n  AND virkningtil IS NULL;\r\n\r\nCREATE INDEX if not exists supplerendebynavn_id_lokalid_aktive_idx\r\nON daf_dar.supplerendebynavn (id_lokalid)\r\nWHERE registreringtil IS NULL\r\n  AND virkningtil IS NULL;\r\n"
       },
       "portPlacements": {
         "I:In": "Top",
@@ -150,24 +160,24 @@
       "name": "Update POST",
       "category": "Module",
       "nodeType": "ExecuteSQL",
-      "x": 123,
-      "y": 2111,
+      "x": 589.7,
+      "y": 1952.7600000000002,
       "width": 200,
       "height": 102,
       "executionMode": "Enabled",
       "settings": {
+        "CommandTimeout": "0",
         "ConnectionString": "\u00A4[DafDataDB]\u00A4",
         "DBMS": "Postgres",
+        "ExecuteEachLine": "False",
         "FilePath": "",
+        "InTransaction": "False",
         "MaxRows": "0",
         "QueryType": "NonQuery",
         "ResultVariable": "",
         "SQL": "UPDATE vat3.v3_postdistrikt p\r\nset XKoor = round(ST_X(m.center) ::numeric, 3),\r\nYKoor = round(ST_Y(m.center) ::numeric, 3)\r\nFROM(\r\n    select id,\r\n    (ST_MaximumInscribedCircle(geometri)).center AS center\r\n    FROM vat3.v3_postdistrikt) m\r\n    WHERE p.id = m.id;\r\n    delete from vat3.v3_postdistrikt\r\n    where ST_GeometryType(geometri) in(\u0027ST_MultiLineString\u0027, \u0027ST_LineString\u0027, \u0027ST_MultiPoint\u0027, \u0027ST_Point\u0027);\r\n\r\nupdate vat3.v3_postdistrikt   set geometri = ST_Multi(ST_CollectionExtract(geometri, 3))    where ST_GeometryType(geometri) = \u0027ST_GeometryCollection\u0027;\r\nupdate vat3.v3_postdistrikt    set geometri = ST_Multi(ST_Buffer(ST_Buffer(geometri, 0.1), - 0.1));\r\nupdate vat3.v3_postdistrikt    set geometri = ST_Multi(ST_Buffer(ST_Buffer(geometri, - 0.05), 0.05));\r\nupdate vat3.v3_postdistrikt    set geometri = ST_Normalize(geometri);\r\nupdate vat3.v3_postdistrikt    set geometri = ST_Simplify(geometri, 0.05);\r\nupdate vat3.v3_postdistrikt    set geometri = ST_Multi(geometri);"
       },
-      "portPlacements": {
-        "I:In": "Top",
-        "O:Success": "Bottom"
-      },
+      "portPlacements": {},
       "flippedPortSides": [
         "Right"
       ]
@@ -177,19 +187,22 @@
       "name": "V3 Adresse ",
       "category": "Module",
       "nodeType": "ExecuteSQL",
-      "x": 111,
-      "y": 1178,
+      "x": 126.30000000000001,
+      "y": 986.24,
       "width": 249,
       "height": 92,
       "executionMode": "Enabled",
       "settings": {
+        "CommandTimeout": "0",
         "ConnectionString": "\u00A4[DafDataDB]\u00A4",
         "DBMS": "Postgres",
+        "ExecuteEachLine": "False",
         "FilePath": "",
+        "InTransaction": "False",
         "MaxRows": "0",
         "QueryType": "NonQuery",
         "ResultVariable": "",
-        "SQL": "drop table if exists vat3.v3_adresse;\r\nselect  \r\n    hn.id_lokalid as husnr_lokalid\r\n    , hn.adgangsadressebetegnelse\r\n    , nv.vejnavn \r\n    , substring (hn.vejmidte || \u0027\u0027000000000\u0027\u0027, 1, 4)::int4 as kommune\r\n    , substring (hn.vejmidte || \u0027\u0027000000000\u0027\u0027, 6, 4)::int4 as vejkode\r\n    , hn.husnummertekst  \r\n    , pn.postnr \r\n    , pn.navn as postdistrikt\r\n    , sbn.navn as supplerendebynavn\r\n    , 5::int2 as placering\r\n    , hn.jordstykke as jordstykke_lokalid\r\n    , js.ejerlavlokalid\r\n    , js.matrikelnummer\r\n\t, ap.oprindelse_kilde\r\n\t, ap.\u0022oprindelse_n\u00F8jagtighedsklasse\u0022 as oprindelse_noejagtighedsklasse\r\n\t, ap.oprindelse_registrering\r\n\t, ap.oprindelse_tekniskstandard\t    \r\n\t, ap.registreringfra as adr_registreringfra\r\n\t, ap.virkningfra as adr_virkningfra\r\n\t, ap.id_lokalid as adressepunkt\r\n\t, hn.vejpunkt\r\n\t, hn.adgangspunkt \r\n\t, hn.\u0022placeretp\u00E5forel\u00F8bigtjordstykke\u0022 as placeretpaaforeloebigtjordstykke\r\n\t, hn.geodanmarkbygning\r\n\t, hn.adgangtilbygning\r\n\t, hn.\u0022adgangtiltekniskanl\u00E6g\u0022 as adgangtiltekniskanlaeg\r\n\t, hn.vejmidte\r\n\t, hn.\u0022afstemningsomr\u00E5de\u0022 as afstemningsomraade\r\n\t, hn.\u0022menighedsr\u00E5dsafstemningsomr\u00E5de\u0022 as menighedsraadsafstemningsomraade\r\n\t, hn.sogneinddeling\r\n\t, hn.navngivenvej\t\t\r\n    , ap.position_geom as geometri\r\n    , degrees(atan2(ST_Y(husnummerretning_geom), ST_X(husnummerretning_geom))) AS angle_raw\r\n    , fmod ((degrees(atan2(ST_Y(husnummerretning_geom), ST_X(husnummerretning_geom))) \u002B 360.0), 360.0) AS angle_deg\r\n    , 0.0::float8 as angle_gon\r\ninto \r\n    vat3.v3_adresse\r\nfrom \r\n    tmp.adressepunkt_new ap\r\ninner join \r\n    tmp.husnummer_new hn on ap.id_lokalid  = hn.adgangspunkt and hn.registreringtil is null and hn.virkningtil is null\r\nleft outer join \r\n    daf_mat.jordstykke js on hn.jordstykke = js.id_lokalid and js.registreringtil is null and js.virkningtil is null and js.status = \u0027\u0027Gaeldende\u0027\u0027\r\nleft outer join \r\n    daf_dar.navngivenvej nv on nv.id_lokalid = hn.navngivenvej and nv.registreringtil is null and nv.virkningtil is null\r\nleft outer join \r\n    daf_dar.postnummer pn on hn.postnummer = pn.id_lokalid and pn.registreringtil is null and pn.virkningtil is null\r\nleft outer join \r\n    daf_dar.supplerendebynavn sbn on sbn.id_lokalid  = hn.supplerendebynavn  and sbn.registreringtil is null and sbn.virkningtil is null\r\nwhere ap.registreringtil is null and ap.virkningtil is null and ap.oprindelse_tekniskstandard in (\u0027\u0027TA\u0027\u0027,\u0027\u0027TD\u0027\u0027,\u0027\u0027TK\u0027\u0027,\u0027\u0027TN\u0027\u0027,\u0027\u0027UF\u0027\u0027);\r\n\r\nupdate vat3.v3_adresse set angle_gon = 400.0 / 360.0 * angle_deg;  \r\n"
+        "SQL": "drop table if exists vat3.v3_adresse;\r\nselect  \r\n    hn.id_lokalid as husnr_lokalid\r\n    , hn.adgangsadressebetegnelse\r\n    , nv.vejnavn \r\n    , substring (hn.vejmidte || \u0027000000000\u0027, 1, 4)::int4 as kommune\r\n    , substring (hn.vejmidte || \u0027000000000\u0027, 6, 4)::int4 as vejkode\r\n    , hn.husnummertekst  \r\n    , pn.postnr \r\n    , pn.navn as postdistrikt\r\n    , sbn.navn as supplerendebynavn\r\n    , 5::int2 as placering\r\n    , hn.jordstykke as jordstykke_lokalid\r\n    , js.ejerlavlokalid\r\n    , js.matrikelnummer\r\n\t, ap.oprindelse_kilde\r\n\t, ap.oprindelse_noejagtighedsklasse as oprindelse_noejagtighedsklasse\r\n\t, ap.oprindelse_registrering\r\n\t, ap.oprindelse_tekniskstandard\t    \r\n\t, ap.registreringfra as adr_registreringfra\r\n\t, ap.virkningfra as adr_virkningfra\r\n\t, ap.id_lokalid as adressepunkt\r\n\t, hn.vejpunkt\r\n\t, hn.adgangspunkt \r\n\t, hn.placeretpaaforeloebigtjordstykke as placeretpaaforeloebigtjordstykke\r\n\t, hn.geodanmarkbygning\r\n\t, hn.adgangtilbygning\r\n\t, hn.adgangtiltekniskanlaeg as adgangtiltekniskanlaeg\r\n\t, hn.vejmidte\r\n\t, hn.afstemningsomraade as afstemningsomraade\r\n\t, hn.menighedsraadsafstemningsomraade as menighedsraadsafstemningsomraade\r\n\t, hn.sogneinddeling\r\n\t, hn.navngivenvej\t\t\r\n    , ap.position_geom as geometri\r\n    , degrees(atan2(ST_Y(husnummerretning_geom), ST_X(husnummerretning_geom))) AS angle_raw\r\n    , fmod ((degrees(atan2(ST_Y(husnummerretning_geom), ST_X(husnummerretning_geom))) \u002B 360.0), 360.0) AS angle_deg\r\n    , 0.0::float8 as angle_gon\r\ninto \r\n    vat3.v3_adresse\r\nfrom \r\n    tmp.adressepunkt_new ap\r\ninner join \r\n    tmp.husnummer_new hn on ap.id_lokalid  = hn.adgangspunkt and hn.registreringtil is null and hn.virkningtil is null\r\nleft outer join \r\n    daf_mat.jordstykke js on hn.jordstykke = js.id_lokalid and js.registreringtil is null and js.virkningtil is null and js.status = \u0027G\u00E6ldende\u0027\r\nleft outer join \r\n    daf_dar.navngivenvej nv on nv.id_lokalid = hn.navngivenvej and nv.registreringtil is null and nv.virkningtil is null\r\nleft outer join \r\n    daf_dar.postnummer pn on hn.postnummer = pn.id_lokalid and pn.registreringtil is null and pn.virkningtil is null\r\nleft outer join \r\n    daf_dar.supplerendebynavn sbn on sbn.id_lokalid  = hn.supplerendebynavn  and sbn.registreringtil is null and sbn.virkningtil is null\r\nwhere ap.registreringtil is null and ap.virkningtil is null and ap.oprindelse_tekniskstandard in (\u0027TA\u0027,\u0027TD\u0027,\u0027TK\u0027,\u0027TN\u0027,\u0027UF\u0027);\r\n\r\nupdate vat3.v3_adresse set angle_gon = 400.0 / 360.0 * angle_deg;  \r\n"
       },
       "portPlacements": {
         "I:In": "Top",
@@ -204,15 +217,18 @@
       "name": "Analyze Vejsegment",
       "category": "Module",
       "nodeType": "ExecuteSQL",
-      "x": 121,
-      "y": 500,
+      "x": 150.8,
+      "y": 525.84,
       "width": 200,
       "height": 102,
       "executionMode": "Enabled",
       "settings": {
+        "CommandTimeout": "0",
         "ConnectionString": "\u00A4[DafDataDB]\u00A4",
         "DBMS": "Postgres",
+        "ExecuteEachLine": "False",
         "FilePath": "",
+        "InTransaction": "False",
         "MaxRows": "0",
         "QueryType": "NonQuery",
         "ResultVariable": "",
@@ -231,46 +247,22 @@
       "name": "Analyze rest",
       "category": "Module",
       "nodeType": "ExecuteSQL",
-      "x": 140,
-      "y": 1004,
+      "x": 150.8,
+      "y": 829.44,
       "width": 200,
       "height": 102,
       "executionMode": "Enabled",
       "settings": {
+        "CommandTimeout": "0",
         "ConnectionString": "\u00A4[DafDataDB]\u00A4",
         "DBMS": "Postgres",
+        "ExecuteEachLine": "True",
         "FilePath": "",
+        "InTransaction": "False",
         "MaxRows": "0",
         "QueryType": "NonQuery",
         "ResultVariable": "",
-        "SQL": "vacuum analyze dar.husnummer_new;\r\nvacuum analyze dar.adressepunkt_new;\r\nvacuum analyze dar.navngivenvej;\r\nvacuum analyze dar.supplerendebynavn;\r\nvacuum analyze dar.postnummer;"
-      },
-      "portPlacements": {
-        "I:In": "Top",
-        "O:Success": "Bottom"
-      },
-      "flippedPortSides": [
-        "Right"
-      ]
-    },
-    {
-      "id": "9c15d687-03a1-42e9-80b6-df4c78a530b0",
-      "name": "Indexes?",
-      "category": "Module",
-      "nodeType": "ExecuteSQL",
-      "x": 149,
-      "y": 816,
-      "width": 200,
-      "height": 102,
-      "executionMode": "Enabled",
-      "settings": {
-        "ConnectionString": "\u00A4[DafDataDB]\u00A4",
-        "DBMS": "Postgres",
-        "FilePath": "",
-        "MaxRows": "0",
-        "QueryType": "NonQuery",
-        "ResultVariable": "",
-        "SQL": "    CREATE INDEX IF NOT EXISTS husnummer_new_aktive_idx\r\n    ON tmp.husnummer_new (navngivenvej, postnummer, adgangspunkt, supplerendebynavn)\r\n    WHERE registreringtil IS NULL\r\n      AND virkningtil IS NULL;\r\n\r\n    CREATE INDEX IF NOT EXISTS husnummer_new_id_lokalid_aktive_idx\r\n    ON tmp.husnummer_new (id_lokalid)\r\n    WHERE registreringtil IS NULL\r\n      AND virkningtil IS NULL;\r\n\r\n    CREATE INDEX IF NOT EXISTS  adressepunkt_new_id_lokalid_aktive_idx\r\n    ON tmp.adressepunkt_new (id_lokalid)\r\n    WHERE registreringtil IS NULL\r\n      AND virkningtil IS NULL;\r\n\r\n    CREATE INDEX IF NOT EXISTS  navngivenvej_id_lokalid_aktive_idx\r\n    ON daf_dar.navngivenvej (id_lokalid)\r\n    WHERE registreringtil IS NULL\r\n      AND virkningtil IS NULL;\r\n\r\n    CREATE INDEX IF NOT EXISTS  postnummer_id_lokalid_aktive_idx\r\n    ON daf_dar.postnummer (id_lokalid)\r\n    WHERE registreringtil IS NULL\r\n      AND virkningtil IS NULL;\r\n\r\n    CREATE INDEX IF NOT EXISTS  supplerendebynavn_id_lokalid_aktive_idx\r\n    ON daf_dar.supplerendebynavn (id_lokalid)\r\n    WHERE registreringtil IS NULL\r\n      AND virkningtil IS NULL;"
+        "SQL": "vacuum analyze tmp.husnummer_new;\r\nvacuum analyze tmp.adressepunkt_new;\r\nvacuum analyze daf_dar.navngivenvej;\r\nvacuum analyze daf_dar.supplerendebynavn;\r\nvacuum analyze daf_dar.postnummer;"
       },
       "portPlacements": {
         "I:In": "Top",
@@ -285,15 +277,18 @@
       "name": "V3 AdresseKoor",
       "category": "Module",
       "nodeType": "ExecuteSQL",
-      "x": 118,
-      "y": 1350,
+      "x": 126.30000000000001,
+      "y": 1138.0400000000002,
       "width": 249,
       "height": 92,
       "executionMode": "Enabled",
       "settings": {
+        "CommandTimeout": "0",
         "ConnectionString": "\u00A4[DafDataDB]\u00A4",
         "DBMS": "Postgres",
+        "ExecuteEachLine": "False",
         "FilePath": "",
+        "InTransaction": "False",
         "MaxRows": "0",
         "QueryType": "NonQuery",
         "ResultVariable": "",
@@ -312,15 +307,18 @@
       "name": "V3 Postdistrikt Init",
       "category": "Module",
       "nodeType": "ExecuteSQL",
-      "x": 126,
-      "y": 1526,
+      "x": 126.30000000000001,
+      "y": 1289.8400000000001,
       "width": 249,
       "height": 92,
       "executionMode": "Enabled",
       "settings": {
+        "CommandTimeout": "0",
         "ConnectionString": "\u00A4[DafDataDB]\u00A4",
         "DBMS": "Postgres",
+        "ExecuteEachLine": "False",
         "FilePath": "",
+        "InTransaction": "False",
         "MaxRows": "0",
         "QueryType": "NonQuery",
         "ResultVariable": "",
@@ -339,15 +337,18 @@
       "name": "Analyze DAGI",
       "category": "Module",
       "nodeType": "ExecuteSQL",
-      "x": 147,
-      "y": 1676,
+      "x": 150.8,
+      "y": 1436.64,
       "width": 200,
       "height": 102,
       "executionMode": "Enabled",
       "settings": {
+        "CommandTimeout": "0",
         "ConnectionString": "\u00A4[DafDataDB]\u00A4",
         "DBMS": "Postgres",
+        "ExecuteEachLine": "True",
         "FilePath": "",
+        "InTransaction": "False",
         "MaxRows": "0",
         "QueryType": "NonQuery",
         "ResultVariable": "",
@@ -366,19 +367,22 @@
       "name": "V3 Postdistrikt ",
       "category": "Module",
       "nodeType": "ExecuteSQL",
-      "x": 119,
-      "y": 1823,
+      "x": 126.30000000000001,
+      "y": 1593.44,
       "width": 249,
       "height": 92,
       "executionMode": "Enabled",
       "settings": {
+        "CommandTimeout": "0",
         "ConnectionString": "\u00A4[DafDataDB]\u00A4",
         "DBMS": "Postgres",
+        "ExecuteEachLine": "False",
         "FilePath": "",
+        "InTransaction": "False",
         "MaxRows": "0",
         "QueryType": "NonQuery",
         "ResultVariable": "",
-        "SQL": "drop table if exists vat3.v3_postdistrikt;\r\n\r\nCREATE TABLE vat3.v3_postdistrikt AS\r\nselect cast(kommunekode as integer) * 10000 \u002B cast(postnummer as integer) as id,\r\nkommunekode,\r\npostnummer,\r\nMAX(navn) as postdistrikt,\r\ncast(0.0 as float) as XKoor,\r\ncast(0.0 as float) as YKoor,\r\nST_RemoveRepeatedPoints(ST_Multi(ST_Union(geom))) AS geometri\r\nFROM(\r\n    SELECT k.kommunekode,\r\n    p.postnummer,\r\n    p.navn,\r\n    ST_Intersection(p.geometri, k.geometri) AS geom\r\n    FROM daf_dagi.postnummerinddeling p\r\n    JOIN daf_dagi.kommuneinddeling k ON ST_Intersects(p.geometri, k.geometri)) x\r\n    WHERE NOT ST_IsEmpty(geom)\r\n    GROUP BY kommunekode,\r\n    postnummer;\r\n    update vat3.v3_postdistrikt\r\n    set geometri = ST_MakeValid(geometri)\r\n    where not ST_IsValid(geometri);\r\n\r\nALTER TABLE vat3.v3_postdistrikt ADD CONSTRAINT v3_postdistrikt_pkey PRIMARY KEY(id);"
+        "SQL": "drop table if exists vat3.v3_postdistrikt;\r\n\r\nCREATE TABLE vat3.v3_postdistrikt AS\r\nselect cast(kommunekode as integer) * 10000 \u002B cast(postnummer as integer) as id,\r\nkommunekode,\r\npostnummer,\r\nMAX(navn) as postdistrikt,\r\ncast(0.0 as float) as XKoor,\r\ncast(0.0 as float) as YKoor,\r\nST_RemoveRepeatedPoints(ST_Multi(ST_Union(geom))) AS geometri\r\nFROM(\r\n    SELECT k.kommunekode,\r\n    p.postnummer,\r\n    p.navn,\r\n    ST_Intersection(p.geometri, k.geometri) AS geom\r\n    FROM daf_dagi.postnummerinddeling p\r\n    JOIN daf_dagi.kommuneinddeling k ON ST_Intersects(p.geometri, k.geometri)) x\r\n    WHERE NOT ST_IsEmpty(geom)\r\n    GROUP BY kommunekode,\r\n    postnummer;\r\n    update vat3.v3_postdistrikt\r\n    set geometri = ST_MakeValid(geometri)\r\n    where not ST_IsValid(geometri);\r\n"
       },
       "portPlacements": {
         "I:In": "Top",
@@ -393,23 +397,25 @@
       "name": "Analyze POST",
       "category": "Module",
       "nodeType": "ExecuteSQL",
-      "x": 127,
-      "y": 1953,
+      "x": 276.20000000000005,
+      "y": 1922.4,
       "width": 200,
       "height": 102,
       "executionMode": "Enabled",
       "settings": {
+        "CommandTimeout": "0",
         "ConnectionString": "\u00A4[DafDataDB]\u00A4",
         "DBMS": "Postgres",
+        "ExecuteEachLine": "False",
         "FilePath": "",
+        "InTransaction": "False",
         "MaxRows": "0",
         "QueryType": "NonQuery",
         "ResultVariable": "",
         "SQL": "vacuum analyze vat3.v3_postdistrikt;"
       },
       "portPlacements": {
-        "I:In": "Top",
-        "O:Success": "Bottom"
+        "I:In": "Top"
       },
       "flippedPortSides": [
         "Right"
@@ -420,23 +426,25 @@
       "name": "Update POST",
       "category": "Module",
       "nodeType": "ExecuteSQL",
-      "x": 240,
-      "y": 2330,
+      "x": 903.2,
+      "y": 1922.4,
       "width": 200,
       "height": 102,
       "executionMode": "Enabled",
       "settings": {
+        "CommandTimeout": "0",
         "ConnectionString": "\u00A4[DafDataDB]\u00A4",
         "DBMS": "Postgres",
+        "ExecuteEachLine": "False",
         "FilePath": "",
+        "InTransaction": "False",
         "MaxRows": "0",
         "QueryType": "NonQuery",
         "ResultVariable": "",
         "SQL": "UPDATE vat3.v3_postdistrikt p\r\nset XKoor = round(ST_X(m.center) ::numeric, 3),\r\nYKoor = round(ST_Y(m.center) ::numeric, 3)\r\nFROM(\r\n    select id,\r\n    (ST_MaximumInscribedCircle(geometri)).center AS center\r\n    FROM vat3.v3_postdistrikt) m\r\n    WHERE p.id = m.id;\r\n    delete from vat3.v3_postdistrikt\r\n    where ST_GeometryType(geometri) in(\u0027ST_MultiLineString\u0027, \u0027ST_LineString\u0027, \u0027ST_MultiPoint\u0027, \u0027ST_Point\u0027);\r\n\r\nupdate vat3.v3_postdistrikt   set geometri = ST_Multi(ST_CollectionExtract(geometri, 3))    where ST_GeometryType(geometri) = \u0027ST_GeometryCollection\u0027;\r\nupdate vat3.v3_postdistrikt    set geometri = ST_Multi(ST_Buffer(ST_Buffer(geometri, 0.1), - 0.1));\r\nupdate vat3.v3_postdistrikt    set geometri = ST_Multi(ST_Buffer(ST_Buffer(geometri, - 0.05), 0.05));\r\nupdate vat3.v3_postdistrikt    set geometri = ST_Normalize(geometri);\r\nupdate vat3.v3_postdistrikt    set geometri = ST_Simplify(geometri, 0.05);\r\nupdate vat3.v3_postdistrikt    set geometri = ST_Multi(geometri);"
       },
       "portPlacements": {
-        "I:In": "Top",
-        "O:Success": "Top"
+        "O:Fail": "Top"
       },
       "flippedPortSides": [
         "Right"
@@ -447,23 +455,27 @@
       "name": "V3 VejnavnKoor",
       "category": "Module",
       "nodeType": "ExecuteSQL",
-      "x": 384,
-      "y": 2124,
+      "x": 1091.3,
+      "y": 1679.5200000000002,
       "width": 200,
       "height": 102,
       "executionMode": "Enabled",
       "settings": {
+        "CommandTimeout": "0",
         "ConnectionString": "\u00A4[DafDataDB]\u00A4",
         "DBMS": "Postgres",
+        "ExecuteEachLine": "False",
         "FilePath": "",
+        "InTransaction": "False",
         "MaxRows": "0",
         "QueryType": "NonQuery",
         "ResultVariable": "",
-        "SQL": "    CREATE SEQUENCE if not exists vat3.vejnavn_id\r\n        START 1\r\n        INCREMENT 1\r\n        MINVALUE 1\r\n        NO MAXVALUE\r\n        CACHE 1;\r\n\r\ndrop table if exists vat3.v3_vejnavnkoor;\t\r\n\r\nselect  \r\n    nextval(\u0027vat3.vejnavn_id\u0027) as id  \r\n    , vs.id_lokalid as vejsegment_lokalid\r\n    , nvk.kommune \r\n    , vs.vejkode\r\n    , nv.vejnavn \r\n    , vs.status\r\n    , vs.vejkategori\r\n    , vs.trafikart\r\n    , vs.overflade\r\n    , vs.tilogfrakoersel  --  bool \r\n    , vs.rundkoersel -- bool \r\n    , vs.niveau\t\r\n    , vs.linesegment\r\n    , cast (0 as int4) as vejkategori_enum\r\n    , cast (0 as int4) as trafikart_enum\r\n    , cast (0 as int4) as overflade_enum\r\n    , cast (0 as int4) as niveau_enum\r\n    , cast (0 as int4) as status_enum\r\n    , cast (0.0 as decimal(18,3)) as offset_x\r\n    , cast (0.0 as decimal(18,3)) as offset_y \r\n    , \u0027\u0027GeoDK6.Vejmidte\u0027\u0027 as orgtabel\r\n    , ST_Force2D(ST_LineInterpolatePoint (linesegment, 0.5)) as label\r\n    , 0.0::float8 AS angle_raw\r\n    , 0.0::float8 AS angle_deg\r\n    , 0.0::float8 AS angle_gon\r\n    , ST_Length (vs.linesegment) as len\r\ninto \r\n    vat3.v3_vejnavnkoor\r\nfrom \r\n    tmp.vejsegment vs\r\nleft outer join \r\n    daf_dar.navngivenvejkommunedel nvk  on nvk.kommune::int4 = vs.kommunekode::int4  and nvk.vejkode::int4 = vs.vejkode::int4  and nvk.registreringtil is null and nvk.virkningtil is null\r\nleft outer join \r\n    daf_dar.navngivenvej nv  on nv.id_lokalid  = nvk.navngivenvej and nv.registreringtil is null and nv.virkningtil is null\r\nwhere\r\n    ST_Length (vs.linesegment) \u003E 40.0   -- Dont label small linesegments\r\n    and nv.vejnavn is not null          -- No need to render \u0022invisible\u0022 adresses\r\n\r\n    WITH segments AS (\r\n      SELECT\r\n        id,\r\n        ST_PointN(v.linesegment, gs)   AS p1,\r\n        ST_PointN(v.linesegment, gs\u002B1) AS p2,\r\n        v.label\r\n      FROM vat3.v3_vejnavnkoor v\r\n      CROSS JOIN generate_series(1, ST_NPoints(v.linesegment)-1) gs\r\n    ),\r\n    hit AS (\r\n      SELECT distinct on (s.id)\r\n  \t    s.id, s.p1, s.p2\r\n      FROM segments s\r\n      WHERE ST_DWithin(ST_MakeLine(s.p1,s.p2), s.label, 1e-6) -- label lies on this segment\r\n    )\r\n    update vat3.v3_vejnavnkoor vn\r\n    set angle_deg = cast (180 - (degrees(atan2(ST_Y(p2)-ST_Y(p1), ST_X(p2)-ST_X(p1)))) as int4) % 360\r\n       ,angle_raw = fmod(((pi()/2 - ST_Azimuth(p1, p2)) \u002B 2*pi()), 2*pi()) \r\n    FROM hit h\r\n    WHERE vn.id = h.id;\r\n\r\nupdate vat3.v3_vejnavnkoor set angle_gon = 400.0 / 360.0 * angle_deg;\r\n\r\nupdate vat3.v3_vejnavnkoor set offset_x = 1*cos(angle_raw \u002B 0.5*PI()), offset_y = 1.0*sin(angle_raw \u002B 0.5*PI()) where angle_raw between 0 and PI()/2;        -- Q1\r\nupdate vat3.v3_vejnavnkoor set offset_x = -1*cos(angle_raw \u002B 0.5*PI()), offset_y = -1.0*sin(angle_raw \u002B 0.5*PI()) where angle_raw between PI()/2 and PI();     -- Q2\r\nupdate vat3.v3_vejnavnkoor set offset_x = -1*cos(angle_raw \u002B 0.5*PI()), offset_y = -1.0*sin(angle_raw \u002B 0.5*PI()) where angle_raw between PI() and 1.5*PI();   -- Q3\r\nupdate vat3.v3_vejnavnkoor set offset_x = 1*cos(angle_raw \u002B 0.5*PI()), offset_y = 1.0*sin(angle_raw \u002B 0.5*PI()) where angle_raw between 1.5*PI() and 2*PI(); -- Q4\r\n\r\nCREATE INDEX IF NOT EXISTS vejnavn_label_idx ON vat3.v3_vejnavnkoor using gist (label);"
+        "SQL": "CREATE SEQUENCE if not exists vat3.vejnavn_id\r\n        START 1\r\n        INCREMENT 1\r\n        MINVALUE 1\r\n        NO MAXVALUE\r\n        CACHE 1;\r\n\r\ndrop table if exists vat3.v3_vejnavnkoor;\t\r\n\r\nselect  \r\n    nextval(\u0027vat3.vejnavn_id\u0027) as id  \r\n    , vs.id_lokalid as vejsegment_lokalid\r\n    , nvk.kommune \r\n    , vs.vejkode\r\n    , nv.vejnavn \r\n    , vs.status\r\n    , vs.vejkategori\r\n    , vs.trafikart\r\n    , vs.overflade\r\n    , vs.tilogfrakoersel  --  bool \r\n    , vs.rundkoersel -- bool \r\n    , vs.niveau\t\r\n    , vs.linesegment\r\n    , cast (0 as int4) as vejkategori_enum\r\n    , cast (0 as int4) as trafikart_enum\r\n    , cast (0 as int4) as overflade_enum\r\n    , cast (0 as int4) as niveau_enum\r\n    , cast (0 as int4) as status_enum\r\n    , cast (0.0 as decimal(18,3)) as offset_x\r\n    , cast (0.0 as decimal(18,3)) as offset_y \r\n    , \u0027GeoDK6.Vejmidte\u0027 as orgtabel\r\n    , ST_Force2D(ST_LineInterpolatePoint (linesegment, 0.5)) as label\r\n    , 0.0::float8 AS angle_raw\r\n    , 0.0::float8 AS angle_deg\r\n    , 0.0::float8 AS angle_gon\r\n    , ST_Length (vs.linesegment) as len\r\ninto \r\n    vat3.v3_vejnavnkoor\r\nfrom \r\n    tmp.vejsegment vs\r\nleft outer join \r\n    daf_dar.navngivenvejkommunedel nvk  on nvk.kommune::int4 = vs.kommunekode::int4  and nvk.vejkode::int4 = vs.vejkode::int4  and nvk.registreringtil is null and nvk.virkningtil is null\r\nleft outer join \r\n    daf_dar.navngivenvej nv  on nv.id_lokalid  = nvk.navngivenvej and nv.registreringtil is null and nv.virkningtil is null\r\nwhere\r\n    ST_Length (vs.linesegment) \u003E 40.0   -- Dont label small linesegments\r\n    and nv.vejnavn is not null;          -- No need to render \u0022invisible\u0022 adresses\r\n\r\n;WITH segments AS (\r\n      SELECT\r\n        id,\r\n        ST_PointN(v.linesegment, gs)   AS p1,\r\n        ST_PointN(v.linesegment, gs\u002B1) AS p2,\r\n        v.label\r\n      FROM vat3.v3_vejnavnkoor v\r\n      CROSS JOIN generate_series(1, ST_NPoints(v.linesegment)-1) gs\r\n    ),\r\n    hit AS (\r\n      SELECT distinct on (s.id)\r\n  \t    s.id, s.p1, s.p2\r\n      FROM segments s\r\n      WHERE ST_DWithin(ST_MakeLine(s.p1,s.p2), s.label, 1e-6) -- label lies on this segment\r\n    )\r\n    update vat3.v3_vejnavnkoor vn\r\n    set angle_deg = cast (180 - (degrees(atan2(ST_Y(p2)-ST_Y(p1), ST_X(p2)-ST_X(p1)))) as int4) % 360\r\n       ,angle_raw = fmod(((pi()/2 - ST_Azimuth(p1, p2)) \u002B 2*pi()), 2*pi()) \r\n    FROM hit h\r\n    WHERE vn.id = h.id;\r\n\r\nupdate vat3.v3_vejnavnkoor set angle_gon = 400.0 / 360.0 * angle_deg;\r\nupdate vat3.v3_vejnavnkoor set offset_x = 1*cos(angle_raw \u002B 0.5*PI()), offset_y = 1.0*sin(angle_raw \u002B 0.5*PI()) where angle_raw between 0 and PI()/2;        -- Q1\r\nupdate vat3.v3_vejnavnkoor set offset_x = -1*cos(angle_raw \u002B 0.5*PI()), offset_y = -1.0*sin(angle_raw \u002B 0.5*PI()) where angle_raw between PI()/2 and PI();     -- Q2\r\nupdate vat3.v3_vejnavnkoor set offset_x = -1*cos(angle_raw \u002B 0.5*PI()), offset_y = -1.0*sin(angle_raw \u002B 0.5*PI()) where angle_raw between PI() and 1.5*PI();   -- Q3\r\nupdate vat3.v3_vejnavnkoor set offset_x = 1*cos(angle_raw \u002B 0.5*PI()), offset_y = 1.0*sin(angle_raw \u002B 0.5*PI()) where angle_raw between 1.5*PI() and 2*PI(); -- Q4\r\n\r\nCREATE INDEX IF NOT EXISTS vejnavn_label_idx ON vat3.v3_vejnavnkoor using gist (label);\r\n"
       },
       "portPlacements": {
         "I:In": "Bottom",
-        "O:Success": "Top"
+        "O:Success": "Top",
+        "O:Fail": "Left"
       },
       "flippedPortSides": [
         "Right"
@@ -474,8 +486,8 @@
       "name": "Analyze VejKoor",
       "category": "Module",
       "nodeType": "ExecuteSQL",
-      "x": 442,
-      "y": 1944,
+      "x": 1091.3,
+      "y": 1497.3600000000001,
       "width": 200,
       "height": 102,
       "executionMode": "Enabled",
@@ -486,11 +498,15 @@
         "MaxRows": "0",
         "QueryType": "NonQuery",
         "ResultVariable": "",
-        "SQL": "vacuum analyze vat3.v3_vejnavnkoor;"
+        "SQL": "vacuum analyze vat3.v3_vejnavnkoor;",
+        "CommandTimeout": "0",
+        "InTransaction": "False",
+        "ExecuteEachLine": "False"
       },
       "portPlacements": {
         "I:In": "Bottom",
-        "O:Success": "Top"
+        "O:Success": "Top",
+        "O:Fail": "Left"
       },
       "flippedPortSides": [
         "Right"
@@ -501,23 +517,27 @@
       "name": "V3 ENUM VejnavnKoor",
       "category": "Module",
       "nodeType": "ExecuteSQL",
-      "x": 483,
-      "y": 1732,
+      "x": 1091.3,
+      "y": 1315.2,
       "width": 200,
       "height": 102,
       "executionMode": "Enabled",
       "settings": {
+        "CommandTimeout": "0",
         "ConnectionString": "\u00A4[DafDataDB]\u00A4",
         "DBMS": "Postgres",
+        "ExecuteEachLine": "False",
         "FilePath": "",
+        "InTransaction": "False",
         "MaxRows": "0",
         "QueryType": "NonQuery",
         "ResultVariable": "",
-        "SQL": "    CREATE TABLE if not exists vat3.enum_vejnavnkoor (\r\n        feltnavn varchar(50) NOT NULL,\r\n        kode smallint NOT NULL DEFAULT nextval(\u0027\u0027vat3.enum_kode\u0027\u0027),\r\n        value varchar(50) NULL,\r\n        CONSTRAINT pk_enum_vejnavn PRIMARY KEY (feltnavn, kode)\r\n        );\r\n\r\n    ;with cte as (\r\n\t    select distinct vejkategori from vat3.v3_vejnavnkoor  where vejkategori not in (select value from vat3.enum_vejnavnkoor where feltnavn=\u0027vejkategori\u0027) )\r\n    INSERT INTO vat3.enum_vejnavnkoor (\u0022feltnavn\u0022, \u0022value\u0022) select \u0027\u0027vejkategori\u0027\u0027, vejkategori from cte;\r\n\r\n    ;with cte as (\r\n\t    select distinct trafikart from vat3.v3_vejnavnkoor  where trafikart not in (select value from vat3.enum_vejnavnkoor where feltnavn=\u0027trafikart\u0027) )\r\n    INSERT INTO vat3.enum_vejnavnkoor (\u0022feltnavn\u0022, \u0022value\u0022) select \u0027\u0027trafikart\u0027\u0027, trafikart from cte;\r\n\r\n    ;with cte as (\r\n\t    select distinct overflade from vat3.v3_vejnavnkoor  where overflade not in (select value from vat3.enum_vejnavnkoor where feltnavn=\u0027overflade\u0027) )\r\n    INSERT INTO vat3.enum_vejnavnkoor (\u0022feltnavn\u0022, \u0022value\u0022) select \u0027\u0027overflade\u0027\u0027, overflade from cte;\r\n\r\n    ;with cte as (\r\n\t    select distinct niveau from vat3.v3_vejnavnkoor  where niveau not in (select value from vat3.enum_vejnavnkoor where feltnavn=\u0027niveau\u0027) )\r\n    INSERT INTO vat3.enum_vejnavnkoor (\u0022feltnavn\u0022, \u0022value\u0022) select \u0027\u0027niveau\u0027\u0027, niveau from cte;\r\n\r\n;with cte as (\r\n    select distinct status from vat3.v3_vejnavnkoor  where status not in (select value from vat3.enum_vejnavnkoor where feltnavn=\u0027status\u0027) )\r\nINSERT INTO vat3.enum_vejnavnkoor (\u0022feltnavn\u0022, \u0022value\u0022) select \u0027\u0027status\u0027\u0027, status from cte ;\r\n\r\nUPDATE vat3.v3_vejnavnkoor v SET vejkategori_enum = ev.kode FROM vat3.enum_vejnavnkoor ev WHERE ev.feltnavn=\u0027vejkategori\u0027 and LOWER(ev.value) = LOWER(v.vejkategori);\r\nUPDATE vat3.v3_vejnavnkoor v SET trafikart_enum = ev.kode   FROM vat3.enum_vejnavnkoor ev WHERE ev.feltnavn=\u0027trafikart\u0027   and LOWER(ev.value) = LOWER(v.trafikart);\r\nUPDATE vat3.v3_vejnavnkoor v SET overflade_enum = ev.kode   FROM vat3.enum_vejnavnkoor ev WHERE ev.feltnavn=\u0027overflaide\u0027   and LOWER(ev.value) = LOWER(v.overflade);\r\nUPDATE vat3.v3_vejnavnkoor v SET niveau_enum = ev.kode      FROM vat3.enum_vejnavnkoor ev WHERE ev.feltnavn=\u0027niveau\u0027      and LOWER(ev.value) = LOWER(v.niveau);\r\nUPDATE vat3.v3_vejnavnkoor v SET status_enum = ev.kode      FROM vat3.enum_vejnavnkoor ev WHERE ev.feltnavn=\u0027status\u0027      and LOWER(ev.value) = LOWER(v.status);\r\n\r\n\r\n\r\n"
+        "SQL": "CREATE SEQUENCE if not exists vat3.enum_kode\r\n        START 1\r\n        INCREMENT 1\r\n        MINVALUE 1\r\n        NO MAXVALUE\r\n        CACHE 1;\r\n\r\nCREATE TABLE if not exists vat3.enum_vejnavnkoor (\r\n        feltnavn varchar(50) NOT NULL,\r\n        kode smallint NOT NULL DEFAULT nextval(\u0027vat3.enum_kode\u0027),\r\n        value varchar(50) NULL,\r\n        CONSTRAINT pk_enum_vejnavn PRIMARY KEY (feltnavn, kode)\r\n        );\r\n\r\n;with cte as (\r\n    select distinct vejkategori from vat3.v3_vejnavnkoor  where vejkategori not in (select value from vat3.enum_vejnavnkoor where feltnavn=\u0027vejkategori\u0027) )\r\nINSERT INTO vat3.enum_vejnavnkoor (\u0022feltnavn\u0022, \u0022value\u0022) select \u0027vejkategori\u0027, vejkategori from cte;\r\n\r\n;with cte as (\r\n    select distinct trafikart from vat3.v3_vejnavnkoor  where trafikart not in (select value from vat3.enum_vejnavnkoor where feltnavn=\u0027trafikart\u0027) )\r\nINSERT INTO vat3.enum_vejnavnkoor (\u0022feltnavn\u0022, \u0022value\u0022) select \u0027trafikart\u0027, trafikart from cte;\r\n\r\n;with cte as (\r\n    select distinct overflade from vat3.v3_vejnavnkoor  where overflade not in (select value from vat3.enum_vejnavnkoor where feltnavn=\u0027overflade\u0027) )\r\nINSERT INTO vat3.enum_vejnavnkoor (\u0022feltnavn\u0022, \u0022value\u0022) select \u0027overflade\u0027, overflade from cte;\r\n\r\n;with cte as (\r\n    select distinct niveau from vat3.v3_vejnavnkoor  where niveau not in (select value from vat3.enum_vejnavnkoor where feltnavn=\u0027niveau\u0027) )\r\nINSERT INTO vat3.enum_vejnavnkoor (\u0022feltnavn\u0022, \u0022value\u0022) select \u0027niveau\u0027, niveau from cte;\r\n\r\n;with cte as (\r\n    select distinct status from vat3.v3_vejnavnkoor  where status not in (select value from vat3.enum_vejnavnkoor where feltnavn=\u0027status\u0027) )\r\nINSERT INTO vat3.enum_vejnavnkoor (\u0022feltnavn\u0022, \u0022value\u0022) select \u0027status\u0027, status from cte ;\r\n\r\nUPDATE vat3.v3_vejnavnkoor v SET vejkategori_enum = ev.kode FROM vat3.enum_vejnavnkoor ev WHERE ev.feltnavn=\u0027vejkategori\u0027 and LOWER(ev.value) = LOWER(v.vejkategori);\r\nUPDATE vat3.v3_vejnavnkoor v SET trafikart_enum = ev.kode   FROM vat3.enum_vejnavnkoor ev WHERE ev.feltnavn=\u0027trafikart\u0027   and LOWER(ev.value) = LOWER(v.trafikart);\r\nUPDATE vat3.v3_vejnavnkoor v SET overflade_enum = ev.kode   FROM vat3.enum_vejnavnkoor ev WHERE ev.feltnavn=\u0027overflaide\u0027  and LOWER(ev.value) = LOWER(v.overflade);\r\nUPDATE vat3.v3_vejnavnkoor v SET niveau_enum = ev.kode      FROM vat3.enum_vejnavnkoor ev WHERE ev.feltnavn=\u0027niveau\u0027      and LOWER(ev.value) = LOWER(v.niveau);\r\nUPDATE vat3.v3_vejnavnkoor v SET status_enum = ev.kode      FROM vat3.enum_vejnavnkoor ev WHERE ev.feltnavn=\u0027status\u0027      and LOWER(ev.value) = LOWER(v.status);\r\n\r\n"
       },
       "portPlacements": {
         "I:In": "Bottom",
-        "O:Success": "Top"
+        "O:Success": "Top",
+        "O:Fail": "Left"
       },
       "flippedPortSides": [
         "Right"
@@ -528,15 +548,18 @@
       "name": "V3 Vejnavn",
       "category": "Module",
       "nodeType": "ExecuteSQL",
-      "x": 519.2200535545664,
-      "y": 1547.4751485609404,
+      "x": 1091.3,
+      "y": 1163.4,
       "width": 200,
       "height": 102,
       "executionMode": "Enabled",
       "settings": {
+        "CommandTimeout": "0",
         "ConnectionString": "\u00A4[DafDataDB]\u00A4",
         "DBMS": "Postgres",
+        "ExecuteEachLine": "False",
         "FilePath": "",
+        "InTransaction": "False",
         "MaxRows": "0",
         "QueryType": "NonQuery",
         "ResultVariable": "",
@@ -544,7 +567,8 @@
       },
       "portPlacements": {
         "I:In": "Bottom",
-        "O:Success": "Top"
+        "O:Success": "Top",
+        "O:Fail": "Left"
       },
       "flippedPortSides": [
         "Right"
@@ -555,23 +579,27 @@
       "name": "V3 Vejmidte",
       "category": "Module",
       "nodeType": "ExecuteSQL",
-      "x": 564.1114739888883,
-      "y": 1395.339157104908,
+      "x": 1091.3,
+      "y": 981.24,
       "width": 200,
       "height": 102,
       "executionMode": "Enabled",
       "settings": {
+        "CommandTimeout": "0",
         "ConnectionString": "\u00A4[DafDataDB]\u00A4",
         "DBMS": "Postgres",
+        "ExecuteEachLine": "False",
         "FilePath": "",
+        "InTransaction": "False",
         "MaxRows": "0",
         "QueryType": "NonQuery",
         "ResultVariable": "",
-        "SQL": "drop table if exists vat3.v3_vejmidte;\t\r\n;with cte as (\r\nselect  \r\n    id_lokalid as id\r\n    , vejkode\r\n    , status\r\n    , vejkategori\r\n    , trafikart\r\n    , overflade\r\n    , vejmidtetype \r\n    , vejmyndighed \r\n    , tilogfrakoersel  --  bool \r\n    , rundkoersel -- bool \r\n    , niveau\t\r\n    , geometri\r\n\t, kommunekode\r\nfrom\r\n    daf_gdk.vejmidte \r\nwhere registreringtil is null and virkningtil is null)\r\nselect \r\n\tid \r\n    , nvk.kommune \r\n    , cte.vejkode\r\n    , nv.vejnavn \r\n    , cte.status\r\n    , cte.vejkategori\r\n    , cte.trafikart\r\n    , cte.overflade\r\n    , cte.vejmidtetype \r\n    , cte.vejmyndighed \r\n    , cte.tilogfrakoersel  --  bool \r\n    , cte.rundkoersel -- bool \r\n    , cte.niveau\t\r\n    , cast (0 as int4) as vejkategori_enum\r\n    , cast (0 as int4) as trafikart_enum\r\n    , cast (0 as int4) as overflade_enum\r\n    , cast (0 as int4) as niveau_enum\r\n    , cast (0 as int4) as status_enum\r\n    , cast (0.0 as decimal(18,3)) as offset_x\r\n    , cast (0.0 as decimal(18,3)) as offset_y \r\n    , \u0027\u0027GeoDK6.Vejmidte\u0027\u0027 as orgtabel\r\n    , cte.geometri\r\ninto \r\n    vat3.v3_vejmidte\r\nfrom cte \t\r\nleft outer join \r\n    daf_dar.navngivenvejkommunedel nvk  on nvk.kommune::int4 = cte.kommunekode::int4  and nvk.vejkode::int4 = cte.vejkode::int4   and nvk.registreringtil is null and nvk.virkningtil is null\r\nleft outer join \r\n    daf_dar.navngivenvej nv  on nv.id_lokalid  = nvk.navngivenvej and nv.registreringtil is null and nv.virkningtil is null"
+        "SQL": "drop table if exists vat3.v3_vejmidte;\t\r\n\r\n;with cte as (\r\nselect  \r\n    id_lokalid as id\r\n    , vejkode\r\n    , status\r\n    , vejkategori\r\n    , trafikart\r\n    , overflade\r\n    , vejmidtetype \r\n    , vejmyndighed \r\n    , tilogfrakoersel  --  bool \r\n    , rundkoersel -- bool \r\n    , niveau\t\r\n    , geometri\r\n\t, kommunekode\r\nfrom\r\n    daf_gdk.vejmidte \r\nwhere registreringtil is null and virkningtil is null)\r\nselect \r\n\tid \r\n    , nvk.kommune \r\n    , cte.vejkode\r\n    , nv.vejnavn \r\n    , cte.status\r\n    , cte.vejkategori\r\n    , cte.trafikart\r\n    , cte.overflade\r\n    , cte.vejmidtetype \r\n    , cte.vejmyndighed \r\n    , cte.tilogfrakoersel  --  bool \r\n    , cte.rundkoersel -- bool \r\n    , cte.niveau\t\r\n    , cast (0 as int4) as vejkategori_enum\r\n    , cast (0 as int4) as trafikart_enum\r\n    , cast (0 as int4) as overflade_enum\r\n    , cast (0 as int4) as niveau_enum\r\n    , cast (0 as int4) as status_enum\r\n    , cast (0.0 as decimal(18,3)) as offset_x\r\n    , cast (0.0 as decimal(18,3)) as offset_y \r\n    , \u0027GeoDK6.Vejmidte\u0027 as orgtabel\r\n    , cte.geometri\r\ninto \r\n    vat3.v3_vejmidte\r\nfrom cte \t\r\nleft outer join \r\n    daf_dar.navngivenvejkommunedel nvk  on nvk.kommune::int4 = cte.kommunekode::int4  and nvk.vejkode::int4 = cte.vejkode::int4   and nvk.registreringtil is null and nvk.virkningtil is null\r\nleft outer join \r\n    daf_dar.navngivenvej nv  on nv.id_lokalid  = nvk.navngivenvej and nv.registreringtil is null and nv.virkningtil is null;\r\n    "
       },
       "portPlacements": {
         "I:In": "Bottom",
-        "O:Success": "Top"
+        "O:Success": "Top",
+        "O:Fail": "Left"
       },
       "flippedPortSides": [
         "Right"
@@ -582,23 +610,27 @@
       "name": "V3 Vejmidte ENUM",
       "category": "Module",
       "nodeType": "ExecuteSQL",
-      "x": 605.1047100159407,
-      "y": 1205.8411150970733,
+      "x": 1091.3,
+      "y": 799.08,
       "width": 200,
       "height": 102,
       "executionMode": "Enabled",
       "settings": {
+        "CommandTimeout": "0",
         "ConnectionString": "\u00A4[DafDataDB]\u00A4",
         "DBMS": "Postgres",
+        "ExecuteEachLine": "False",
         "FilePath": "",
+        "InTransaction": "False",
         "MaxRows": "0",
         "QueryType": "NonQuery",
         "ResultVariable": "",
-        "SQL": ";with cte as (select distinct vejkategori from vat3.v3_vejmidte where vejkategori not in (select value from vat3.enum_vejnavnkoor where feltnavn=\u0027vejkategori\u0027) )\r\n    INSERT INTO vat3.enum_vejnavnkoor (feltnavn, value) select \u0027vejkategori\u0027, vejkategori from cte \r\n\r\n    ;with cte as (\r\n\t    select distinct trafikart from vat3.v3_vejmidte  where trafikart not in (select value from vat3.enum_vejnavnkoor where feltnavn=\u0027\u0027trafikart\u0027\u0027) )\r\n    INSERT INTO vat3.enum_vejnavnkoor (\u0022feltnavn\u0022, \u0022value\u0022) select \u0027\u0027trafikart\u0027\u0027, trafikart from cte \r\n\r\n    ;with cte as (\r\n\t    select distinct overflade from vat3.v3_vejmidte  where overflade not in (select value from vat3.enum_vejnavnkoor where feltnavn=\u0027\u0027overflade\u0027\u0027) )\r\n    INSERT INTO vat3.enum_vejnavnkoor (\u0022feltnavn\u0022, \u0022value\u0022) select \u0027\u0027overflade\u0027\u0027, overflade from cte \r\n\r\n    ;with cte as (\r\n\t    select distinct niveau from vat3.v3_vejmidte  where niveau not in (select value from vat3.enum_vejnavnkoor where feltnavn=\u0027\u0027niveau\u0027\u0027) )\r\n    INSERT INTO vat3.enum_vejnavnkoor (\u0022feltnavn\u0022, \u0022value\u0022) select \u0027\u0027niveau\u0027\u0027, niveau from cte \r\n\r\n    ;with cte as (\r\n\t    select distinct status from vat3.v3_vejmidte  where status not in (select value from vat3.enum_vejnavnkoor where feltnavn=\u0027\u0027status\u0027\u0027) )\r\n    INSERT INTO vat3.enum_vejnavnkoor (\u0022feltnavn\u0022, \u0022value\u0022) select \u0027\u0027status\u0027\u0027, status from cte ;\r\n\r\nUPDATE vat3.v3_vejmidte v SET vejkategori_enum = ev.kode FROM vat3.enum_vejnavnkoor ev WHERE ev.feltnavn=\u0027\u0027vejkategori\u0027\u0027 and LOWER(ev.value) = LOWER(v.vejkategori);\r\nUPDATE vat3.v3_vejmidte v SET trafikart_enum = ev.kode   FROM vat3.enum_vejnavnkoor ev WHERE ev.feltnavn=\u0027\u0027trafikart\u0027\u0027   and LOWER(ev.value) = LOWER(v.trafikart);\r\nUPDATE vat3.v3_vejmidte v SET overflade_enum = ev.kode   FROM vat3.enum_vejnavnkoor ev WHERE ev.feltnavn=\u0027\u0027overflade\u0027\u0027   and LOWER(ev.value) = LOWER(v.overflade);\r\nUPDATE vat3.v3_vejmidte v SET niveau_enum = ev.kode      FROM vat3.enum_vejnavnkoor ev WHERE ev.feltnavn=\u0027\u0027niveau\u0027\u0027      and LOWER(ev.value) = LOWER(v.niveau);\r\nUPDATE vat3.v3_vejmidte v SET status_enum = ev.kode      FROM vat3.enum_vejnavnkoor ev WHERE ev.feltnavn=\u0027\u0027status\u0027\u0027      and LOWER(ev.value) = LOWER(v.status);"
+        "SQL": ";with cte as (select distinct vejkategori from vat3.v3_vejmidte where vejkategori not in (select value from vat3.enum_vejnavnkoor where feltnavn=\u0027vejkategori\u0027) )\r\n    INSERT INTO vat3.enum_vejnavnkoor (feltnavn, value) select \u0027vejkategori\u0027, vejkategori from cte \r\n\r\n    ;with cte as (\r\n\t    select distinct trafikart from vat3.v3_vejmidte  where trafikart not in (select value from vat3.enum_vejnavnkoor where feltnavn=\u0027trafikart\u0027) )\r\n    INSERT INTO vat3.enum_vejnavnkoor (\u0022feltnavn\u0022, \u0022value\u0022) select \u0027trafikart\u0027, trafikart from cte \r\n\r\n    ;with cte as (\r\n\t    select distinct overflade from vat3.v3_vejmidte  where overflade not in (select value from vat3.enum_vejnavnkoor where feltnavn=\u0027overflade\u0027) )\r\n    INSERT INTO vat3.enum_vejnavnkoor (\u0022feltnavn\u0022, \u0022value\u0022) select \u0027overflade\u0027, overflade from cte \r\n\r\n    ;with cte as (\r\n\t    select distinct niveau from vat3.v3_vejmidte  where niveau not in (select value from vat3.enum_vejnavnkoor where feltnavn=\u0027niveau\u0027) )\r\n    INSERT INTO vat3.enum_vejnavnkoor (\u0022feltnavn\u0022, \u0022value\u0022) select \u0027niveau\u0027, niveau from cte \r\n\r\n    ;with cte as (\r\n\t    select distinct status from vat3.v3_vejmidte  where status not in (select value from vat3.enum_vejnavnkoor where feltnavn=\u0027status\u0027) )\r\n    INSERT INTO vat3.enum_vejnavnkoor (\u0022feltnavn\u0022, \u0022value\u0022) select \u0027status\u0027, status from cte ;\r\n\r\nUPDATE vat3.v3_vejmidte v SET vejkategori_enum = ev.kode FROM vat3.enum_vejnavnkoor ev WHERE ev.feltnavn=\u0027vejkategori\u0027 and LOWER(ev.value) = LOWER(v.vejkategori);\r\nUPDATE vat3.v3_vejmidte v SET trafikart_enum = ev.kode   FROM vat3.enum_vejnavnkoor ev WHERE ev.feltnavn=\u0027trafikart\u0027   and LOWER(ev.value) = LOWER(v.trafikart);\r\nUPDATE vat3.v3_vejmidte v SET overflade_enum = ev.kode   FROM vat3.enum_vejnavnkoor ev WHERE ev.feltnavn=\u0027overflade\u0027   and LOWER(ev.value) = LOWER(v.overflade);\r\nUPDATE vat3.v3_vejmidte v SET niveau_enum = ev.kode      FROM vat3.enum_vejnavnkoor ev WHERE ev.feltnavn=\u0027niveau\u0027      and LOWER(ev.value) = LOWER(v.niveau);\r\nUPDATE vat3.v3_vejmidte v SET status_enum = ev.kode      FROM vat3.enum_vejnavnkoor ev WHERE ev.feltnavn=\u0027status\u0027      and LOWER(ev.value) = LOWER(v.status);\r\n"
       },
       "portPlacements": {
         "I:In": "Bottom",
-        "O:Success": "Top"
+        "O:Success": "Top",
+        "O:Fail": "Left"
       },
       "flippedPortSides": [
         "Right"
@@ -609,23 +641,27 @@
       "name": "Indexes",
       "category": "Module",
       "nodeType": "ExecuteSQL",
-      "x": 608.9138947792038,
-      "y": 1003.0287263466312,
+      "x": 1091.3,
+      "y": 616.9200000000001,
       "width": 200,
       "height": 102,
       "executionMode": "Enabled",
       "settings": {
+        "CommandTimeout": "0",
         "ConnectionString": "\u00A4[DafDataDB]\u00A4",
         "DBMS": "Postgres",
+        "ExecuteEachLine": "False",
         "FilePath": "",
+        "InTransaction": "False",
         "MaxRows": "0",
         "QueryType": "NonQuery",
         "ResultVariable": "",
-        "SQL": "CREATE INDEX IF NOT EXISTS idx_v3_adresse_geom     ON vat3.v3_adresse USING gist (geometri)     WITH (fillfactor=90, buffering=auto)     TABLESPACE pg_default;\r\n\r\nCREATE INDEX IF NOT EXISTS idx_v3_adressekoor     ON vat3.v3_adressekoor \r\n   USING btree     (husnr_lokalid COLLATE pg_catalog.\u0022default\u0022 ASC NULLS LAST, kommune ASC NULLS LAST, vejkode ASC NULLS LAST)\r\n    WITH (fillfactor=100, deduplicate_items=True)  TABLESPACE pg_default;\r\n\r\nCREATE INDEX IF NOT EXISTS idx_v3_vejmidte_geometri ON vat3.v3_vejmidte USING gist (geometri)  WITH (fillfactor=90, buffering=auto) TABLESPACE pg_default;\r\n\r\nCREATE INDEX IF NOT EXISTS idx_v3_vejnavn_geometri  ON vat3.v3_vejnavn USING gist  (geometri)  WITH (fillfactor=90, buffering=auto)  TABLESPACE pg_default;\r\n\r\nCREATE INDEX CONCURRENTLY IF NOT EXISTS v3_adresse_ins_search_postnr_partial_idx  ON vat3.v3_adresse (postnr)\r\n    WHERE geometri IS NOT NULL  AND vejnavn IS NOT NULL  AND husnummertekst IS NOT NULL\r\n\r\nCREATE INDEX CONCURRENTLY IF NOT EXISTS v3_adresse_postnr_idx  ON vat3.v3_adresse (postnr);\r\n\r\nCREATE INDEX CONCURRENTLY IF NOT EXISTS v3_adresse_husnr_idx ON vat3.v3_adresse (husnummertekst);\r\n\r\nCREATE INDEX CONCURRENTLY IF NOT EXISTS v3_adresse_vejnavn_idx ON vat3.v3_adresse (vejnavn);"
+        "SQL": "CREATE INDEX IF NOT EXISTS idx_v3_adresse_geom     ON vat3.v3_adresse USING gist (geometri)     WITH (fillfactor=90, buffering=auto)     TABLESPACE pg_default;\r\n\r\nCREATE INDEX IF NOT EXISTS idx_v3_adressekoor     ON vat3.v3_adressekoor \r\n   USING btree     (husnr_lokalid, kommune ASC NULLS LAST, vejkode ASC NULLS LAST)\r\n    WITH (fillfactor=100, deduplicate_items=True)  TABLESPACE pg_default;\r\n\r\nCREATE INDEX IF NOT EXISTS idx_v3_vejmidte_geometri ON vat3.v3_vejmidte USING gist (geometri)  WITH (fillfactor=90, buffering=auto) TABLESPACE pg_default;\r\n\r\nCREATE INDEX IF NOT EXISTS idx_v3_vejnavn_geometri  ON vat3.v3_vejnavn USING gist  (geometri)  WITH (fillfactor=90, buffering=auto)  TABLESPACE pg_default;\r\n\r\nCREATE INDEX  IF NOT EXISTS v3_adresse_ins_search_postnr_partial_idx  ON vat3.v3_adresse (postnr)\r\n    WHERE geometri IS NOT NULL  AND vejnavn IS NOT NULL  AND husnummertekst IS NOT NULL;\r\n\r\nCREATE INDEX  IF NOT EXISTS v3_adresse_postnr_idx  ON vat3.v3_adresse (postnr);\r\n\r\nCREATE INDEX  IF NOT EXISTS v3_adresse_husnr_idx ON vat3.v3_adresse (husnummertekst);\r\n\r\nCREATE INDEX  IF NOT EXISTS v3_adresse_vejnavn_idx ON vat3.v3_adresse (vejnavn);\r\n"
       },
       "portPlacements": {
         "I:In": "Bottom",
-        "O:Success": "Top"
+        "O:Success": "Top",
+        "O:Fail": "Left"
       },
       "flippedPortSides": [
         "Right"
@@ -636,15 +672,18 @@
       "name": "Anakyze",
       "category": "Module",
       "nodeType": "ExecuteSQL",
-      "x": 607.9882984815878,
-      "y": 800.7503354601946,
+      "x": 1091.3,
+      "y": 434.76000000000005,
       "width": 200,
       "height": 102,
       "executionMode": "Enabled",
       "settings": {
+        "CommandTimeout": "0",
         "ConnectionString": "\u00A4[DafDataDB]\u00A4",
         "DBMS": "Postgres",
+        "ExecuteEachLine": "True",
         "FilePath": "",
+        "InTransaction": "False",
         "MaxRows": "0",
         "QueryType": "NonQuery",
         "ResultVariable": "",
@@ -652,7 +691,56 @@
       },
       "portPlacements": {
         "I:In": "Bottom",
-        "O:Success": "Top"
+        "O:Success": "Top",
+        "O:Fail": "Left"
+      },
+      "flippedPortSides": [
+        "Right"
+      ]
+    },
+    {
+      "id": "7a1a8b37-b38e-4440-bf09-e010626130b3",
+      "name": "Display",
+      "category": "Module",
+      "nodeType": "Display",
+      "x": 891.9000000000001,
+      "y": 60.94000000000001,
+      "width": 348,
+      "height": 121,
+      "executionMode": "Enabled",
+      "settings": {
+        "Text": "\u00A4{Message}\u00A4"
+      },
+      "portPlacements": {
+        "O:Out": "Bottom"
+      },
+      "flippedPortSides": []
+    },
+    {
+      "id": "88c5a042-6327-4c43-a1cb-2afeb32e5b63",
+      "name": "V3 Postdistrikt PKey",
+      "category": "Module",
+      "nodeType": "ExecuteSQL",
+      "x": 126.30000000000001,
+      "y": 1745.2400000000002,
+      "width": 249,
+      "height": 92,
+      "executionMode": "Enabled",
+      "settings": {
+        "CommandTimeout": "0",
+        "ConnectionString": "\u00A4[DafDataDB]\u00A4",
+        "DBMS": "Postgres",
+        "ExecuteEachLine": "False",
+        "FilePath": "",
+        "InTransaction": "False",
+        "MaxRows": "0",
+        "QueryType": "NonQuery",
+        "ResultVariable": "",
+        "SQL": "ALTER TABLE vat3.v3_postdistrikt ADD CONSTRAINT v3_postdistrikt_pkey PRIMARY KEY(id);"
+      },
+      "portPlacements": {
+        "I:In": "Top",
+        "O:Success": "Bottom"
       },
       "flippedPortSides": [
         "Right"
@@ -660,18 +748,6 @@
     }
   ],
   "connections": [
-    {
-      "id": "8eab1dd1-d151-4595-816d-35a3c6d91714",
-      "fromNodeId": "fdb4fe13-c0f6-47fc-97b1-ed64d838f93a",
-      "fromPort": "Out",
-      "fromControlDx": null,
-      "fromControlDy": null,
-      "toNodeId": "83160ff8-63d8-4eab-ad39-2e7235f86ce5",
-      "toPort": "Fail",
-      "toControlDx": null,
-      "toControlDy": null,
-      "waypoints": []
-    },
     {
       "id": "74222419-87cb-4ab0-bc6e-6f722ded787a",
       "fromNodeId": "ec1771f2-0ab1-4696-b7f4-c7ef959610db",
@@ -754,7 +830,8 @@
       "toPort": "In",
       "toControlDx": null,
       "toControlDy": null,
-      "waypoints": []
+      "waypoints": [],
+      "directRoute": true
     },
     {
       "id": "c498c706-4ec7-4f39-aab1-56b39070e72b",
@@ -787,30 +864,6 @@
       "fromControlDx": null,
       "fromControlDy": null,
       "toNodeId": "e3d8295a-3d48-47b8-8224-73e527ae44d9",
-      "toPort": "In",
-      "toControlDx": null,
-      "toControlDy": null,
-      "waypoints": []
-    },
-    {
-      "id": "7bc96329-2646-4db1-8692-dfe09e43179f",
-      "fromNodeId": "fe983b13-9f48-4e01-aab9-133857460d19",
-      "fromPort": "Success",
-      "fromControlDx": null,
-      "fromControlDy": null,
-      "toNodeId": "9c15d687-03a1-42e9-80b6-df4c78a530b0",
-      "toPort": "In",
-      "toControlDx": null,
-      "toControlDy": null,
-      "waypoints": []
-    },
-    {
-      "id": "091f9f56-1345-4e92-aed8-13bcdcd6081f",
-      "fromNodeId": "9c15d687-03a1-42e9-80b6-df4c78a530b0",
-      "fromPort": "Success",
-      "fromControlDx": null,
-      "fromControlDy": null,
-      "toNodeId": "f58a60d8-c22b-4539-a781-60fe9fdcc6bb",
       "toPort": "In",
       "toControlDx": null,
       "toControlDy": null,
@@ -865,18 +918,6 @@
       "waypoints": []
     },
     {
-      "id": "484d8f78-0630-49ec-9b06-bde782aba09f",
-      "fromNodeId": "70315bc2-2cd3-4c9a-a46d-66865adaf2ec",
-      "fromPort": "Success",
-      "fromControlDx": null,
-      "fromControlDy": null,
-      "toNodeId": "c30394e8-8e72-48d0-91f4-ed6875ace924",
-      "toPort": "In",
-      "toControlDx": null,
-      "toControlDy": null,
-      "waypoints": []
-    },
-    {
       "id": "3d52e029-4a53-4f58-9cb9-d8d7dede68fa",
       "fromNodeId": "c30394e8-8e72-48d0-91f4-ed6875ace924",
       "fromPort": "Success",
@@ -910,7 +951,8 @@
       "toPort": "In",
       "toControlDx": null,
       "toControlDy": null,
-      "waypoints": []
+      "waypoints": [],
+      "directRoute": true
     },
     {
       "id": "07be13fc-b1e0-4e85-87b1-9d074b6c7be6",
@@ -922,7 +964,8 @@
       "toPort": "In",
       "toControlDx": null,
       "toControlDy": null,
-      "waypoints": []
+      "waypoints": [],
+      "directRoute": true
     },
     {
       "id": "c7bae666-5147-44b2-aa02-fc9307113d47",
@@ -934,7 +977,8 @@
       "toPort": "In",
       "toControlDx": null,
       "toControlDy": null,
-      "waypoints": []
+      "waypoints": [],
+      "directRoute": true
     },
     {
       "id": "04f407cf-29b1-4116-888c-1adeadc52b5f",
@@ -946,7 +990,8 @@
       "toPort": "In",
       "toControlDx": null,
       "toControlDy": null,
-      "waypoints": []
+      "waypoints": [],
+      "directRoute": true
     },
     {
       "id": "4b82a677-adbf-4332-815f-62b11fc2863a",
@@ -958,7 +1003,8 @@
       "toPort": "In",
       "toControlDx": null,
       "toControlDy": null,
-      "waypoints": []
+      "waypoints": [],
+      "directRoute": true
     },
     {
       "id": "6b722c75-b361-4802-885b-eed8531c30b0",
@@ -970,7 +1016,8 @@
       "toPort": "In",
       "toControlDx": null,
       "toControlDy": null,
-      "waypoints": []
+      "waypoints": [],
+      "directRoute": true
     },
     {
       "id": "c862b370-1ffc-4f66-b117-a40cef113261",
@@ -982,19 +1029,8 @@
       "toPort": "In",
       "toControlDx": null,
       "toControlDy": null,
-      "waypoints": []
-    },
-    {
-      "id": "e2d2dc43-48fe-4003-92e6-8e11ff2a9afe",
-      "fromNodeId": "9c15d687-03a1-42e9-80b6-df4c78a530b0",
-      "fromPort": "Fail",
-      "fromControlDx": null,
-      "fromControlDy": null,
-      "toNodeId": "fdb4fe13-c0f6-47fc-97b1-ed64d838f93a",
-      "toPort": "In",
-      "toControlDx": null,
-      "toControlDy": null,
-      "waypoints": []
+      "waypoints": [],
+      "directRoute": true
     },
     {
       "id": "abbcaa27-76d2-4dc2-b8c5-2aa1d127cdf5",
@@ -1078,7 +1114,8 @@
       "toPort": "In",
       "toControlDx": null,
       "toControlDy": null,
-      "waypoints": []
+      "waypoints": [],
+      "directRoute": true
     },
     {
       "id": "f7988881-7859-42ab-aa59-e574e3234b8e",
@@ -1090,7 +1127,8 @@
       "toPort": "In",
       "toControlDx": null,
       "toControlDy": null,
-      "waypoints": []
+      "waypoints": [],
+      "directRoute": true
     },
     {
       "id": "3b301a02-d4d1-47b6-9917-43e73c67e529",
@@ -1102,7 +1140,8 @@
       "toPort": "In",
       "toControlDx": null,
       "toControlDy": null,
-      "waypoints": []
+      "waypoints": [],
+      "directRoute": true
     },
     {
       "id": "17eb9740-535b-4256-a678-0d2507ef6f28",
@@ -1114,7 +1153,8 @@
       "toPort": "In",
       "toControlDx": null,
       "toControlDy": null,
-      "waypoints": []
+      "waypoints": [],
+      "directRoute": true
     },
     {
       "id": "94312fa4-e0f6-49a5-9828-40830b865bbe",
@@ -1126,7 +1166,8 @@
       "toPort": "In",
       "toControlDx": null,
       "toControlDy": null,
-      "waypoints": []
+      "waypoints": [],
+      "directRoute": true
     },
     {
       "id": "7759340b-f3ba-4936-8b8d-78a4f7f378f4",
@@ -1175,6 +1216,118 @@
       "toControlDx": null,
       "toControlDy": null,
       "waypoints": []
+    },
+    {
+      "id": "7e0fe995-d971-419e-863b-12159464479d",
+      "fromNodeId": "518f7476-f821-4eb6-a482-bb08b2458cf1",
+      "fromPort": "Fail",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "fdb4fe13-c0f6-47fc-97b1-ed64d838f93a",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": [],
+      "directRoute": true
+    },
+    {
+      "id": "00d2eaeb-d8a8-4699-a9cf-6d4ef334042f",
+      "fromNodeId": "a5db89f4-4b77-4f7c-afa6-e72891a6e034",
+      "fromPort": "Fail",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "fdb4fe13-c0f6-47fc-97b1-ed64d838f93a",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": [],
+      "directRoute": true
+    },
+    {
+      "id": "7a7cdeea-cc73-4802-a5cf-f6410d306983",
+      "fromNodeId": "52f459b9-a99e-4b6c-bff3-55da7669eaa8",
+      "fromPort": "Fail",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "fdb4fe13-c0f6-47fc-97b1-ed64d838f93a",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": [],
+      "directRoute": true
+    },
+    {
+      "id": "dcec7b5b-f8e6-4bfe-b615-351ebface9fc",
+      "fromNodeId": "fe983b13-9f48-4e01-aab9-133857460d19",
+      "fromPort": "Success",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "f58a60d8-c22b-4539-a781-60fe9fdcc6bb",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "39dc0921-b75c-4089-ad43-b1669dfaf11e",
+      "fromNodeId": "fdb4fe13-c0f6-47fc-97b1-ed64d838f93a",
+      "fromPort": "Out",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "7a1a8b37-b38e-4440-bf09-e010626130b3",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "40a71e62-c06d-44a4-b242-6bdddfb08bf0",
+      "fromNodeId": "7a1a8b37-b38e-4440-bf09-e010626130b3",
+      "fromPort": "Out",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "83160ff8-63d8-4eab-ad39-2e7235f86ce5",
+      "toPort": "Fail",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "c95d1279-394f-4693-a3a5-00829e4746a1",
+      "fromNodeId": "70315bc2-2cd3-4c9a-a46d-66865adaf2ec",
+      "fromPort": "Success",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "88c5a042-6327-4c43-a1cb-2afeb32e5b63",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "9d42d168-9ed0-4024-a3b9-25fa097ece8e",
+      "fromNodeId": "88c5a042-6327-4c43-a1cb-2afeb32e5b63",
+      "fromPort": "Success",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "c30394e8-8e72-48d0-91f4-ed6875ace924",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "40199a67-09a7-4cb1-99b8-947af6e1c0b4",
+      "fromNodeId": "88c5a042-6327-4c43-a1cb-2afeb32e5b63",
+      "fromPort": "Fail",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "fdb4fe13-c0f6-47fc-97b1-ed64d838f93a",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": [],
+      "directRoute": true
     }
   ]
 }
