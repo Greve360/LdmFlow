@@ -1,5 +1,5 @@
 # LdmFlow
 
-Konfigurationsfiler til LDM Workflow Designer
+Konfigurationsfiler til LDM Workflow Designer.
 
-PS: Disse filer indeholder INGEN regerencer til nogen form for server infrastruktur - sååååå!
+PS: Disse filer indeholder INGEN referencer til nogen form for server infrastruktur - sååååå!
