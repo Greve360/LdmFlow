@@ -69,8 +69,8 @@
       "name": "Stream SQL Bulk Copy (BiTemp)",
       "category": "Module",
       "nodeType": "StreamSqlBulkCopy",
-      "x": 380.89506172839606,
-      "y": 1213.1790123456783,
+      "x": 617.8950617283961,
+      "y": 1358.1790123456783,
       "width": 316,
       "height": 119,
       "executionMode": "Enabled",
@@ -100,8 +100,8 @@
       "name": "Get SQL Fields",
       "category": "Module",
       "nodeType": "GetSqlFields",
-      "x": 505.89506172839515,
-      "y": 223.67901234567773,
+      "x": 480.89506172839515,
+      "y": 299.67901234567773,
       "width": 200,
       "height": 102,
       "executionMode": "Enabled",
@@ -151,8 +151,8 @@
       "name": "Display",
       "category": "Module",
       "nodeType": "Display",
-      "x": 431.3950617283955,
-      "y": 381.6790123456775,
+      "x": 400.3950617283955,
+      "y": 423.6790123456775,
       "width": 301,
       "height": 108,
       "executionMode": "Enabled",
@@ -216,13 +216,14 @@
       "y": 180,
       "width": 200,
       "height": 102,
-      "executionMode": "Disabled",
+      "executionMode": "Enabled",
       "settings": {
         "BiTemporalFields": "id_lokalid\r\nregistreringfra\r\nvirkningfra\r\nstatus",
         "DestinationMSSQL": "\u00A4[RegisterWorkDB]\u00A4",
         "DestinationSchema": "DAF_MAT_NY",
         "PostgresSchema": "daf_mat",
-        "RowLimiter": "limit 10000"
+        "RowLimiter": "",
+        "SingleTable": "lodflade"
       },
       "portPlacements": {},
       "flippedPortSides": []
@@ -369,8 +370,8 @@
       "name": "Stream SQL Bulk Copy (Andre)",
       "category": "Module",
       "nodeType": "StreamSqlBulkCopy",
-      "x": 852.3950617283962,
-      "y": 1222.6790123456783,
+      "x": 1250.3950617283963,
+      "y": 1279.6790123456783,
       "width": 316,
       "height": 119,
       "executionMode": "Enabled",
@@ -422,8 +423,8 @@
       "name": "Is _Delta ?",
       "category": "Module",
       "nodeType": "IF_Then_Else",
-      "x": 396.39506172839594,
-      "y": 563.679012345677,
+      "x": 382.39506172839594,
+      "y": 601.679012345677,
       "width": 200,
       "height": 102,
       "executionMode": "Enabled",
@@ -510,7 +511,8 @@
         "DestinationMSSQL": "\u00A4[RegisterWorkDB]\u00A4",
         "DestinationSchema": "DAF_EBR_NY",
         "PostgresSchema": "daf_ebr",
-        "RowLimiter": "limit 10000"
+        "RowLimiter": "",
+        "SingleTable": "ejendomsbeliggenhed"
       },
       "portPlacements": {},
       "flippedPortSides": []
@@ -520,19 +522,39 @@
       "name": "Start VUR",
       "category": "Module",
       "nodeType": "Start",
-      "x": 47,
+      "x": 46,
       "y": 1159,
       "width": 200,
       "height": 102,
-      "executionMode": "Enabled",
+      "executionMode": "Disabled",
       "settings": {
         "BiTemporalFields": "id_lokalid\r\nregistreringfra\r\nvirkningfra",
         "DestinationMSSQL": "\u00A4[RegisterWorkDB]\u00A4",
         "DestinationSchema": "DAF_VUR_NY",
         "PostgresSchema": "daf_vur",
-        "RowLimiter": ""
+        "RowLimiter": "",
+        "SingleTable": "ejendomsvurdering"
       },
       "portPlacements": {},
+      "flippedPortSides": []
+    },
+    {
+      "id": "7c4df148-5715-427a-b1bf-1963db8f2b26",
+      "name": "If SingleTable(s)?",
+      "category": "Module",
+      "nodeType": "IF_Then_Else",
+      "x": 509,
+      "y": 174,
+      "width": 200,
+      "height": 102,
+      "executionMode": "Enabled",
+      "settings": {
+        "Expression": "\u0022\u00A4{tablename}\u00A4\u0022 in \u0022\u00A4{SingleTable}\u00A4\u0022"
+      },
+      "portPlacements": {
+        "O:True": "Bottom",
+        "I:In": "Top"
+      },
       "flippedPortSides": []
     }
   ],
@@ -573,18 +595,6 @@
       "toControlDy": null,
       "waypoints": [],
       "directRoute": true
-    },
-    {
-      "id": "0aa3fed7-b8f7-4764-bef3-9fe304b5844a",
-      "fromNodeId": "77252a7b-75b6-4083-9598-606e20ed8050",
-      "fromPort": "Item",
-      "fromControlDx": null,
-      "fromControlDy": null,
-      "toNodeId": "3f1dd131-65c9-44f8-8435-7cf0e4ebd3e4",
-      "toPort": "In",
-      "toControlDx": null,
-      "toControlDy": null,
-      "waypoints": []
     },
     {
       "id": "462a5f36-5975-49a5-ab79-828b10c7b801",
@@ -991,6 +1001,42 @@
       "toControlDy": null,
       "waypoints": [],
       "directRoute": true
+    },
+    {
+      "id": "6319fc98-e0f4-4f18-990e-e29211a0feaa",
+      "fromNodeId": "77252a7b-75b6-4083-9598-606e20ed8050",
+      "fromPort": "Item",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "7c4df148-5715-427a-b1bf-1963db8f2b26",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "d5a41526-1857-4d1f-9535-cb1942f3bd7a",
+      "fromNodeId": "7c4df148-5715-427a-b1bf-1963db8f2b26",
+      "fromPort": "True",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "3f1dd131-65c9-44f8-8435-7cf0e4ebd3e4",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "0e4660b8-245f-403b-a184-89d10aef3a77",
+      "fromNodeId": "7c4df148-5715-427a-b1bf-1963db8f2b26",
+      "fromPort": "False",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "77252a7b-75b6-4083-9598-606e20ed8050",
+      "toPort": "LoopBack",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
     }
   ]
 }
