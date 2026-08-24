@@ -17,7 +17,7 @@
       "y": 91,
       "width": 190,
       "height": 92,
-      "executionMode": "Disabled",
+      "executionMode": "Enabled",
       "settings": {
         "BiTemporalFields": "id_lokalid, registreringfra, virkningfra",
         "DafDbSchema": "DAF_DAGI",
@@ -1039,7 +1039,7 @@
       "y": 230,
       "width": 190,
       "height": 92,
-      "executionMode": "Enabled",
+      "executionMode": "Disabled",
       "settings": {
         "BiTemporalFields": "id_lokalid, registreringfra, virkningfra",
         "DafDbSchema": "DAF_FIKS",
