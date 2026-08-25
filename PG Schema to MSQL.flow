@@ -471,7 +471,7 @@
       "y": 740,
       "width": 200,
       "height": 102,
-      "executionMode": "Enabled",
+      "executionMode": "Disabled",
       "settings": {
         "BiTemporalFields": "id_lokalid\r\nregistreringfra\r\nvirkningfra",
         "DestinationMSSQL": "\u00A4[RegisterWorkDB]\u00A4",
@@ -555,11 +555,11 @@
       "name": "If SingleTable(s)?",
       "category": "Module",
       "nodeType": "IF_Then_Else",
-      "x": 509,
-      "y": 174,
+      "x": 1380,
+      "y": 114,
       "width": 200,
       "height": 102,
-      "executionMode": "Enabled",
+      "executionMode": "Disabled",
       "settings": {
         "Expression": "\u0022\u00A4{tablename}\u00A4\u0022 in \u0022\u00A4{SingleTable}\u00A4\u0022"
       },
@@ -567,6 +567,28 @@
         "O:True": "Bottom",
         "I:In": "Top"
       },
+      "flippedPortSides": []
+    },
+    {
+      "id": "244630f5-a511-468c-b960-210bf4644278",
+      "name": "Start EJF",
+      "category": "Module",
+      "nodeType": "Start",
+      "x": 47,
+      "y": 1292,
+      "width": 200,
+      "height": 102,
+      "executionMode": "Enabled",
+      "settings": {
+        "BiTemporalFields": "id_lokalid\r\nregistreringfra\r\nvirkningfra",
+        "DestinationMSSQL": "\u00A4[RegisterWorkDB]\u00A4",
+        "DestinationSchema": "DAF_EJF_NY",
+        "PostgresSchema": "ejf",
+        "ReduceNVarcharMax": "id_lokalid, 40, NOT NULL",
+        "RowLimiter": "limit 23456",
+        "SingleTable": ""
+      },
+      "portPlacements": {},
       "flippedPortSides": []
     }
   ],
@@ -1015,37 +1037,26 @@
       "directRoute": true
     },
     {
-      "id": "6319fc98-e0f4-4f18-990e-e29211a0feaa",
+      "id": "8f087a31-3e0b-457f-ab80-1197f99a13b0",
+      "fromNodeId": "244630f5-a511-468c-b960-210bf4644278",
+      "fromPort": "Out",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "77252a7b-75b6-4083-9598-606e20ed8050",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": [],
+      "directRoute": true
+    },
+    {
+      "id": "2fa0b638-dd37-401e-911c-26e622fd508a",
       "fromNodeId": "77252a7b-75b6-4083-9598-606e20ed8050",
       "fromPort": "Item",
       "fromControlDx": null,
       "fromControlDy": null,
-      "toNodeId": "7c4df148-5715-427a-b1bf-1963db8f2b26",
-      "toPort": "In",
-      "toControlDx": null,
-      "toControlDy": null,
-      "waypoints": []
-    },
-    {
-      "id": "d5a41526-1857-4d1f-9535-cb1942f3bd7a",
-      "fromNodeId": "7c4df148-5715-427a-b1bf-1963db8f2b26",
-      "fromPort": "True",
-      "fromControlDx": null,
-      "fromControlDy": null,
       "toNodeId": "3f1dd131-65c9-44f8-8435-7cf0e4ebd3e4",
       "toPort": "In",
-      "toControlDx": null,
-      "toControlDy": null,
-      "waypoints": []
-    },
-    {
-      "id": "0e4660b8-245f-403b-a184-89d10aef3a77",
-      "fromNodeId": "7c4df148-5715-427a-b1bf-1963db8f2b26",
-      "fromPort": "False",
-      "fromControlDx": null,
-      "fromControlDy": null,
-      "toNodeId": "77252a7b-75b6-4083-9598-606e20ed8050",
-      "toPort": "LoopBack",
       "toControlDx": null,
       "toControlDy": null,
       "waypoints": []
