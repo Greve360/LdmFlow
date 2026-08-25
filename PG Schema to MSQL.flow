@@ -11,16 +11,17 @@
       "category": "Module",
       "nodeType": "Start",
       "x": 40.5,
-      "y": 43,
+      "y": 42,
       "width": 200,
       "height": 102,
       "executionMode": "Disabled",
       "settings": {
+        "BiTemporalFields": "id_lokalid, registreringfra, virkningfra",
         "DestinationMSSQL": "\u00A4[RegisterWorkDB]\u00A4",
         "DestinationSchema": "DAF_DAGI_NY",
         "PostgresSchema": "daf_dagi",
         "RowLimiter": "limit 10000",
-        "BiTemporalFields": "id_lokalid, registreringfra, virkningfra"
+        "ReduceNVarcharMax": "id_lokalid, 40, NOT NULL"
       },
       "portPlacements": {},
       "flippedPortSides": []
@@ -82,7 +83,7 @@
         "KeepNulls": "No",
         "NotNullColumns": "\u00A4{BiTemporalFields}\u00A4",
         "RecreateTable": "Yes",
-        "ReduceNvarCharMax": "id_lokalid, 40, NOT NULL",
+        "ReduceNvarCharMax": "\u00A4{ReduceNVarcharMax}\u00A4",
         "SourceConnectionString": "\u00A4[DafDataDB]\u00A4",
         "SourceDBMS": "Postgres",
         "SourceSql": "select \u00A4{SqlFields}\u00A4 from \u00A4{schemaname}\u00A4.\u00A4{tablename}\u00A4 \u00A4{RowLimiter}\u00A4;",
@@ -91,7 +92,8 @@
         "UtcToLocalColumns": "registreringfra, registreringtil, virkningfra, virkningtil"
       },
       "portPlacements": {
-        "I:In": "Top"
+        "I:In": "Top",
+        "O:Out": "Top"
       },
       "flippedPortSides": []
     },
@@ -212,16 +214,17 @@
       "name": "Start MAT",
       "category": "Module",
       "nodeType": "Start",
-      "x": 39.5,
-      "y": 180,
+      "x": 40.5,
+      "y": 179,
       "width": 200,
       "height": 102,
-      "executionMode": "Enabled",
+      "executionMode": "Disabled",
       "settings": {
         "BiTemporalFields": "id_lokalid\r\nregistreringfra\r\nvirkningfra\r\nstatus",
         "DestinationMSSQL": "\u00A4[RegisterWorkDB]\u00A4",
         "DestinationSchema": "DAF_MAT_NY",
         "PostgresSchema": "daf_mat",
+        "ReduceNVarcharMax": "id_lokalid, 40, NOT NULL\r\nstatus, 40, NOT NULL",
         "RowLimiter": "",
         "SingleTable": "lodflade"
       },
@@ -243,7 +246,8 @@
         "DestinationMSSQL": "\u00A4[RegisterWorkDB]\u00A4",
         "DestinationSchema": "DAF_FIKS_NY",
         "PostgresSchema": "daf_fiks",
-        "RowLimiter": "limit 10000"
+        "RowLimiter": "limit 10000",
+        "ReduceNVarcharMax": "id_lokalid, 40, NOT NULL"
       },
       "portPlacements": {},
       "flippedPortSides": []
@@ -263,7 +267,8 @@
         "DestinationMSSQL": "\u00A4[RegisterWorkDB]\u00A4",
         "DestinationSchema": "DAF_DS_NY",
         "PostgresSchema": "daf_ds",
-        "RowLimiter": "limit 10000"
+        "RowLimiter": "limit 10000",
+        "ReduceNVarcharMax": "id_lokalid, 40, NOT NULL"
       },
       "portPlacements": {},
       "flippedPortSides": []
@@ -312,7 +317,8 @@
         "DestinationMSSQL": "\u00A4[RegisterWorkDB]\u00A4",
         "DestinationSchema": "DAF_GEODKV_NY",
         "PostgresSchema": "daf_gdk",
-        "RowLimiter": "limit 10000"
+        "RowLimiter": "limit 10000",
+        "ReduceNVarcharMax": "id_lokalid, 40, NOT NULL"
       },
       "portPlacements": {},
       "flippedPortSides": []
@@ -462,16 +468,18 @@
       "category": "Module",
       "nodeType": "Start",
       "x": 44,
-      "y": 742,
+      "y": 740,
       "width": 200,
       "height": 102,
-      "executionMode": "Disabled",
+      "executionMode": "Enabled",
       "settings": {
         "BiTemporalFields": "id_lokalid\r\nregistreringfra\r\nvirkningfra",
         "DestinationMSSQL": "\u00A4[RegisterWorkDB]\u00A4",
         "DestinationSchema": "DAF_BBR_NY",
         "PostgresSchema": "daf_bbr",
-        "RowLimiter": "limit 10000"
+        "ReduceNVarcharMax": "id_lokalid, 40, NOT NULL",
+        "RowLimiter": "",
+        "SingleTable": "bygning"
       },
       "portPlacements": {},
       "flippedPortSides": []
@@ -482,7 +490,7 @@
       "category": "Module",
       "nodeType": "Start",
       "x": 48,
-      "y": 885,
+      "y": 884,
       "width": 200,
       "height": 102,
       "executionMode": "Disabled",
@@ -491,7 +499,9 @@
         "DestinationMSSQL": "\u00A4[RegisterWorkDB]\u00A4",
         "DestinationSchema": "DAF_DAR_NY",
         "PostgresSchema": "daf_dar",
-        "RowLimiter": "limit 10000"
+        "ReduceNVarcharMax": "id_lokalid, 40, NOT NULL",
+        "RowLimiter": "",
+        "SingleTable": "husnummer"
       },
       "portPlacements": {},
       "flippedPortSides": []
@@ -512,7 +522,8 @@
         "DestinationSchema": "DAF_EBR_NY",
         "PostgresSchema": "daf_ebr",
         "RowLimiter": "",
-        "SingleTable": "ejendomsbeliggenhed"
+        "SingleTable": "ejendomsbeliggenhed",
+        "ReduceNVarcharMax": "id_lokalid, 40, NOT NULL"
       },
       "portPlacements": {},
       "flippedPortSides": []
@@ -533,7 +544,8 @@
         "DestinationSchema": "DAF_VUR_NY",
         "PostgresSchema": "daf_vur",
         "RowLimiter": "",
-        "SingleTable": "ejendomsvurdering"
+        "SingleTable": "ejendomsvurdering",
+        "ReduceNVarcharMax": "id_lokalid, 40, NOT NULL"
       },
       "portPlacements": {},
       "flippedPortSides": []
