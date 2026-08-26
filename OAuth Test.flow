@@ -3,10 +3,7 @@
   "flowId": "a4b99df6-acb0-4673-ab96-b8ae1dae17b6",
   "name": "OAuth Test",
   "description": "",
-  "globalValues": {
-    "OAuthClient": "97cca238-d3d1-4137-bdf6-1b3a4e768a50",
-    "OAuthSecret": "BlxDBsm4DXL3GL6hfQXzqrmiJTgFR4LS"
-  },
+  "globalValues": {},
   "nodes": [
     {
       "id": "44423f66-f7c5-4a08-8f30-2969f9377f35",
@@ -264,7 +261,7 @@
       "y": 409.40000000000003,
       "width": 213,
       "height": 92,
-      "executionMode": "Enabled",
+      "executionMode": "Nop",
       "settings": {
         "CommitEachRow": "No",
         "ConnectionString": "\u00A4[DafDataDB]\u00A4",
@@ -652,7 +649,7 @@
       "y": 404.40000000000003,
       "width": 200,
       "height": 102,
-      "executionMode": "Enabled",
+      "executionMode": "Nop",
       "settings": {
         "ClearExisting": "No",
         "ConnectionString": "\u00A4[DafDataDB]\u00A4",
@@ -676,7 +673,7 @@
       "y": 409.40000000000003,
       "width": 190,
       "height": 92,
-      "executionMode": "Enabled",
+      "executionMode": "Nop",
       "settings": {
         "CommandTimeout": "0",
         "ConnectionString": "\u00A4[DafDataDB]\u00A4",
@@ -688,6 +685,35 @@
         "QueryType": "NonQuery",
         "ResultVariable": "",
         "SQL": "create schema if not exists ejf;\r\ndrop table if exists ejf.ejerskabsskifte;"
+      },
+      "portPlacements": {},
+      "flippedPortSides": []
+    },
+    {
+      "id": "e47e1e46-eaf6-42a1-af0a-1742150f6088",
+      "name": "GetAvailableFileDownloadsDaf",
+      "category": "Module",
+      "nodeType": "GetAvailableFileDownloadsDaf",
+      "x": 373,
+      "y": 53,
+      "width": 200,
+      "height": 102,
+      "executionMode": "Enabled",
+      "settings": {
+        "Clean": "yes",
+        "ConnectionString": "\u00A4[LdmSysDb]\u00A4",
+        "ContainedFileFormat": "JSON",
+        "DafFileDownloadUrl": "https://api.datafordeler.dk/FileDownloads/v1.0/GetAvailableCustomFileDownloads?Register=EJF\u0026Entity=EjerskabMedStamoplysninger",
+        "OAuthCertificatePassword": "",
+        "OAuthCertificatePath": "",
+        "OAuthClientId": "\u00A4[OAuthClient]\u00A4",
+        "OAuthClientSecret": "\u00A4[OAuthSecret]\u00A4",
+        "OAuthMode": "SharedSecret",
+        "OAuthTokenUrl": "https://auth.datafordeler.dk/realms/distribution/protocol/openid-connect/token",
+        "Register": "",
+        "Table": "workflow.DafFiles2",
+        "TypeOfData": "Bitemporal",
+        "TypeOfDownload": ""
       },
       "portPlacements": {},
       "flippedPortSides": []
@@ -941,18 +967,6 @@
       "fromControlDx": null,
       "fromControlDy": null,
       "toNodeId": "6e8bf30b-c55c-47cf-a08c-d7698810fb56",
-      "toPort": "In",
-      "toControlDx": null,
-      "toControlDy": null,
-      "waypoints": []
-    },
-    {
-      "id": "a512b6be-b78f-4e26-a174-ca0cb09f95d3",
-      "fromNodeId": "44423f66-f7c5-4a08-8f30-2969f9377f35",
-      "fromPort": "Out",
-      "fromControlDx": null,
-      "fromControlDy": null,
-      "toNodeId": "0083a4c2-1813-42e4-9f78-d0916d3a8f64",
       "toPort": "In",
       "toControlDx": null,
       "toControlDy": null,
@@ -1313,6 +1327,30 @@
       "fromControlDx": null,
       "fromControlDy": null,
       "toNodeId": "6e8bf30b-c55c-47cf-a08c-d7698810fb56",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "e53e992c-8dbf-4e05-8b21-8058e3cf3f5b",
+      "fromNodeId": "44423f66-f7c5-4a08-8f30-2969f9377f35",
+      "fromPort": "Out",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "e47e1e46-eaf6-42a1-af0a-1742150f6088",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "d693b3f7-41fa-4854-ba12-6a41a21da759",
+      "fromNodeId": "e47e1e46-eaf6-42a1-af0a-1742150f6088",
+      "fromPort": "Out",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "0083a4c2-1813-42e4-9f78-d0916d3a8f64",
       "toPort": "In",
       "toControlDx": null,
       "toControlDy": null,
