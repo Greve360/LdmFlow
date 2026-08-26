@@ -3,9 +3,7 @@
   "flowId": "dd209656-8cff-450f-8fbb-f0eb9c4126f3",
   "name": "WFS Downloads",
   "description": "Dette er en beskrivelse",
-  "globalValues": {
-    "SdkRoot": "c:\\App\\Gdal\\release-1929-x64-gdal-3-12-1-mapserver-8-6-0\\"
-  },
+  "globalValues": {},
   "nodes": [
     {
       "id": "aa8d92f0-ae89-4ae7-87f9-52b306a5253b",
@@ -18,9 +16,7 @@
       "height": 92,
       "executionMode": "Enabled",
       "settings": {
-        "Capabilities": "arealeditering_total.xml",
-        "Scheduling": "no",
-        "Schema": "dummy"
+        "Scheduling": "no"
       },
       "portPlacements": {
         "O:Out": "Bottom"
@@ -32,8 +28,8 @@
       "name": "Exit",
       "category": "Module",
       "nodeType": "Exit",
-      "x": 1634.2222222222097,
-      "y": 300.7530864197489,
+      "x": 1179.2222222222097,
+      "y": 222.7530864197489,
       "width": 190,
       "height": 92,
       "executionMode": "Enabled",
@@ -42,7 +38,8 @@
         "ExitMessage": ""
       },
       "portPlacements": {
-        "I:Fail": "Top"
+        "I:Fail": "Top",
+        "I:In": "Bottom"
       },
       "flippedPortSides": []
     },
@@ -51,8 +48,8 @@
       "name": "Play Sound",
       "category": "Module",
       "nodeType": "PlaySound",
-      "x": 1366.8765432098855,
-      "y": 293.2592592592598,
+      "x": 1014.8765432098855,
+      "y": 332.2592592592598,
       "width": 190,
       "height": 92,
       "executionMode": "Enabled",
@@ -73,6 +70,8 @@
       "width": 190,
       "height": 92,
       "executionMode": "Enabled",
+      "retryAttempts": 3,
+      "retryDelaySeconds": 5,
       "settings": {
         "AdditionalQueryParameters": "",
         "BBox": "",
@@ -93,6 +92,7 @@
         "SortBy": "",
         "SrsName": "",
         "StartIndex": "",
+        "Timeout": "1000",
         "TypeName": "\u00A4{tablename}\u00A4",
         "Version": "Auto"
       },
@@ -106,16 +106,17 @@
       "name": "Display",
       "category": "Module",
       "nodeType": "Display",
-      "x": 10.320987654279627,
-      "y": 869.5308641975334,
+      "x": 37.32098765427963,
+      "y": 716.5308641975334,
       "width": 304,
       "height": 92,
       "executionMode": "Enabled",
       "settings": {
-        "Text": "\u00A4{PickedRegister}\u00A4 - \u00A4{tablename}\u00A4"
+        "Text": "\u00A4{PickedRegister}\u00A4 - \u00A4{HarvestSchema}\u00A4.\u00A4{tablename}\u00A4"
       },
       "portPlacements": {
-        "I:In": "Top"
+        "I:In": "Top",
+        "O:Out": "Bottom"
       },
       "flippedPortSides": []
     },
@@ -141,8 +142,8 @@
       "name": "ILogger EXIT",
       "category": "Module",
       "nodeType": "ILogger",
-      "x": 928.3950617283815,
-      "y": 61.87654320986067,
+      "x": 633.3950617283815,
+      "y": 84.87654320986067,
       "width": 190,
       "height": 92,
       "executionMode": "Enabled",
@@ -161,8 +162,8 @@
       "name": "Execute SQL",
       "category": "Module",
       "nodeType": "ExecuteSQL",
-      "x": 51.18518518516954,
-      "y": 550.382716049377,
+      "x": 60.18518518516954,
+      "y": 554.382716049377,
       "width": 190,
       "height": 92,
       "executionMode": "Enabled",
@@ -176,7 +177,7 @@
         "MaxRows": "0",
         "QueryType": "NonQuery",
         "ResultVariable": "",
-        "SQL": "CREATE SCHEMA IF NOT EXISTS \u00A4{Schema}\u00A4 AUTHORIZATION rtharvest; "
+        "SQL": "CREATE SCHEMA IF NOT EXISTS \u00A4{HarvestSchema}\u00A4 AUTHORIZATION rtharvest; "
       },
       "portPlacements": {
         "O:Success": "Bottom",
@@ -189,8 +190,8 @@
       "name": "Play Sound 2",
       "category": "Module",
       "nodeType": "PlaySound",
-      "x": 1195.1604938271996,
-      "y": 65.44444444444461,
+      "x": 1019.1604938271996,
+      "y": 93.44444444444461,
       "width": 190,
       "height": 92,
       "executionMode": "Enabled",
@@ -198,9 +199,7 @@
         "SoundEffect": "Windows Critical Stop",
         "VolumePercent": "100"
       },
-      "portPlacements": {
-        "O:Out": "Top"
-      },
+      "portPlacements": {},
       "flippedPortSides": []
     },
     {
@@ -214,7 +213,7 @@
       "height": 92,
       "executionMode": "Enabled",
       "settings": {
-        "AdditionalArguments": "-lco GEOMETRY_NAME=wkb_geometry --config PG_USE_COPY YES -lco OVERWRITE=YES -lco SCHEMA=\u00A4{Schema}\u00A4",
+        "AdditionalArguments": "-lco GEOMETRY_NAME=wkb_geometry --config PG_USE_COPY YES -lco OVERWRITE=YES -lco SCHEMA=\u00A4{HarvestSchema}\u00A4",
         "AdditionalEnvironment": "",
         "Destination": "\u00A4[GrunddataOGR]\u00A4",
         "GeometryType": "PROMOTE_TO_MULTI",
@@ -254,9 +253,9 @@
         "ClearExisting": "No",
         "ConnectionString": "\u00A4[GrunddataDB]\u00A4",
         "DBMS": "Postgres",
-        "RegisterName": "GD_\u00A4{Schema}\u00A4",
+        "RegisterName": "GD_\u00A4{HarvestSchema}\u00A4",
         "RegisterType": "WFS",
-        "SchemaName": "\u00A4{Schema}\u00A4",
+        "SchemaName": "\u00A4{HarvestSchema}\u00A4",
         "TableName": "\u00A4{Edited}\u00A4"
       },
       "portPlacements": {
@@ -291,34 +290,6 @@
       "flippedPortSides": []
     },
     {
-      "id": "83b48ebe-8438-43a6-a01b-f6295ed3167e",
-      "name": "Get schema file name",
-      "category": "Module",
-      "nodeType": "ExecuteSQL",
-      "x": 61,
-      "y": 698,
-      "width": 200,
-      "height": 102,
-      "executionMode": "Enabled",
-      "settings": {
-        "CommandTimeout": "0",
-        "ConnectionString": "\u00A4[LdmSystemDB]\u00A4",
-        "DBMS": "MSSQL",
-        "ExecuteEachLine": "False",
-        "FilePath": "",
-        "InTransaction": "False",
-        "MaxRows": "0",
-        "QueryType": "Scalar",
-        "ResultVariable": "CapabilitiesFile",
-        "SQL": "select comment from workflow.MetaRegister where RegisterName=\u0027GD_dai01\u0027 and RegisterType=\u0027WFS\u0027"
-      },
-      "portPlacements": {
-        "I:In": "Top",
-        "O:Success": "Bottom"
-      },
-      "flippedPortSides": []
-    },
-    {
       "id": "e3ed1c69-db09-43af-9e6d-ba7c7f3683fa",
       "name": "Sql Iterator",
       "category": "Module",
@@ -334,7 +305,7 @@
         "MaxParallelism": "4",
         "Mode": "Sequential",
         "ResultType": "Recordset",
-        "Sql": "select tablename from [workflow].[MetaTable] where RegisterName = \u0027\u00A4{PickedRegister}\u00A4\u0027 and Active=1",
+        "Sql": "select T.tablename, R.HarvestSchema from [workflow].[MetaTable] T \r\n  inner join [workflow].[MetaRegister] R on R.RegisterName = T.RegisterName \r\nwhere R.RegisterName = \u0027\u00A4{PickedRegister}\u00A4\u0027 and T.Active=1",
         "SqlTimeout": ""
       },
       "portPlacements": {
@@ -516,42 +487,6 @@
       "directRoute": true
     },
     {
-      "id": "60cbd706-9f9c-4910-a8c7-1ed5c6b26b96",
-      "fromNodeId": "be848a26-cdb5-486a-8cf9-5bfd2a55e351",
-      "fromPort": "Success",
-      "fromControlDx": null,
-      "fromControlDy": null,
-      "toNodeId": "83b48ebe-8438-43a6-a01b-f6295ed3167e",
-      "toPort": "In",
-      "toControlDx": null,
-      "toControlDy": null,
-      "waypoints": []
-    },
-    {
-      "id": "fb8b6fe4-cc47-4082-ac20-7d793eae9d73",
-      "fromNodeId": "83b48ebe-8438-43a6-a01b-f6295ed3167e",
-      "fromPort": "Success",
-      "fromControlDx": null,
-      "fromControlDy": null,
-      "toNodeId": "126334ee-fc8d-4fe0-b8b9-9d4d3ceacefa",
-      "toPort": "In",
-      "toControlDx": null,
-      "toControlDy": null,
-      "waypoints": []
-    },
-    {
-      "id": "a36b2e32-3961-4582-ad32-59d081034565",
-      "fromNodeId": "83b48ebe-8438-43a6-a01b-f6295ed3167e",
-      "fromPort": "Fail",
-      "fromControlDx": null,
-      "fromControlDy": null,
-      "toNodeId": "263c9865-e315-4840-ae64-a73a8a19703e",
-      "toPort": "In",
-      "toControlDx": null,
-      "toControlDy": null,
-      "waypoints": []
-    },
-    {
       "id": "42a29d33-c9d8-4fb6-aecf-adb3f53a4bb5",
       "fromNodeId": "e3ed1c69-db09-43af-9e6d-ba7c7f3683fa",
       "fromPort": "Done",
@@ -656,6 +591,18 @@
       "fromControlDx": null,
       "fromControlDy": null,
       "toNodeId": "263c9865-e315-4840-ae64-a73a8a19703e",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "b0eab582-83e3-4633-805d-9f283b343b39",
+      "fromNodeId": "be848a26-cdb5-486a-8cf9-5bfd2a55e351",
+      "fromPort": "Success",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "126334ee-fc8d-4fe0-b8b9-9d4d3ceacefa",
       "toPort": "In",
       "toControlDx": null,
       "toControlDy": null,
