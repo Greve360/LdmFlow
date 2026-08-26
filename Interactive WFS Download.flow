@@ -14,11 +14,10 @@
       "y": 42.08000000000001,
       "width": 190,
       "height": 92,
-      "executionMode": "Disabled",
+      "executionMode": "Enabled",
       "settings": {
         "Scheduling": "no",
-        "SingleTable": "",
-        "SingleRegister": ""
+        "SingleTable": ""
       },
       "portPlacements": {
         "O:Out": "Bottom"
@@ -308,10 +307,10 @@
       "settings": {
         "ConnectionString": "\u00A4[LdmSysDb]\u00A4",
         "DBMS": "MSSQL",
-        "MaxParallelism": "4",
-        "Mode": "Sequential",
+        "MaxParallelism": "20",
+        "Mode": "Parallel",
         "ResultType": "Recordset",
-        "Sql": "select T.tablename, R.HarvestSchema from [workflow].[MetaTable] T \r\n  inner join [workflow].[MetaRegister] R on R.RegisterName = T.RegisterName \r\nwhere \r\n  (R.RegisterName = \u0027\u00A4{SingleRegister}\u00A4\u0027 or  \u00A4{SingleRegister,#}\u00A4=0)\r\n  and T.Active=1 \r\n  and (T.TableName = \u0027\u00A4{SingleTable}\u00A4\u0027 or \u00A4{SingleTable,#}\u00A4=0)",
+        "Sql": "select T.tablename, R.HarvestSchema from [workflow].[MetaTable] T \r\n  inner join [workflow].[MetaRegister] R on R.RegisterName = T.RegisterName \r\nwhere R.RegisterName = \u0027\u00A4{PickedRegister}\u00A4\u0027\r\n  and T.Active=1 \r\n  and (T.TableName = \u0027\u00A4{SingleTable}\u00A4\u0027 or \u00A4{SingleTable,#}\u00A4=0)",
         "SqlTimeout": ""
       },
       "portPlacements": {
@@ -357,8 +356,7 @@
       "executionMode": "Disabled",
       "settings": {
         "Scheduling": "no",
-        "SingleTable": "",
-        "SingleRegister": ""
+        "SingleTable": ""
       },
       "portPlacements": {
         "O:Out": "Bottom"
@@ -454,32 +452,12 @@
       "flippedPortSides": []
     },
     {
-      "id": "48b67f71-c22f-483f-85fe-f3e2ff2193c0",
-      "name": "Start",
-      "category": "Module",
-      "nodeType": "Start",
-      "x": 572,
-      "y": 45,
-      "width": 190,
-      "height": 92,
-      "executionMode": "Enabled",
-      "settings": {
-        "Scheduling": "no",
-        "SingleTable": "",
-        "SingleRegister": ""
-      },
-      "portPlacements": {
-        "O:Out": "Bottom"
-      },
-      "flippedPortSides": []
-    },
-    {
       "id": "34345c38-647c-4856-abc0-321a81af7561",
       "name": "Assign Variable",
       "category": "Module",
       "nodeType": "AssignVariable",
-      "x": 371,
-      "y": 434,
+      "x": 334,
+      "y": 433,
       "width": 200,
       "height": 102,
       "executionMode": "Enabled",
@@ -866,18 +844,6 @@
       "fromControlDx": null,
       "fromControlDy": null,
       "toNodeId": "263c9865-e315-4840-ae64-a73a8a19703e",
-      "toPort": "In",
-      "toControlDx": null,
-      "toControlDy": null,
-      "waypoints": []
-    },
-    {
-      "id": "d98bcb78-b847-402c-9fb9-13146d6ab69c",
-      "fromNodeId": "48b67f71-c22f-483f-85fe-f3e2ff2193c0",
-      "fromPort": "Out",
-      "fromControlDx": -19.072308311840516,
-      "fromControlDy": 93.81880752698066,
-      "toNodeId": "e3ed1c69-db09-43af-9e6d-ba7c7f3683fa",
       "toPort": "In",
       "toControlDx": null,
       "toControlDy": null,
