@@ -10,13 +10,15 @@
       "name": "Start",
       "category": "Module",
       "nodeType": "Start",
-      "x": 44,
-      "y": 56,
+      "x": 340.90000000000003,
+      "y": 42.08000000000001,
       "width": 190,
       "height": 92,
-      "executionMode": "Enabled",
+      "executionMode": "Disabled",
       "settings": {
-        "Scheduling": "no"
+        "Scheduling": "no",
+        "SingleTable": "",
+        "SingleRegister": ""
       },
       "portPlacements": {
         "O:Out": "Bottom"
@@ -28,8 +30,8 @@
       "name": "Exit",
       "category": "Module",
       "nodeType": "Exit",
-      "x": 1179.2222222222097,
-      "y": 222.7530864197489,
+      "x": 1472.5,
+      "y": 196.88000000000002,
       "width": 190,
       "height": 92,
       "executionMode": "Enabled",
@@ -48,8 +50,8 @@
       "name": "Play Sound",
       "category": "Module",
       "nodeType": "PlaySound",
-      "x": 1014.8765432098855,
-      "y": 332.2592592592598,
+      "x": 1284.4,
+      "y": 318.32000000000005,
       "width": 190,
       "height": 92,
       "executionMode": "Enabled",
@@ -65,10 +67,10 @@
       "name": "WFS Download",
       "category": "Module",
       "nodeType": "WfsDownload",
-      "x": 871.2345679012292,
-      "y": 830.5802469136028,
-      "width": 190,
-      "height": 92,
+      "x": 986.1,
+      "y": 726.3600000000001,
+      "width": 212,
+      "height": 99,
       "executionMode": "Enabled",
       "retryAttempts": 3,
       "retryDelaySeconds": 5,
@@ -94,10 +96,12 @@
         "StartIndex": "",
         "Timeout": "1000",
         "TypeName": "\u00A4{tablename}\u00A4",
-        "Version": "Auto"
+        "Version": "Auto",
+        "GetFeatureEndpoint": ""
       },
       "portPlacements": {
-        "O:Fail": "Top"
+        "O:Out": "Top",
+        "I:In": "Bottom"
       },
       "flippedPortSides": []
     },
@@ -106,8 +110,8 @@
       "name": "Display",
       "category": "Module",
       "nodeType": "Display",
-      "x": 37.32098765427963,
-      "y": 716.5308641975334,
+      "x": 98.80000000000001,
+      "y": 895.1600000000001,
       "width": 304,
       "height": 92,
       "executionMode": "Enabled",
@@ -115,8 +119,7 @@
         "Text": "\u00A4{PickedRegister}\u00A4 - \u00A4{HarvestSchema}\u00A4.\u00A4{tablename}\u00A4"
       },
       "portPlacements": {
-        "I:In": "Top",
-        "O:Out": "Bottom"
+        "I:In": "Top"
       },
       "flippedPortSides": []
     },
@@ -125,8 +128,8 @@
       "name": "Stream Edit",
       "category": "Module",
       "nodeType": "StreamEdit",
-      "x": 370.9135802469199,
-      "y": 849.4567901234578,
+      "x": 603.3000000000001,
+      "y": 892.1600000000001,
       "width": 190,
       "height": 92,
       "executionMode": "Enabled",
@@ -142,8 +145,8 @@
       "name": "ILogger EXIT",
       "category": "Module",
       "nodeType": "ILogger",
-      "x": 633.3950617283815,
-      "y": 84.87654320986067,
+      "x": 908.2,
+      "y": 75.44000000000001,
       "width": 190,
       "height": 92,
       "executionMode": "Enabled",
@@ -162,8 +165,8 @@
       "name": "Execute SQL",
       "category": "Module",
       "nodeType": "ExecuteSQL",
-      "x": 60.18518518516954,
-      "y": 554.382716049377,
+      "x": 95.10000000000002,
+      "y": 742.3600000000001,
       "width": 190,
       "height": 92,
       "executionMode": "Enabled",
@@ -190,8 +193,8 @@
       "name": "Play Sound 2",
       "category": "Module",
       "nodeType": "PlaySound",
-      "x": 1019.1604938271996,
-      "y": 93.44444444444461,
+      "x": 1284.4,
+      "y": 75.44000000000001,
       "width": 190,
       "height": 92,
       "executionMode": "Enabled",
@@ -207,8 +210,8 @@
       "name": "OGR2OGR (external)",
       "category": "Module",
       "nodeType": "OGR2OGRExternal",
-      "x": 1139.259259259271,
-      "y": 828.5925925925892,
+      "x": 994.1,
+      "y": 592.5600000000001,
       "width": 190,
       "height": 92,
       "executionMode": "Enabled",
@@ -219,9 +222,9 @@
         "GeometryType": "PROMOTE_TO_MULTI",
         "LayerName": "\u00A4{Edited}\u00A4",
         "Mode": "Overwrite",
-        "OgrExecutable": "\u00A4[SdkRoot]\u00A4bin\\gdal\\apps\\ogr2ogr.exe",
+        "OgrExecutable": "\u00A4[GdalSdkRoot]\u00A4bin\\gdal\\apps\\ogr2ogr.exe",
         "OutputFormat": "",
-        "SdkRoot": "\u00A4[SdkRoot]\u00A4",
+        "SdkRoot": "\u00A4[GdalSdkRoot]\u00A4",
         "SelectFields": "",
         "Source": "\u00A4[WorkingFolder]\u00A4\\WFS\\\u00A4{Edited}\u00A4.gml",
         "SourceSrs": "",
@@ -232,7 +235,9 @@
         "XsdTableName": ""
       },
       "portPlacements": {
-        "O:Fail": "Top"
+        "O:Fail": "Top",
+        "I:In": "Bottom",
+        "O:Success": "Left"
       },
       "flippedPortSides": [
         "Right",
@@ -244,8 +249,8 @@
       "name": "Update Metadata",
       "category": "Module",
       "nodeType": "UpdateMetadata",
-      "x": 1428.9876543209778,
-      "y": 807.432098765415,
+      "x": 467.30000000000007,
+      "y": 568.5600000000001,
       "width": 200,
       "height": 102,
       "executionMode": "Enabled",
@@ -259,8 +264,9 @@
         "TableName": "\u00A4{Edited}\u00A4"
       },
       "portPlacements": {
-        "O:Fail": "Left",
-        "O:Out": "Top"
+        "O:Fail": "Top",
+        "O:Out": "Left",
+        "I:In": "Right"
       },
       "flippedPortSides": [
         "Left"
@@ -271,13 +277,13 @@
       "name": "Pick Register",
       "category": "Module",
       "nodeType": "PickOneOf",
-      "x": 52.123456790124195,
-      "y": 211.06172839506144,
+      "x": 334.90000000000003,
+      "y": 170.76000000000005,
       "width": 200,
       "height": 102,
       "executionMode": "Enabled",
       "settings": {
-        "ConnectionString": "\u00A4[LdmSystemDB]\u00A4",
+        "ConnectionString": "\u00A4[LdmSysDb]\u00A4",
         "DBMS": "MSSQL",
         "OutputVariable": "PickedRegister",
         "SQL": "select RegisterName from workflow.MetaRegister where RegisterType=\u0027WFS\u0027 and Active=1 order by RegisterName",
@@ -294,18 +300,18 @@
       "name": "Sql Iterator",
       "category": "Module",
       "nodeType": "SqlIterator",
-      "x": 61,
-      "y": 373,
+      "x": 88.10000000000002,
+      "y": 586.5600000000001,
       "width": 200,
       "height": 102,
       "executionMode": "Enabled",
       "settings": {
-        "ConnectionString": "\u00A4[LdmSystemDB]\u00A4",
+        "ConnectionString": "\u00A4[LdmSysDb]\u00A4",
         "DBMS": "MSSQL",
         "MaxParallelism": "4",
         "Mode": "Sequential",
         "ResultType": "Recordset",
-        "Sql": "select T.tablename, R.HarvestSchema from [workflow].[MetaTable] T \r\n  inner join [workflow].[MetaRegister] R on R.RegisterName = T.RegisterName \r\nwhere R.RegisterName = \u0027\u00A4{PickedRegister}\u00A4\u0027 and T.Active=1",
+        "Sql": "select T.tablename, R.HarvestSchema from [workflow].[MetaTable] T \r\n  inner join [workflow].[MetaRegister] R on R.RegisterName = T.RegisterName \r\nwhere \r\n  (R.RegisterName = \u0027\u00A4{SingleRegister}\u00A4\u0027 or  \u00A4{SingleRegister,#}\u00A4=0)\r\n  and T.Active=1 \r\n  and (T.TableName = \u0027\u00A4{SingleTable}\u00A4\u0027 or \u00A4{SingleTable,#}\u00A4=0)",
         "SqlTimeout": ""
       },
       "portPlacements": {
@@ -320,8 +326,8 @@
       "name": "Schedule Gate",
       "category": "Module",
       "nodeType": "ScheduleGate",
-      "x": 613,
-      "y": 843,
+      "x": 996.0999999999999,
+      "y": 873.1600000000001,
       "width": 200,
       "height": 102,
       "executionMode": "Enabled",
@@ -332,8 +338,157 @@
         "TableName": "\u00A4{tablename}\u00A4"
       },
       "portPlacements": {
-        "O:False": "Top",
-        "O:Fail": "Top"
+        "O:False": "Left",
+        "O:True": "Top"
+      },
+      "flippedPortSides": [
+        "Left"
+      ]
+    },
+    {
+      "id": "b5e8fe67-481e-4246-bb35-47ec7f6259ea",
+      "name": "Start",
+      "category": "Module",
+      "nodeType": "Start",
+      "x": 94.10000000000002,
+      "y": 30.080000000000013,
+      "width": 190,
+      "height": 92,
+      "executionMode": "Disabled",
+      "settings": {
+        "Scheduling": "no",
+        "SingleTable": "",
+        "SingleRegister": ""
+      },
+      "portPlacements": {
+        "O:Out": "Bottom"
+      },
+      "flippedPortSides": []
+    },
+    {
+      "id": "3929b225-da62-45ac-a002-252a3c27135e",
+      "name": "Pick Register",
+      "category": "Module",
+      "nodeType": "PickOneOf",
+      "x": 88.10000000000002,
+      "y": 161.52,
+      "width": 200,
+      "height": 102,
+      "executionMode": "Enabled",
+      "settings": {
+        "ConnectionString": "\u00A4[LdmSysDb]\u00A4",
+        "DBMS": "MSSQL",
+        "OutputVariable": "PickedRegister",
+        "SQL": "select RegisterName from workflow.MetaRegister where RegisterType=\u0027WFS\u0027 and Active=1 order by RegisterName",
+        "Title": "Pick Register"
+      },
+      "portPlacements": {
+        "I:In": "Top",
+        "O:Success": "Bottom"
+      },
+      "flippedPortSides": []
+    },
+    {
+      "id": "c2400388-c4a3-4775-a7b7-e231921d219c",
+      "name": "Pick Table",
+      "category": "Module",
+      "nodeType": "PickOneOf",
+      "x": 88.10000000000002,
+      "y": 313.32000000000005,
+      "width": 200,
+      "height": 102,
+      "executionMode": "Enabled",
+      "settings": {
+        "ConnectionString": "\u00A4[LdmSysDb]\u00A4",
+        "DBMS": "MSSQL",
+        "OutputVariable": "PickedTable",
+        "SQL": "select TableName from workflow.MetaTable where RegisterName=\u0027\u00A4{PickedRegister}\u00A4\u0027 and Active=1 order by RegisterName",
+        "Title": "Pick Table"
+      },
+      "portPlacements": {
+        "I:In": "Top",
+        "O:Success": "Bottom"
+      },
+      "flippedPortSides": []
+    },
+    {
+      "id": "959624de-4a82-4001-960f-437355b69454",
+      "name": "Assign Variable",
+      "category": "Module",
+      "nodeType": "AssignVariable",
+      "x": 88.10000000000002,
+      "y": 434.76000000000005,
+      "width": 200,
+      "height": 102,
+      "executionMode": "Enabled",
+      "settings": {
+        "SingleTable": "\u00A4{PickedTable}\u00A4"
+      },
+      "portPlacements": {
+        "I:In": "Top",
+        "O:Out": "Bottom"
+      },
+      "flippedPortSides": []
+    },
+    {
+      "id": "2a193ecf-1d12-4eaf-af12-e6a47e517134",
+      "name": "Has Table",
+      "category": "Module",
+      "nodeType": "HasTable",
+      "x": 718,
+      "y": 572,
+      "width": 200,
+      "height": 102,
+      "executionMode": "Enabled",
+      "settings": {
+        "ConnectionString": "\u00A4[GrunddataDB]\u00A4",
+        "DBMS": "Postgres",
+        "TableName": "\u00A4{HarvestSchema}\u00A4.\u00A4{Edited}\u00A4"
+      },
+      "portPlacements": {
+        "O:False": "Bottom",
+        "O:Fail": "Top",
+        "I:In": "Right",
+        "O:True": "Left"
+      },
+      "flippedPortSides": []
+    },
+    {
+      "id": "48b67f71-c22f-483f-85fe-f3e2ff2193c0",
+      "name": "Start",
+      "category": "Module",
+      "nodeType": "Start",
+      "x": 572,
+      "y": 45,
+      "width": 190,
+      "height": 92,
+      "executionMode": "Enabled",
+      "settings": {
+        "Scheduling": "no",
+        "SingleTable": "",
+        "SingleRegister": ""
+      },
+      "portPlacements": {
+        "O:Out": "Bottom"
+      },
+      "flippedPortSides": []
+    },
+    {
+      "id": "34345c38-647c-4856-abc0-321a81af7561",
+      "name": "Assign Variable",
+      "category": "Module",
+      "nodeType": "AssignVariable",
+      "x": 371,
+      "y": 434,
+      "width": 200,
+      "height": 102,
+      "executionMode": "Enabled",
+      "settings": {
+        "SingleRegister": "\u00A4{PickedRegister}\u00A4"
+      },
+      "portPlacements": {
+        "I:In": "Top",
+        "O:Out": "Bottom"
       },
       "flippedPortSides": []
     }
@@ -395,18 +550,6 @@
       "fromControlDx": null,
       "fromControlDy": null,
       "toNodeId": "263c9865-e315-4840-ae64-a73a8a19703e",
-      "toPort": "In",
-      "toControlDx": null,
-      "toControlDy": null,
-      "waypoints": []
-    },
-    {
-      "id": "df3c233f-ae7e-4994-bd79-ee713207eb4d",
-      "fromNodeId": "99e81463-54c1-4a21-bbdc-8305134dbdef",
-      "fromPort": "Success",
-      "fromControlDx": null,
-      "fromControlDy": null,
-      "toNodeId": "351fe941-a76d-40eb-b476-076f9fbf2eda",
       "toPort": "In",
       "toControlDx": null,
       "toControlDy": null,
@@ -511,18 +654,6 @@
       "waypoints": []
     },
     {
-      "id": "3101e3f8-c0ea-4fea-a348-e169b9952147",
-      "fromNodeId": "1ae86570-ba3e-41f3-afbd-fd8a2eb7cba5",
-      "fromPort": "Success",
-      "fromControlDx": null,
-      "fromControlDy": null,
-      "toNodeId": "e3ed1c69-db09-43af-9e6d-ba7c7f3683fa",
-      "toPort": "In",
-      "toControlDx": null,
-      "toControlDy": null,
-      "waypoints": []
-    },
-    {
       "id": "417dd33d-944f-4f0b-9458-d6166e756d4a",
       "fromNodeId": "351fe941-a76d-40eb-b476-076f9fbf2eda",
       "fromPort": "Out",
@@ -603,6 +734,174 @@
       "fromControlDx": null,
       "fromControlDy": null,
       "toNodeId": "126334ee-fc8d-4fe0-b8b9-9d4d3ceacefa",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "eff4e989-9517-44f9-b42b-06c965fbc354",
+      "fromNodeId": "b5e8fe67-481e-4246-bb35-47ec7f6259ea",
+      "fromPort": "Out",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "3929b225-da62-45ac-a002-252a3c27135e",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "dc6a8aba-e1a1-4943-99bd-5cb0a0c07839",
+      "fromNodeId": "3929b225-da62-45ac-a002-252a3c27135e",
+      "fromPort": "Success",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "c2400388-c4a3-4775-a7b7-e231921d219c",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "6b437252-ac20-497e-96da-c3e7d70db9c7",
+      "fromNodeId": "c2400388-c4a3-4775-a7b7-e231921d219c",
+      "fromPort": "Success",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "959624de-4a82-4001-960f-437355b69454",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "5745f7bf-729d-4c7d-a186-9d8a99f27af4",
+      "fromNodeId": "959624de-4a82-4001-960f-437355b69454",
+      "fromPort": "Out",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "e3ed1c69-db09-43af-9e6d-ba7c7f3683fa",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "a7bb93fe-bce8-4faa-b2f7-b94503482e4d",
+      "fromNodeId": "959624de-4a82-4001-960f-437355b69454",
+      "fromPort": "Fail",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "263c9865-e315-4840-ae64-a73a8a19703e",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "9845e382-dddc-4b03-893a-d3ae90fe5a07",
+      "fromNodeId": "3929b225-da62-45ac-a002-252a3c27135e",
+      "fromPort": "Fail",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "263c9865-e315-4840-ae64-a73a8a19703e",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "9c356da7-3c68-4a9c-a3c1-5263830935bd",
+      "fromNodeId": "c2400388-c4a3-4775-a7b7-e231921d219c",
+      "fromPort": "Fail",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "263c9865-e315-4840-ae64-a73a8a19703e",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "0f85c41d-431a-43f9-baae-fec82fd3e7a7",
+      "fromNodeId": "99e81463-54c1-4a21-bbdc-8305134dbdef",
+      "fromPort": "Success",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "2a193ecf-1d12-4eaf-af12-e6a47e517134",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "fe548065-42b9-46b8-9795-25f30b5ad83c",
+      "fromNodeId": "2a193ecf-1d12-4eaf-af12-e6a47e517134",
+      "fromPort": "True",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "351fe941-a76d-40eb-b476-076f9fbf2eda",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "71636024-c118-4644-966f-4df2cc42e313",
+      "fromNodeId": "2a193ecf-1d12-4eaf-af12-e6a47e517134",
+      "fromPort": "False",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "e3ed1c69-db09-43af-9e6d-ba7c7f3683fa",
+      "toPort": "LoopBack",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "daa5f6ed-ffad-4baf-a5d1-ba10b06c9195",
+      "fromNodeId": "2a193ecf-1d12-4eaf-af12-e6a47e517134",
+      "fromPort": "Fail",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "263c9865-e315-4840-ae64-a73a8a19703e",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "d98bcb78-b847-402c-9fb9-13146d6ab69c",
+      "fromNodeId": "48b67f71-c22f-483f-85fe-f3e2ff2193c0",
+      "fromPort": "Out",
+      "fromControlDx": -19.072308311840516,
+      "fromControlDy": 93.81880752698066,
+      "toNodeId": "e3ed1c69-db09-43af-9e6d-ba7c7f3683fa",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "ee3f753a-3fdd-45f7-ab4c-ab8328122b98",
+      "fromNodeId": "1ae86570-ba3e-41f3-afbd-fd8a2eb7cba5",
+      "fromPort": "Success",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "34345c38-647c-4856-abc0-321a81af7561",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "95fffac9-7c42-424a-8b42-ab13654c9523",
+      "fromNodeId": "34345c38-647c-4856-abc0-321a81af7561",
+      "fromPort": "Out",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "e3ed1c69-db09-43af-9e6d-ba7c7f3683fa",
       "toPort": "In",
       "toControlDx": null,
       "toControlDy": null,
