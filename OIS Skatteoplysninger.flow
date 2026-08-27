@@ -7,14 +7,14 @@
   "nodes": [
     {
       "id": "29fe0180-b483-451e-922c-9aba69d144a2",
-      "name": "Start",
+      "name": "Start Daglig",
       "category": "Module",
       "nodeType": "Start",
-      "x": 13,
-      "y": 278,
+      "x": 37,
+      "y": 664,
       "width": 190,
       "height": 92,
-      "executionMode": "Enabled",
+      "executionMode": "Disabled",
       "settings": {},
       "portPlacements": {},
       "flippedPortSides": []
@@ -24,8 +24,8 @@
       "name": "Fejl",
       "category": "Module",
       "nodeType": "ILogger",
-      "x": 1332,
-      "y": 73,
+      "x": 1065,
+      "y": 93,
       "width": 190,
       "height": 92,
       "executionMode": "Enabled",
@@ -34,7 +34,9 @@
         "LogTable": "workflow.ILogger",
         "Registry": "False"
       },
-      "portPlacements": {},
+      "portPlacements": {
+        "O:Out": "Bottom"
+      },
       "flippedPortSides": []
     },
     {
@@ -42,8 +44,8 @@
       "name": "Exit",
       "category": "Module",
       "nodeType": "Exit",
-      "x": 1493,
-      "y": 411,
+      "x": 1206,
+      "y": 296,
       "width": 190,
       "height": 92,
       "executionMode": "Enabled",
@@ -61,8 +63,8 @@
       "name": "Download SFTP",
       "category": "Module",
       "nodeType": "DownloadSFTP",
-      "x": 260,
-      "y": 201,
+      "x": 304,
+      "y": 663,
       "width": 200,
       "height": 102,
       "executionMode": "Enabled",
@@ -88,23 +90,22 @@
       "name": "Import OIS XML",
       "category": "Module",
       "nodeType": "ImportOisXml",
-      "x": 677,
-      "y": 539,
+      "x": 156,
+      "y": 820,
       "width": 200,
       "height": 102,
       "executionMode": "Enabled",
       "settings": {
         "ConnectionString": "\u00A4[MSSQL_Sandbox]\u00A4",
-        "CreateTableIfMissing": "Ja",
+        "CreateTableIfMissing": "Nej",
         "DBMS": "MSSQL",
-        "SampleRows": "14332400",
+        "SampleRows": "1000",
         "SchemaName": "OIS",
         "Tables": "",
         "XmlFile": "\u00A4{Item}\u00A4"
       },
       "portPlacements": {
-        "I:In": "Top",
-        "O:Out": "Top"
+        "I:In": "Right"
       },
       "flippedPortSides": [
         "Top"
@@ -115,8 +116,8 @@
       "name": "List Iterator",
       "category": "Module",
       "nodeType": "ListIterator",
-      "x": 523,
-      "y": 167,
+      "x": 615,
+      "y": 664,
       "width": 200,
       "height": 102,
       "executionMode": "Enabled",
@@ -127,34 +128,39 @@
         "Variable": "Files"
       },
       "portPlacements": {
-        "I:LoopBack": "Bottom",
-        "O:Fail": "Top"
+        "O:Fail": "Top",
+        "O:Item": "Bottom"
       },
-      "flippedPortSides": []
+      "flippedPortSides": [
+        "Bottom"
+      ]
     },
     {
       "id": "d2f50774-5bc1-41a6-b1bd-9621800e2514",
-      "name": "Display",
+      "name": "Display Daglig",
       "category": "Module",
       "nodeType": "Display",
-      "x": 755,
-      "y": 326,
+      "x": 471,
+      "y": 842,
       "width": 491,
       "height": 122,
       "executionMode": "Enabled",
       "settings": {
         "Text": "\u00A4{Item}\u00A4"
       },
-      "portPlacements": {},
+      "portPlacements": {
+        "O:Out": "Left",
+        "I:In": "Top"
+      },
       "flippedPortSides": []
     },
     {
       "id": "3092ded2-ead2-43d2-b801-794633cab45f",
-      "name": "Start",
+      "name": "Start Deltafiler",
       "category": "Module",
       "nodeType": "Start",
-      "x": 35,
-      "y": 723,
+      "x": 37,
+      "y": 285,
       "width": 190,
       "height": 92,
       "executionMode": "Disabled",
@@ -167,19 +173,145 @@
       "name": "DIR List Iterator",
       "category": "Module",
       "nodeType": "DirListIterator",
-      "x": 342,
-      "y": 686,
+      "x": 581,
+      "y": 292,
       "width": 200,
       "height": 102,
       "executionMode": "Enabled",
       "settings": {
         "Directory": "",
-        "Wildcard": "*",
-        "Recursive": "Nej",
         "ListType": "File",
-        "SortOrder": "Name",
+        "MaxParallelism": "",
         "Mode": "Sequential",
-        "MaxParallelism": ""
+        "Recursive": "Nej",
+        "SortOrder": "Name",
+        "Wildcard": "*"
+      },
+      "portPlacements": {
+        "O:Item": "Bottom"
+      },
+      "flippedPortSides": []
+    },
+    {
+      "id": "4952b4ca-4ab8-454a-a58c-60afc34ae130",
+      "name": "Import OIS XML",
+      "category": "Module",
+      "nodeType": "ImportOisXml",
+      "x": 220,
+      "y": 415,
+      "width": 200,
+      "height": 102,
+      "executionMode": "Enabled",
+      "settings": {
+        "ConnectionString": "\u00A4[MSSQL_Sandbox]\u00A4",
+        "CreateTableIfMissing": "Nej",
+        "DBMS": "MSSQL",
+        "SampleRows": "1000",
+        "SchemaName": "OIS",
+        "Tables": "",
+        "XmlFile": "\u00A4{ItemName}\u00A4"
+      },
+      "portPlacements": {
+        "I:In": "Right",
+        "O:Fail": "Top",
+        "O:Out": "Top"
+      },
+      "flippedPortSides": []
+    },
+    {
+      "id": "efaeeec2-0349-49f5-a3ef-07f3934d200c",
+      "name": "Display Delta",
+      "category": "Module",
+      "nodeType": "Display",
+      "x": 473,
+      "y": 446,
+      "width": 406,
+      "height": 98,
+      "executionMode": "Enabled",
+      "settings": {
+        "Text": "\u00A4{ItemNumber}\u00A4 - \u00A4{ItemName}\u00A4"
+      },
+      "portPlacements": {
+        "I:In": "Top",
+        "O:Out": "Left"
+      },
+      "flippedPortSides": []
+    },
+    {
+      "id": "a8db2fb7-ff7d-4947-bf0a-d2805ca9cc7d",
+      "name": "Start TotaL",
+      "category": "Module",
+      "nodeType": "Start",
+      "x": 30,
+      "y": 71,
+      "width": 190,
+      "height": 92,
+      "executionMode": "Enabled",
+      "settings": {},
+      "portPlacements": {},
+      "flippedPortSides": []
+    },
+    {
+      "id": "98a66c1a-485a-4410-af43-14f376f8ed5b",
+      "name": "Import OIS XML",
+      "category": "Module",
+      "nodeType": "ImportOisXml",
+      "x": 586,
+      "y": 56,
+      "width": 200,
+      "height": 102,
+      "executionMode": "Enabled",
+      "settings": {
+        "ConnectionString": "\u00A4[MSSQL_Sandbox]\u00A4",
+        "CreateTableIfMissing": "Ja",
+        "DBMS": "MSSQL",
+        "SampleRows": "14332400",
+        "SchemaName": "OIS",
+        "Tables": "",
+        "XmlFile": "f:\\Work\\OisCache\\OIS_EJDSKAT_REGISTER_NA000_00001_20251119_030045.ZIP"
+      },
+      "portPlacements": {
+        "O:Fail": "Bottom"
+      },
+      "flippedPortSides": []
+    },
+    {
+      "id": "b3666da2-c20f-4e29-add3-623e0055be4d",
+      "name": "Group",
+      "category": "Module",
+      "nodeType": "Group",
+      "x": 0,
+      "y": 23,
+      "width": 302,
+      "height": 193,
+      "executionMode": "Enabled",
+      "settings": {
+        "Text": "Total"
+      },
+      "portPlacements": {},
+      "flippedPortSides": []
+    },
+    {
+      "id": "50c7e959-f6eb-4e2d-911d-66c854065064",
+      "name": "Execute SQL",
+      "category": "Module",
+      "nodeType": "ExecuteSQL",
+      "x": 308,
+      "y": 63,
+      "width": 200,
+      "height": 102,
+      "executionMode": "Enabled",
+      "settings": {
+        "CommandTimeout": "0",
+        "ConnectionString": "\u00A4[MSSQL_Sandbox]\u00A4",
+        "DBMS": "MSSQL",
+        "ExecuteEachLine": "False",
+        "FilePath": "",
+        "InTransaction": "False",
+        "MaxRows": "0",
+        "QueryType": "NonQuery",
+        "ResultVariable": "",
+        "SQL": "IF OBJECT_ID (N\u0027OIS.CO13000T\u0027, N\u0027U\u0027) IS NOT NULL\n    TRUNCATE TABLE OIS.CO13000T;\r\n\r\nIF OBJECT_ID (N\u0027OIS.CO13100T\u0027, N\u0027U\u0027) IS NOT NULL\n    TRUNCATE TABLE OIS.CO13100T;"
       },
       "portPlacements": {},
       "flippedPortSides": []
@@ -313,6 +445,126 @@
       "fromControlDx": null,
       "fromControlDy": null,
       "toNodeId": "f9645e16-92e2-4cb5-b179-aa26bd288259",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "763677cb-bca6-476e-8d54-6a7a83d6c016",
+      "fromNodeId": "4952b4ca-4ab8-454a-a58c-60afc34ae130",
+      "fromPort": "Out",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "f9645e16-92e2-4cb5-b179-aa26bd288259",
+      "toPort": "LoopBack",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "1bd23b7d-6c32-4413-88b5-89be189aee36",
+      "fromNodeId": "4952b4ca-4ab8-454a-a58c-60afc34ae130",
+      "fromPort": "Fail",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "70a2bb7d-fd3d-4fb0-8dac-8bdcca82b41c",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "f1ea0d3b-c8b8-4917-908c-5f91d5be9156",
+      "fromNodeId": "f9645e16-92e2-4cb5-b179-aa26bd288259",
+      "fromPort": "Item",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "efaeeec2-0349-49f5-a3ef-07f3934d200c",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "3a5bcc10-d98b-4daa-83cd-eb7751ec0ded",
+      "fromNodeId": "efaeeec2-0349-49f5-a3ef-07f3934d200c",
+      "fromPort": "Out",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "4952b4ca-4ab8-454a-a58c-60afc34ae130",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "f37d2430-2c1b-4b01-a006-134d62932e94",
+      "fromNodeId": "98a66c1a-485a-4410-af43-14f376f8ed5b",
+      "fromPort": "Fail",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "70a2bb7d-fd3d-4fb0-8dac-8bdcca82b41c",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "13069efb-e390-4117-b19f-8b3908ee59ed",
+      "fromNodeId": "98a66c1a-485a-4410-af43-14f376f8ed5b",
+      "fromPort": "Out",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "817d2fb6-0ad0-4e97-b98e-c825032c7ca5",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "9f4f4b16-2b43-425f-8e4a-dd751f921308",
+      "fromNodeId": "f9645e16-92e2-4cb5-b179-aa26bd288259",
+      "fromPort": "Fail",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "70a2bb7d-fd3d-4fb0-8dac-8bdcca82b41c",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "933d5a77-9c9f-4a50-80f1-18c9f4a9a122",
+      "fromNodeId": "f9645e16-92e2-4cb5-b179-aa26bd288259",
+      "fromPort": "Done",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "817d2fb6-0ad0-4e97-b98e-c825032c7ca5",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "3a5b0961-8fd1-46bf-ba75-492653905163",
+      "fromNodeId": "a8db2fb7-ff7d-4947-bf0a-d2805ca9cc7d",
+      "fromPort": "Out",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "50c7e959-f6eb-4e2d-911d-66c854065064",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "4f406afe-0bc9-4e01-8f7a-8e8c782f013b",
+      "fromNodeId": "50c7e959-f6eb-4e2d-911d-66c854065064",
+      "fromPort": "Success",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "98a66c1a-485a-4410-af43-14f376f8ed5b",
       "toPort": "In",
       "toControlDx": null,
       "toControlDy": null,
