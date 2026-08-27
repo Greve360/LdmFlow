@@ -1,0 +1,251 @@
+{
+  "schemaVersion": 1,
+  "flowId": "ca11b94a-3f71-49df-a1db-691655ad34d9",
+  "name": "CVR - raw harvest (Virk ElasticSearch)",
+  "description": "Raw harvest of CVR from ERST\u0027s ElasticSearch on distribution.virk.dk - and nothing else: the pages land as JSON files, with no mapping, no database and no post-processing. Fill in the VirkPassword global before running (Edit -\u003E Global values), then point CvrRawFolder somewhere with room: a full sweep of the company index is roughly 830 pages of 3000 documents.\n\nThe loop body is a NOP marked \u0022Your load goes here\u0022: replace it with whatever should happen per page, e.g. bulk-load the file and then delete it. Wire it back to the iterator\u0027s LoopBack port.\n\nOnly the Virksomhed iterator is Enabled. The Deltager and ProduktionsEnhed ones are Disabled copies, kept so the three indexes - and their query fields Vrvirksomhed, Vrdeltagerperson and VrproduktionsEnhed - are documented in the flow itself rather than in prose. Enable one at a time.\n\nFor an incremental harvest, set Since on the Start node and swap the iterator\u0027s Query for the commented bool/range form in its description.",
+  "globalValues": {},
+  "nodes": [
+    {
+      "id": "3f1c7a10-0001-4a00-9000-000000000001",
+      "name": "Start",
+      "category": "Module",
+      "nodeType": "Start",
+      "x": 60,
+      "y": 240,
+      "width": 190,
+      "height": 92,
+      "executionMode": "Enabled",
+      "settings": {
+        "CvrRawFolder": "\u00A4[WorkingFolder]\u00A4\\CvrRaw",
+        "Since": "2026-01-01T00:00:00Z",
+        "VirkUser": "LIFA_CVR_I_SKYEN"
+      },
+      "portPlacements": {},
+      "flippedPortSides": []
+    },
+    {
+      "id": "3f1c7a10-0002-4a00-9000-000000000002",
+      "name": "Ensure raw folder",
+      "category": "Module",
+      "nodeType": "EnsureDirectory",
+      "x": 320,
+      "y": 239,
+      "width": 190,
+      "height": 92,
+      "executionMode": "Enabled",
+      "settings": {
+        "Directory": "\u00A4{CvrRawFolder}\u00A4\\Virksomhed"
+      },
+      "portPlacements": {
+        "O:Fail": "Top"
+      },
+      "flippedPortSides": []
+    },
+    {
+      "id": "3f1c7a10-0003-4a00-9000-000000000003",
+      "name": "Harvest Virksomhed",
+      "category": "Module",
+      "nodeType": "ElasticSearchIterator",
+      "x": 620,
+      "y": 240,
+      "width": 190,
+      "height": 92,
+      "executionMode": "Enabled",
+      "settings": {
+        "FilePrefix": "virksomhed",
+        "Format": "Hits",
+        "MaxPages": "0",
+        "MaxRetries": "5",
+        "OutputFolder": "\u00A4{CvrRawFolder}\u00A4\\Virksomhed",
+        "PageSize": "3000",
+        "Password": "\u00A4[VirkPassword]\u00A4",
+        "Query": "{\u0022exists\u0022:{\u0022field\u0022:\u0022Vrvirksomhed\u0022}}",
+        "ResumeFile": "\u00A4{CvrRawFolder}\u00A4\\virksomhed.cursor",
+        "SortField": "_id",
+        "TimeoutSeconds": "120",
+        "Url": "http://distribution.virk.dk/cvr-permanent/virksomhed/_search",
+        "Username": "\u00A4{VirkUser}\u00A4"
+      },
+      "portPlacements": {},
+      "flippedPortSides": []
+    },
+    {
+      "id": "3f1c7a10-0004-4a00-9000-000000000004",
+      "name": "Your load goes here",
+      "category": "Module",
+      "nodeType": "NOP",
+      "x": 613,
+      "y": 430,
+      "width": 190,
+      "height": 92,
+      "executionMode": "Enabled",
+      "settings": {},
+      "portPlacements": {
+        "I:In": "Right",
+        "O:Out": "Left"
+      },
+      "flippedPortSides": []
+    },
+    {
+      "id": "3f1c7a10-0005-4a00-9000-000000000005",
+      "name": "Harvest Deltager",
+      "category": "Module",
+      "nodeType": "ElasticSearchIterator",
+      "x": 620,
+      "y": 560,
+      "width": 190,
+      "height": 92,
+      "executionMode": "Disabled",
+      "settings": {
+        "Url": "http://distribution.virk.dk/cvr-permanent/deltager/_search",
+        "Username": "\u00A4{VirkUser}\u00A4",
+        "Password": "\u00A4[VirkPassword]\u00A4",
+        "Query": "{\u0022exists\u0022:{\u0022field\u0022:\u0022Vrdeltagerperson\u0022}}",
+        "PageSize": "3000",
+        "OutputFolder": "\u00A4{CvrRawFolder}\u00A4\\Deltager",
+        "FilePrefix": "deltager",
+        "Format": "Hits",
+        "ResumeFile": "\u00A4{CvrRawFolder}\u00A4\\deltager.cursor",
+        "TimeoutSeconds": "120",
+        "MaxRetries": "5",
+        "SortField": "_id",
+        "MaxPages": "0"
+      },
+      "portPlacements": {},
+      "flippedPortSides": []
+    },
+    {
+      "id": "3f1c7a10-0006-4a00-9000-000000000006",
+      "name": "Harvest ProduktionsEnhed",
+      "category": "Module",
+      "nodeType": "ElasticSearchIterator",
+      "x": 620,
+      "y": 760,
+      "width": 190,
+      "height": 92,
+      "executionMode": "Disabled",
+      "settings": {
+        "Url": "http://distribution.virk.dk/cvr-permanent/produktionsenhed/_search",
+        "Username": "\u00A4{VirkUser}\u00A4",
+        "Password": "\u00A4[VirkPassword]\u00A4",
+        "Query": "{\u0022exists\u0022:{\u0022field\u0022:\u0022VrproduktionsEnhed\u0022}}",
+        "PageSize": "3000",
+        "OutputFolder": "\u00A4{CvrRawFolder}\u00A4\\ProduktionsEnhed",
+        "FilePrefix": "penhed",
+        "Format": "Hits",
+        "ResumeFile": "\u00A4{CvrRawFolder}\u00A4\\penhed.cursor",
+        "TimeoutSeconds": "120",
+        "MaxRetries": "5",
+        "SortField": "_id",
+        "MaxPages": "0"
+      },
+      "portPlacements": {},
+      "flippedPortSides": []
+    },
+    {
+      "id": "3f1c7a10-0007-4a00-9000-000000000007",
+      "name": "Exit",
+      "category": "Module",
+      "nodeType": "Exit",
+      "x": 1371,
+      "y": 62,
+      "width": 190,
+      "height": 92,
+      "executionMode": "Enabled",
+      "settings": {
+        "ExitCode": "0",
+        "ExitMessage": ""
+      },
+      "portPlacements": {
+        "I:Fail": "Bottom"
+      },
+      "flippedPortSides": []
+    }
+  ],
+  "connections": [
+    {
+      "id": "3f1c7a10-1001-4a00-9000-000000000001",
+      "fromNodeId": "3f1c7a10-0001-4a00-9000-000000000001",
+      "fromPort": "Out",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "3f1c7a10-0002-4a00-9000-000000000002",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "3f1c7a10-1002-4a00-9000-000000000002",
+      "fromNodeId": "3f1c7a10-0002-4a00-9000-000000000002",
+      "fromPort": "Success",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "3f1c7a10-0003-4a00-9000-000000000003",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "3f1c7a10-1003-4a00-9000-000000000003",
+      "fromNodeId": "3f1c7a10-0002-4a00-9000-000000000002",
+      "fromPort": "Fail",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "3f1c7a10-0007-4a00-9000-000000000007",
+      "toPort": "Fail",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "3f1c7a10-1004-4a00-9000-000000000004",
+      "fromNodeId": "3f1c7a10-0003-4a00-9000-000000000003",
+      "fromPort": "Item",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "3f1c7a10-0004-4a00-9000-000000000004",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "3f1c7a10-1005-4a00-9000-000000000005",
+      "fromNodeId": "3f1c7a10-0004-4a00-9000-000000000004",
+      "fromPort": "Out",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "3f1c7a10-0003-4a00-9000-000000000003",
+      "toPort": "LoopBack",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "3f1c7a10-1006-4a00-9000-000000000006",
+      "fromNodeId": "3f1c7a10-0003-4a00-9000-000000000003",
+      "fromPort": "Done",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "3f1c7a10-0007-4a00-9000-000000000007",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "3f1c7a10-1007-4a00-9000-000000000007",
+      "fromNodeId": "3f1c7a10-0003-4a00-9000-000000000003",
+      "fromPort": "Fail",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "3f1c7a10-0007-4a00-9000-000000000007",
+      "toPort": "Fail",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    }
+  ]
+}
