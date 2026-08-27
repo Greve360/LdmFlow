@@ -10,8 +10,8 @@
       "name": "Start Daglig",
       "category": "Module",
       "nodeType": "Start",
-      "x": 37,
-      "y": 664,
+      "x": 49,
+      "y": 976,
       "width": 190,
       "height": 92,
       "executionMode": "Disabled",
@@ -24,8 +24,8 @@
       "name": "Fejl",
       "category": "Module",
       "nodeType": "ILogger",
-      "x": 1065,
-      "y": 93,
+      "x": 1406,
+      "y": 572,
       "width": 190,
       "height": 92,
       "executionMode": "Enabled",
@@ -35,7 +35,7 @@
         "Registry": "False"
       },
       "portPlacements": {
-        "O:Out": "Bottom"
+        "O:Out": "Top"
       },
       "flippedPortSides": []
     },
@@ -44,8 +44,8 @@
       "name": "Exit",
       "category": "Module",
       "nodeType": "Exit",
-      "x": 1206,
-      "y": 296,
+      "x": 1390,
+      "y": 292,
       "width": 190,
       "height": 92,
       "executionMode": "Enabled",
@@ -54,7 +54,7 @@
         "ExitMessage": ""
       },
       "portPlacements": {
-        "I:Fail": "Top"
+        "I:Fail": "Bottom"
       },
       "flippedPortSides": []
     },
@@ -63,8 +63,8 @@
       "name": "Download SFTP",
       "category": "Module",
       "nodeType": "DownloadSFTP",
-      "x": 304,
-      "y": 663,
+      "x": 312,
+      "y": 954,
       "width": 200,
       "height": 102,
       "executionMode": "Enabled",
@@ -90,8 +90,8 @@
       "name": "Import OIS XML",
       "category": "Module",
       "nodeType": "ImportOisXml",
-      "x": 156,
-      "y": 820,
+      "x": 168,
+      "y": 1132,
       "width": 200,
       "height": 102,
       "executionMode": "Enabled",
@@ -116,8 +116,8 @@
       "name": "List Iterator",
       "category": "Module",
       "nodeType": "ListIterator",
-      "x": 615,
-      "y": 664,
+      "x": 627,
+      "y": 976,
       "width": 200,
       "height": 102,
       "executionMode": "Enabled",
@@ -140,8 +140,8 @@
       "name": "Display Daglig",
       "category": "Module",
       "nodeType": "Display",
-      "x": 471,
-      "y": 842,
+      "x": 503,
+      "y": 1163,
       "width": 491,
       "height": 122,
       "executionMode": "Enabled",
@@ -159,12 +159,14 @@
       "name": "Start Deltafiler",
       "category": "Module",
       "nodeType": "Start",
-      "x": 37,
-      "y": 285,
+      "x": 1,
+      "y": 329,
       "width": 190,
       "height": 92,
-      "executionMode": "Disabled",
-      "settings": {},
+      "executionMode": "Enabled",
+      "settings": {
+        "OisZipFolder": "f:\\Work\\OisCache"
+      },
       "portPlacements": {},
       "flippedPortSides": []
     },
@@ -173,32 +175,34 @@
       "name": "DIR List Iterator",
       "category": "Module",
       "nodeType": "DirListIterator",
-      "x": 581,
-      "y": 292,
+      "x": 626,
+      "y": 297,
       "width": 200,
       "height": 102,
       "executionMode": "Enabled",
       "settings": {
-        "Directory": "",
+        "Directory": "\u00A4{OisZipFolder}\u00A4",
         "ListType": "File",
         "MaxParallelism": "",
         "Mode": "Sequential",
         "Recursive": "Nej",
         "SortOrder": "Name",
-        "Wildcard": "*"
+        "Wildcard": "OIS_EJDSKAT_REGISTER_DA*.ZIP"
       },
       "portPlacements": {
-        "O:Item": "Bottom"
+        "I:LoopBack": "Bottom"
       },
-      "flippedPortSides": []
+      "flippedPortSides": [
+        "Bottom"
+      ]
     },
     {
       "id": "4952b4ca-4ab8-454a-a58c-60afc34ae130",
       "name": "Import OIS XML",
       "category": "Module",
       "nodeType": "ImportOisXml",
-      "x": 220,
-      "y": 415,
+      "x": 178,
+      "y": 679,
       "width": 200,
       "height": 102,
       "executionMode": "Enabled",
@@ -213,7 +217,6 @@
       },
       "portPlacements": {
         "I:In": "Right",
-        "O:Fail": "Top",
         "O:Out": "Top"
       },
       "flippedPortSides": []
@@ -223,8 +226,8 @@
       "name": "Display Delta",
       "category": "Module",
       "nodeType": "Display",
-      "x": 473,
-      "y": 446,
+      "x": 444,
+      "y": 705,
       "width": 406,
       "height": 98,
       "executionMode": "Enabled",
@@ -232,7 +235,7 @@
         "Text": "\u00A4{ItemNumber}\u00A4 - \u00A4{ItemName}\u00A4"
       },
       "portPlacements": {
-        "I:In": "Top",
+        "I:In": "Right",
         "O:Out": "Left"
       },
       "flippedPortSides": []
@@ -246,8 +249,10 @@
       "y": 71,
       "width": 190,
       "height": 92,
-      "executionMode": "Enabled",
-      "settings": {},
+      "executionMode": "Disabled",
+      "settings": {
+        "InputFile": "f:\\Work\\OisCache\\OIS_EJDSKAT_REGISTER_DA000_00277_20260822_030058.ZIP"
+      },
       "portPlacements": {},
       "flippedPortSides": []
     },
@@ -256,11 +261,11 @@
       "name": "Import OIS XML",
       "category": "Module",
       "nodeType": "ImportOisXml",
-      "x": 586,
-      "y": 56,
+      "x": 557,
+      "y": 52,
       "width": 200,
       "height": 102,
-      "executionMode": "Enabled",
+      "executionMode": "Nop",
       "settings": {
         "ConnectionString": "\u00A4[MSSQL_Sandbox]\u00A4",
         "CreateTableIfMissing": "Ja",
@@ -268,7 +273,7 @@
         "SampleRows": "14332400",
         "SchemaName": "OIS",
         "Tables": "",
-        "XmlFile": "f:\\Work\\OisCache\\OIS_EJDSKAT_REGISTER_NA000_00001_20251119_030045.ZIP"
+        "XmlFile": "\u00A4{InputFile}\u00A4"
       },
       "portPlacements": {
         "O:Fail": "Bottom"
@@ -300,7 +305,7 @@
       "y": 63,
       "width": 200,
       "height": 102,
-      "executionMode": "Enabled",
+      "executionMode": "Nop",
       "settings": {
         "CommandTimeout": "0",
         "ConnectionString": "\u00A4[MSSQL_Sandbox]\u00A4",
@@ -314,6 +319,171 @@
         "SQL": "IF OBJECT_ID (N\u0027OIS.CO13000T\u0027, N\u0027U\u0027) IS NOT NULL\n    TRUNCATE TABLE OIS.CO13000T;\r\n\r\nIF OBJECT_ID (N\u0027OIS.CO13100T\u0027, N\u0027U\u0027) IS NOT NULL\n    TRUNCATE TABLE OIS.CO13100T;"
       },
       "portPlacements": {},
+      "flippedPortSides": []
+    },
+    {
+      "id": "617036ed-9997-4bdd-ac64-e65861ea2de2",
+      "name": "Assign Variable",
+      "category": "Module",
+      "nodeType": "AssignVariable",
+      "x": 806,
+      "y": 54,
+      "width": 200,
+      "height": 102,
+      "executionMode": "Enabled",
+      "settings": {
+        "TMP": "\u00A4{InputFile}\u00A4;_;4",
+        "_oper:TMP": "STRTOK",
+        "_exp:TMP": "0",
+        "SequenceNumber": "\u00A4{TMP}\u00A4",
+        "_oper:SequenceNumber": "NUM"
+      },
+      "portPlacements": {},
+      "flippedPortSides": []
+    },
+    {
+      "id": "1c5b8742-3c2e-478d-a29e-6a2683eeaeb9",
+      "name": "Store Variable",
+      "category": "Module",
+      "nodeType": "StoreVariable",
+      "x": 1058,
+      "y": 60,
+      "width": 200,
+      "height": 102,
+      "executionMode": "Enabled",
+      "settings": {
+        "_store:0000:Value": "\u00A4{SequenceNumber}\u00A4",
+        "_store:0000:StoredName": "OisSequenceNumber",
+        "Value": "",
+        "StoredName": ""
+      },
+      "portPlacements": {},
+      "flippedPortSides": []
+    },
+    {
+      "id": "7658db56-7ee7-40ab-be6e-f4e572482e44",
+      "name": "Assign Variable",
+      "category": "Module",
+      "nodeType": "AssignVariable",
+      "x": 1053,
+      "y": 369,
+      "width": 200,
+      "height": 102,
+      "executionMode": "Enabled",
+      "settings": {
+        "TMP": "\u00A4{ItemName}\u00A4;_;4",
+        "_oper:TMP": "STRTOK",
+        "_exp:TMP": "0",
+        "SequenceNumber": "\u00A4{TMP}\u00A4",
+        "_oper:SequenceNumber": "NUM",
+        "NextSequenceNUmber": "\u00A4{OldSequenceNumber}\u00A4",
+        "_oper:NextSequenceNUmber": "INC"
+      },
+      "portPlacements": {
+        "O:Out": "Bottom"
+      },
+      "flippedPortSides": []
+    },
+    {
+      "id": "12685ae9-2236-4a45-9880-dea56db87b3f",
+      "name": "Restore Variable",
+      "category": "Module",
+      "nodeType": "RestoreVariable",
+      "x": 262,
+      "y": 326,
+      "width": 200,
+      "height": 102,
+      "executionMode": "Enabled",
+      "settings": {
+        "_restore:0000:StoredName": "OisSequenceNumber",
+        "_restore:0000:TargetVariable": "OldSequenceNumber",
+        "_restore:0000:DefaultValue": "1",
+        "StoredName": "",
+        "TargetVariable": "",
+        "DefaultValue": ""
+      },
+      "portPlacements": {},
+      "flippedPortSides": []
+    },
+    {
+      "id": "008e4483-a127-4567-9e24-431bc15e7920",
+      "name": "Assign Variable",
+      "category": "Module",
+      "nodeType": "AssignVariable",
+      "x": 89,
+      "y": 490,
+      "width": 200,
+      "height": 102,
+      "executionMode": "Enabled",
+      "settings": {
+        "OldSequenceNumber": "\u00A4{NextSequenceNUmber}\u00A4",
+        "_oper:OldSequenceNumber": "STRTOK"
+      },
+      "portPlacements": {
+        "I:In": "Bottom"
+      },
+      "flippedPortSides": []
+    },
+    {
+      "id": "a73eaba6-200a-4036-ad54-7233c4502a6f",
+      "name": "IF_Then_Else",
+      "category": "Module",
+      "nodeType": "IF_Then_Else",
+      "x": 925,
+      "y": 687,
+      "width": 200,
+      "height": 102,
+      "executionMode": "Enabled",
+      "settings": {
+        "Expression": "\u0022\u00A4{SequenceNumber}\u00A4\u0022 == \u0022\u00A4{NextSequenceNUmber}\u00A4\u0022"
+      },
+      "portPlacements": {
+        "I:In": "Top",
+        "O:True": "Left",
+        "O:False": "Top"
+      },
+      "flippedPortSides": [
+        "Top"
+      ]
+    },
+    {
+      "id": "4ab0eb16-5b04-4d54-912f-bcc780a78de4",
+      "name": "Store Variable",
+      "category": "Module",
+      "nodeType": "StoreVariable",
+      "x": 354,
+      "y": 484,
+      "width": 200,
+      "height": 102,
+      "executionMode": "Enabled",
+      "settings": {
+        "_store:0000:Value": "\u00A4{SequenceNumber}\u00A4",
+        "_store:0000:StoredName": "OisSequenceNumber",
+        "Value": "",
+        "StoredName": ""
+      },
+      "portPlacements": {
+        "O:Out": "Top"
+      },
+      "flippedPortSides": []
+    },
+    {
+      "id": "8706c8c8-4ce0-4147-b63f-c3958f87600c",
+      "name": "Display 3",
+      "category": "Module",
+      "nodeType": "Display",
+      "x": 704,
+      "y": 511,
+      "width": 200,
+      "height": 102,
+      "executionMode": "Enabled",
+      "settings": {
+        "Text": "\u00A4{SequenceNumber}\u00A4 - \u00A4{ItemName}\u00A4"
+      },
+      "portPlacements": {
+        "I:In": "Right",
+        "O:Out": "Top"
+      },
       "flippedPortSides": []
     }
   ],
@@ -388,7 +558,8 @@
       "toPort": "LoopBack",
       "toControlDx": null,
       "toControlDy": null,
-      "waypoints": []
+      "waypoints": [],
+      "directRoute": true
     },
     {
       "id": "f11614dd-742d-488a-b574-0c693173c58d",
@@ -436,31 +607,8 @@
       "toPort": "In",
       "toControlDx": null,
       "toControlDy": null,
-      "waypoints": []
-    },
-    {
-      "id": "8b8a8a67-7966-497f-872e-ace48eaca397",
-      "fromNodeId": "3092ded2-ead2-43d2-b801-794633cab45f",
-      "fromPort": "Out",
-      "fromControlDx": null,
-      "fromControlDy": null,
-      "toNodeId": "f9645e16-92e2-4cb5-b179-aa26bd288259",
-      "toPort": "In",
-      "toControlDx": null,
-      "toControlDy": null,
-      "waypoints": []
-    },
-    {
-      "id": "763677cb-bca6-476e-8d54-6a7a83d6c016",
-      "fromNodeId": "4952b4ca-4ab8-454a-a58c-60afc34ae130",
-      "fromPort": "Out",
-      "fromControlDx": null,
-      "fromControlDy": null,
-      "toNodeId": "f9645e16-92e2-4cb5-b179-aa26bd288259",
-      "toPort": "LoopBack",
-      "toControlDx": null,
-      "toControlDy": null,
-      "waypoints": []
+      "waypoints": [],
+      "directRoute": true
     },
     {
       "id": "1bd23b7d-6c32-4413-88b5-89be189aee36",
@@ -469,18 +617,6 @@
       "fromControlDx": null,
       "fromControlDy": null,
       "toNodeId": "70a2bb7d-fd3d-4fb0-8dac-8bdcca82b41c",
-      "toPort": "In",
-      "toControlDx": null,
-      "toControlDy": null,
-      "waypoints": []
-    },
-    {
-      "id": "f1ea0d3b-c8b8-4917-908c-5f91d5be9156",
-      "fromNodeId": "f9645e16-92e2-4cb5-b179-aa26bd288259",
-      "fromPort": "Item",
-      "fromControlDx": null,
-      "fromControlDy": null,
-      "toNodeId": "efaeeec2-0349-49f5-a3ef-07f3934d200c",
       "toPort": "In",
       "toControlDx": null,
       "toControlDy": null,
@@ -496,7 +632,8 @@
       "toPort": "In",
       "toControlDx": null,
       "toControlDy": null,
-      "waypoints": []
+      "waypoints": [],
+      "directRoute": true
     },
     {
       "id": "f37d2430-2c1b-4b01-a006-134d62932e94",
@@ -505,18 +642,6 @@
       "fromControlDx": null,
       "fromControlDy": null,
       "toNodeId": "70a2bb7d-fd3d-4fb0-8dac-8bdcca82b41c",
-      "toPort": "In",
-      "toControlDx": null,
-      "toControlDy": null,
-      "waypoints": []
-    },
-    {
-      "id": "13069efb-e390-4117-b19f-8b3908ee59ed",
-      "fromNodeId": "98a66c1a-485a-4410-af43-14f376f8ed5b",
-      "fromPort": "Out",
-      "fromControlDx": null,
-      "fromControlDy": null,
-      "toNodeId": "817d2fb6-0ad0-4e97-b98e-c825032c7ca5",
       "toPort": "In",
       "toControlDx": null,
       "toControlDy": null,
@@ -566,6 +691,225 @@
       "fromControlDy": null,
       "toNodeId": "98a66c1a-485a-4410-af43-14f376f8ed5b",
       "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "72097937-b1ef-4137-b990-008f057faf81",
+      "fromNodeId": "98a66c1a-485a-4410-af43-14f376f8ed5b",
+      "fromPort": "Out",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "617036ed-9997-4bdd-ac64-e65861ea2de2",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "1e0db397-f54f-4ed3-81d5-aadf3433ce8c",
+      "fromNodeId": "617036ed-9997-4bdd-ac64-e65861ea2de2",
+      "fromPort": "Out",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "1c5b8742-3c2e-478d-a29e-6a2683eeaeb9",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "eb5444eb-1ecb-4a58-91ca-d1b5dc780015",
+      "fromNodeId": "1c5b8742-3c2e-478d-a29e-6a2683eeaeb9",
+      "fromPort": "Out",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "817d2fb6-0ad0-4e97-b98e-c825032c7ca5",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "dd0bdb54-2018-4e5c-85ff-3eee94f983ee",
+      "fromNodeId": "f9645e16-92e2-4cb5-b179-aa26bd288259",
+      "fromPort": "Item",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "7658db56-7ee7-40ab-be6e-f4e572482e44",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "3eb72e8a-a4af-4288-98e8-921ff9b820eb",
+      "fromNodeId": "7658db56-7ee7-40ab-be6e-f4e572482e44",
+      "fromPort": "Fail",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "70a2bb7d-fd3d-4fb0-8dac-8bdcca82b41c",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "2fb7fba0-5c73-4dbe-8478-253f15eae5e8",
+      "fromNodeId": "3092ded2-ead2-43d2-b801-794633cab45f",
+      "fromPort": "Out",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "12685ae9-2236-4a45-9880-dea56db87b3f",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "aa782655-a6b8-496c-9395-9e4956da267b",
+      "fromNodeId": "12685ae9-2236-4a45-9880-dea56db87b3f",
+      "fromPort": "Out",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "f9645e16-92e2-4cb5-b179-aa26bd288259",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "3886219e-7e2a-4712-b198-894d95b723b5",
+      "fromNodeId": "4952b4ca-4ab8-454a-a58c-60afc34ae130",
+      "fromPort": "Out",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "008e4483-a127-4567-9e24-431bc15e7920",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": [],
+      "directRoute": true
+    },
+    {
+      "id": "e516bf4b-a187-4fb5-b1ce-27a9bbc35d73",
+      "fromNodeId": "7658db56-7ee7-40ab-be6e-f4e572482e44",
+      "fromPort": "Out",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "a73eaba6-200a-4036-ad54-7233c4502a6f",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": [],
+      "directRoute": true
+    },
+    {
+      "id": "36d440f3-76d1-494f-b415-2f79c09eb508",
+      "fromNodeId": "a73eaba6-200a-4036-ad54-7233c4502a6f",
+      "fromPort": "True",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "efaeeec2-0349-49f5-a3ef-07f3934d200c",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": [],
+      "directRoute": true
+    },
+    {
+      "id": "44209f9c-a94a-45c8-a534-3af814fbcf65",
+      "fromNodeId": "008e4483-a127-4567-9e24-431bc15e7920",
+      "fromPort": "Out",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "4ab0eb16-5b04-4d54-912f-bcc780a78de4",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "9f44944a-277d-4aa7-bc7c-01cf9b4aaa88",
+      "fromNodeId": "4ab0eb16-5b04-4d54-912f-bcc780a78de4",
+      "fromPort": "Out",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "f9645e16-92e2-4cb5-b179-aa26bd288259",
+      "toPort": "LoopBack",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "330da6f7-0b11-46ed-9390-80fe7edab55a",
+      "fromNodeId": "4ab0eb16-5b04-4d54-912f-bcc780a78de4",
+      "fromPort": "Fail",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "70a2bb7d-fd3d-4fb0-8dac-8bdcca82b41c",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "eca2f076-9997-4e6a-93d1-378b2292778a",
+      "fromNodeId": "008e4483-a127-4567-9e24-431bc15e7920",
+      "fromPort": "Fail",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "70a2bb7d-fd3d-4fb0-8dac-8bdcca82b41c",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "7861c099-5f61-4697-a26e-294d565debd5",
+      "fromNodeId": "50c7e959-f6eb-4e2d-911d-66c854065064",
+      "fromPort": "Fail",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "70a2bb7d-fd3d-4fb0-8dac-8bdcca82b41c",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "8434490f-1398-452e-85ab-34e8ac5c6fc0",
+      "fromNodeId": "12685ae9-2236-4a45-9880-dea56db87b3f",
+      "fromPort": "Fail",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "70a2bb7d-fd3d-4fb0-8dac-8bdcca82b41c",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "2114beec-4223-4c7b-912c-bd903acd491e",
+      "fromNodeId": "a73eaba6-200a-4036-ad54-7233c4502a6f",
+      "fromPort": "False",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "8706c8c8-4ce0-4147-b63f-c3958f87600c",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "54680a44-3c87-4a03-bc35-62617f26deec",
+      "fromNodeId": "8706c8c8-4ce0-4147-b63f-c3958f87600c",
+      "fromPort": "Out",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "f9645e16-92e2-4cb5-b179-aa26bd288259",
+      "toPort": "LoopBack",
       "toControlDx": null,
       "toControlDy": null,
       "waypoints": []
