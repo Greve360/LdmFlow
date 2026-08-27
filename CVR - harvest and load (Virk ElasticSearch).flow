@@ -1,0 +1,534 @@
+{
+  "schemaVersion": 1,
+  "flowId": "34faed89-fc3c-4b5d-89c1-e84eb237b184",
+  "name": "CVR - harvest and load (Virk ElasticSearch)",
+  "description": "Harvests CVR from distribution.virk.dk and loads each page into the ERST_CVR tables, one page at a time, without ever accumulating the 60-110 GB of raw JSON: the page is fetched, bulk-loaded into the stg.CvrRaw landing table, shredded into ERST_CVR, the landing table is truncated and the page file is deleted before the next page starts.\n\nBEFORE THE FIRST RUN, four things:\n1. Fill in the VirkPassword and CvrDb globals (Edit -\u003E Global values). CvrDb is the connection string for the CVR database.\n2. Run Sql\\CVR\\10_StagingTable.sql once against that database to create stg.CvrRaw.\n3. Make sure the 35 ERST_CVR tables exist. They come from the LDM module ImportCvr2 (EF migrations); script them out of an existing CVR database if this one is fresh.\n4. Point CvrSqlFolder on the Start node at the Sql\\CVR folder under your app-data folder (Preferences shows where that is) - the seeded scripts land there on first start.\n\nThe shredding script covers THREE of the fourteen Virksomhed tables: Virksomhed, VirksomhedNavn and VirksomhedAdresse. They are the three shapes the remaining eleven repeat, so the script is the pattern to extend, not the finished job. Deltager and ProduktionsEnhed are not shredded at all yet.\n\nThe last node before Exit is in NOP mode - flow passes straight through it - because 07_RefreshDerivedTables.sql belongs to the LDM module and is not shipped here. Copy the module\u0027s SQL folder into CvrSqlFolder and set the node to Enabled to get the derived tables and CVR views as well; that script needs no changes, since it only ever reads ERST_CVR.\n\nFor the harvest on its own, with no database involved, use the flow \u0022CVR - raw harvest (Virk ElasticSearch)\u0022 instead.",
+  "globalValues": {},
+  "nodes": [
+    {
+      "id": "5c2e8b20-0001-4b00-9100-000000000001",
+      "name": "Start",
+      "category": "Module",
+      "nodeType": "Start",
+      "x": 39,
+      "y": 59,
+      "width": 190,
+      "height": 92,
+      "executionMode": "Enabled",
+      "settings": {
+        "CvrRawFolder": "F:\\Work\\CvrRaw",
+        "CvrSqlFolder": "C:\\Users\\ArnoGreveAndersen\\OneDrive - Geomatikk Group\\Dokumenter\\LdmWorkflow\\Flows\\CvrSql\\",
+        "Since": "2026-01-01T00:00:00Z",
+        "VirkUser": "LIFA_CVR_I_SKYEN",
+        "CvrDb": "\u00A4[MSSQL_Sandbox]\u00A4"
+      },
+      "portPlacements": {
+        "O:Out": "Bottom"
+      },
+      "flippedPortSides": []
+    },
+    {
+      "id": "5c2e8b20-0002-4b00-9100-000000000002",
+      "name": "Ensure raw folder",
+      "category": "Module",
+      "nodeType": "EnsureDirectory",
+      "x": 43,
+      "y": 193,
+      "width": 190,
+      "height": 92,
+      "executionMode": "Enabled",
+      "settings": {
+        "Directory": "\u00A4{CvrRawFolder}\u00A4\\Virksomhed"
+      },
+      "portPlacements": {
+        "O:Success": "Bottom",
+        "I:In": "Top"
+      },
+      "flippedPortSides": []
+    },
+    {
+      "id": "5c2e8b20-0003-4b00-9100-000000000003",
+      "name": "Harvest Virksomhed",
+      "category": "Module",
+      "nodeType": "ElasticSearchIterator",
+      "x": 37,
+      "y": 474,
+      "width": 190,
+      "height": 92,
+      "executionMode": "Enabled",
+      "settings": {
+        "Url": "http://distribution.virk.dk/cvr-permanent/virksomhed/_search",
+        "Username": "\u00A4{VirkUser}\u00A4",
+        "Password": "\u00A4[VirkPassword]\u00A4",
+        "Query": "{\u0022exists\u0022:{\u0022field\u0022:\u0022Vrvirksomhed\u0022}}",
+        "PageSize": "3000",
+        "OutputFolder": "\u00A4{CvrRawFolder}\u00A4\\Virksomhed",
+        "FilePrefix": "virksomhed",
+        "Format": "Hits",
+        "ResumeFile": "\u00A4{CvrRawFolder}\u00A4\\virksomhed.cursor",
+        "TimeoutSeconds": "120",
+        "MaxRetries": "5",
+        "SortField": "_id",
+        "MaxPages": "0"
+      },
+      "portPlacements": {
+        "O:Item": "Bottom",
+        "I:In": "Top",
+        "I:LoopBack": "Right"
+      },
+      "flippedPortSides": []
+    },
+    {
+      "id": "5c2e8b20-0004-4b00-9100-000000000004",
+      "name": "Learn the page shape",
+      "category": "Module",
+      "nodeType": "LearnDafJson",
+      "x": 34,
+      "y": 625,
+      "width": 190,
+      "height": 92,
+      "executionMode": "Enabled",
+      "settings": {
+        "JsonFile": "\u00A4{Item}\u00A4",
+        "TableName": "CvrRaw",
+        "MetadataFile": "\u00A4{CvrRawFolder}\u00A4\\cvrraw.meta.json",
+        "SkipIfMetaExists": "Yes",
+        "DafSchema": "",
+        "LaunderFields": "Yes"
+      },
+      "portPlacements": {
+        "I:In": "Top",
+        "O:Out": "Bottom"
+      },
+      "flippedPortSides": []
+    },
+    {
+      "id": "5c2e8b20-0005-4b00-9100-000000000005",
+      "name": "Load page into stg.CvrRaw",
+      "category": "Module",
+      "nodeType": "ImportDafJson",
+      "x": 37,
+      "y": 783,
+      "width": 190,
+      "height": 92,
+      "executionMode": "Enabled",
+      "settings": {
+        "CommitEachRow": "No",
+        "ConnectionString": "\u00A4{CvrDb}\u00A4",
+        "CreateTableIfMissing": "Yes",
+        "DBMS": "MSSQL",
+        "JsonFile": "\u00A4{Item}\u00A4",
+        "MetadataFile": "\u00A4{CvrRawFolder}\u00A4\\cvrraw.meta.json",
+        "MetadataTable": "",
+        "PreserveZeroDates": "No",
+        "RowLimit": "",
+        "SchemaName": "stg",
+        "StartRow": "",
+        "TableName": "CvrRaw"
+      },
+      "portPlacements": {
+        "I:In": "Top"
+      },
+      "flippedPortSides": []
+    },
+    {
+      "id": "5c2e8b20-0006-4b00-9100-000000000006",
+      "name": "Shred page into ERST_CVR",
+      "category": "Module",
+      "nodeType": "ExecuteSQL",
+      "x": 313,
+      "y": 844,
+      "width": 289,
+      "height": 104,
+      "executionMode": "Enabled",
+      "settings": {
+        "CommandTimeout": "600",
+        "ConnectionString": "\u00A4{CvrDb}\u00A4",
+        "DBMS": "MSSQL",
+        "ExecuteEachLine": "False",
+        "FilePath": "\u00A4{CvrSqlFolder}\u00A4\\20_ShredVirksomhed.sql",
+        "InTransaction": "False",
+        "MaxRows": "0",
+        "QueryType": "NonQuery",
+        "ResultVariable": "",
+        "SQL": ""
+      },
+      "portPlacements": {
+        "O:Success": "Top"
+      },
+      "flippedPortSides": []
+    },
+    {
+      "id": "5c2e8b20-0007-4b00-9100-000000000007",
+      "name": "Empty the landing table",
+      "category": "Module",
+      "nodeType": "ExecuteSQL",
+      "x": 309,
+      "y": 668,
+      "width": 190,
+      "height": 92,
+      "executionMode": "Enabled",
+      "settings": {
+        "CommandTimeout": "600",
+        "ConnectionString": "\u00A4{CvrDb}\u00A4",
+        "DBMS": "MSSQL",
+        "ExecuteEachLine": "False",
+        "FilePath": "",
+        "InTransaction": "False",
+        "MaxRows": "0",
+        "QueryType": "NonQuery",
+        "ResultVariable": "",
+        "SQL": "TRUNCATE TABLE stg.CvrRaw;"
+      },
+      "portPlacements": {
+        "I:In": "Bottom",
+        "O:Success": "Top"
+      },
+      "flippedPortSides": []
+    },
+    {
+      "id": "5c2e8b20-0008-4b00-9100-000000000008",
+      "name": "Delete the page file",
+      "category": "Module",
+      "nodeType": "DeleteFile",
+      "x": 308,
+      "y": 504,
+      "width": 190,
+      "height": 92,
+      "executionMode": "Enabled",
+      "settings": {
+        "Files": "\u00A4{Item}\u00A4",
+        "Recursive": "No"
+      },
+      "portPlacements": {
+        "I:In": "Bottom",
+        "O:Success": "Left"
+      },
+      "flippedPortSides": []
+    },
+    {
+      "id": "5c2e8b20-0009-4b00-9100-000000000009",
+      "name": "Refresh derived tables (NOP until you supply the SQL)",
+      "category": "Module",
+      "nodeType": "ExecuteSQL",
+      "x": 493,
+      "y": 43,
+      "width": 477,
+      "height": 92,
+      "executionMode": "Nop",
+      "settings": {
+        "ConnectionString": "\u00A4[CvrDb]\u00A4",
+        "DBMS": "MSSQL",
+        "QueryType": "NonQuery",
+        "FilePath": "\u00A4{CvrSqlFolder}\u00A4\\07_RefreshDerivedTables.sql",
+        "CommandTimeout": "0",
+        "ResultVariable": "",
+        "MaxRows": "0",
+        "SQL": "",
+        "InTransaction": "False",
+        "ExecuteEachLine": "False"
+      },
+      "portPlacements": {},
+      "flippedPortSides": []
+    },
+    {
+      "id": "5c2e8b20-0010-4b00-9100-000000000010",
+      "name": "Exit",
+      "category": "Module",
+      "nodeType": "Exit",
+      "x": 1334,
+      "y": 120,
+      "width": 190,
+      "height": 92,
+      "executionMode": "Enabled",
+      "settings": {
+        "ExitCode": "0",
+        "ExitMessage": ""
+      },
+      "portPlacements": {},
+      "flippedPortSides": []
+    },
+    {
+      "id": "8ee7cb90-31d2-44fa-8531-f700d14d36c6",
+      "name": "ILogger",
+      "category": "Module",
+      "nodeType": "ILogger",
+      "x": 1043,
+      "y": 196,
+      "width": 200,
+      "height": 102,
+      "executionMode": "Enabled",
+      "settings": {
+        "Registry": "False",
+        "ErrorFile": "",
+        "LogTable": ""
+      },
+      "portPlacements": {},
+      "flippedPortSides": []
+    },
+    {
+      "id": "7d8702cc-808d-470d-bc75-e711a7d5f767",
+      "name": "Ensure Schema",
+      "category": "Module",
+      "nodeType": "EnsureSchema",
+      "x": 38,
+      "y": 321,
+      "width": 200,
+      "height": 102,
+      "executionMode": "Enabled",
+      "settings": {
+        "ConnectionString": "\u00A4[MSSQL_Sandbox]\u00A4",
+        "DBMS": "MSSQL",
+        "SchemaName": "stg\r\nERST_CVR"
+      },
+      "portPlacements": {
+        "I:In": "Top",
+        "O:Success": "Bottom"
+      },
+      "flippedPortSides": []
+    }
+  ],
+  "connections": [
+    {
+      "id": "5c2e8b20-1001-4b00-9100-000000000001",
+      "fromNodeId": "5c2e8b20-0001-4b00-9100-000000000001",
+      "fromPort": "Out",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "5c2e8b20-0002-4b00-9100-000000000002",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "5c2e8b20-1004-4b00-9100-000000000004",
+      "fromNodeId": "5c2e8b20-0003-4b00-9100-000000000003",
+      "fromPort": "Item",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "5c2e8b20-0004-4b00-9100-000000000004",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "5c2e8b20-1005-4b00-9100-000000000005",
+      "fromNodeId": "5c2e8b20-0004-4b00-9100-000000000004",
+      "fromPort": "Out",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "5c2e8b20-0005-4b00-9100-000000000005",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "5c2e8b20-1006-4b00-9100-000000000006",
+      "fromNodeId": "5c2e8b20-0005-4b00-9100-000000000005",
+      "fromPort": "Out",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "5c2e8b20-0006-4b00-9100-000000000006",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "5c2e8b20-1007-4b00-9100-000000000007",
+      "fromNodeId": "5c2e8b20-0006-4b00-9100-000000000006",
+      "fromPort": "Success",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "5c2e8b20-0007-4b00-9100-000000000007",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "5c2e8b20-1008-4b00-9100-000000000008",
+      "fromNodeId": "5c2e8b20-0007-4b00-9100-000000000007",
+      "fromPort": "Success",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "5c2e8b20-0008-4b00-9100-000000000008",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "5c2e8b20-1009-4b00-9100-000000000009",
+      "fromNodeId": "5c2e8b20-0008-4b00-9100-000000000008",
+      "fromPort": "Success",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "5c2e8b20-0003-4b00-9100-000000000003",
+      "toPort": "LoopBack",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "5c2e8b20-1010-4b00-9100-000000000010",
+      "fromNodeId": "5c2e8b20-0003-4b00-9100-000000000003",
+      "fromPort": "Done",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "5c2e8b20-0009-4b00-9100-000000000009",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": [],
+      "directRoute": true
+    },
+    {
+      "id": "5c2e8b20-1011-4b00-9100-000000000011",
+      "fromNodeId": "5c2e8b20-0009-4b00-9100-000000000009",
+      "fromPort": "Success",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "5c2e8b20-0010-4b00-9100-000000000010",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "932bf5e0-3619-4889-b590-e6a0f99b9deb",
+      "fromNodeId": "8ee7cb90-31d2-44fa-8531-f700d14d36c6",
+      "fromPort": "Out",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "5c2e8b20-0010-4b00-9100-000000000010",
+      "toPort": "Fail",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "f86b0873-aa9f-4102-8753-5caafc4aab80",
+      "fromNodeId": "5c2e8b20-0002-4b00-9100-000000000002",
+      "fromPort": "Fail",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "8ee7cb90-31d2-44fa-8531-f700d14d36c6",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "3de47e87-a1f3-4033-97c9-f1144f8cddbe",
+      "fromNodeId": "5c2e8b20-0003-4b00-9100-000000000003",
+      "fromPort": "Fail",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "8ee7cb90-31d2-44fa-8531-f700d14d36c6",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "08b7122c-0462-4b03-8b35-57c36ee7fb9f",
+      "fromNodeId": "5c2e8b20-0002-4b00-9100-000000000002",
+      "fromPort": "Success",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "7d8702cc-808d-470d-bc75-e711a7d5f767",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "bd7b7a29-26c8-4af8-9dc1-892cceb91754",
+      "fromNodeId": "7d8702cc-808d-470d-bc75-e711a7d5f767",
+      "fromPort": "Success",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "5c2e8b20-0003-4b00-9100-000000000003",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "22098281-0d54-4066-8077-31daa2d93576",
+      "fromNodeId": "5c2e8b20-0004-4b00-9100-000000000004",
+      "fromPort": "Fail",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "8ee7cb90-31d2-44fa-8531-f700d14d36c6",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "9a65ddd2-5676-4447-9554-0d45c91c1718",
+      "fromNodeId": "5c2e8b20-0005-4b00-9100-000000000005",
+      "fromPort": "Fail",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "8ee7cb90-31d2-44fa-8531-f700d14d36c6",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "c7989654-ec2f-46db-9222-439faba528e2",
+      "fromNodeId": "5c2e8b20-0006-4b00-9100-000000000006",
+      "fromPort": "Fail",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "8ee7cb90-31d2-44fa-8531-f700d14d36c6",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "37259bfb-35e3-4558-b53d-a8e17ff3b105",
+      "fromNodeId": "5c2e8b20-0008-4b00-9100-000000000008",
+      "fromPort": "Fail",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "8ee7cb90-31d2-44fa-8531-f700d14d36c6",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "8e0fcad3-7e21-4185-9406-604c96bdeba0",
+      "fromNodeId": "5c2e8b20-0007-4b00-9100-000000000007",
+      "fromPort": "Fail",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "8ee7cb90-31d2-44fa-8531-f700d14d36c6",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "671bbfc3-b30a-475f-847a-774466d251e4",
+      "fromNodeId": "7d8702cc-808d-470d-bc75-e711a7d5f767",
+      "fromPort": "Fail",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "8ee7cb90-31d2-44fa-8531-f700d14d36c6",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    }
+  ]
+}
