@@ -1,0 +1,271 @@
+{
+  "schemaVersion": 1,
+  "flowId": "44be40d9-532c-423e-8313-a68035754817",
+  "name": "New workflow",
+  "description": "",
+  "globalValues": {},
+  "nodes": [
+    {
+      "id": "691adf29-b2bf-46f5-bb99-df45739d3ccb",
+      "name": "Start",
+      "category": "Module",
+      "nodeType": "Start",
+      "x": 120,
+      "y": 120,
+      "width": 200,
+      "height": 102,
+      "executionMode": "Enabled",
+      "settings": {},
+      "portPlacements": {},
+      "flippedPortSides": []
+    },
+    {
+      "id": "921e936b-0e67-4c40-8ca3-2266c0185c29",
+      "name": "Exit",
+      "category": "Module",
+      "nodeType": "Exit",
+      "x": 1334,
+      "y": 234,
+      "width": 200,
+      "height": 102,
+      "executionMode": "Enabled",
+      "settings": {
+        "ExitCode": "0",
+        "ExitMessage": ""
+      },
+      "portPlacements": {
+        "I:Fail": "Top"
+      },
+      "flippedPortSides": []
+    },
+    {
+      "id": "5a071ec3-1ff0-4d3a-aa4e-327839931670",
+      "name": "Run Parallel",
+      "category": "Module",
+      "nodeType": "RunParallel",
+      "x": 431,
+      "y": 238,
+      "width": 200,
+      "height": 102,
+      "executionMode": "Enabled",
+      "settings": {
+        "MaxParallelism": ""
+      },
+      "portPlacements": {
+        "I:LoopBack": "Bottom"
+      },
+      "flippedPortSides": [
+        "Right"
+      ]
+    },
+    {
+      "id": "84f55ec5-0df8-43ca-9cb4-e631ca80d926",
+      "name": "ILogger",
+      "category": "Module",
+      "nodeType": "ILogger",
+      "x": 1018,
+      "y": 60,
+      "width": 200,
+      "height": 102,
+      "executionMode": "Disabled",
+      "settings": {
+        "Registry": "False",
+        "ErrorFile": "",
+        "LogTable": ""
+      },
+      "portPlacements": {
+        "O:Out": "Bottom"
+      },
+      "flippedPortSides": []
+    },
+    {
+      "id": "6bf21108-118b-43b4-b5c2-90b32414d0aa",
+      "name": "Sleep 15",
+      "category": "Module",
+      "nodeType": "Sleep",
+      "x": 930,
+      "y": 556,
+      "width": 200,
+      "height": 102,
+      "executionMode": "Enabled",
+      "settings": {
+        "ConnectionString": "",
+        "RetrySeconds": "120",
+        "Seconds": "15",
+        "SqlHotelId": "",
+        "WaitForFile": "",
+        "WaitForFtpFile": "",
+        "WaitMaxMinutes": "30",
+        "WakeUpTime": ""
+      },
+      "portPlacements": {
+        "O:Out": "Left"
+      },
+      "flippedPortSides": []
+    },
+    {
+      "id": "8846fd5e-4453-439f-a01f-218dda876fc9",
+      "name": "Sleep 30",
+      "category": "Module",
+      "nodeType": "Sleep",
+      "x": 959,
+      "y": 765,
+      "width": 200,
+      "height": 102,
+      "executionMode": "Enabled",
+      "settings": {
+        "ConnectionString": "",
+        "RetrySeconds": "120",
+        "Seconds": "30",
+        "SqlHotelId": "",
+        "WaitForFile": "",
+        "WaitForFtpFile": "",
+        "WaitMaxMinutes": "30",
+        "WakeUpTime": ""
+      },
+      "portPlacements": {
+        "O:Out": "Left"
+      },
+      "flippedPortSides": []
+    },
+    {
+      "id": "6ae3eb59-9612-4c62-8d15-9b3893212f04",
+      "name": "Sleep 5",
+      "category": "Module",
+      "nodeType": "Sleep",
+      "x": 926,
+      "y": 404,
+      "width": 200,
+      "height": 102,
+      "executionMode": "Enabled",
+      "settings": {
+        "ConnectionString": "",
+        "RetrySeconds": "120",
+        "Seconds": "5",
+        "SqlHotelId": "",
+        "WaitForFile": "",
+        "WaitForFtpFile": "",
+        "WaitMaxMinutes": "30",
+        "WakeUpTime": ""
+      },
+      "portPlacements": {
+        "O:Out": "Left"
+      },
+      "flippedPortSides": []
+    }
+  ],
+  "connections": [
+    {
+      "id": "d6e905cc-38b3-4e6a-97de-0a7fe41c3758",
+      "fromNodeId": "691adf29-b2bf-46f5-bb99-df45739d3ccb",
+      "fromPort": "Out",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "5a071ec3-1ff0-4d3a-aa4e-327839931670",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "d841a752-bc5c-4254-91da-9cd3ad911a0f",
+      "fromNodeId": "5a071ec3-1ff0-4d3a-aa4e-327839931670",
+      "fromPort": "Out",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "921e936b-0e67-4c40-8ca3-2266c0185c29",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "52e3c6ff-7926-40fb-bcd8-f37d2d0b4351",
+      "fromNodeId": "84f55ec5-0df8-43ca-9cb4-e631ca80d926",
+      "fromPort": "Out",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "921e936b-0e67-4c40-8ca3-2266c0185c29",
+      "toPort": "Fail",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "b0529503-759a-4d64-a887-63a5cff0d247",
+      "fromNodeId": "5a071ec3-1ff0-4d3a-aa4e-327839931670",
+      "fromPort": "Item",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "6bf21108-118b-43b4-b5c2-90b32414d0aa",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": [],
+      "directRoute": true
+    },
+    {
+      "id": "e6c4d3b4-9330-43bc-acf2-8e67a0e328b5",
+      "fromNodeId": "6bf21108-118b-43b4-b5c2-90b32414d0aa",
+      "fromPort": "Out",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "5a071ec3-1ff0-4d3a-aa4e-327839931670",
+      "toPort": "LoopBack",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": [],
+      "directRoute": true
+    },
+    {
+      "id": "dc0ca4b5-9a7b-4e4a-972d-65bf0e11d8cb",
+      "fromNodeId": "5a071ec3-1ff0-4d3a-aa4e-327839931670",
+      "fromPort": "Item",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "8846fd5e-4453-439f-a01f-218dda876fc9",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "30b97a0c-8f54-4e73-9c9d-8196cc7a6ee5",
+      "fromNodeId": "8846fd5e-4453-439f-a01f-218dda876fc9",
+      "fromPort": "Out",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "5a071ec3-1ff0-4d3a-aa4e-327839931670",
+      "toPort": "LoopBack",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": [],
+      "directRoute": true
+    },
+    {
+      "id": "9cf2cc32-76bc-405c-b770-ff9fda8956df",
+      "fromNodeId": "5a071ec3-1ff0-4d3a-aa4e-327839931670",
+      "fromPort": "Item",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "6ae3eb59-9612-4c62-8d15-9b3893212f04",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "71343456-42ad-4977-b73b-b715896bf41e",
+      "fromNodeId": "6ae3eb59-9612-4c62-8d15-9b3893212f04",
+      "fromPort": "Out",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "5a071ec3-1ff0-4d3a-aa4e-327839931670",
+      "toPort": "LoopBack",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": [],
+      "directRoute": true
+    }
+  ]
+}
