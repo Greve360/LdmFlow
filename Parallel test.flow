@@ -10,8 +10,8 @@
       "name": "Start",
       "category": "Module",
       "nodeType": "Start",
-      "x": 120,
-      "y": 120,
+      "x": 53,
+      "y": 60,
       "width": 200,
       "height": 102,
       "executionMode": "Enabled",
@@ -24,8 +24,8 @@
       "name": "Exit",
       "category": "Module",
       "nodeType": "Exit",
-      "x": 1334,
-      "y": 234,
+      "x": 1463,
+      "y": 180,
       "width": 200,
       "height": 102,
       "executionMode": "Enabled",
@@ -43,8 +43,8 @@
       "name": "Run Parallel",
       "category": "Module",
       "nodeType": "RunParallel",
-      "x": 431,
-      "y": 238,
+      "x": 330,
+      "y": 83,
       "width": 200,
       "height": 102,
       "executionMode": "Enabled",
@@ -63,8 +63,8 @@
       "name": "ILogger",
       "category": "Module",
       "nodeType": "ILogger",
-      "x": 1018,
-      "y": 60,
+      "x": 993,
+      "y": 32,
       "width": 200,
       "height": 102,
       "executionMode": "Disabled",
@@ -83,8 +83,8 @@
       "name": "Sleep 15",
       "category": "Module",
       "nodeType": "Sleep",
-      "x": 930,
-      "y": 556,
+      "x": 1370,
+      "y": 337,
       "width": 200,
       "height": 102,
       "executionMode": "Enabled",
@@ -96,7 +96,9 @@
         "WaitForFile": "",
         "WaitForFtpFile": "",
         "WaitMaxMinutes": "30",
-        "WakeUpTime": ""
+        "WakeUpTime": "",
+        "SQL": "",
+        "DBMS": ""
       },
       "portPlacements": {
         "O:Out": "Left"
@@ -108,8 +110,8 @@
       "name": "Sleep 30",
       "category": "Module",
       "nodeType": "Sleep",
-      "x": 959,
-      "y": 765,
+      "x": 1361,
+      "y": 477,
       "width": 200,
       "height": 102,
       "executionMode": "Enabled",
@@ -121,20 +123,24 @@
         "WaitForFile": "",
         "WaitForFtpFile": "",
         "WaitMaxMinutes": "30",
-        "WakeUpTime": ""
+        "WakeUpTime": "",
+        "SQL": "",
+        "DBMS": ""
       },
       "portPlacements": {
         "O:Out": "Left"
       },
-      "flippedPortSides": []
+      "flippedPortSides": [
+        "Left"
+      ]
     },
     {
       "id": "6ae3eb59-9612-4c62-8d15-9b3893212f04",
       "name": "Sleep 5",
       "category": "Module",
       "nodeType": "Sleep",
-      "x": 926,
-      "y": 404,
+      "x": 1370,
+      "y": 644,
       "width": 200,
       "height": 102,
       "executionMode": "Enabled",
@@ -146,10 +152,99 @@
         "WaitForFile": "",
         "WaitForFtpFile": "",
         "WaitMaxMinutes": "30",
-        "WakeUpTime": ""
+        "WakeUpTime": "",
+        "SQL": "",
+        "DBMS": ""
       },
       "portPlacements": {
         "O:Out": "Left"
+      },
+      "flippedPortSides": [
+        "Left"
+      ]
+    },
+    {
+      "id": "a767e2d2-2798-477b-b26a-78df1b93d917",
+      "name": "Display",
+      "category": "Module",
+      "nodeType": "Display",
+      "x": 777,
+      "y": 632,
+      "width": 200,
+      "height": 102,
+      "executionMode": "Enabled",
+      "settings": {
+        "Text": "\u00A4{Item}\u00A4 - \u00A4{ItemNumber}\u00A4"
+      },
+      "portPlacements": {
+        "I:In": "Right",
+        "O:Out": "Left"
+      },
+      "flippedPortSides": []
+    },
+    {
+      "id": "d2df332a-39ee-44aa-addc-aed72c1a8897",
+      "name": "Display",
+      "category": "Module",
+      "nodeType": "Display",
+      "x": 1034,
+      "y": 329,
+      "width": 200,
+      "height": 102,
+      "executionMode": "Enabled",
+      "settings": {
+        "Text": "\u00A4{Item}\u00A4 - \u00A4{ItemNumber}\u00A4"
+      },
+      "portPlacements": {
+        "I:In": "Right",
+        "O:Out": "Left"
+      },
+      "flippedPortSides": []
+    },
+    {
+      "id": "07c02aa2-827f-4332-b530-f6b257889b2c",
+      "name": "Display",
+      "category": "Module",
+      "nodeType": "Display",
+      "x": 767,
+      "y": 463,
+      "width": 200,
+      "height": 102,
+      "executionMode": "Enabled",
+      "settings": {
+        "Text": "\u00A4{Item}\u00A4 - \u00A4{ItemNumber}\u00A4"
+      },
+      "portPlacements": {
+        "I:In": "Right",
+        "O:Out": "Left"
+      },
+      "flippedPortSides": []
+    },
+    {
+      "id": "a75ac6ff-f0c9-4744-98fb-64096169becd",
+      "name": "Sleep 15",
+      "category": "Module",
+      "nodeType": "Sleep",
+      "x": 770,
+      "y": 329,
+      "width": 200,
+      "height": 102,
+      "executionMode": "Enabled",
+      "settings": {
+        "ConnectionString": "",
+        "RetrySeconds": "120",
+        "Seconds": "15",
+        "SqlHotelId": "",
+        "WaitForFile": "",
+        "WaitForFtpFile": "",
+        "WaitMaxMinutes": "30",
+        "WakeUpTime": "",
+        "SQL": "",
+        "DBMS": ""
+      },
+      "portPlacements": {
+        "O:Out": "Left",
+        "I:In": "Right"
       },
       "flippedPortSides": []
     }
@@ -201,21 +296,7 @@
       "toPort": "In",
       "toControlDx": null,
       "toControlDy": null,
-      "waypoints": [],
-      "directRoute": true
-    },
-    {
-      "id": "e6c4d3b4-9330-43bc-acf2-8e67a0e328b5",
-      "fromNodeId": "6bf21108-118b-43b4-b5c2-90b32414d0aa",
-      "fromPort": "Out",
-      "fromControlDx": null,
-      "fromControlDy": null,
-      "toNodeId": "5a071ec3-1ff0-4d3a-aa4e-327839931670",
-      "toPort": "LoopBack",
-      "toControlDx": null,
-      "toControlDy": null,
-      "waypoints": [],
-      "directRoute": true
+      "waypoints": []
     },
     {
       "id": "dc0ca4b5-9a7b-4e4a-972d-65bf0e11d8cb",
@@ -230,19 +311,6 @@
       "waypoints": []
     },
     {
-      "id": "30b97a0c-8f54-4e73-9c9d-8196cc7a6ee5",
-      "fromNodeId": "8846fd5e-4453-439f-a01f-218dda876fc9",
-      "fromPort": "Out",
-      "fromControlDx": null,
-      "fromControlDy": null,
-      "toNodeId": "5a071ec3-1ff0-4d3a-aa4e-327839931670",
-      "toPort": "LoopBack",
-      "toControlDx": null,
-      "toControlDy": null,
-      "waypoints": [],
-      "directRoute": true
-    },
-    {
       "id": "9cf2cc32-76bc-405c-b770-ff9fda8956df",
       "fromNodeId": "5a071ec3-1ff0-4d3a-aa4e-327839931670",
       "fromPort": "Item",
@@ -255,8 +323,82 @@
       "waypoints": []
     },
     {
-      "id": "71343456-42ad-4977-b73b-b715896bf41e",
+      "id": "3804194a-bf82-49ad-9f77-89bb40ecf9c6",
       "fromNodeId": "6ae3eb59-9612-4c62-8d15-9b3893212f04",
+      "fromPort": "Out",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "a767e2d2-2798-477b-b26a-78df1b93d917",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "3e931986-173f-414c-82d0-3f40b5c98ad4",
+      "fromNodeId": "a767e2d2-2798-477b-b26a-78df1b93d917",
+      "fromPort": "Out",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "5a071ec3-1ff0-4d3a-aa4e-327839931670",
+      "toPort": "LoopBack",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": [],
+      "directRoute": true
+    },
+    {
+      "id": "cf403115-c9a6-486e-8252-161862f9b855",
+      "fromNodeId": "6bf21108-118b-43b4-b5c2-90b32414d0aa",
+      "fromPort": "Out",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "d2df332a-39ee-44aa-addc-aed72c1a8897",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "c3baaae2-c37f-4d36-8bdb-8d33a06f0813",
+      "fromNodeId": "8846fd5e-4453-439f-a01f-218dda876fc9",
+      "fromPort": "Out",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "07c02aa2-827f-4332-b530-f6b257889b2c",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "7c454236-3931-463e-a5e2-e73c53fb4cf9",
+      "fromNodeId": "07c02aa2-827f-4332-b530-f6b257889b2c",
+      "fromPort": "Out",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "5a071ec3-1ff0-4d3a-aa4e-327839931670",
+      "toPort": "LoopBack",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": [],
+      "directRoute": true
+    },
+    {
+      "id": "67d556ec-d240-480a-a52b-17227c25b21c",
+      "fromNodeId": "d2df332a-39ee-44aa-addc-aed72c1a8897",
+      "fromPort": "Out",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "a75ac6ff-f0c9-4744-98fb-64096169becd",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "925046da-d95c-491f-aeb0-87a6541e867c",
+      "fromNodeId": "a75ac6ff-f0c9-4744-98fb-64096169becd",
       "fromPort": "Out",
       "fromControlDx": null,
       "fromControlDy": null,
