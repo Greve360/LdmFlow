@@ -10,8 +10,8 @@
       "name": "Start",
       "category": "Module",
       "nodeType": "Start",
-      "x": 43,
-      "y": 135,
+      "x": 25.400000000000006,
+      "y": 100.80000000000001,
       "width": 200,
       "height": 102,
       "executionMode": "Enabled",
@@ -24,8 +24,8 @@
       "name": "Exit",
       "category": "Module",
       "nodeType": "Exit",
-      "x": 1496,
-      "y": 56,
+      "x": 1467.5,
+      "y": 70.44000000000001,
       "width": 200,
       "height": 102,
       "executionMode": "Enabled",
@@ -43,8 +43,8 @@
       "name": "Import DAF GPKG - DAGI",
       "category": "Module",
       "nodeType": "ExternalFlow::5AE2DDD1EE96C174",
-      "x": 304,
-      "y": 114,
+      "x": 290.40000000000003,
+      "y": 117.16000000000003,
       "width": 297,
       "height": 130,
       "executionMode": "Enabled",
@@ -66,8 +66,8 @@
       "name": "Display",
       "category": "Module",
       "nodeType": "Display",
-      "x": 769,
-      "y": 129,
+      "x": 777.8000000000001,
+      "y": 131.16000000000003,
       "width": 200,
       "height": 102,
       "executionMode": "Enabled",
@@ -84,8 +84,8 @@
       "name": "Import DAF GPKG - FIKSPUNKT",
       "category": "Module",
       "nodeType": "ExternalFlow::5AE2DDD1EE96C174",
-      "x": 303,
-      "y": 270,
+      "x": 290.40000000000003,
+      "y": 268.96000000000004,
       "width": 297,
       "height": 130,
       "executionMode": "Enabled",
@@ -111,8 +111,8 @@
       "name": "Import DAF GPKG - GEODKV",
       "category": "Module",
       "nodeType": "ExternalFlow::5AE2DDD1EE96C174",
-      "x": 305,
-      "y": 425,
+      "x": 290.40000000000003,
+      "y": 420.76000000000005,
       "width": 297,
       "height": 130,
       "executionMode": "Enabled",
@@ -138,8 +138,8 @@
       "name": "Display 2",
       "category": "Module",
       "nodeType": "Display",
-      "x": 774,
-      "y": 292,
+      "x": 777.8000000000001,
+      "y": 282.96000000000004,
       "width": 200,
       "height": 102,
       "executionMode": "Enabled",
@@ -156,8 +156,8 @@
       "name": "Import DAF GPKG - SD",
       "category": "Module",
       "nodeType": "ExternalFlow::5AE2DDD1EE96C174",
-      "x": 309,
-      "y": 582,
+      "x": 290.40000000000003,
+      "y": 572.5600000000001,
       "width": 297,
       "height": 130,
       "executionMode": "Enabled",
@@ -183,10 +183,10 @@
       "name": "Import DAF GPKG - MAT",
       "category": "Module",
       "nodeType": "ExternalFlow::5AE2DDD1EE96C174",
-      "x": 305,
-      "y": 752,
-      "width": 297,
-      "height": 130,
+      "x": 287.90000000000003,
+      "y": 734.8600000000001,
+      "width": 302,
+      "height": 109,
       "executionMode": "Enabled",
       "settings": {
         "BiTemporalFields": "id_lokalid, registreringfra, virkningfra, status",
@@ -210,8 +210,8 @@
       "name": "Display 3",
       "category": "Module",
       "nodeType": "Display",
-      "x": 767,
-      "y": 444,
+      "x": 777.8000000000001,
+      "y": 434.76000000000005,
       "width": 200,
       "height": 102,
       "executionMode": "Enabled",
@@ -228,8 +228,8 @@
       "name": "Display 4",
       "category": "Module",
       "nodeType": "Display",
-      "x": 766,
-      "y": 615,
+      "x": 777.8000000000001,
+      "y": 586.5600000000001,
       "width": 200,
       "height": 102,
       "executionMode": "Enabled",
@@ -246,15 +246,17 @@
       "name": "Display 5",
       "category": "Module",
       "nodeType": "Display",
-      "x": 774,
-      "y": 784,
+      "x": 777.8000000000001,
+      "y": 738.3600000000001,
       "width": 200,
       "height": 102,
       "executionMode": "Enabled",
       "settings": {
         "Text": "\u00A4{ExitCode}\u00A4 - \u00A4{ExitMessage}\u00A4"
       },
-      "portPlacements": {},
+      "portPlacements": {
+        "O:Out": "Left"
+      },
       "flippedPortSides": []
     },
     {
@@ -262,8 +264,8 @@
       "name": "ILogger",
       "category": "Module",
       "nodeType": "ILogger",
-      "x": 1163,
-      "y": 46,
+      "x": 1154,
+      "y": 40.08000000000001,
       "width": 200,
       "height": 102,
       "executionMode": "Enabled",
@@ -280,8 +282,8 @@
       "name": "Import DAF JSON - BBR",
       "category": "Module",
       "nodeType": "ExternalFlow::0385C728B1BEC24F",
-      "x": 1066,
-      "y": 784,
+      "x": 279.90000000000003,
+      "y": 858.3000000000001,
       "width": 318,
       "height": 105,
       "executionMode": "Enabled",
@@ -297,23 +299,29 @@
         "Laundry_RemoveDuplicates": "ejendomsbeliggenhed",
         "MonitorErrors": "Fejl:\\n"
       },
-      "portPlacements": {},
-      "flippedPortSides": []
+      "portPlacements": {
+        "I:In": "Right"
+      },
+      "flippedPortSides": [
+        "Right"
+      ]
     },
     {
       "id": "04611226-bfae-4bd6-af72-0dcd216ff702",
       "name": "Display 6",
       "category": "Module",
       "nodeType": "Display",
-      "x": 1478,
-      "y": 770,
+      "x": 777.8000000000001,
+      "y": 859.8000000000001,
       "width": 200,
       "height": 102,
       "executionMode": "Enabled",
       "settings": {
         "Text": "\u00A4{ExitCode}\u00A4 - \u00A4{ExitMessage}\u00A4"
       },
-      "portPlacements": {},
+      "portPlacements": {
+        "O:Out": "Left"
+      },
       "flippedPortSides": []
     },
     {
@@ -321,8 +329,8 @@
       "name": "Import DAF JSON - DAR",
       "category": "Module",
       "nodeType": "ExternalFlow::0385C728B1BEC24F",
-      "x": 1367,
-      "y": 615,
+      "x": 279.90000000000003,
+      "y": 979.74,
       "width": 318,
       "height": 105,
       "executionMode": "Enabled",
@@ -340,18 +348,19 @@
       },
       "portPlacements": {
         "I:In": "Right",
-        "O:Out": "Left",
         "O:Fail": "Left"
       },
-      "flippedPortSides": []
+      "flippedPortSides": [
+        "Right"
+      ]
     },
     {
       "id": "ac20ffab-4672-46a4-8156-944de493225b",
       "name": "Display 7",
       "category": "Module",
       "nodeType": "Display",
-      "x": 1065,
-      "y": 622,
+      "x": 777.8000000000001,
+      "y": 981.24,
       "width": 200,
       "height": 102,
       "executionMode": "Enabled",
@@ -359,7 +368,6 @@
         "Text": "\u00A4{ExitCode}\u00A4 - \u00A4{ExitMessage}\u00A4"
       },
       "portPlacements": {
-        "I:In": "Right",
         "O:Out": "Left"
       },
       "flippedPortSides": []
@@ -369,8 +377,8 @@
       "name": "Import DAF JSON - VUR",
       "category": "Module",
       "nodeType": "ExternalFlow::0385C728B1BEC24F",
-      "x": 1059,
-      "y": 438,
+      "x": 279.90000000000003,
+      "y": 1101.18,
       "width": 318,
       "height": 105,
       "executionMode": "Enabled",
@@ -386,23 +394,29 @@
         "Laundry_RemoveDuplicates": "ejendomsbeliggenhed",
         "MonitorErrors": "Fejl:\\n"
       },
-      "portPlacements": {},
-      "flippedPortSides": []
+      "portPlacements": {
+        "I:In": "Right"
+      },
+      "flippedPortSides": [
+        "Right"
+      ]
     },
     {
       "id": "751b4679-f8bb-4745-bdc5-ee76361797e1",
       "name": "Display 8",
       "category": "Module",
       "nodeType": "Display",
-      "x": 1485,
-      "y": 430,
+      "x": 777.8000000000001,
+      "y": 1102.68,
       "width": 200,
       "height": 102,
       "executionMode": "Enabled",
       "settings": {
         "Text": "\u00A4{ExitCode}\u00A4 - \u00A4{ExitMessage}\u00A4"
       },
-      "portPlacements": {},
+      "portPlacements": {
+        "O:Out": "Left"
+      },
       "flippedPortSides": []
     },
     {
@@ -410,8 +424,8 @@
       "name": "Import DAF JSON - EBR",
       "category": "Module",
       "nodeType": "ExternalFlow::0385C728B1BEC24F",
-      "x": 1381,
-      "y": 255,
+      "x": 279.90000000000003,
+      "y": 1222.6200000000001,
       "width": 318,
       "height": 105,
       "executionMode": "Enabled",
@@ -429,28 +443,26 @@
       },
       "portPlacements": {
         "I:In": "Right",
-        "O:Out": "Left",
         "O:Fail": "Left"
       },
-      "flippedPortSides": []
+      "flippedPortSides": [
+        "Right"
+      ]
     },
     {
       "id": "86aa5693-d9a5-40c0-8f65-991c3a34f757",
       "name": "Display 9",
       "category": "Module",
       "nodeType": "Display",
-      "x": 1065,
-      "y": 255,
+      "x": 777.8000000000001,
+      "y": 1224.1200000000001,
       "width": 200,
       "height": 102,
       "executionMode": "Enabled",
       "settings": {
         "Text": "\u00A4{ExitCode}\u00A4 - \u00A4{ExitMessage}\u00A4"
       },
-      "portPlacements": {
-        "I:In": "Right",
-        "O:Out": "Top"
-      },
+      "portPlacements": {},
       "flippedPortSides": []
     }
   ],
@@ -489,7 +501,8 @@
       "toPort": "In",
       "toControlDx": null,
       "toControlDy": null,
-      "waypoints": []
+      "waypoints": [],
+      "directRoute": true
     },
     {
       "id": "fa091a8b-771a-4bec-a13d-f49ee6b6b630",
@@ -513,7 +526,8 @@
       "toPort": "In",
       "toControlDx": null,
       "toControlDy": null,
-      "waypoints": []
+      "waypoints": [],
+      "directRoute": true
     },
     {
       "id": "22e2f6f7-7f16-4abb-9d3f-e27ea56a4cf1",
@@ -537,7 +551,8 @@
       "toPort": "In",
       "toControlDx": null,
       "toControlDy": null,
-      "waypoints": []
+      "waypoints": [],
+      "directRoute": true
     },
     {
       "id": "7ed1124a-9cd1-4899-abf8-20e53b4ec2f3",
@@ -561,7 +576,8 @@
       "toPort": "In",
       "toControlDx": null,
       "toControlDy": null,
-      "waypoints": []
+      "waypoints": [],
+      "directRoute": true
     },
     {
       "id": "e10edeeb-952f-4555-b5a0-df9937389037",
@@ -645,7 +661,8 @@
       "toPort": "In",
       "toControlDx": null,
       "toControlDy": null,
-      "waypoints": []
+      "waypoints": [],
+      "directRoute": true
     },
     {
       "id": "e34991f5-2cd3-4a25-b5af-8ad99f7e3403",
@@ -657,7 +674,8 @@
       "toPort": "In",
       "toControlDx": null,
       "toControlDy": null,
-      "waypoints": []
+      "waypoints": [],
+      "directRoute": true
     },
     {
       "id": "27de019a-65fc-4099-bd2a-8106b16cc37e",
@@ -681,7 +699,8 @@
       "toPort": "In",
       "toControlDx": null,
       "toControlDy": null,
-      "waypoints": []
+      "waypoints": [],
+      "directRoute": true
     },
     {
       "id": "d72f7ce8-455b-4e67-85a1-f608f6c457e9",
@@ -705,7 +724,8 @@
       "toPort": "In",
       "toControlDx": null,
       "toControlDy": null,
-      "waypoints": []
+      "waypoints": [],
+      "directRoute": true
     },
     {
       "id": "799ac82a-b9b9-429c-99c7-7a819417d3f9",
@@ -729,7 +749,8 @@
       "toPort": "In",
       "toControlDx": null,
       "toControlDy": null,
-      "waypoints": []
+      "waypoints": [],
+      "directRoute": true
     },
     {
       "id": "8634502a-457e-4b22-ac87-7d87a23809f1",
@@ -753,7 +774,8 @@
       "toPort": "In",
       "toControlDx": null,
       "toControlDy": null,
-      "waypoints": []
+      "waypoints": [],
+      "directRoute": true
     },
     {
       "id": "dbb2036a-8433-489f-89e3-3b8cd91b7755",
