@@ -3,10 +3,7 @@
   "flowId": "352dd5be-fff7-402f-bdbd-169caf71cb85",
   "name": "DAF - Import GeoPackage",
   "description": "Et lille flow, der downloader nyeste total af Geopackage registre fra Datafordeleren i Postgres\r\n\r\nTestet med:\r\n   DAGI \r\n   FIKSPUNKT (kun de vigtigste tabeller underst\u00F8tter delta)\r\n   GEODKv: OGR2OGR m\u00E5tte have \u0027-DIM  3\u0027  som arguemnt for at overleve delta (WTF)",
-  "globalValues": {
-    "LdmSysDb": "server=ncc1701r\\mssqlserver2025;database=Udv_Kunde3;Trusted_Connection=True;MultipleActiveResultSets=True;Pooling=yes;TrustServerCertificate=yes;Encrypt=False",
-    "SdkRoot": "c:\\App\\Gdal\\release-1929-x64-gdal-3-12-1-mapserver-8-6-0\\"
-  },
+  "globalValues": {},
   "nodes": [
     {
       "id": "6fb1ed8c-e5d8-4a76-99c9-5f9d62ee39a6",
@@ -94,7 +91,13 @@
         "Register": "\u00A4{Register}\u00A4",
         "Table": "DafFiles",
         "TypeOfData": "Bitemporal",
-        "TypeOfDownload": ""
+        "TypeOfDownload": "",
+        "OAuthMode": "None",
+        "OAuthTokenUrl": "",
+        "OAuthClientId": "",
+        "OAuthClientSecret": "",
+        "OAuthCertificatePath": "",
+        "OAuthCertificatePassword": ""
       },
       "portPlacements": {},
       "flippedPortSides": []
