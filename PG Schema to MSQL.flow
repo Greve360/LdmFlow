@@ -127,7 +127,7 @@
       "category": "Module",
       "nodeType": "SqlIterator",
       "x": 533.5,
-      "y": 42,
+      "y": 41,
       "width": 190,
       "height": 92,
       "executionMode": "Enabled",
@@ -137,7 +137,7 @@
         "MaxParallelism": "10",
         "Mode": "Parallel",
         "ResultType": "Recordset",
-        "Sql": "select schemaname, tablename from pg_tables where schemaname ilike \u0027\u00A4{PostgresSchema}\u00A4\u0027 order by tablename",
+        "Sql": "select schemaname, tablename\r\nfrom pg_tables\r\nwhere schemaname ilike \u0027\u00A4{PostgresSchema}\u00A4\u0027\r\nand (tablename = \u0027\u00A4{SingleTable}\u00A4\u0027 or \u00A4{SingleTable,#}\u00A4 \u003C 5)\r\norder by tablename",
         "SqlTimeout": ""
       },
       "portPlacements": {
@@ -551,25 +551,6 @@
       "flippedPortSides": []
     },
     {
-      "id": "7c4df148-5715-427a-b1bf-1963db8f2b26",
-      "name": "If SingleTable(s)?",
-      "category": "Module",
-      "nodeType": "IF_Then_Else",
-      "x": 1380,
-      "y": 114,
-      "width": 200,
-      "height": 102,
-      "executionMode": "Disabled",
-      "settings": {
-        "Expression": "\u0022\u00A4{tablename}\u00A4\u0022 in \u0022\u00A4{SingleTable}\u00A4\u0022"
-      },
-      "portPlacements": {
-        "O:True": "Bottom",
-        "I:In": "Top"
-      },
-      "flippedPortSides": []
-    },
-    {
       "id": "244630f5-a511-468c-b960-210bf4644278",
       "name": "Start EJF",
       "category": "Module",
@@ -585,8 +566,8 @@
         "DestinationSchema": "DAF_EJF_NY",
         "PostgresSchema": "ejf",
         "ReduceNVarcharMax": "id_lokalid, 40, NOT NULL",
-        "RowLimiter": "limit 23456",
-        "SingleTable": ""
+        "RowLimiter": "",
+        "SingleTable": "ejerskabmedstamoplysninger"
       },
       "portPlacements": {},
       "flippedPortSides": []
