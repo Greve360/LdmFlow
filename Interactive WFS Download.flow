@@ -10,11 +10,11 @@
       "name": "Start Register",
       "category": "Module",
       "nodeType": "Start",
-      "x": 340.90000000000003,
-      "y": 42.08000000000001,
+      "x": 329.90000000000003,
+      "y": 29.080000000000013,
       "width": 190,
       "height": 92,
-      "executionMode": "Enabled",
+      "executionMode": "Disabled",
       "settings": {
         "Scheduling": "no",
         "SingleTable": "",
@@ -83,10 +83,10 @@
         "Destination": "\u00A4[WorkingFolder]\u00A4\\WFS\\\u00A4{Edited}\u00A4.gml",
         "FeatureIds": "",
         "FilterXml": "",
-        "GetFeatureEndpoint": "",
+        "GetFeatureEndpoint": "\u00A4{GetFeatureEndpoint}\u00A4",
         "GetFeatureUrl": "",
         "HttpMethod": "Auto",
-        "MetaRegister": "\u00A4{PickedRegister}\u00A4",
+        "MetaRegister": "\u00A4{RegisterName}\u00A4",
         "OutputFolder": "",
         "OutputFormat": "GML2",
         "PropertyNames": "",
@@ -115,7 +115,7 @@
       "height": 92,
       "executionMode": "Enabled",
       "settings": {
-        "Text": "\u00A4{PickedRegister}\u00A4 - \u00A4{HarvestSchema}\u00A4.\u00A4{tablename}\u00A4"
+        "Text": "\u00A4{RegisterName}\u00A4 - \u00A4{HarvestSchema}\u00A4.\u00A4{tablename}\u00A4"
       },
       "portPlacements": {
         "I:In": "Top"
@@ -144,15 +144,15 @@
       "name": "ILogger EXIT",
       "category": "Module",
       "nodeType": "ILogger",
-      "x": 908.2,
-      "y": 75.44000000000001,
+      "x": 913.2,
+      "y": 157.44,
       "width": 190,
       "height": 92,
       "executionMode": "Enabled",
       "settings": {
         "ErrorFile": "\u00A4[WorkingFolder]\u00A4\\Diagnose\\Errors.txt",
-        "Registry": "False",
-        "LogTable": ""
+        "LogTable": "",
+        "Registry": "False"
       },
       "portPlacements": {
         "I:In": "Bottom"
@@ -309,7 +309,7 @@
         "MaxParallelism": "20",
         "Mode": "Parallel",
         "ResultType": "Recordset",
-        "Sql": "select T.tablename, R.HarvestSchema from [workflow].[MetaTable] T \r\n  inner join [workflow].[MetaRegister] R on R.RegisterName = T.RegisterName \r\nwhere R.RegisterName = \u0027\u00A4{PickedRegister}\u00A4\u0027\r\n  and T.Active=1 \r\n  and (T.TableName = \u0027\u00A4{SingleTable}\u00A4\u0027 or \u00A4{SingleTable,#}\u00A4=0)",
+        "Sql": "select R.RegisterName, R.HarvestSchema, T.TableName, R.GetFeatureEndpoint from [workflow].[MetaTable] T \r\n  inner join [workflow].[MetaRegister] R on R.RegisterName = T.RegisterName \r\nwhere (R.RegisterName = \u0027\u00A4{PickedRegister}\u00A4\u0027  or \u0027\u00A4{PickedRegister,U}\u00A4\u0027=\u0027ALL\u0027)\r\n  and R.RegisterType = \u0027WFS\u0027\r\n  and T.Active=1 \r\n  and (T.TableName = \u0027\u00A4{SingleTable}\u00A4\u0027 or \u00A4{SingleTable,#}\u00A4=0)\r\n  order by T.HarvestTimestamp asc",
         "SqlTimeout": ""
       },
       "portPlacements": {
@@ -332,7 +332,7 @@
       "settings": {
         "Date": "2026-08-25",
         "Enabled": "\u00A4{Scheduling}\u00A4",
-        "RegisterName": "\u00A4{PickedRegister}\u00A4",
+        "RegisterName": "\u00A4{RegisterName}\u00A4",
         "TableName": "\u00A4{tablename}\u00A4"
       },
       "portPlacements": {
@@ -354,7 +354,8 @@
       "executionMode": "Disabled",
       "settings": {
         "Scheduling": "no",
-        "SingleTable": ""
+        "SingleTable": "",
+        "WfsErrors": "WFS Fejl:"
       },
       "portPlacements": {
         "O:Out": "Bottom"
@@ -501,8 +502,8 @@
       "name": "Send Mail",
       "category": "Module",
       "nodeType": "SendMail",
-      "x": 1090,
-      "y": 448,
+      "x": 1107,
+      "y": 470,
       "width": 200,
       "height": 102,
       "executionMode": "Enabled",
@@ -522,13 +523,13 @@
       "name": "Assign Variable 3",
       "category": "Module",
       "nodeType": "AssignVariable",
-      "x": 861,
-      "y": 707,
+      "x": 858,
+      "y": 709,
       "width": 200,
       "height": 102,
       "executionMode": "Enabled",
       "settings": {
-        "WfsErrors": "\u00A4{PickedRegister}\u00A4 - \u00A4{tablename}\u00A4 \\n",
+        "WfsErrors": "\u00A4{HarvestSchema}\u00A4 - \u00A4{tablename}\u00A4 \\n",
         "_oper:WfsErrors": "STRCAT"
       },
       "portPlacements": {
@@ -542,8 +543,8 @@
       "name": "IF_Then_Else",
       "category": "Module",
       "nodeType": "IF_Then_Else",
-      "x": 791,
-      "y": 311,
+      "x": 806,
+      "y": 411,
       "width": 200,
       "height": 102,
       "executionMode": "Enabled",
@@ -551,6 +552,97 @@
         "Expression": "\u0022\u00A4{WfsErrors,#}\u00A4\u0022 \u003E \u002212\u0022"
       },
       "portPlacements": {},
+      "flippedPortSides": []
+    },
+    {
+      "id": "b3d1bee8-a63f-4917-9ced-a08e98758967",
+      "name": "WFS",
+      "category": "Module",
+      "nodeType": "Text",
+      "x": 926,
+      "y": 26,
+      "width": 243,
+      "height": 80,
+      "executionMode": "Enabled",
+      "settings": {
+        "Bold": "Nej",
+        "Color": "White",
+        "Font": "Segoe UI",
+        "Italic": "Ja",
+        "Size": "32",
+        "Text": "WFS Interactive",
+        "Underline": "Nej"
+      },
+      "portPlacements": {},
+      "flippedPortSides": []
+    },
+    {
+      "id": "021551c2-b9b9-49b3-89ee-29ca95bce85b",
+      "name": "Start ALL",
+      "category": "Module",
+      "nodeType": "Start",
+      "x": 553,
+      "y": 32,
+      "width": 190,
+      "height": 92,
+      "executionMode": "Enabled",
+      "settings": {
+        "PickedRegister": "ALL",
+        "Scheduling": "no",
+        "SingleTable": "",
+        "WfsErrors": "WFS Fejl:"
+      },
+      "portPlacements": {
+        "O:Out": "Bottom"
+      },
+      "flippedPortSides": []
+    },
+    {
+      "id": "70ca6742-ecdf-4161-9c0d-00c11bfcd236",
+      "name": "Play Sound 3",
+      "category": "Module",
+      "nodeType": "PlaySound",
+      "x": 518,
+      "y": 561,
+      "width": 200,
+      "height": 102,
+      "executionMode": "Enabled",
+      "settings": {
+        "SoundEffect": "Ding",
+        "VolumePercent": "50"
+      },
+      "portPlacements": {
+        "I:In": "Right",
+        "O:Out": "Left"
+      },
+      "flippedPortSides": []
+    },
+    {
+      "id": "0a4a67f7-07ac-4257-b51e-d66ca6c14720",
+      "name": "Update HarvestTimestamp",
+      "category": "Module",
+      "nodeType": "ExecuteSQL",
+      "x": 983,
+      "y": 583,
+      "width": 232,
+      "height": 103,
+      "executionMode": "Enabled",
+      "settings": {
+        "CommandTimeout": "0",
+        "ConnectionString": "\u00A4[LdmSysDB]\u00A4",
+        "DBMS": "MSSQL",
+        "ExecuteEachLine": "False",
+        "FilePath": "",
+        "InTransaction": "False",
+        "MaxRows": "0",
+        "QueryType": "NonQuery",
+        "ResultVariable": "",
+        "SQL": "update workflow.MetaTable \r\nset HarvestTimestamp = GetDate()\r\nwhere RegisterName = \u0027\u00A4{RegisterName}\u00A4\u0027 and TableName = \u0027\u00A4{TableName}\u00A4\u0027"
+      },
+      "portPlacements": {
+        "I:In": "Right",
+        "O:Success": "Left"
+      },
       "flippedPortSides": []
     }
   ],
@@ -689,19 +781,6 @@
       "toControlDx": null,
       "toControlDy": null,
       "waypoints": []
-    },
-    {
-      "id": "417dd33d-944f-4f0b-9458-d6166e756d4a",
-      "fromNodeId": "351fe941-a76d-40eb-b476-076f9fbf2eda",
-      "fromPort": "Out",
-      "fromControlDx": null,
-      "fromControlDy": null,
-      "toNodeId": "e3ed1c69-db09-43af-9e6d-ba7c7f3683fa",
-      "toPort": "LoopBack",
-      "toControlDx": null,
-      "toControlDy": null,
-      "waypoints": [],
-      "directRoute": true
     },
     {
       "id": "42aef9b5-6a3a-48e7-bce8-bb0fb395d2e2",
@@ -1016,7 +1095,8 @@
       "toPort": "In",
       "toControlDx": null,
       "toControlDy": null,
-      "waypoints": []
+      "waypoints": [],
+      "directRoute": true
     },
     {
       "id": "79b1a728-53c1-4b15-9498-e9a6a884b4eb",
@@ -1062,6 +1142,54 @@
       "fromControlDy": null,
       "toNodeId": "263c9865-e315-4840-ae64-a73a8a19703e",
       "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "97f5059f-9d8a-4e54-bf83-bf7965adab58",
+      "fromNodeId": "021551c2-b9b9-49b3-89ee-29ca95bce85b",
+      "fromPort": "Out",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "e3ed1c69-db09-43af-9e6d-ba7c7f3683fa",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "7ae7a5b1-8e9d-44e1-b9e3-5a82cd76e4e8",
+      "fromNodeId": "351fe941-a76d-40eb-b476-076f9fbf2eda",
+      "fromPort": "Out",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "0a4a67f7-07ac-4257-b51e-d66ca6c14720",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "2405a50e-c520-43ee-8f3a-e756ad3c7624",
+      "fromNodeId": "0a4a67f7-07ac-4257-b51e-d66ca6c14720",
+      "fromPort": "Success",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "70ca6742-ecdf-4161-9c0d-00c11bfcd236",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "c1d353d3-0d13-4575-ba9d-f36dde87a444",
+      "fromNodeId": "70ca6742-ecdf-4161-9c0d-00c11bfcd236",
+      "fromPort": "Out",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "e3ed1c69-db09-43af-9e6d-ba7c7f3683fa",
+      "toPort": "LoopBack",
       "toControlDx": null,
       "toControlDy": null,
       "waypoints": []
