@@ -351,7 +351,7 @@
       "y": 29.080000000000013,
       "width": 244,
       "height": 92,
-      "executionMode": "Enabled",
+      "executionMode": "Disabled",
       "settings": {
         "Scheduling": "no",
         "SingleTable": "",
@@ -585,7 +585,7 @@
       "y": 40,
       "width": 190,
       "height": 92,
-      "executionMode": "Disabled",
+      "executionMode": "Enabled",
       "settings": {
         "PickedRegister": "ALL",
         "Scheduling": "no",
