@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "flowId": "51af7ef8-5805-46d1-8473-496306efafb7",
   "name": "New workflow",
-  "description": "",
+  "description": "per-table auto-create-if-missing \r\n(Generate DDL \u2192 Create Table \u2192 ALTER SCHEMA ... TRANSFER, with the dbo-default-schema assumption called out explicitly), \r\n\r\nthe truncate-before-load behavior, why native format demands exact ANSI/Unicode and spatial-type fidelity, -E for identity preservation, and the explicit caveat that indexes/constraints/triggers aren\u0027t recreated. \r\n\r\nAnyone opening this flow (Workflow \u25B8 Description) now gets the reasoning without asking again.",
   "globalValues": {},
   "nodes": [
     {
@@ -10,8 +10,8 @@
       "name": "Start",
       "category": "Module",
       "nodeType": "Start",
-      "x": 56,
-      "y": 180,
+      "x": 19,
+      "y": 349,
       "width": 200,
       "height": 102,
       "executionMode": "Enabled",
@@ -34,8 +34,8 @@
       "name": "Exit",
       "category": "Module",
       "nodeType": "Exit",
-      "x": 1451,
-      "y": 132,
+      "x": 1480,
+      "y": 169,
       "width": 200,
       "height": 102,
       "executionMode": "Enabled",
@@ -53,8 +53,8 @@
       "name": "ILogger",
       "category": "Module",
       "nodeType": "ILogger",
-      "x": 1489,
-      "y": 345,
+      "x": 1486,
+      "y": 385,
       "width": 200,
       "height": 102,
       "executionMode": "Enabled",
@@ -122,21 +122,21 @@
       "name": "BCP OUT",
       "category": "Module",
       "nodeType": "BcpOut",
-      "x": 335,
-      "y": 585,
+      "x": 353,
+      "y": 690,
       "width": 200,
       "height": 102,
       "executionMode": "Enabled",
       "settings": {
+        "BcpArguments": "-T -n",
         "BcpExecutable": "bcp",
-        "Server": "\u00A4{SourceServer}\u00A4",
         "Database": "\u00A4{SourceDatabase}\u00A4",
-        "Schema": "\u00A4{SourceSchema}\u00A4",
-        "Table": "\u00A4{TABLE_NAME}\u00A4",
-        "SQL": "",
-        "OutputFile": "\u00A4{BCPTempFolder}\u00A4\\\u00A4{TABLE_NAME}\u00A4.bcp",
         "FormatFile": "",
-        "BcpArguments": "-T -n"
+        "OutputFile": "\u00A4{BCPTempFolder}\u00A4\\\u00A4{TABLE_NAME}\u00A4.bcp",
+        "Schema": "\u00A4{SourceSchema}\u00A4",
+        "Server": "\u00A4{SourceServer}\u00A4",
+        "SQL": "",
+        "Table": "\u00A4{TABLE_NAME}\u00A4"
       },
       "portPlacements": {
         "I:In": "Right",
@@ -149,8 +149,8 @@
       "name": "BCP IN",
       "category": "Module",
       "nodeType": "BcpIn",
-      "x": 327,
-      "y": 386,
+      "x": 307,
+      "y": 347,
       "width": 200,
       "height": 102,
       "executionMode": "Enabled",
@@ -192,8 +192,8 @@
       "name": "Has Destination Table",
       "category": "Module",
       "nodeType": "HasTable",
-      "x": 648,
-      "y": 303,
+      "x": 681,
+      "y": 380,
       "width": 200,
       "height": 102,
       "executionMode": "Enabled",
@@ -215,8 +215,8 @@
       "name": "Generate DDL",
       "category": "Module",
       "nodeType": "GenerateDDL",
-      "x": 924,
-      "y": 276,
+      "x": 989,
+      "y": 345,
       "width": 200,
       "height": 102,
       "executionMode": "Enabled",
@@ -227,7 +227,9 @@
         "SQL": "SELECT * FROM \u00A4{SourceSchema}\u00A4.\u00A4{TABLE_NAME}\u00A4 WHERE 1=0",
         "DDLFile": "\u00A4{BCPTempFolder}\u00A4\\ddl\\\u00A4{TABLE_NAME}\u00A4.sql"
       },
-      "portPlacements": {},
+      "portPlacements": {
+        "O:Out": "Bottom"
+      },
       "flippedPortSides": []
     },
     {
@@ -235,8 +237,8 @@
       "name": "Create Table (if missing)",
       "category": "Module",
       "nodeType": "ExecuteSQL",
-      "x": 1222,
-      "y": 353,
+      "x": 999,
+      "y": 514,
       "width": 200,
       "height": 102,
       "executionMode": "Enabled",
@@ -253,7 +255,8 @@
         "ExecuteEachLine": "False"
       },
       "portPlacements": {
-        "O:Success": "Left"
+        "O:Success": "Bottom",
+        "I:In": "Top"
       },
       "flippedPortSides": []
     },
@@ -262,8 +265,8 @@
       "name": "Move to Destination Schema",
       "category": "Module",
       "nodeType": "ExecuteSQL",
-      "x": 918,
-      "y": 486,
+      "x": 1006,
+      "y": 673,
       "width": 200,
       "height": 102,
       "executionMode": "Enabled",
@@ -290,8 +293,8 @@
       "name": "Truncate Destination Table",
       "category": "Module",
       "nodeType": "ExecuteSQL",
-      "x": 690,
-      "y": 643,
+      "x": 675,
+      "y": 786,
       "width": 200,
       "height": 102,
       "executionMode": "Enabled",
@@ -312,6 +315,58 @@
         "O:Success": "Left"
       },
       "flippedPortSides": []
+    },
+    {
+      "id": "42b44316-7e98-4549-8e5e-e097f4f68c8c",
+      "name": "Play Sound",
+      "category": "Module",
+      "nodeType": "PlaySound",
+      "x": 953,
+      "y": 83,
+      "width": 200,
+      "height": 102,
+      "executionMode": "Enabled",
+      "settings": {
+        "SoundEffect": "TaDa",
+        "VolumePercent": "200"
+      },
+      "portPlacements": {},
+      "flippedPortSides": []
+    },
+    {
+      "id": "313d6439-0755-4235-890a-002fb5bb2728",
+      "name": "Display",
+      "category": "Module",
+      "nodeType": "Display",
+      "x": 204,
+      "y": 500,
+      "width": 317,
+      "height": 110,
+      "executionMode": "Enabled",
+      "settings": {
+        "Text": "\u00A4{BCPTempFolder}\u00A4\\\u00A4{TABLE_NAME}\u00A4.bcp"
+      },
+      "portPlacements": {
+        "I:In": "Bottom",
+        "O:Out": "Top"
+      },
+      "flippedPortSides": []
+    },
+    {
+      "id": "01c1d160-8fb0-402e-bcbe-46e4bda6f6d3",
+      "name": "Firework",
+      "category": "Module",
+      "nodeType": "Firework",
+      "x": 1210,
+      "y": 105,
+      "width": 200,
+      "height": 102,
+      "executionMode": "Enabled",
+      "settings": {
+        "Seconds": "5"
+      },
+      "portPlacements": {},
+      "flippedPortSides": []
     }
   ],
   "connections": [
@@ -325,7 +380,8 @@
       "toPort": "Fail",
       "toControlDx": null,
       "toControlDy": null,
-      "waypoints": []
+      "waypoints": [],
+      "directRoute": true
     },
     {
       "id": "4b99d924-f4a4-4396-b6f5-597a71f456ab",
@@ -334,31 +390,6 @@
       "fromControlDx": null,
       "fromControlDy": null,
       "toNodeId": "3816464b-6b1d-4117-8b48-41ad83e55e4a",
-      "toPort": "In",
-      "toControlDx": null,
-      "toControlDy": null,
-      "waypoints": [],
-      "directRoute": true
-    },
-    {
-      "id": "bddcf3a2-f769-42c1-acbf-d8bc1f2ba45f",
-      "fromNodeId": "0a1be1b2-306b-48a4-a7b4-725b58a37443",
-      "fromPort": "Done",
-      "fromControlDx": null,
-      "fromControlDy": null,
-      "toNodeId": "981fb8d7-f477-4775-b2df-035381c143a3",
-      "toPort": "In",
-      "toControlDx": null,
-      "toControlDy": null,
-      "waypoints": []
-    },
-    {
-      "id": "7b2e4f9a-3c6d-4a8e-9f1b-5d3c8a2e6f7b",
-      "fromNodeId": "a1c93e2f-6d4b-4a2e-9f31-7c8e5d2b91a4",
-      "fromPort": "Success",
-      "fromControlDx": null,
-      "fromControlDy": null,
-      "toNodeId": "d47f2b6a-3e91-4c58-b6a7-2f9d4e1c8b53",
       "toPort": "In",
       "toControlDx": null,
       "toControlDy": null,
@@ -405,18 +436,6 @@
       "directRoute": true
     },
     {
-      "id": "1a2b3c4d-5e6f-4789-9abc-def012345601",
-      "fromNodeId": "812f1634-7efd-4d51-91b9-1873fd0cacd4",
-      "fromPort": "Out",
-      "fromControlDx": null,
-      "fromControlDy": null,
-      "toNodeId": "c2d8f4a1-6e3b-4c9d-8a72-f1b5e9c3d6a2",
-      "toPort": "In",
-      "toControlDx": null,
-      "toControlDy": null,
-      "waypoints": []
-    },
-    {
       "id": "2b3c4d5e-6f78-4890-abcd-ef0123456702",
       "fromNodeId": "c2d8f4a1-6e3b-4c9d-8a72-f1b5e9c3d6a2",
       "fromPort": "Success",
@@ -451,7 +470,8 @@
       "toPort": "In",
       "toControlDx": null,
       "toControlDy": null,
-      "waypoints": []
+      "waypoints": [],
+      "directRoute": true
     },
     {
       "id": "5e6f7890-a1b2-4c34-def0-123456789005",
@@ -591,6 +611,79 @@
       "toControlDy": null,
       "waypoints": [],
       "directRoute": true
+    },
+    {
+      "id": "11af3932-d137-44a8-aab7-b788ca0c7ac1",
+      "fromNodeId": "0a1be1b2-306b-48a4-a7b4-725b58a37443",
+      "fromPort": "Done",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "42b44316-7e98-4549-8e5e-e097f4f68c8c",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "d3803a29-5c4e-4835-a4ac-2462d225d1d9",
+      "fromNodeId": "a1c93e2f-6d4b-4a2e-9f31-7c8e5d2b91a4",
+      "fromPort": "Success",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "313d6439-0755-4235-890a-002fb5bb2728",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": [],
+      "directRoute": true
+    },
+    {
+      "id": "14086f5c-a255-44fe-9abe-7ff64850ba4a",
+      "fromNodeId": "313d6439-0755-4235-890a-002fb5bb2728",
+      "fromPort": "Out",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "d47f2b6a-3e91-4c58-b6a7-2f9d4e1c8b53",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "cf75df54-acbb-49e3-97d7-f7caa82bb7bb",
+      "fromNodeId": "42b44316-7e98-4549-8e5e-e097f4f68c8c",
+      "fromPort": "Out",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "01c1d160-8fb0-402e-bcbe-46e4bda6f6d3",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "fccf4596-f1ba-4869-9d76-e040ea73ff0f",
+      "fromNodeId": "01c1d160-8fb0-402e-bcbe-46e4bda6f6d3",
+      "fromPort": "Out",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "981fb8d7-f477-4775-b2df-035381c143a3",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "fb7be408-cc0c-46a6-8e2a-3c11593a2da7",
+      "fromNodeId": "812f1634-7efd-4d51-91b9-1873fd0cacd4",
+      "fromPort": "Out",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "c2d8f4a1-6e3b-4c9d-8a72-f1b5e9c3d6a2",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
     }
   ]
 }
