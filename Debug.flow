@@ -7,17 +7,17 @@
   "nodes": [
     {
       "id": "82f50dc1-b5a8-4008-b725-85da2c6a0ab3",
-      "name": "Start",
+      "name": "Start A",
       "category": "Module",
       "nodeType": "Start",
-      "x": 120,
-      "y": 120,
+      "x": 119,
+      "y": 142,
       "width": 200,
       "height": 102,
       "executionMode": "Enabled",
       "settings": {
-        "FamousLastWords": "None",
-        "ExitCode": "0"
+        "ExitCode": "0",
+        "TestString": "AAA"
       },
       "portPlacements": {},
       "flippedPortSides": []
@@ -36,74 +36,94 @@
         "ExitCode": "\u00A4{ExitCode}\u00A4",
         "ExitMessage": "\u00A4{FamousLastWords}\u00A4"
       },
-      "portPlacements": {},
+      "portPlacements": {
+        "I:Fail": "Bottom"
+      },
       "flippedPortSides": []
     },
     {
-      "id": "978e4ebe-a8f0-4ed1-abf4-1310c03bcd76",
-      "name": "Store Delta Generation",
+      "id": "513cc798-a4c3-40bb-812e-f31f543a4ac5",
+      "name": "File_AddLine",
       "category": "Module",
-      "nodeType": "StoreVariable",
-      "x": 761.1975238848909,
-      "y": 122,
-      "width": 224,
-      "height": 94,
+      "nodeType": "File_AddLine",
+      "x": 702,
+      "y": 206,
+      "width": 200,
+      "height": 102,
       "executionMode": "Enabled",
       "settings": {
-        "Destination": "Local JSON file",
-        "_store:0000:Value": "\u00A4{FamousLastWords}\u00A4",
-        "_store:0000:StoredName": "TEST",
-        "Value": "",
-        "StoredName": ""
+        "Directory": "",
+        "Filename": "",
+        "Text": ""
       },
       "portPlacements": {},
       "flippedPortSides": []
     },
     {
-      "id": "307254b6-c474-41ed-9a3f-648e6d64607c",
-      "name": "Assign Variable Delta",
+      "id": "4bf2b609-1127-4442-a268-0619419d09d2",
+      "name": "ILogger",
       "category": "Module",
-      "nodeType": "AssignVariable",
-      "x": 510,
-      "y": 155.25276851276055,
+      "nodeType": "ILogger",
+      "x": 1089,
+      "y": 384,
       "width": 200,
       "height": 102,
       "executionMode": "Enabled",
       "settings": {
-        "FamousLastWords": "DELTA",
-        "ExitCode": "1"
+        "Registry": "False",
+        "ErrorFile": "",
+        "LogTable": ""
       },
       "portPlacements": {},
       "flippedPortSides": []
     },
     {
-      "id": "109f245a-bb9d-4244-a052-0de4a426cbb3",
-      "name": "Display",
+      "id": "16f775a8-5add-4354-9df2-b79f99a02a86",
+      "name": "Start B",
       "category": "Module",
-      "nodeType": "Display",
-      "x": 1064,
-      "y": 395,
+      "nodeType": "Start",
+      "x": 110,
+      "y": 308,
       "width": 200,
       "height": 102,
-      "executionMode": "Enabled",
+      "executionMode": "Disabled",
       "settings": {
-        "Text": "\u00A4{Message}\u00A4"
+        "ExitCode": "0",
+        "TestString": "BBB"
       },
       "portPlacements": {},
       "flippedPortSides": []
     },
     {
-      "id": "400893c9-7029-4cad-b714-c40e29220792",
-      "name": "Display 2",
+      "id": "194b699d-9fd3-4bfc-86ad-846b69869d9e",
+      "name": "Start C",
       "category": "Module",
-      "nodeType": "Display",
-      "x": 1037,
-      "y": 131,
+      "nodeType": "Start",
+      "x": 110,
+      "y": 477,
       "width": 200,
       "height": 102,
-      "executionMode": "Enabled",
+      "executionMode": "Disabled",
       "settings": {
-        "Text": "\u00A4{FamousLastWords}\u00A4"
+        "ExitCode": "0",
+        "TestString": "AAA"
+      },
+      "portPlacements": {},
+      "flippedPortSides": []
+    },
+    {
+      "id": "219f3468-c47d-4ad1-b013-4ed3dfaf166d",
+      "name": "Start D",
+      "category": "Module",
+      "nodeType": "Start",
+      "x": 114,
+      "y": 655,
+      "width": 200,
+      "height": 102,
+      "executionMode": "Disabled",
+      "settings": {
+        "ExitCode": "0",
+        "TestString": "AAA"
       },
       "portPlacements": {},
       "flippedPortSides": []
@@ -111,56 +131,45 @@
   ],
   "connections": [
     {
-      "id": "befce1e4-a2ce-4236-99e2-abdfdb10c987",
-      "fromNodeId": "307254b6-c474-41ed-9a3f-648e6d64607c",
-      "fromPort": "Out",
-      "fromControlDx": null,
-      "fromControlDy": null,
-      "toNodeId": "978e4ebe-a8f0-4ed1-abf4-1310c03bcd76",
-      "toPort": "In",
-      "toControlDx": null,
-      "toControlDy": null,
-      "waypoints": []
-    },
-    {
-      "id": "86910602-2d18-409c-9c6f-fb17d83ac37f",
+      "id": "e4b71d0f-3eeb-4a24-857b-9aafb8c20025",
       "fromNodeId": "82f50dc1-b5a8-4008-b725-85da2c6a0ab3",
       "fromPort": "Out",
       "fromControlDx": null,
       "fromControlDy": null,
-      "toNodeId": "307254b6-c474-41ed-9a3f-648e6d64607c",
+      "toNodeId": "513cc798-a4c3-40bb-812e-f31f543a4ac5",
       "toPort": "In",
       "toControlDx": null,
       "toControlDy": null,
       "waypoints": []
     },
     {
-      "id": "bbdb98eb-a396-4645-8610-ca24f42759d6",
-      "fromNodeId": "307254b6-c474-41ed-9a3f-648e6d64607c",
+      "id": "f12e27dc-db3d-4539-a37e-b94aa52d9df8",
+      "fromNodeId": "513cc798-a4c3-40bb-812e-f31f543a4ac5",
+      "fromPort": "Out",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "846da672-3142-46fc-b7d2-df26237a8b28",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "419e2a93-80ef-46dd-8bf2-59e2b93d55e7",
+      "fromNodeId": "513cc798-a4c3-40bb-812e-f31f543a4ac5",
       "fromPort": "Fail",
       "fromControlDx": null,
       "fromControlDy": null,
-      "toNodeId": "109f245a-bb9d-4244-a052-0de4a426cbb3",
+      "toNodeId": "4bf2b609-1127-4442-a268-0619419d09d2",
       "toPort": "In",
       "toControlDx": null,
       "toControlDy": null,
-      "waypoints": []
+      "waypoints": [],
+      "directRoute": true
     },
     {
-      "id": "c4c4697b-0da0-4416-8788-53ff8805abb5",
-      "fromNodeId": "978e4ebe-a8f0-4ed1-abf4-1310c03bcd76",
-      "fromPort": "Fail",
-      "fromControlDx": null,
-      "fromControlDy": null,
-      "toNodeId": "109f245a-bb9d-4244-a052-0de4a426cbb3",
-      "toPort": "In",
-      "toControlDx": null,
-      "toControlDy": null,
-      "waypoints": []
-    },
-    {
-      "id": "ce55fc94-50ca-46e3-861e-cd9e3dacaf55",
-      "fromNodeId": "109f245a-bb9d-4244-a052-0de4a426cbb3",
+      "id": "f69431eb-a091-4d7b-844c-2952dc197fc0",
+      "fromNodeId": "4bf2b609-1127-4442-a268-0619419d09d2",
       "fromPort": "Out",
       "fromControlDx": null,
       "fromControlDy": null,
@@ -168,31 +177,21 @@
       "toPort": "Fail",
       "toControlDx": null,
       "toControlDy": null,
-      "waypoints": []
+      "waypoints": [],
+      "directRoute": true
     },
     {
-      "id": "963c7863-3820-4b11-a605-843b826634f4",
-      "fromNodeId": "978e4ebe-a8f0-4ed1-abf4-1310c03bcd76",
+      "id": "4936179c-ef11-41b3-bdb6-7a27f69bff05",
+      "fromNodeId": "16f775a8-5add-4354-9df2-b79f99a02a86",
       "fromPort": "Out",
       "fromControlDx": null,
       "fromControlDy": null,
-      "toNodeId": "400893c9-7029-4cad-b714-c40e29220792",
+      "toNodeId": "513cc798-a4c3-40bb-812e-f31f543a4ac5",
       "toPort": "In",
       "toControlDx": null,
       "toControlDy": null,
-      "waypoints": []
-    },
-    {
-      "id": "3f773be6-d994-4eda-97ce-b653430240f4",
-      "fromNodeId": "400893c9-7029-4cad-b714-c40e29220792",
-      "fromPort": "Out",
-      "fromControlDx": null,
-      "fromControlDy": null,
-      "toNodeId": "846da672-3142-46fc-b7d2-df26237a8b28",
-      "toPort": "In",
-      "toControlDx": null,
-      "toControlDy": null,
-      "waypoints": []
+      "waypoints": [],
+      "directRoute": true
     }
   ]
 }
