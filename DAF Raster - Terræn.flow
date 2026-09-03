@@ -7,14 +7,14 @@
   "nodes": [
     {
       "id": "8fdb2a95-8c17-436d-b81c-1a93fe46e716",
-      "name": "Start",
+      "name": "Start META",
       "category": "Module",
       "nodeType": "Start",
-      "x": 120,
-      "y": 121,
+      "x": 88.10000000000002,
+      "y": 191.88000000000002,
       "width": 200,
       "height": 102,
-      "executionMode": "Enabled",
+      "executionMode": "Disabled",
       "settings": {
         "Register": "DHM"
       },
@@ -26,8 +26,8 @@
       "name": "Exit",
       "category": "Module",
       "nodeType": "Exit",
-      "x": 960,
-      "y": 176,
+      "x": 1404.8000000000002,
+      "y": 100.80000000000001,
       "width": 200,
       "height": 102,
       "executionMode": "Enabled",
@@ -35,34 +35,221 @@
         "ExitCode": "0",
         "ExitMessage": ""
       },
-      "portPlacements": {},
+      "portPlacements": {
+        "I:Fail": "Bottom"
+      },
       "flippedPortSides": []
     },
     {
-      "id": "9b160d37-6b52-4e61-8b83-1be63592b44d",
-      "name": "GetAvailableFileDownloadsDaf Raster",
+      "id": "f449a473-dad9-4d96-9fe9-261eea9a48ed",
+      "name": "ILogger",
       "category": "Module",
-      "nodeType": "GetAvailableFileDownloadsDaf",
-      "x": 423,
-      "y": 156,
-      "width": 271,
-      "height": 92,
+      "nodeType": "ILogger",
+      "x": 1279.4,
+      "y": 343.68000000000006,
+      "width": 200,
+      "height": 102,
       "executionMode": "Enabled",
       "settings": {
-        "Clean": "yes",
+        "Registry": "False",
+        "ErrorFile": "",
+        "LogTable": ""
+      },
+      "portPlacements": {
+        "O:Out": "Top"
+      },
+      "flippedPortSides": []
+    },
+    {
+      "id": "9a65bdfd-5092-448c-9e42-9242a977de36",
+      "name": "GetAvailableRasterFileDownloadsDaf",
+      "category": "Module",
+      "nodeType": "GetAvailableRasterFileDownloadsDaf",
+      "x": 405.30000000000007,
+      "y": 181.88000000000002,
+      "width": 318,
+      "height": 122,
+      "executionMode": "Enabled",
+      "settings": {
+        "Clean": "",
         "ConnectionString": "\u00A4[LdmSysDb]\u00A4",
-        "ContainedFileFormat": "",
+        "ContinueOnError": "Nej",
         "DafFileDownloadUrl": "\u00A4[DafUrlMetaRaster]\u00A4",
+        "DataDeliveryNumber": "",
+        "DataSetName": "",
+        "FileFormat": "",
+        "GenerationTime": "",
+        "MaxX": "",
+        "MaxY": "",
+        "MinX": "",
+        "MinY": "",
         "OAuthCertificatePassword": "",
         "OAuthCertificatePath": "",
         "OAuthClientId": "",
         "OAuthClientSecret": "",
         "OAuthMode": "None",
         "OAuthTokenUrl": "",
-        "Register": "\u00A4{Register}\u00A4",
+        "Register": "",
         "Table": "workflow.DafRasterFiles",
-        "TypeOfData": "Bitemporal",
-        "TypeOfDownload": ""
+        "Version": ""
+      },
+      "portPlacements": {},
+      "flippedPortSides": []
+    },
+    {
+      "id": "c744b598-fc43-437c-aad7-f24f8a49293f",
+      "name": "Firework",
+      "category": "Module",
+      "nodeType": "Firework",
+      "x": 1091.3,
+      "y": 161.52,
+      "width": 200,
+      "height": 102,
+      "executionMode": "Enabled",
+      "settings": {
+        "Seconds": "3"
+      },
+      "portPlacements": {},
+      "flippedPortSides": []
+    },
+    {
+      "id": "dca2e179-4aab-4c56-aa08-6002ef95457f",
+      "name": "Start Download",
+      "category": "Module",
+      "nodeType": "Start",
+      "x": 88.10000000000002,
+      "y": 374.04,
+      "width": 200,
+      "height": 102,
+      "executionMode": "Enabled",
+      "settings": {
+        "DownloadFolder": "T:\\Work"
+      },
+      "portPlacements": {},
+      "flippedPortSides": []
+    },
+    {
+      "id": "c0cb71e1-4228-4e91-8fc5-c09fd510d771",
+      "name": "Iterate Files to Download",
+      "category": "Module",
+      "nodeType": "SqlIterator",
+      "x": 374.1,
+      "y": 500.48,
+      "width": 255,
+      "height": 92,
+      "executionMode": "Enabled",
+      "settings": {
+        "ConnectionString": "\u00A4[LdmSysDb]\u00A4",
+        "DBMS": "MSSQL",
+        "IsPostgres": "",
+        "MaxParallelism": "16",
+        "Mode": "Parallel",
+        "ResultType": "Recordset",
+        "Sql": "SELECT       \r\n\t[fileName] ,[fileSizeInBytes]\r\nFROM [workflow].[DafRasterFiles]\r\nwhere register = \u0027dhm\u0027\r\nand datasetname = \u0027Terraen\u0027 \r\norder by filename\r\n",
+        "SqlTimeout": ""
+      },
+      "portPlacements": {
+        "I:LoopBack": "Bottom"
+      },
+      "flippedPortSides": [
+        "Bottom"
+      ]
+    },
+    {
+      "id": "855aff6e-6ae8-4e7b-9a41-339bb4120aea",
+      "name": "HTTPS Download",
+      "category": "Module",
+      "nodeType": "HttpsDownload",
+      "x": 396.6,
+      "y": 769.22,
+      "width": 210,
+      "height": 101,
+      "executionMode": "Enabled",
+      "retryAttempts": 3,
+      "retryDelaySeconds": 5,
+      "retryBackoff": "Exponential",
+      "settings": {
+        "ContinueOnError": "Ja",
+        "Destination": "\u00A4{DownloadFolder}\u00A4\\\u00A4{fileName}\u00A4",
+        "OAuthCertificatePassword": "",
+        "OAuthCertificatePath": "",
+        "OAuthClientId": "",
+        "OAuthClientSecret": "",
+        "OAuthMode": "None",
+        "OAuthTokenUrl": "",
+        "Password": "",
+        "SkipIfFileExists": "No",
+        "Url": "\u00A4[DafUrlFileRaster]\u00A4\u0026filename=\u00A4{filename}\u00A4",
+        "User": ""
+      },
+      "portPlacements": {
+        "O:Out": "Top",
+        "I:In": "Right"
+      },
+      "flippedPortSides": [
+        "Top"
+      ]
+    },
+    {
+      "id": "2bdb89ce-84e7-4df3-af96-c93506001be5",
+      "name": "Display",
+      "category": "Module",
+      "nodeType": "Display",
+      "x": 713.8000000000001,
+      "y": 483.98,
+      "width": 328,
+      "height": 125,
+      "executionMode": "Enabled",
+      "settings": {
+        "Text": "\u00A4{fileName}\u00A4\r\nSize: \u00A4{fileSizeInBytes}\u00A4\r\n\u00A4{Item}\u00A4"
+      },
+      "portPlacements": {
+        "O:Out": "Bottom"
+      },
+      "flippedPortSides": []
+    },
+    {
+      "id": "99e55ef4-9e35-4f6b-8b30-45b006fe076c",
+      "name": "If File Exists",
+      "category": "Module",
+      "nodeType": "IfFileExists",
+      "x": 777.8000000000001,
+      "y": 768.72,
+      "width": 200,
+      "height": 102,
+      "executionMode": "Enabled",
+      "settings": {
+        "File": "\u00A4{DownloadFolder}\u00A4\\\u00A4{fileName}\u00A4",
+        "FileSizeMustBe": "\u00A4{fileSizeInBytes}\u00A4"
+      },
+      "portPlacements": {
+        "I:In": "Top",
+        "O:\u002B": "Left",
+        "O:False": "Left",
+        "O:True": "Top"
+      },
+      "flippedPortSides": [
+        "Top"
+      ]
+    },
+    {
+      "id": "f4dfd809-bcf5-437a-80c2-702469efb20c",
+      "name": "Text",
+      "category": "Module",
+      "nodeType": "Text",
+      "x": 73,
+      "y": 25,
+      "width": 471,
+      "height": 68,
+      "executionMode": "Enabled",
+      "settings": {
+        "Bold": "Nej",
+        "Color": "Orange",
+        "Font": "Segoe UI",
+        "Italic": "Ja",
+        "Size": "30",
+        "Text": "Download DHM Terr\u00E6n raster",
+        "Underline": "Nej"
       },
       "portPlacements": {},
       "flippedPortSides": []
@@ -70,12 +257,24 @@
   ],
   "connections": [
     {
-      "id": "8db73a31-941e-4dea-be4c-e9ff8b3d2b83",
+      "id": "af85c5db-5f51-4710-9d7d-3523b1d786ae",
       "fromNodeId": "8fdb2a95-8c17-436d-b81c-1a93fe46e716",
       "fromPort": "Out",
       "fromControlDx": null,
       "fromControlDy": null,
-      "toNodeId": "9b160d37-6b52-4e61-8b83-1be63592b44d",
+      "toNodeId": "9a65bdfd-5092-448c-9e42-9242a977de36",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "c3214157-3403-4532-bb6c-bd4ebfe4a405",
+      "fromNodeId": "9a65bdfd-5092-448c-9e42-9242a977de36",
+      "fromPort": "Fail",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "f449a473-dad9-4d96-9fe9-261eea9a48ed",
       "toPort": "In",
       "toControlDx": null,
       "toControlDy": null,
@@ -83,12 +282,166 @@
       "directRoute": true
     },
     {
-      "id": "dd0b38c6-57d4-4099-b087-39542d43283b",
-      "fromNodeId": "9b160d37-6b52-4e61-8b83-1be63592b44d",
+      "id": "516aabe4-9abd-4e54-8687-113ff273cdcb",
+      "fromNodeId": "f449a473-dad9-4d96-9fe9-261eea9a48ed",
       "fromPort": "Out",
       "fromControlDx": null,
       "fromControlDy": null,
       "toNodeId": "5ed4205d-ff7b-4f4e-87ef-97d70715669e",
+      "toPort": "Fail",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": [],
+      "directRoute": true
+    },
+    {
+      "id": "1edd8547-c613-4f6f-a113-004e60c3839a",
+      "fromNodeId": "9a65bdfd-5092-448c-9e42-9242a977de36",
+      "fromPort": "Out",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "c744b598-fc43-437c-aad7-f24f8a49293f",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "bd0d711b-33ff-432e-98b8-3b079e86ca5d",
+      "fromNodeId": "c744b598-fc43-437c-aad7-f24f8a49293f",
+      "fromPort": "Out",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "5ed4205d-ff7b-4f4e-87ef-97d70715669e",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "c193eae6-35ff-43e6-9599-0a97ec4167d3",
+      "fromNodeId": "dca2e179-4aab-4c56-aa08-6002ef95457f",
+      "fromPort": "Out",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "c0cb71e1-4228-4e91-8fc5-c09fd510d771",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": [],
+      "directRoute": true
+    },
+    {
+      "id": "53eb7ce7-8054-4df2-871a-ff350d8035b6",
+      "fromNodeId": "c0cb71e1-4228-4e91-8fc5-c09fd510d771",
+      "fromPort": "Done",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "c744b598-fc43-437c-aad7-f24f8a49293f",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": [],
+      "directRoute": true
+    },
+    {
+      "id": "2cab8b97-9e9a-4057-957f-cbbb1d94de4a",
+      "fromNodeId": "c0cb71e1-4228-4e91-8fc5-c09fd510d771",
+      "fromPort": "Fail",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "f449a473-dad9-4d96-9fe9-261eea9a48ed",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": [],
+      "directRoute": true
+    },
+    {
+      "id": "56e9932b-9a43-4f65-adce-b2db78fa4f0c",
+      "fromNodeId": "855aff6e-6ae8-4e7b-9a41-339bb4120aea",
+      "fromPort": "Fail",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "f449a473-dad9-4d96-9fe9-261eea9a48ed",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": [],
+      "directRoute": true
+    },
+    {
+      "id": "2a4f302e-74d1-47d6-847d-28da506b80ce",
+      "fromNodeId": "c0cb71e1-4228-4e91-8fc5-c09fd510d771",
+      "fromPort": "Item",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "2bdb89ce-84e7-4df3-af96-c93506001be5",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": [],
+      "directRoute": true
+    },
+    {
+      "id": "742fc965-9f2d-4807-a1c4-26b2255fd95c",
+      "fromNodeId": "855aff6e-6ae8-4e7b-9a41-339bb4120aea",
+      "fromPort": "Out",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "c0cb71e1-4228-4e91-8fc5-c09fd510d771",
+      "toPort": "LoopBack",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": [],
+      "directRoute": true
+    },
+    {
+      "id": "e0c3e3e2-e029-4bd4-97ca-d4919d10ab09",
+      "fromNodeId": "2bdb89ce-84e7-4df3-af96-c93506001be5",
+      "fromPort": "Out",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "99e55ef4-9e35-4f6b-8b30-45b006fe076c",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": [],
+      "directRoute": true
+    },
+    {
+      "id": "4d09b13d-f706-4059-ab9d-f4a8bbcd7385",
+      "fromNodeId": "99e55ef4-9e35-4f6b-8b30-45b006fe076c",
+      "fromPort": "False",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "855aff6e-6ae8-4e7b-9a41-339bb4120aea",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": [],
+      "directRoute": true
+    },
+    {
+      "id": "533cd253-395c-4701-b46a-2b44fa7d0ccd",
+      "fromNodeId": "99e55ef4-9e35-4f6b-8b30-45b006fe076c",
+      "fromPort": "True",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "c0cb71e1-4228-4e91-8fc5-c09fd510d771",
+      "toPort": "LoopBack",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": [],
+      "directRoute": true
+    },
+    {
+      "id": "6d89915a-8d3e-48d4-89e4-8cba4e8a32a7",
+      "fromNodeId": "99e55ef4-9e35-4f6b-8b30-45b006fe076c",
+      "fromPort": "Fail",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "f449a473-dad9-4d96-9fe9-261eea9a48ed",
       "toPort": "In",
       "toControlDx": null,
       "toControlDy": null,
