@@ -7,14 +7,14 @@
   "nodes": [
     {
       "id": "812f1634-7efd-4d51-91b9-1873fd0cacd4",
-      "name": "Start",
+      "name": "Start CVR Total",
       "category": "Module",
       "nodeType": "Start",
       "x": 43,
       "y": 263,
       "width": 200,
       "height": 102,
-      "executionMode": "Enabled",
+      "executionMode": "Disabled",
       "settings": {
         "BCPTempFolder": "\u00A4[WorkingFolder]\u00A4",
         "DestinationConnectionString": "server=db_oisudv001.lifa.dk;database=AGA_CVRHIST;Trusted_Connection=True;MultipleActiveResultSets=True;Pooling=yes;TrustServerCertificate=yes",
@@ -245,8 +245,8 @@
       "name": "Move to Destination Schema",
       "category": "Module",
       "nodeType": "ExecuteSQL",
-      "x": 989,
-      "y": 679,
+      "x": 948,
+      "y": 705,
       "width": 200,
       "height": 102,
       "executionMode": "Enabled",
@@ -406,6 +406,30 @@
       "portPlacements": {
         "I:Fail": "Bottom"
       },
+      "flippedPortSides": []
+    },
+    {
+      "id": "b7100752-15a6-45a0-bbfb-5eff474bfebe",
+      "name": "Start CVR Delta",
+      "category": "Module",
+      "nodeType": "Start",
+      "x": 42,
+      "y": 398,
+      "width": 200,
+      "height": 102,
+      "executionMode": "Enabled",
+      "settings": {
+        "BCPTempFolder": "\u00A4[WorkingFolder]\u00A4",
+        "DestinationConnectionString": "server=db_oisudv001.lifa.dk;database=AGA_CVRHIST;Trusted_Connection=True;MultipleActiveResultSets=True;Pooling=yes;TrustServerCertificate=yes",
+        "DestinationDatabase": "AGA_CVRHIST",
+        "DestinationSchema": "ERST_CVR_DELTA",
+        "DestinationServer": "db_oisudv001.lifa.dk",
+        "SourceConnectionString": "\u00A4[MSSQL_SandboxDelta]\u00A4",
+        "SourceDatabase": "SandboxDelta",
+        "SourceSchema": "ERST_CVR",
+        "SourceServer": "10-GM0RZQ8N"
+      },
+      "portPlacements": {},
       "flippedPortSides": []
     }
   ],
@@ -730,6 +754,19 @@
       "fromControlDx": null,
       "fromControlDy": null,
       "toNodeId": "e5b2d8f4-6c9a-4e3b-8f17-4a9d2c6e5b83",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": [],
+      "directRoute": true
+    },
+    {
+      "id": "28c45788-482b-4d9a-8488-8cf93616ee59",
+      "fromNodeId": "b7100752-15a6-45a0-bbfb-5eff474bfebe",
+      "fromPort": "Out",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "c2d8f4a1-6e3b-4c9d-8a72-f1b5e9c3d6a2",
       "toPort": "In",
       "toControlDx": null,
       "toControlDy": null,
