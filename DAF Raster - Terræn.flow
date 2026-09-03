@@ -1,0 +1,99 @@
+{
+  "schemaVersion": 1,
+  "flowId": "e16805b1-e429-43c1-a896-e4245c042a61",
+  "name": "New workflow",
+  "description": "",
+  "globalValues": {},
+  "nodes": [
+    {
+      "id": "8fdb2a95-8c17-436d-b81c-1a93fe46e716",
+      "name": "Start",
+      "category": "Module",
+      "nodeType": "Start",
+      "x": 120,
+      "y": 121,
+      "width": 200,
+      "height": 102,
+      "executionMode": "Enabled",
+      "settings": {
+        "Register": "DHM"
+      },
+      "portPlacements": {},
+      "flippedPortSides": []
+    },
+    {
+      "id": "5ed4205d-ff7b-4f4e-87ef-97d70715669e",
+      "name": "Exit",
+      "category": "Module",
+      "nodeType": "Exit",
+      "x": 960,
+      "y": 176,
+      "width": 200,
+      "height": 102,
+      "executionMode": "Enabled",
+      "settings": {
+        "ExitCode": "0",
+        "ExitMessage": ""
+      },
+      "portPlacements": {},
+      "flippedPortSides": []
+    },
+    {
+      "id": "9b160d37-6b52-4e61-8b83-1be63592b44d",
+      "name": "GetAvailableFileDownloadsDaf Raster",
+      "category": "Module",
+      "nodeType": "GetAvailableFileDownloadsDaf",
+      "x": 423,
+      "y": 156,
+      "width": 271,
+      "height": 92,
+      "executionMode": "Enabled",
+      "settings": {
+        "Clean": "yes",
+        "ConnectionString": "\u00A4[LdmSysDb]\u00A4",
+        "ContainedFileFormat": "",
+        "DafFileDownloadUrl": "\u00A4[DafUrlMetaRaster]\u00A4",
+        "OAuthCertificatePassword": "",
+        "OAuthCertificatePath": "",
+        "OAuthClientId": "",
+        "OAuthClientSecret": "",
+        "OAuthMode": "None",
+        "OAuthTokenUrl": "",
+        "Register": "\u00A4{Register}\u00A4",
+        "Table": "workflow.DafRasterFiles",
+        "TypeOfData": "Bitemporal",
+        "TypeOfDownload": ""
+      },
+      "portPlacements": {},
+      "flippedPortSides": []
+    }
+  ],
+  "connections": [
+    {
+      "id": "8db73a31-941e-4dea-be4c-e9ff8b3d2b83",
+      "fromNodeId": "8fdb2a95-8c17-436d-b81c-1a93fe46e716",
+      "fromPort": "Out",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "9b160d37-6b52-4e61-8b83-1be63592b44d",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": [],
+      "directRoute": true
+    },
+    {
+      "id": "dd0b38c6-57d4-4099-b087-39542d43283b",
+      "fromNodeId": "9b160d37-6b52-4e61-8b83-1be63592b44d",
+      "fromPort": "Out",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "5ed4205d-ff7b-4f4e-87ef-97d70715669e",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": [],
+      "directRoute": true
+    }
+  ]
+}
