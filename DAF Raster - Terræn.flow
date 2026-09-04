@@ -10,8 +10,8 @@
       "name": "Start META",
       "category": "Module",
       "nodeType": "Start",
-      "x": 88.10000000000002,
-      "y": 191.88000000000002,
+      "x": 57.10000000000002,
+      "y": 257.88,
       "width": 200,
       "height": 102,
       "executionMode": "Disabled",
@@ -26,8 +26,8 @@
       "name": "Exit",
       "category": "Module",
       "nodeType": "Exit",
-      "x": 1404.8000000000002,
-      "y": 100.80000000000001,
+      "x": 1440.8000000000002,
+      "y": 86.80000000000001,
       "width": 200,
       "height": 102,
       "executionMode": "Enabled",
@@ -45,8 +45,8 @@
       "name": "ILogger",
       "category": "Module",
       "nodeType": "ILogger",
-      "x": 1279.4,
-      "y": 343.68000000000006,
+      "x": 1285.4,
+      "y": 393.68000000000006,
       "width": 200,
       "height": 102,
       "executionMode": "Enabled",
@@ -65,8 +65,8 @@
       "name": "GetAvailableRasterFileDownloadsDaf",
       "category": "Module",
       "nodeType": "GetAvailableRasterFileDownloadsDaf",
-      "x": 405.30000000000007,
-      "y": 181.88000000000002,
+      "x": 347.30000000000007,
+      "y": 252.88,
       "width": 318,
       "height": 122,
       "executionMode": "Enabled",
@@ -107,7 +107,7 @@
       "height": 102,
       "executionMode": "Enabled",
       "settings": {
-        "Seconds": "3"
+        "Seconds": "10"
       },
       "portPlacements": {},
       "flippedPortSides": []
@@ -117,11 +117,11 @@
       "name": "Start Download",
       "category": "Module",
       "nodeType": "Start",
-      "x": 74.10000000000002,
-      "y": 400.04,
+      "x": 58.10000000000002,
+      "y": 485.04,
       "width": 200,
       "height": 102,
-      "executionMode": "Enabled",
+      "executionMode": "Disabled",
       "settings": {
         "DownloadFolder": "T:\\Work"
       },
@@ -252,6 +252,82 @@
         "Underline": "Nej"
       },
       "portPlacements": {},
+      "flippedPortSides": []
+    },
+    {
+      "id": "4f7cfdf9-9fc9-437b-a7ae-ff78cef2632a",
+      "name": "H\u00E6h :-D",
+      "category": "Module",
+      "nodeType": "Start",
+      "x": 633,
+      "y": 40,
+      "width": 200,
+      "height": 102,
+      "executionMode": "Enabled",
+      "settings": {},
+      "portPlacements": {},
+      "flippedPortSides": []
+    },
+    {
+      "id": "948915d3-fe3e-40e0-b6a3-c8d0381e4a2f",
+      "name": "Start Download",
+      "category": "Module",
+      "nodeType": "Start",
+      "x": 60,
+      "y": 643,
+      "width": 200,
+      "height": 102,
+      "executionMode": "Disabled",
+      "settings": {
+        "DownloadFolder": "T:\\Work"
+      },
+      "portPlacements": {},
+      "flippedPortSides": []
+    },
+    {
+      "id": "0b90aae8-f05b-41ae-8fa7-054446098563",
+      "name": "Pick Register",
+      "category": "Module",
+      "nodeType": "PickOneOf",
+      "x": 73,
+      "y": 774,
+      "width": 200,
+      "height": 102,
+      "executionMode": "Enabled",
+      "settings": {
+        "ConnectionString": "\u00A4[LdmSysDb]\u00A4",
+        "DBMS": "MSSQL",
+        "OutputVariable": "PickedRegister",
+        "SQL": "select distinct register \r\nfrom [workflow].[DafRasterFiles] ",
+        "Title": "Pick Register"
+      },
+      "portPlacements": {
+        "I:In": "Top",
+        "O:Success": "Bottom"
+      },
+      "flippedPortSides": []
+    },
+    {
+      "id": "e06d7eb4-5283-40f9-9d62-7c9cb7ade5ec",
+      "name": "Pick Table",
+      "category": "Module",
+      "nodeType": "PickOneOf",
+      "x": 78,
+      "y": 922.8000000000001,
+      "width": 200,
+      "height": 102,
+      "executionMode": "Enabled",
+      "settings": {
+        "ConnectionString": "\u00A4[LdmSysDb]\u00A4",
+        "DBMS": "MSSQL",
+        "OutputVariable": "PickedTable",
+        "SQL": "select TableName from workflow.MetaTable where RegisterName=\u0027\u00A4{PickedRegister}\u00A4\u0027 and Active=1 order by RegisterName",
+        "Title": "Pick Table"
+      },
+      "portPlacements": {
+        "I:In": "Top",
+        "O:Success": "Bottom"
+      },
       "flippedPortSides": []
     }
   ],
@@ -447,6 +523,31 @@
       "toControlDy": null,
       "waypoints": [],
       "directRoute": true
+    },
+    {
+      "id": "de84fd91-71b7-429e-9674-8cfde6287863",
+      "fromNodeId": "4f7cfdf9-9fc9-437b-a7ae-ff78cef2632a",
+      "fromPort": "Out",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "c744b598-fc43-437c-aad7-f24f8a49293f",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": [],
+      "directRoute": true
+    },
+    {
+      "id": "ce732a59-8667-476e-90b3-b725c875ef5b",
+      "fromNodeId": "0b90aae8-f05b-41ae-8fa7-054446098563",
+      "fromPort": "Success",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "e06d7eb4-5283-40f9-9d62-7c9cb7ade5ec",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
     }
   ]
 }
