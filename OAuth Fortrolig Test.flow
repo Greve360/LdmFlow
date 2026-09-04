@@ -447,8 +447,8 @@
       "nodeType": "GetAvailableFileDownloadsDaf",
       "x": 372,
       "y": 52,
-      "width": 200,
-      "height": 102,
+      "width": 277,
+      "height": 106,
       "executionMode": "Enabled",
       "settings": {
         "Clean": "yes",
@@ -464,7 +464,8 @@
         "Register": "",
         "Table": "workflow.DafFiles2",
         "TypeOfData": "Bitemporal",
-        "TypeOfDownload": ""
+        "TypeOfDownload": "",
+        "ContinueOnError": "Nej"
       },
       "portPlacements": {},
       "flippedPortSides": []
