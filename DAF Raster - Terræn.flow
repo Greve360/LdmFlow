@@ -45,8 +45,8 @@
       "name": "ILogger",
       "category": "Module",
       "nodeType": "ILogger",
-      "x": 1285.4,
-      "y": 393.68000000000006,
+      "x": 1423.4,
+      "y": 559.6800000000001,
       "width": 200,
       "height": 102,
       "executionMode": "Enabled",
@@ -133,8 +133,8 @@
       "name": "Iterate Files to Download",
       "category": "Module",
       "nodeType": "SqlIterator",
-      "x": 374.1,
-      "y": 500.48,
+      "x": 368.1,
+      "y": 445.48,
       "width": 255,
       "height": 92,
       "executionMode": "Enabled",
@@ -160,8 +160,8 @@
       "name": "HTTPS Download",
       "category": "Module",
       "nodeType": "HttpsDownload",
-      "x": 396.6,
-      "y": 769.22,
+      "x": 398.6,
+      "y": 615.22,
       "width": 210,
       "height": 101,
       "executionMode": "Enabled",
@@ -195,8 +195,8 @@
       "name": "Display",
       "category": "Module",
       "nodeType": "Display",
-      "x": 713.8000000000001,
-      "y": 483.98,
+      "x": 676.8000000000001,
+      "y": 433.98,
       "width": 328,
       "height": 125,
       "executionMode": "Enabled",
@@ -213,8 +213,8 @@
       "name": "If File Exists",
       "category": "Module",
       "nodeType": "IfFileExists",
-      "x": 777.8000000000001,
-      "y": 768.72,
+      "x": 721.8000000000001,
+      "y": 624.72,
       "width": 200,
       "height": 102,
       "executionMode": "Enabled",
@@ -263,7 +263,7 @@
       "y": 40,
       "width": 200,
       "height": 102,
-      "executionMode": "Enabled",
+      "executionMode": "Disabled",
       "settings": {},
       "portPlacements": {},
       "flippedPortSides": []
@@ -277,7 +277,7 @@
       "y": 643,
       "width": 200,
       "height": 102,
-      "executionMode": "Disabled",
+      "executionMode": "Enabled",
       "settings": {
         "DownloadFolder": "T:\\Work"
       },
@@ -289,8 +289,8 @@
       "name": "Pick Register",
       "category": "Module",
       "nodeType": "PickOneOf",
-      "x": 73,
-      "y": 774,
+      "x": 514,
+      "y": 910,
       "width": 200,
       "height": 102,
       "executionMode": "Enabled",
@@ -302,30 +302,48 @@
         "Title": "Pick Register"
       },
       "portPlacements": {
-        "I:In": "Top",
-        "O:Success": "Bottom"
+        "I:In": "Top"
       },
       "flippedPortSides": []
     },
     {
       "id": "e06d7eb4-5283-40f9-9d62-7c9cb7ade5ec",
-      "name": "Pick Table",
+      "name": "Pick Dataset",
       "category": "Module",
       "nodeType": "PickOneOf",
-      "x": 78,
-      "y": 922.8000000000001,
+      "x": 911,
+      "y": 857.8000000000001,
       "width": 200,
       "height": 102,
       "executionMode": "Enabled",
       "settings": {
         "ConnectionString": "\u00A4[LdmSysDb]\u00A4",
         "DBMS": "MSSQL",
-        "OutputVariable": "PickedTable",
-        "SQL": "select TableName from workflow.MetaTable where RegisterName=\u0027\u00A4{PickedRegister}\u00A4\u0027 and Active=1 order by RegisterName",
-        "Title": "Pick Table"
+        "OutputVariable": "PickedDataset",
+        "SQL": "select distinct dataSetName \r\nfrom workflow.DafRasterFiles\r\nwhere register=\u0027\u00A4{PickedRegister}\u00A4\u0027 \r\norder by dataSetName ",
+        "Title": "Pick Dataset"
       },
       "portPlacements": {
-        "I:In": "Top",
+        "O:Success": "Top"
+      },
+      "flippedPortSides": []
+    },
+    {
+      "id": "49ba1fdc-ab19-444e-85a0-23758d3fc106",
+      "name": "Pick Shape",
+      "category": "Module",
+      "nodeType": "PickShape",
+      "x": 295,
+      "y": 762,
+      "width": 200,
+      "height": 102,
+      "executionMode": "Enabled",
+      "settings": {
+        "Epsg": "25832",
+        "InputType": "Rektangel",
+        "Title": "Pick a shape"
+      },
+      "portPlacements": {
         "O:Success": "Bottom"
       },
       "flippedPortSides": []
@@ -548,6 +566,82 @@
       "toControlDx": null,
       "toControlDy": null,
       "waypoints": []
+    },
+    {
+      "id": "552b572a-5266-48f2-a04b-150cb91a4a17",
+      "fromNodeId": "e06d7eb4-5283-40f9-9d62-7c9cb7ade5ec",
+      "fromPort": "Fail",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "f449a473-dad9-4d96-9fe9-261eea9a48ed",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": [],
+      "directRoute": true
+    },
+    {
+      "id": "4da9dc3b-1272-419c-b231-a66d20d438e5",
+      "fromNodeId": "0b90aae8-f05b-41ae-8fa7-054446098563",
+      "fromPort": "Fail",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "f449a473-dad9-4d96-9fe9-261eea9a48ed",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": [],
+      "directRoute": true
+    },
+    {
+      "id": "785c76a6-2b2f-432c-b0fd-111aa5f80520",
+      "fromNodeId": "948915d3-fe3e-40e0-b6a3-c8d0381e4a2f",
+      "fromPort": "Out",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "49ba1fdc-ab19-444e-85a0-23758d3fc106",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "83114501-482a-493a-a43a-0c918a477a00",
+      "fromNodeId": "49ba1fdc-ab19-444e-85a0-23758d3fc106",
+      "fromPort": "Success",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "0b90aae8-f05b-41ae-8fa7-054446098563",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "8e1c5034-059f-4935-b466-a05a11b2645c",
+      "fromNodeId": "49ba1fdc-ab19-444e-85a0-23758d3fc106",
+      "fromPort": "Fail",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "f449a473-dad9-4d96-9fe9-261eea9a48ed",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": [],
+      "directRoute": true
+    },
+    {
+      "id": "c480dd15-2419-4db9-be5b-f5a88fe9e413",
+      "fromNodeId": "e06d7eb4-5283-40f9-9d62-7c9cb7ade5ec",
+      "fromPort": "Success",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "c744b598-fc43-437c-aad7-f24f8a49293f",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": [],
+      "directRoute": true
     }
   ]
 }
