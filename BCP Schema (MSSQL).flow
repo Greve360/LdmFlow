@@ -772,6 +772,19 @@
       "toControlDy": null,
       "waypoints": [],
       "directRoute": true
+    },
+    {
+      "id": "759db897-a908-439d-9a2b-6932ef10210f",
+      "fromNodeId": "a649de0b-1b7b-4235-98a3-d07695885d16",
+      "fromPort": "Fail",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "3816464b-6b1d-4117-8b48-41ad83e55e4a",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": [],
+      "directRoute": true
     }
   ]
 }
