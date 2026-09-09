@@ -24,8 +24,8 @@
       "name": "Exit",
       "category": "Module",
       "nodeType": "Exit",
-      "x": 1592.9,
-      "y": 465.12,
+      "x": 1309.9,
+      "y": 720.12,
       "width": 200,
       "height": 102,
       "executionMode": "Enabled",
@@ -34,7 +34,6 @@
         "ExitMessage": ""
       },
       "portPlacements": {
-        "I:In": "Bottom",
         "I:Fail": "Top"
       },
       "flippedPortSides": []
@@ -44,8 +43,8 @@
       "name": "ILogger",
       "category": "Module",
       "nodeType": "ILogger",
-      "x": 1592.9,
-      "y": 313.32000000000005,
+      "x": 1500.9,
+      "y": 302.32000000000005,
       "width": 200,
       "height": 102,
       "executionMode": "Enabled",
@@ -867,6 +866,19 @@
       "toControlDx": null,
       "toControlDy": null,
       "waypoints": []
+    },
+    {
+      "id": "4c97dc63-9642-4e52-9df1-4b3084fc683c",
+      "fromNodeId": "e47e1e46-eaf6-42a1-af0a-1742150f6088",
+      "fromPort": "Fail",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "6e8bf30b-c55c-47cf-a08c-d7698810fb56",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": [],
+      "directRoute": true
     }
   ]
 }
