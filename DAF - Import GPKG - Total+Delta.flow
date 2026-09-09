@@ -97,7 +97,8 @@
         "OAuthClientId": "",
         "OAuthClientSecret": "",
         "OAuthCertificatePath": "",
-        "OAuthCertificatePassword": ""
+        "OAuthCertificatePassword": "",
+        "ContinueOnError": "Nej"
       },
       "portPlacements": {},
       "flippedPortSides": []
@@ -1515,7 +1516,8 @@
         "RegisterName": "\u00A4{Register}\u00A4",
         "RegisterType": "DAF",
         "SchemaName": "\u00A4{DafDbSchema,L}\u00A4",
-        "TableName": "\u00A4{entityname,L}\u00A4"
+        "TableName": "\u00A4{entityname,L}\u00A4",
+        "MetaTable": ""
       },
       "portPlacements": {
         "I:In": "Right",
@@ -1541,7 +1543,8 @@
         "RegisterName": "\u00A4{Register}\u00A4",
         "RegisterType": "DAF",
         "SchemaName": "\u00A4{DafDbSchema,L}\u00A4",
-        "TableName": "\u00A4{entityname,L}\u00A4"
+        "TableName": "\u00A4{entityname,L}\u00A4",
+        "MetaTable": ""
       },
       "portPlacements": {
         "I:In": "Top",
