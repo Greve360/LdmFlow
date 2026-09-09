@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "flowId": "e8bce8a0-7d87-44e8-b94a-1dc9e450a63f",
-  "name": "New workflow",
+  "name": "Debug workflow",
   "description": "",
   "globalValues": {},
   "nodes": [
@@ -10,15 +10,13 @@
       "name": "Start A",
       "category": "Module",
       "nodeType": "Start",
-      "x": 119,
-      "y": 141,
+      "x": 118,
+      "y": 140,
       "width": 200,
       "height": 102,
       "executionMode": "Disabled",
       "settings": {
-        "ExitCode": "0",
-        "LdmInstrkId": "Dummy - s\u00E6ttes af LDM",
-        "StateOffset": "7000",
+        "LdmInstrkId": "\u00A4[LdmInstruction]\u00A4",
         "TestString": "AAA"
       },
       "portPlacements": {},
@@ -66,15 +64,15 @@
       "name": "ILogger",
       "category": "Module",
       "nodeType": "ILogger",
-      "x": 1107,
-      "y": 456,
+      "x": 1029,
+      "y": 533,
       "width": 200,
       "height": 102,
       "executionMode": "Enabled",
       "settings": {
-        "Registry": "False",
         "ErrorFile": "",
-        "LogTable": ""
+        "LogTable": "workflow.ILogger",
+        "Registry": "False"
       },
       "portPlacements": {},
       "flippedPortSides": []
@@ -84,16 +82,14 @@
       "name": "Start B",
       "category": "Module",
       "nodeType": "Start",
-      "x": 118,
+      "x": 119,
       "y": 305,
       "width": 200,
       "height": 102,
       "executionMode": "Disabled",
       "settings": {
-        "ExitCode": "0",
-        "LdmInstrkId": "Dummy - s\u00E6ttes af LDM",
-        "TestString": "BBB",
-        "StateOffset": "7000"
+        "LdmInstrkId": "\u00A4[LdmInstruction]\u00A4",
+        "TestString": "BBB"
       },
       "portPlacements": {},
       "flippedPortSides": []
@@ -109,10 +105,8 @@
       "height": 102,
       "executionMode": "Disabled",
       "settings": {
-        "ExitCode": "0",
-        "LdmInstrkId": "Dummy - s\u00E6ttes af LDM",
-        "TestString": "CCC",
-        "StateOffset": "7000"
+        "LdmInstrkId": "\u00A4[LdmInstruction]\u00A4",
+        "TestString": "CCC"
       },
       "portPlacements": {},
       "flippedPortSides": []
@@ -123,28 +117,26 @@
       "category": "Module",
       "nodeType": "Start",
       "x": 114,
-      "y": 655,
+      "y": 653,
       "width": 200,
       "height": 102,
       "executionMode": "Enabled",
       "settings": {
-        "ExitCode": "0",
-        "LdmInstrkId": "Dummy - s\u00E6ttes af LDM",
-        "TestString": "DDD",
-        "StateOffset": "7000"
+        "LdmInstrkId": "\u00A4[LdmInstruction]\u00A4",
+        "TestString": "DDD"
       },
       "portPlacements": {},
       "flippedPortSides": []
     },
     {
       "id": "e9d66a90-d14c-43c5-8712-40f1c33f8751",
-      "name": "Iterate First Total",
+      "name": "Iterate 5 \u0022random\u0022 files",
       "category": "Module",
       "nodeType": "SqlIterator",
-      "x": 631,
-      "y": 405,
-      "width": 190,
-      "height": 92,
+      "x": 702,
+      "y": 368,
+      "width": 229,
+      "height": 103,
       "executionMode": "Enabled",
       "settings": {
         "ConnectionString": "\u00A4[LdmSysDb]\u00A4",
@@ -153,7 +145,7 @@
         "MaxParallelism": "16",
         "Mode": "Parallel",
         "ResultType": "Recordset",
-        "Sql": "select top 10 entityname,\r\nfilename,\r\ngenerationnumber\r\nFROM [Udv_Kunde3].[dbo].[DafFiles]\r\norder by entityname;",
+        "Sql": "select top 5 entityname,\r\nfilename,\r\ngenerationnumber\r\nFROM [workflow].[DafFiles]\r\norder by entityname;",
         "SqlTimeout": ""
       },
       "portPlacements": {
@@ -178,7 +170,7 @@
         "ConnectionString": "",
         "DBMS": "",
         "RetrySeconds": "120",
-        "Seconds": "5",
+        "Seconds": "1",
         "SQL": "",
         "SqlHotelId": "",
         "WaitForFile": "",
@@ -197,19 +189,19 @@
       "name": "Notify LDM",
       "category": "Module",
       "nodeType": "NotifyLdm",
-      "x": 426,
-      "y": 651,
+      "x": 495,
+      "y": 701,
       "width": 200,
       "height": 102,
       "executionMode": "Enabled",
       "settings": {
         "AliasTable": "dbo.Alias",
-        "LdmInstructionPostfix": "1",
+        "CountSomething": "",
+        "Exception": "",
         "LdmSystemDB": "\u00A4[LdmSysDb]\u00A4",
+        "Message": "\u00A4{CurrentRecord}\u00A4 - \u00A4{entityname}\u00A4",
         "OriginalInstrkId": "\u00A4{LdmInstrkId}\u00A4",
-        "Priority": "",
-        "State": "100",
-        "Message": ""
+        "State": "100"
       },
       "portPlacements": {
         "O:Out": "Top",
@@ -232,7 +224,9 @@
         "LdmSystemDB": "\u00A4[LdmSysDb]\u00A4",
         "Message": "Dette er den anden besked",
         "OriginalInstrkId": "\u00A4{LdmInstrkId}\u00A4",
-        "State": "100"
+        "State": "100",
+        "Exception": "",
+        "CountSomething": ""
       },
       "portPlacements": {},
       "flippedPortSides": []
@@ -242,13 +236,15 @@
       "name": "Notify LDM 99",
       "category": "Module",
       "nodeType": "NotifyLdm",
-      "x": 1316,
-      "y": 305,
+      "x": 1335,
+      "y": 323,
       "width": 200,
       "height": 102,
       "executionMode": "Enabled",
       "settings": {
         "AliasTable": "dbo.Alias",
+        "CountSomething": "",
+        "Exception": "\u00A4{Message}\u00A4",
         "LdmSystemDB": "\u00A4[LdmSysDb]\u00A4",
         "Message": "Arghhhh: \u00A4{Message}\u00A4",
         "OriginalInstrkId": "\u00A4{LdmInstrkId}\u00A4",
@@ -266,7 +262,7 @@
       "category": "Module",
       "nodeType": "NotifyLdm",
       "x": 752,
-      "y": 82,
+      "y": 81,
       "width": 200,
       "height": 102,
       "executionMode": "Enabled",
@@ -275,9 +271,63 @@
         "LdmSystemDB": "\u00A4[LdmSysDb]\u00A4",
         "Message": "F\u00F8rste besked",
         "OriginalInstrkId": "\u00A4{LdmInstrkId}\u00A4",
-        "State": "100"
+        "State": "100",
+        "Exception": "",
+        "CountSomething": ""
       },
       "portPlacements": {},
+      "flippedPortSides": []
+    },
+    {
+      "id": "ed5503cb-2b73-434b-a961-578f4fa92fa0",
+      "name": "Console.WriteLine",
+      "category": "Module",
+      "nodeType": "ConsoleWriteLine",
+      "x": 472,
+      "y": 415,
+      "width": 200,
+      "height": 102,
+      "executionMode": "Enabled",
+      "settings": {
+        "ForegroundColor": "",
+        "Text": "Test - \u00A4{LdmInstrkId}\u00A4"
+      },
+      "portPlacements": {},
+      "flippedPortSides": []
+    },
+    {
+      "id": "58c84fce-9688-4a5a-a1cc-0adb728d410d",
+      "name": "DumpVariables",
+      "category": "Module",
+      "nodeType": "DumpVariables",
+      "x": 449,
+      "y": 853,
+      "width": 200,
+      "height": 102,
+      "executionMode": "Nop",
+      "settings": {
+        "DestinationFile": "\u00A4[WorkingFolder]\u00A4\\VariableDump.txt"
+      },
+      "portPlacements": {},
+      "flippedPortSides": []
+    },
+    {
+      "id": "117389f6-f5dd-4ccd-be57-345e04fef0f0",
+      "name": "Console.WriteLine",
+      "category": "Module",
+      "nodeType": "ConsoleWriteLine",
+      "x": 1289,
+      "y": 520,
+      "width": 200,
+      "height": 102,
+      "executionMode": "Enabled",
+      "settings": {
+        "ForegroundColor": "Red",
+        "Text": "Test - \u00A4{Message}\u00A4"
+      },
+      "portPlacements": {
+        "O:Out": "Top"
+      },
       "flippedPortSides": []
     }
   ],
@@ -321,19 +371,6 @@
       "waypoints": []
     },
     {
-      "id": "f3d00475-31a9-483f-9fa2-609be5f2e32b",
-      "fromNodeId": "219f3468-c47d-4ad1-b013-4ed3dfaf166d",
-      "fromPort": "Out",
-      "fromControlDx": null,
-      "fromControlDy": null,
-      "toNodeId": "e9d66a90-d14c-43c5-8712-40f1c33f8751",
-      "toPort": "In",
-      "toControlDx": null,
-      "toControlDy": null,
-      "waypoints": [],
-      "directRoute": true
-    },
-    {
       "id": "9a2aa377-1e4b-4432-96c5-8ca8ce775b69",
       "fromNodeId": "e9d66a90-d14c-43c5-8712-40f1c33f8751",
       "fromPort": "Fail",
@@ -365,18 +402,6 @@
       "fromControlDx": null,
       "fromControlDy": null,
       "toNodeId": "846da672-3142-46fc-b7d2-df26237a8b28",
-      "toPort": "In",
-      "toControlDx": null,
-      "toControlDy": null,
-      "waypoints": []
-    },
-    {
-      "id": "686ebec2-5998-4814-886d-7849ba5b3001",
-      "fromNodeId": "4bf2b609-1127-4442-a268-0619419d09d2",
-      "fromPort": "Out",
-      "fromControlDx": null,
-      "fromControlDy": null,
-      "toNodeId": "70b2c186-bb9f-451a-91e6-4dcd67392971",
       "toPort": "In",
       "toControlDx": null,
       "toControlDy": null,
@@ -501,6 +526,81 @@
       "fromControlDx": null,
       "fromControlDy": null,
       "toNodeId": "4e0d2baa-f17f-4b41-a379-311f53f7afb9",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "1189a892-8ac8-415d-ac56-6de192ab66ad",
+      "fromNodeId": "962761de-b71d-4803-9c71-b56ca30acdad",
+      "fromPort": "Fail",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "4bf2b609-1127-4442-a268-0619419d09d2",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": [],
+      "directRoute": true
+    },
+    {
+      "id": "614f6811-77cb-432d-a87e-c046d2a4a916",
+      "fromNodeId": "219f3468-c47d-4ad1-b013-4ed3dfaf166d",
+      "fromPort": "Out",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "ed5503cb-2b73-434b-a961-578f4fa92fa0",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": [],
+      "directRoute": true
+    },
+    {
+      "id": "2afc4ee2-b726-472e-bd62-8438f0de8481",
+      "fromNodeId": "ed5503cb-2b73-434b-a961-578f4fa92fa0",
+      "fromPort": "Out",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "e9d66a90-d14c-43c5-8712-40f1c33f8751",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "77432754-e29e-4d62-8d03-512b30b0a4a6",
+      "fromNodeId": "219f3468-c47d-4ad1-b013-4ed3dfaf166d",
+      "fromPort": "Out",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "58c84fce-9688-4a5a-a1cc-0adb728d410d",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": [],
+      "directRoute": true
+    },
+    {
+      "id": "9e386cab-4082-4e37-8975-b7edf3d69f34",
+      "fromNodeId": "4bf2b609-1127-4442-a268-0619419d09d2",
+      "fromPort": "Out",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "117389f6-f5dd-4ccd-be57-345e04fef0f0",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "f86fb040-47ee-45e2-9d19-a9ac87c88328",
+      "fromNodeId": "117389f6-f5dd-4ccd-be57-345e04fef0f0",
+      "fromPort": "Out",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "70b2c186-bb9f-451a-91e6-4dcd67392971",
       "toPort": "In",
       "toControlDx": null,
       "toControlDy": null,
