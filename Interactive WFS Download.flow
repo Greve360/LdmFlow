@@ -14,7 +14,7 @@
       "y": 29.080000000000013,
       "width": 190,
       "height": 92,
-      "executionMode": "Disabled",
+      "executionMode": "Enabled",
       "settings": {
         "Scheduling": "no",
         "SingleTable": "",
@@ -231,7 +231,10 @@
         "TargetSrs": "",
         "Where": "",
         "XsdFile": "",
-        "XsdTableName": ""
+        "XsdTableName": "",
+        "DestinationConnectionString": "",
+        "DestinationTable": "",
+        "ReduceNvarCharMax": ""
       },
       "portPlacements": {
         "O:Fail": "Top"
@@ -585,7 +588,7 @@
       "y": 40,
       "width": 190,
       "height": 92,
-      "executionMode": "Enabled",
+      "executionMode": "Disabled",
       "settings": {
         "PickedRegister": "ALL",
         "Scheduling": "no",
