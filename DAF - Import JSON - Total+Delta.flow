@@ -97,7 +97,8 @@
         "OAuthClientId": "",
         "OAuthClientSecret": "",
         "OAuthCertificatePath": "",
-        "OAuthCertificatePassword": ""
+        "OAuthCertificatePassword": "",
+        "ContinueOnError": "Nej"
       },
       "portPlacements": {},
       "flippedPortSides": []
@@ -840,7 +841,7 @@
       "category": "Module",
       "nodeType": "ImportDafJson",
       "x": 1596.3000000000043,
-      "y": 662.4262426035518,
+      "y": 650.4262426035518,
       "width": 213,
       "height": 92,
       "executionMode": "Enabled",
@@ -1706,7 +1707,8 @@
         "RegisterName": "\u00A4{Register}\u00A4",
         "RegisterType": "DAF",
         "SchemaName": "\u00A4{DafDbSchema,L}\u00A4",
-        "TableName": "\u00A4{entityname,L}\u00A4"
+        "TableName": "\u00A4{entityname,L}\u00A4",
+        "MetaTable": ""
       },
       "portPlacements": {
         "O:Out": "Top",
