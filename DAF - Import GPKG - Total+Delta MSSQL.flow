@@ -22,7 +22,7 @@
         "Laundry_RemoveDuplicates": "",
         "Register": "DAGI",
         "SingleTable": "",
-        "LdmInstrkId": "\u00A4[LdmInstruction]\u00A4"
+        "DdmInstrkId": "\u00A4[DdmInstruction]\u00A4"
       },
       "portPlacements": {},
       "flippedPortSides": []
@@ -38,7 +38,7 @@
       "height": 92,
       "executionMode": "Enabled",
       "settings": {
-        "ConnectionString": "\u00A4[LdmSysDb]\u00A4",
+        "ConnectionString": "\u00A4[DdmSysDb]\u00A4",
         "DBMS": "MSSQL",
         "MaxParallelism": "16",
         "Mode": "Parallel",
@@ -84,7 +84,7 @@
       "executionMode": "Enabled",
       "settings": {
         "Clean": "yes",
-        "ConnectionString": "\u00A4[LdmSysDb]\u00A4",
+        "ConnectionString": "\u00A4[DdmSysDb]\u00A4",
         "ContainedFileFormat": "GPKG",
         "ContinueOnError": "Nej",
         "DafFileDownloadUrl": "\u00A4[DafUrlMeta]\u00A4",
@@ -364,7 +364,7 @@
       "height": 92,
       "executionMode": "Enabled",
       "settings": {
-        "ConnectionString": "\u00A4[LdmSysDb]\u00A4",
+        "ConnectionString": "\u00A4[DdmSysDb]\u00A4",
         "DBMS": "MSSQL",
         "FilePath": "",
         "MaxRows": "0",
@@ -411,7 +411,7 @@
       "height": 92,
       "executionMode": "Enabled",
       "settings": {
-        "ConnectionString": "\u00A4[LdmSysDb]\u00A4",
+        "ConnectionString": "\u00A4[DdmSysDb]\u00A4",
         "DBMS": "MSSQL",
         "MaxParallelism": "4",
         "Mode": "Parallel",
@@ -436,7 +436,7 @@
       "height": 92,
       "executionMode": "Enabled",
       "settings": {
-        "ConnectionString": "\u00A4[LdmSysDb]\u00A4",
+        "ConnectionString": "\u00A4[DdmSysDb]\u00A4",
         "DBMS": "MSSQL",
         "Sql": "select entityname, filename from [Udv_Kunde3].[dbo].[DafFiles] where generationnumber=\u00A4{DafGeneration}\u00A4 and register = \u0027\u00A4{Register}\u00A4\u0027 and entityName not like \u0027%0000%\u0027 and version = \u00A4{DataVersion}\u00A4 and typeOfDownload = \u0027TotalDownload\u0027",
         "ResultType": "Recordset",
@@ -1054,7 +1054,7 @@
         "Laundry_RemoveDuplicates": "hoejdefikspunktdnn",
         "Register": "FIKSPUNKT",
         "SingleTable": "",
-        "LdmInstrkId": "\u00A4[LdmInstruction]\u00A4"
+        "DdmInstrkId": "\u00A4[DdmInstruction]\u00A4"
       },
       "portPlacements": {},
       "flippedPortSides": []
@@ -1076,7 +1076,7 @@
         "Laundry_RemoveDuplicates": "",
         "Register": "GEODKV",
         "SingleTable": "",
-        "LdmInstrkId": "\u00A4[LdmInstruction]\u00A4"
+        "DdmInstrkId": "\u00A4[DdmInstruction]\u00A4"
       },
       "portPlacements": {},
       "flippedPortSides": []
@@ -1098,7 +1098,7 @@
         "Laundry_RemoveDuplicates": "",
         "Register": "DS",
         "SingleTable": "",
-        "LdmInstrkId": "\u00A4[LdmInstruction]\u00A4"
+        "DdmInstrkId": "\u00A4[DdmInstruction]\u00A4"
       },
       "portPlacements": {},
       "flippedPortSides": []
@@ -1154,7 +1154,7 @@
       "height": 92,
       "executionMode": "Enabled",
       "settings": {
-        "ConnectionString": "\u00A4[LdmSysDb]\u00A4",
+        "ConnectionString": "\u00A4[DdmSysDb]\u00A4",
         "DBMS": "MSSQL",
         "FilePath": "",
         "MaxRows": "0",
@@ -1497,9 +1497,9 @@
     },
     {
       "id": "4ffbe6c3-40b3-4e0b-986f-647da22484e9",
-      "name": "Notify LDM Total 1.",
+      "name": "Notify DDM Total 1.",
       "category": "Module",
-      "nodeType": "NotifyLdm",
+      "nodeType": "NotifyDdm",
       "x": 2327,
       "y": 174,
       "width": 200,
@@ -1509,9 +1509,9 @@
         "AliasTable": "ldm.Alias",
         "CountSomething": "",
         "Exception": "First",
-        "LdmSystemDB": "\u00A4[LdmSysDb]\u00A4",
+        "DdmSystemDB": "\u00A4[DdmSysDb]\u00A4",
         "Message": "TOTAL",
-        "OriginalInstrkId": "\u00A4{LdmInstrkId}\u00A4",
+        "OriginalInstrkId": "\u00A4{DdmInstrkId}\u00A4",
         "State": "100"
       },
       "portPlacements": {
@@ -1521,9 +1521,9 @@
     },
     {
       "id": "17d822bc-76eb-4b33-b477-4d19c3d4bee0",
-      "name": "Notify LDM Error",
+      "name": "Notify DDM Error",
       "category": "Module",
-      "nodeType": "NotifyLdm",
+      "nodeType": "NotifyDdm",
       "x": 2594,
       "y": 861,
       "width": 200,
@@ -1533,9 +1533,9 @@
         "AliasTable": "ldm.Alias",
         "CountSomething": "",
         "Exception": "First",
-        "LdmSystemDB": "\u00A4[LdmSysDb]\u00A4",
+        "DdmSystemDB": "\u00A4[DdmSysDb]\u00A4",
         "Message": "TOTAL",
-        "OriginalInstrkId": "\u00A4{LdmInstrkId}\u00A4",
+        "OriginalInstrkId": "\u00A4{DdmInstrkId}\u00A4",
         "State": "99"
       },
       "portPlacements": {
@@ -1548,9 +1548,9 @@
     },
     {
       "id": "a6bf7621-5c3d-41f4-9d81-031173b0158b",
-      "name": "Notify LDM Delta",
+      "name": "Notify DDM Delta",
       "category": "Module",
-      "nodeType": "NotifyLdm",
+      "nodeType": "NotifyDdm",
       "x": 2292,
       "y": 658,
       "width": 200,
@@ -1560,9 +1560,9 @@
         "AliasTable": "ldm.Alias",
         "CountSomething": "",
         "Exception": "",
-        "LdmSystemDB": "\u00A4[LdmSysDb]\u00A4",
+        "DdmSystemDB": "\u00A4[DdmSysDb]\u00A4",
         "Message": "DELTA",
-        "OriginalInstrkId": "\u00A4{LdmInstrkId}\u00A4",
+        "OriginalInstrkId": "\u00A4{DdmInstrkId}\u00A4",
         "State": "100"
       },
       "portPlacements": {
@@ -1572,9 +1572,9 @@
     },
     {
       "id": "de0b78c4-da78-4209-9250-b8083a93a7bd",
-      "name": "Notify LDM TOTAL N.",
+      "name": "Notify DDM TOTAL N.",
       "category": "Module",
-      "nodeType": "NotifyLdm",
+      "nodeType": "NotifyDdm",
       "x": 2284.2820204449786,
       "y": 409,
       "width": 200,
@@ -1584,9 +1584,9 @@
         "AliasTable": "ldm.Alias",
         "CountSomething": "",
         "Exception": "Efterf\u00F8lgende",
-        "LdmSystemDB": "\u00A4[LdmSysDb]\u00A4",
+        "DdmSystemDB": "\u00A4[DdmSysDb]\u00A4",
         "Message": "TOTAL",
-        "OriginalInstrkId": "\u00A4{LdmInstrkId}\u00A4",
+        "OriginalInstrkId": "\u00A4{DdmInstrkId}\u00A4",
         "State": "100"
       },
       "portPlacements": {
@@ -1596,9 +1596,9 @@
     },
     {
       "id": "f32f1a9e-080b-4b72-b4a7-1be7ee68174c",
-      "name": "Notify LDM Entity",
+      "name": "Notify DDM Entity",
       "category": "Module",
-      "nodeType": "NotifyLdm",
+      "nodeType": "NotifyDdm",
       "x": 1151.5725623582707,
       "y": 213,
       "width": 200,
@@ -1608,9 +1608,9 @@
         "AliasTable": "ldm.Alias",
         "CountSomething": "",
         "Exception": "",
-        "LdmSystemDB": "\u00A4[LdmSysDb]\u00A4",
+        "DdmSystemDB": "\u00A4[DdmSysDb]\u00A4",
         "Message": "Indl\u00E6ste total:  \u00A4{DafDbSchema,L}\u00A4.\u00A4{entityname,L}\u00A4 (\u00A4{DafGeneration}\u00A4)",
-        "OriginalInstrkId": "\u00A4{LdmInstrkId}\u00A4",
+        "OriginalInstrkId": "\u00A4{DdmInstrkId}\u00A4",
         "State": "100"
       },
       "portPlacements": {
@@ -1621,9 +1621,9 @@
     },
     {
       "id": "3c2b48e4-4e3c-43be-b6c8-27bbf7fd66f2",
-      "name": "Notify LDM Entity",
+      "name": "Notify DDM Entity",
       "category": "Module",
-      "nodeType": "NotifyLdm",
+      "nodeType": "NotifyDdm",
       "x": 119,
       "y": 1004,
       "width": 200,
@@ -1633,9 +1633,9 @@
         "AliasTable": "ldm.Alias",
         "CountSomething": "",
         "Exception": "",
-        "LdmSystemDB": "\u00A4[LdmSysDb]\u00A4",
+        "DdmSystemDB": "\u00A4[DdmSysDb]\u00A4",
         "Message": "Indl\u00E6ste total:  \u00A4{DafDbSchema,L}\u00A4.\u00A4{entityname,L}\u00A4 (\u00A4{DafGeneration}\u00A4) - U:\u00A4{UpdatedRows}\u00A4, I:\u00A4{InsertedRows}\u00A4",
-        "OriginalInstrkId": "\u00A4{LdmInstrkId}\u00A4",
+        "OriginalInstrkId": "\u00A4{DdmInstrkId}\u00A4",
         "State": "100"
       },
       "portPlacements": {
@@ -1647,9 +1647,9 @@
     },
     {
       "id": "7f348667-d5ba-46e1-88ad-5aae2149347b",
-      "name": "Notify LDM Entity",
+      "name": "Notify DDM Entity",
       "category": "Module",
-      "nodeType": "NotifyLdm",
+      "nodeType": "NotifyDdm",
       "x": 336,
       "y": 1019,
       "width": 200,
@@ -1659,9 +1659,9 @@
         "AliasTable": "ldm.Alias",
         "CountSomething": "",
         "Exception": "",
-        "LdmSystemDB": "\u00A4[LdmSysDb]\u00A4",
+        "DdmSystemDB": "\u00A4[DdmSysDb]\u00A4",
         "Message": "Indl\u00E6ste total:  \u00A4{DafDbSchema,L}\u00A4.\u00A4{entityname,L}\u00A4 (\u00A4{DafGeneration}\u00A4) - Ignoreret (indtil videre)",
-        "OriginalInstrkId": "\u00A4{LdmInstrkId}\u00A4",
+        "OriginalInstrkId": "\u00A4{DdmInstrkId}\u00A4",
         "State": "100"
       },
       "portPlacements": {
