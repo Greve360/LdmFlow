@@ -17,7 +17,7 @@
       "executionMode": "Enabled",
       "settings": {
         "Register": "BBR",
-        "LdmInstructionId": "Hoest_KultArv_Start"
+        "DdmInstructionId": "Hoest_KultArv_Start"
       },
       "portPlacements": {},
       "flippedPortSides": []
@@ -68,16 +68,16 @@
       "height": 102,
       "executionMode": "Enabled",
       "settings": {
-        "Text": "\u00A4{LdmInstructionId}\u00A4"
+        "Text": "\u00A4{DdmInstructionId}\u00A4"
       },
       "portPlacements": {},
       "flippedPortSides": []
     },
     {
       "id": "bd8fe7af-9a98-4d1b-ba25-84177681d364",
-      "name": "Notify LDM",
+      "name": "Notify DDM",
       "category": "Module",
-      "nodeType": "NotifyLdm",
+      "nodeType": "NotifyDdm",
       "x": 386,
       "y": 94,
       "width": 200,
@@ -85,9 +85,9 @@
       "executionMode": "Enabled",
       "settings": {
         "AliasTable": "dbo.alias",
-        "LdmInstructionPostfix": "1",
-        "LdmSystemDB": "\u00A4[LdmSysDb]\u00A4",
-        "OriginalInstrkId": "\u00A4{LdmInstructionId}\u00A4",
+        "DdmInstructionPostfix": "1",
+        "DdmSystemDB": "\u00A4[DdmSysDb]\u00A4",
+        "OriginalInstrkId": "\u00A4{DdmInstructionId}\u00A4",
         "Priority": "117",
         "State": "1"
       },
