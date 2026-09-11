@@ -102,8 +102,8 @@
       "name": "Get SQL Fields",
       "category": "Module",
       "nodeType": "GetSqlFields",
-      "x": 480.89506172839515,
-      "y": 299.67901234567773,
+      "x": 501.89506172839515,
+      "y": 248.67901234567773,
       "width": 200,
       "height": 102,
       "executionMode": "Enabled",
@@ -567,7 +567,7 @@
         "PostgresSchema": "ejf",
         "ReduceNVarcharMax": "id_lokalid, 40, NOT NULL",
         "RowLimiter": "",
-        "SingleTable": "ejerskabmedstamoplysninger"
+        "SingleTable": "alternativadressebegraenset"
       },
       "portPlacements": {},
       "flippedPortSides": []
