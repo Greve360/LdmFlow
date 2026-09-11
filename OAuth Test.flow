@@ -452,7 +452,7 @@
       "executionMode": "Nop",
       "settings": {
         "Clean": "yes",
-        "ConnectionString": "\u00A4[LdmSysDb]\u00A4",
+        "ConnectionString": "\u00A4[DdmSysDb]\u00A4",
         "ContainedFileFormat": "JSON",
         "DafFileDownloadUrl": "https://api.datafordeler.dk/FileDownloads/v1.0/GetAvailableCustomFileDownloads",
         "OAuthCertificatePassword": "",
@@ -481,7 +481,7 @@
       "executionMode": "Nop",
       "settings": {
         "Clean": "yes",
-        "ConnectionString": "\u00A4[LdmSysDb]\u00A4",
+        "ConnectionString": "\u00A4[DdmSysDb]\u00A4",
         "ContainedFileFormat": "JSON",
         "DafFileDownloadUrl": "https://api.datafordeler.dk/FileDownloads/v2.0/GetAvailableFileDownloads?Register=EJF",
         "OAuthCertificatePassword": "",
