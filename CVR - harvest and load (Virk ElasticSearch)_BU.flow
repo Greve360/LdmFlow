@@ -18,7 +18,7 @@
       "settings": {
         "CvrDb": "\u00A4[MSSQL_Sandbox]\u00A4",
         "CvrRawFolder": "F:\\Work\\CvrRaw",
-        "CvrSqlFolder": "C:\\Repos\\LdmWorkflowDesignerStarter\\installer\\AppDataSeed\\Flows\\CvrSql\\",
+        "CvrSqlFolder": "C:\\Repos\\DdmWorkflowDesigner\\installer\\AppDataSeed\\Flows\\CvrSql\\",
         "Since": "2026-01-01T00:00:00Z",
         "VirkUser": "LIFA_CVR_I_SKYEN"
       },
