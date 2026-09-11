@@ -451,7 +451,7 @@
       "executionMode": "Enabled",
       "settings": {
         "Clean": "yes",
-        "ConnectionString": "\u00A4[LdmSysDb]\u00A4",
+        "ConnectionString": "\u00A4[DdmSysDb]\u00A4",
         "ContainedFileFormat": "JSON",
         "ContinueOnError": "Nej",
         "DafFileDownloadUrl": "https://api.datafordeler.dk/FileDownloads/v1.0/GetAvailableCustomFileDownloads",
