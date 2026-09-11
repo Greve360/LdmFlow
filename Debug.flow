@@ -16,7 +16,7 @@
       "height": 102,
       "executionMode": "Disabled",
       "settings": {
-        "LdmInstrkId": "\u00A4[LdmInstruction]\u00A4",
+        "DdmInstrkId": "\u00A4[DdmInstruction]\u00A4",
         "TestString": "AAA"
       },
       "portPlacements": {},
@@ -53,7 +53,7 @@
       "executionMode": "Enabled",
       "settings": {
         "Directory": "\u00A4[WorkingFolder]\u00A4",
-        "Filename": "Debug_LDM.txt",
+        "Filename": "Debug_DDM.txt",
         "Text": "\u00A4{TestString}\u00A4"
       },
       "portPlacements": {},
@@ -88,7 +88,7 @@
       "height": 102,
       "executionMode": "Disabled",
       "settings": {
-        "LdmInstrkId": "\u00A4[LdmInstruction]\u00A4",
+        "DdmInstrkId": "\u00A4[DdmInstruction]\u00A4",
         "TestString": "BBB"
       },
       "portPlacements": {},
@@ -105,7 +105,7 @@
       "height": 102,
       "executionMode": "Disabled",
       "settings": {
-        "LdmInstrkId": "\u00A4[LdmInstruction]\u00A4",
+        "DdmInstrkId": "\u00A4[DdmInstruction]\u00A4",
         "TestString": "CCC"
       },
       "portPlacements": {},
@@ -122,7 +122,7 @@
       "height": 102,
       "executionMode": "Enabled",
       "settings": {
-        "LdmInstrkId": "\u00A4[LdmInstruction]\u00A4",
+        "DdmInstrkId": "\u00A4[DdmInstruction]\u00A4",
         "TestString": "DDD"
       },
       "portPlacements": {},
@@ -139,7 +139,7 @@
       "height": 103,
       "executionMode": "Enabled",
       "settings": {
-        "ConnectionString": "\u00A4[LdmSysDb]\u00A4",
+        "ConnectionString": "\u00A4[DdmSysDb]\u00A4",
         "DBMS": "MSSQL",
         "IsPostgres": "",
         "MaxParallelism": "16",
@@ -186,9 +186,9 @@
     },
     {
       "id": "c4ad361f-3146-46f8-a288-e801027df923",
-      "name": "Notify LDM",
+      "name": "Notify DDM",
       "category": "Module",
-      "nodeType": "NotifyLdm",
+      "nodeType": "NotifyDdm",
       "x": 495,
       "y": 701,
       "width": 200,
@@ -198,9 +198,9 @@
         "AliasTable": "dbo.Alias",
         "CountSomething": "",
         "Exception": "",
-        "LdmSystemDB": "\u00A4[LdmSysDb]\u00A4",
+        "DdmSystemDB": "\u00A4[DdmSysDb]\u00A4",
         "Message": "\u00A4{CurrentRecord}\u00A4 - \u00A4{entityname}\u00A4",
-        "OriginalInstrkId": "\u00A4{LdmInstrkId}\u00A4",
+        "OriginalInstrkId": "\u00A4{DdmInstrkId}\u00A4",
         "State": "100"
       },
       "portPlacements": {
@@ -211,9 +211,9 @@
     },
     {
       "id": "4e0d2baa-f17f-4b41-a379-311f53f7afb9",
-      "name": "Notify LDM 100",
+      "name": "Notify DDM 100",
       "category": "Module",
-      "nodeType": "NotifyLdm",
+      "nodeType": "NotifyDdm",
       "x": 1004,
       "y": 75,
       "width": 200,
@@ -221,9 +221,9 @@
       "executionMode": "Enabled",
       "settings": {
         "AliasTable": "dbo.Alias",
-        "LdmSystemDB": "\u00A4[LdmSysDb]\u00A4",
+        "DdmSystemDB": "\u00A4[DdmSysDb]\u00A4",
         "Message": "Dette er den anden besked",
-        "OriginalInstrkId": "\u00A4{LdmInstrkId}\u00A4",
+        "OriginalInstrkId": "\u00A4{DdmInstrkId}\u00A4",
         "State": "100",
         "Exception": "",
         "CountSomething": ""
@@ -233,9 +233,9 @@
     },
     {
       "id": "70b2c186-bb9f-451a-91e6-4dcd67392971",
-      "name": "Notify LDM 99",
+      "name": "Notify DDM 99",
       "category": "Module",
-      "nodeType": "NotifyLdm",
+      "nodeType": "NotifyDdm",
       "x": 1335,
       "y": 323,
       "width": 200,
@@ -245,9 +245,9 @@
         "AliasTable": "dbo.Alias",
         "CountSomething": "",
         "Exception": "\u00A4{Message}\u00A4",
-        "LdmSystemDB": "\u00A4[LdmSysDb]\u00A4",
+        "DdmSystemDB": "\u00A4[DdmSysDb]\u00A4",
         "Message": "Arghhhh: \u00A4{Message}\u00A4",
-        "OriginalInstrkId": "\u00A4{LdmInstrkId}\u00A4",
+        "OriginalInstrkId": "\u00A4{DdmInstrkId}\u00A4",
         "State": "99"
       },
       "portPlacements": {
@@ -258,9 +258,9 @@
     },
     {
       "id": "962761de-b71d-4803-9c71-b56ca30acdad",
-      "name": "Notify LDM 100",
+      "name": "Notify DDM 100",
       "category": "Module",
-      "nodeType": "NotifyLdm",
+      "nodeType": "NotifyDdm",
       "x": 752,
       "y": 81,
       "width": 200,
@@ -268,9 +268,9 @@
       "executionMode": "Enabled",
       "settings": {
         "AliasTable": "dbo.Alias",
-        "LdmSystemDB": "\u00A4[LdmSysDb]\u00A4",
+        "DdmSystemDB": "\u00A4[DdmSysDb]\u00A4",
         "Message": "F\u00F8rste besked",
-        "OriginalInstrkId": "\u00A4{LdmInstrkId}\u00A4",
+        "OriginalInstrkId": "\u00A4{DdmInstrkId}\u00A4",
         "State": "100",
         "Exception": "",
         "CountSomething": ""
@@ -290,7 +290,7 @@
       "executionMode": "Enabled",
       "settings": {
         "ForegroundColor": "",
-        "Text": "Test - \u00A4{LdmInstrkId}\u00A4"
+        "Text": "Test - \u00A4{DdmInstrkId}\u00A4"
       },
       "portPlacements": {},
       "flippedPortSides": []
