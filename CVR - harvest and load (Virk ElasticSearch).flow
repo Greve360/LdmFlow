@@ -17,7 +17,7 @@
       "executionMode": "Enabled",
       "settings": {
         "CvrRawFolder": "F:\\Work\\CvrRaw",
-        "CvrSqlFolder": "C:\\Users\\ArnoGreveAndersen\\OneDrive - Geomatikk Group\\Dokumenter\\LdmWorkflow\\Flows\\CvrSql\\",
+        "CvrSqlFolder": "C:\\Users\\ArnoGreveAndersen\\OneDrive - Geomatikk Group\\Dokumenter\\DdmWorkflow\\Flows\\CvrSql\\",
         "Since": "2026-01-01T00:00:00Z",
         "VirkUser": "LIFA_CVR_I_SKYEN",
         "CvrDb": "\u00A4[MSSQL_Sandbox]\u00A4"
