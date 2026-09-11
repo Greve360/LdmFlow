@@ -39,7 +39,7 @@
       "height": 92,
       "executionMode": "Enabled",
       "settings": {
-        "ConnectionString": "\u00A4[LdmSysDb]\u00A4",
+        "ConnectionString": "\u00A4[DdmSysDb]\u00A4",
         "DBMS": "MSSQL",
         "IsPostgres": "",
         "MaxParallelism": "16",
@@ -85,7 +85,7 @@
       "executionMode": "Enabled",
       "settings": {
         "Clean": "yes",
-        "ConnectionString": "\u00A4[LdmSysDb]\u00A4",
+        "ConnectionString": "\u00A4[DdmSysDb]\u00A4",
         "ContainedFileFormat": "GPKG",
         "DafFileDownloadUrl": "\u00A4[DafUrlMeta]\u00A4",
         "Register": "\u00A4{Register}\u00A4",
@@ -365,7 +365,7 @@
       "height": 92,
       "executionMode": "Enabled",
       "settings": {
-        "ConnectionString": "\u00A4[LdmSysDb]\u00A4",
+        "ConnectionString": "\u00A4[DdmSysDb]\u00A4",
         "DBMS": "MSSQL",
         "FilePath": "",
         "MaxRows": "0",
@@ -412,7 +412,7 @@
       "height": 92,
       "executionMode": "Enabled",
       "settings": {
-        "ConnectionString": "\u00A4[LdmSysDb]\u00A4",
+        "ConnectionString": "\u00A4[DdmSysDb]\u00A4",
         "DBMS": "MSSQL",
         "MaxParallelism": "4",
         "Mode": "Parallel",
@@ -437,7 +437,7 @@
       "height": 92,
       "executionMode": "Enabled",
       "settings": {
-        "ConnectionString": "\u00A4[LdmSysDb]\u00A4",
+        "ConnectionString": "\u00A4[DdmSysDb]\u00A4",
         "DBMS": "MSSQL",
         "Sql": "select entityname, filename from [Udv_Kunde3].[dbo].[DafFiles] where generationnumber=\u00A4{DafGeneration}\u00A4 and register = \u0027\u00A4{Register}\u00A4\u0027 and entityName not like \u0027%0000%\u0027 and version = \u00A4{DataVersion}\u00A4 and typeOfDownload = \u0027TotalDownload\u0027",
         "ResultType": "Recordset",
@@ -1156,7 +1156,7 @@
       "height": 92,
       "executionMode": "Enabled",
       "settings": {
-        "ConnectionString": "\u00A4[LdmSysDb]\u00A4",
+        "ConnectionString": "\u00A4[DdmSysDb]\u00A4",
         "DBMS": "MSSQL",
         "FilePath": "",
         "MaxRows": "0",
