@@ -284,7 +284,7 @@
       "height": 102,
       "executionMode": "Enabled",
       "settings": {
-        "ConnectionString": "\u00A4[LdmSysDb]\u00A4",
+        "ConnectionString": "\u00A4[DdmSysDb]\u00A4",
         "DBMS": "MSSQL",
         "OutputVariable": "PickedRegister",
         "SQL": "select RegisterName from workflow.MetaRegister where RegisterType=\u0027WFS\u0027 and Active=1 order by RegisterName",
@@ -307,7 +307,7 @@
       "height": 102,
       "executionMode": "Enabled",
       "settings": {
-        "ConnectionString": "\u00A4[LdmSysDb]\u00A4",
+        "ConnectionString": "\u00A4[DdmSysDb]\u00A4",
         "DBMS": "MSSQL",
         "MaxParallelism": "20",
         "Mode": "Parallel",
@@ -376,7 +376,7 @@
       "height": 102,
       "executionMode": "Enabled",
       "settings": {
-        "ConnectionString": "\u00A4[LdmSysDb]\u00A4",
+        "ConnectionString": "\u00A4[DdmSysDb]\u00A4",
         "DBMS": "MSSQL",
         "OutputVariable": "PickedRegister",
         "SQL": "select RegisterName from workflow.MetaRegister where RegisterType=\u0027WFS\u0027 and Active=1 order by RegisterName",
@@ -399,7 +399,7 @@
       "height": 102,
       "executionMode": "Enabled",
       "settings": {
-        "ConnectionString": "\u00A4[LdmSysDb]\u00A4",
+        "ConnectionString": "\u00A4[DdmSysDb]\u00A4",
         "DBMS": "MSSQL",
         "OutputVariable": "PickedTable",
         "SQL": "select TableName from workflow.MetaTable where RegisterName=\u0027\u00A4{PickedRegister}\u00A4\u0027 and Active=1 order by RegisterName",
@@ -483,7 +483,7 @@
       "executionMode": "Enabled",
       "settings": {
         "CommandTimeout": "0",
-        "ConnectionString": "\u00A4[LdmSysDB]\u00A4",
+        "ConnectionString": "\u00A4[DdmSysDb]\u00A4",
         "DBMS": "MSSQL",
         "ExecuteEachLine": "False",
         "FilePath": "",
@@ -632,7 +632,7 @@
       "executionMode": "Enabled",
       "settings": {
         "CommandTimeout": "0",
-        "ConnectionString": "\u00A4[LdmSysDB]\u00A4",
+        "ConnectionString": "\u00A4[DdmSysDb]\u00A4",
         "DBMS": "MSSQL",
         "ExecuteEachLine": "False",
         "FilePath": "",
