@@ -1,0 +1,323 @@
+{
+  "schemaVersion": 1,
+  "flowId": "1d501e5b-ceca-4dc1-8cb9-fd45ee516149",
+  "name": "GraphQL DAF - Confluence examples",
+  "description": "Tests GraphQlQueryDaf against three confirmed example queries from confluence.kds.dk/display/DML/Udvalgte\u002BREST-tjenester\u002Bomsat\u002Btil\u002BGraphQL-queries: EJF_Ejerskabsskifte, MAT_MatrikulaerSag and MAT_Ejerlav. Three independent Start nodes - pick one via the designer or ddmflow --start-node.",
+  "globalValues": {},
+  "nodes": [
+    {
+      "id": "7cfff1ee-a7b3-4874-8d29-67c4179aeedd",
+      "name": "Start EJF_Ejerskabsskifte",
+      "category": "Module",
+      "nodeType": "Start",
+      "x": 60,
+      "y": 40,
+      "width": 190,
+      "height": 92,
+      "executionMode": "Enabled",
+      "settings": {},
+      "portPlacements": {},
+      "flippedPortSides": []
+    },
+    {
+      "id": "0f7d8776-86f5-46ef-be70-99c307f13bba",
+      "name": "Start MAT_MatrikulaerSag",
+      "category": "Module",
+      "nodeType": "Start",
+      "x": 60,
+      "y": 220,
+      "width": 190,
+      "height": 92,
+      "executionMode": "Disabled",
+      "settings": {},
+      "portPlacements": {},
+      "flippedPortSides": []
+    },
+    {
+      "id": "ba3bc95d-e8fa-4ac9-8f81-bb1fdea43fbb",
+      "name": "Start MAT_Ejerlav",
+      "category": "Module",
+      "nodeType": "Start",
+      "x": 60,
+      "y": 400,
+      "width": 190,
+      "height": 92,
+      "executionMode": "Disabled",
+      "settings": {},
+      "portPlacements": {},
+      "flippedPortSides": []
+    },
+    {
+      "id": "ba70cfde-43bb-4d10-bd49-7aa3c9c76fa3",
+      "name": "EJF_Ejerskabsskifte (point lookup)",
+      "category": "Module",
+      "nodeType": "GraphQlQueryDaf",
+      "x": 380,
+      "y": 30,
+      "width": 240,
+      "height": 106,
+      "executionMode": "Enabled",
+      "settings": {
+        "Url": "https://graphql.datafordeler.dk/flexible/v3",
+        "Query": "{\n   EJF_Ejerskabsskifte(\n     first: 10\n     registreringstid: \u00222025-03-28T22:12:56.184158Z\u0022\n     virkningstid: \u00222025-11-14T11:28:27.184158Z\u0022\n     where: { ejerskifteLokalId: { eq: \u00220a3f50c1-12c8-32b8-e044-0003ba298018\u0022 } }\n   ) {\n     nodes {\n       afgivendeEjerobjektLokalId\n       afstaaetAndel_naevner\n       afstaaetAndel_taeller\n       behandlingsID\n       datafordelerOpdateringstid\n       datafordelerRegisterImportSequenceNumber\n       datafordelerRowId\n       datafordelerRowVersion\n       ejerskifteLokalId\n       forretningshaendelse\n       forretningsomraade\n       forretningsproces\n       id_lokalId\n       id_namespace\n       modtagendeEjerobjektLokalId\n       modtagetAndel_naevner\n       modtagetAndel_taeller\n       registreringFra\n       registreringsaktoer\n       registreringTil\n       status\n       virkningFra\n       virkningsaktoer\n       virkningTil\n     }\n   }\n }",
+        "Variables": "",
+        "ResultPath": "EJF_Ejerskabsskifte",
+        "PageSize": "500",
+        "PageSizeVariable": "first",
+        "PageCursorVariable": "after",
+        "KeyField": "ejerskifteLokalId",
+        "ConnectionString": "\u00A4[DdmSysDb]\u00A4",
+        "Table": "workflow.GraphQlTest_EJF_Ejerskabsskifte",
+        "Clean": "",
+        "ContinueOnError": "Nej",
+        "OAuthMode": "SharedSecret",
+        "OAuthTokenUrl": "https://auth.datafordeler.dk/realms/distribution/protocol/openid-connect/token",
+        "OAuthClientId": "\u00A4[OAuthClientProt]\u00A4",
+        "OAuthClientSecret": "\u00A4[OAuthSecretProt]\u00A4",
+        "OAuthCertificatePath": "",
+        "OAuthCertificatePassword": ""
+      },
+      "portPlacements": {
+        "I:In": "Left",
+        "O:Out": "Right",
+        "O:Fail": "Bottom"
+      },
+      "flippedPortSides": []
+    },
+    {
+      "id": "8f5de257-88cf-4403-b4ee-b18342999a95",
+      "name": "MAT_MatrikulaerSag (point lookup)",
+      "category": "Module",
+      "nodeType": "GraphQlQueryDaf",
+      "x": 380,
+      "y": 210,
+      "width": 240,
+      "height": 106,
+      "executionMode": "Enabled",
+      "settings": {
+        "Url": "https://graphql.datafordeler.dk/flexible/v3",
+        "Query": "{\n  MAT_MatrikulaerSag(\n    first: 1\n    registreringstid: \u00222025-01-23T10:39:04.658307Z\u0022\n    virkningstid: \u00222025-01-23T10:39:04.658307Z\u0022\n    where: { id_lokalId: { eq: \u00227590064\u0022 } }\n  ) {\n    pageInfo {\n      hasNextPage\n      endCursor\n    }\n    nodes {\n      datafordelerOpdateringstid\n      datafordelerRegisterImportSequenceNumber\n      datafordelerRowId\n      datafordelerRowVersion\n      ejerlavLokalId\n      feltliste\n      forretningshaendelse\n      forretningsomraade\n      forretningsproces\n      id_lokalId\n      id_namespace\n      jordstykkeLokalId\n      journaliseringsdato\n      kommune\n      matrikelmyndighedensJournalnum\n      objectid\n      registreringFra\n      registreringsaktoer\n      registreringTil\n      rekvirentRef\n      sagstitel\n      status\n      StedbestemmelsesGeometri\n      virkningFra\n      virkningsaktoer\n      virkningTil\n      bygningPaaFremmedGrundFladeTilhoererMatrikulaerSag(first: 10) {\n        nodes {\n          id_lokalId\n          status\n          senesteSagLokalId\n        }\n      }\n      objectid_336_MatrikulaerSag_sagsoperation_matrikulaersagobjectid_ref {\n        nodes {\n          betegnelse\n        }\n      }\n    }\n  }\n}",
+        "Variables": "",
+        "ResultPath": "MAT_MatrikulaerSag",
+        "PageSize": "500",
+        "PageSizeVariable": "first",
+        "PageCursorVariable": "after",
+        "KeyField": "id_lokalId",
+        "ConnectionString": "\u00A4[DdmSysDb]\u00A4",
+        "Table": "workflow.GraphQlTest_MAT_MatrikulaerSag",
+        "Clean": "",
+        "ContinueOnError": "Nej",
+        "OAuthMode": "SharedSecret",
+        "OAuthTokenUrl": "https://auth.datafordeler.dk/realms/distribution/protocol/openid-connect/token",
+        "OAuthClientId": "\u00A4[OAuthClientProt]\u00A4",
+        "OAuthClientSecret": "\u00A4[OAuthSecretProt]\u00A4",
+        "OAuthCertificatePath": "",
+        "OAuthCertificatePassword": ""
+      },
+      "portPlacements": {
+        "I:In": "Left",
+        "O:Out": "Right",
+        "O:Fail": "Bottom"
+      },
+      "flippedPortSides": []
+    },
+    {
+      "id": "9bcdfdc5-fefe-4740-a315-1ce6b9039968",
+      "name": "MAT_Ejerlav (nested, point lookup)",
+      "category": "Module",
+      "nodeType": "GraphQlQueryDaf",
+      "x": 380,
+      "y": 390,
+      "width": 240,
+      "height": 106,
+      "executionMode": "Enabled",
+      "settings": {
+        "Clean": "",
+        "ConnectionString": "\u00A4[DdmSysDb]\u00A4",
+        "ContinueOnError": "Nej",
+        "KeyField": "id_lokalId",
+        "OAuthCertificatePassword": "",
+        "OAuthCertificatePath": "",
+        "OAuthClientId": "\u00A4[OAuthClientProt]\u00A4",
+        "OAuthClientSecret": "\u00A4[OAuthSecretProt]\u00A4",
+        "OAuthMode": "SharedSecret",
+        "OAuthTokenUrl": "https://auth.datafordeler.dk/realms/distribution/protocol/openid-connect/token",
+        "PageCursorVariable": "after",
+        "PageSize": "500",
+        "PageSizeVariable": "first",
+        "Query": "{\n   MAT_Ejerlav(\n     first: 10\n     registreringstid: \u00222025-03-28T22:12:56.184158Z\u0022\n     virkningstid: \u00222025-11-14T11:28:27.184158Z\u0022\n     where: { id_lokalId: { eq: \u0022140453\u0022 } }\n   ) {\n     pageInfo {\n       hasNextPage\n       endCursor\n     }\n     nodes {\n       datafordelerOpdateringstid\n       datafordelerRegisterImportSequenceNumber\n       datafordelerRowId\n       datafordelerRowVersion\n       ejerlavskode\n       ejerlavsnavn\n       id_lokalId\n       id_namespace\n       objectid\n       registreringFra\n       registreringsaktoer\n       registreringTil\n       senesteSagLokalId\n       status\n       virkningFra\n       virkningsaktoer\n       virkningTil\n       administrativtOmraadeTilhoererMatrikulaerSag {\n         matrikulaerSagStedfaestesAfJordstykke(first: 10) {\n           pageInfo {\n             hasNextPage\n             endCursor\n           }\n           nodes {\n             arealberegningsmetode\n             arealbetegnelse\n             arealtype\n             brugsretsareal\n             datafordelerOpdateringstid\n             datafordelerRegisterImportSequenceNumber\n             datafordelerRowId\n             datafordelerRowVersion\n             delnummer\n             ejerlavLokalId\n             faelleslod\n             feltliste\n             forretningshaendelse\n             forretningsomraade\n             forretningsproces\n             fredskov_areal\n             fredskov_omfang\n             id_lokalId\n             id_namespace\n             jordrente_omfang\n             klitfredning_areal\n             klitfredning_omfang\n             kommuneLokalId\n             majoratsskov_nummer\n             majoratsskov_omfang\n             matrikelnummer\n             objectid\n             paataenktHandling\n             regionLokalId\n             registreretAreal\n             registreringFra\n             registreringsaktoer\n             registreringTil\n             samletFastEjendomLokalId\n             senesteSagLokalId\n             skelforretningssagsLokalId\n             sognLokalId\n             stammerFraJordstykkeLokalId\n             status\n             strandbeskyttelse_areal\n             strandbeskyttelse_omfang\n             supplerendeMaalingSagLokalId\n             vandarealinkludering\n             vejareal\n             vejarealberegningsstatus\n             virkningFra\n             virkningsaktoer\n             virkningTil\n             centroideLiggerIndenForJordstykke(first: 10) {\n               pageInfo {\n                 hasNextPage\n                 endCursor\n               }\n               nodes {\n                 datafordelerOpdateringstid\n                 datafordelerRegisterImportSequenceNumber\n                 datafordelerRowId\n                 datafordelerRowVersion\n                 feltliste\n                 forretningshaendelse\n                 forretningsomraade\n                 forretningsproces\n                 id_lokalId\n                 id_namespace\n                 jordstykkeLokalId\n                 objectid\n                 paataenktHandling\n                 registreringFra\n                 registreringsaktoer\n                 registreringTil\n                 senesteSagLokalId\n                 status\n                 virkningFra\n                 virkningsaktoer\n                 virkningTil\n               }\n             }\n             jordstykkeSamlesISamletFastEjendom(first: 10) {\n               pageInfo {\n                 hasNextPage\n                 endCursor\n               }\n               nodes {\n                 arbejderbolig\n                 BFEnummer\n                 datafordelerOpdateringstid\n                 datafordelerRegisterImportSequenceNumber\n                 datafordelerRowId\n                 datafordelerRowVersion\n                 erFaelleslod\n                 feltliste\n                 forretningshaendelse\n                 forretningsomraade\n                 forretningsproces\n                 hovedejendomOpdeltIEjerlejligh\n                 id_lokalId\n                 id_namespace\n                 landbrugsnotering\n                 objectid\n                 paataenktHandling\n                 registreringFra\n                 registreringsaktoer\n                 registreringTil\n                 senesteSagLokalId\n                 status\n                 StedbestemmelsesReference\n                 udskiltVej\n                 virkningFra\n                 virkningsaktoer\n                 virkningTil\n               }\n             }\n             objectid_336_Jordstykke_sekundaerForretning_Jordstykkeobjectid_ref(\n               first: 10\n             ) {\n               pageInfo {\n                 hasNextPage\n                 endCursor\n               }\n               nodes {\n                 datafordelerOpdateringstid\n                 datafordelerRegisterImportSequenceNumber\n                 datafordelerRowId\n                 datafordelerRowVersion\n                 Jordstykkeobjectid\n                 sekundaerForretningshaendelse\n               }\n             }\n           }\n         }\n       }\n     }\n   }\n }",
+        "ResultPath": "MAT_Ejerlav",
+        "Table": "workflow.GraphQlTest_MAT_Ejerlav",
+        "Url": "https://graphql.datafordeler.dk/flexible/v3",
+        "Variables": ""
+      },
+      "portPlacements": {
+        "I:In": "Left",
+        "O:Out": "Right",
+        "O:Fail": "Bottom"
+      },
+      "flippedPortSides": []
+    },
+    {
+      "id": "60add3ef-0163-49ab-8fbf-720d28a99b19",
+      "name": "ILogger",
+      "category": "Module",
+      "nodeType": "ILogger",
+      "x": 1298,
+      "y": 417,
+      "width": 190,
+      "height": 92,
+      "executionMode": "Enabled",
+      "settings": {
+        "ErrorFile": "",
+        "Registry": "False",
+        "LogTable": ""
+      },
+      "portPlacements": {
+        "O:Out": "Right"
+      },
+      "flippedPortSides": []
+    },
+    {
+      "id": "644e3d77-1faa-48a4-a711-52fdfa8acdb7",
+      "name": "Exit",
+      "category": "Module",
+      "nodeType": "Exit",
+      "x": 1060,
+      "y": 220,
+      "width": 190,
+      "height": 92,
+      "executionMode": "Enabled",
+      "settings": {
+        "ExitCode": "0",
+        "ExitMessage": ""
+      },
+      "portPlacements": {
+        "I:Fail": "Bottom"
+      },
+      "flippedPortSides": []
+    }
+  ],
+  "connections": [
+    {
+      "id": "e9c7d629-6477-4834-a21d-afdb8693b5ef",
+      "fromNodeId": "7cfff1ee-a7b3-4874-8d29-67c4179aeedd",
+      "fromPort": "Out",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "ba70cfde-43bb-4d10-bd49-7aa3c9c76fa3",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "a962c486-95e5-476f-8302-df189511f5e6",
+      "fromNodeId": "0f7d8776-86f5-46ef-be70-99c307f13bba",
+      "fromPort": "Out",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "8f5de257-88cf-4403-b4ee-b18342999a95",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "89ceb84c-0298-42d8-a7e6-c53b8f0ef6c9",
+      "fromNodeId": "ba3bc95d-e8fa-4ac9-8f81-bb1fdea43fbb",
+      "fromPort": "Out",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "9bcdfdc5-fefe-4740-a315-1ce6b9039968",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "c0a552b0-e9ba-4925-a2dc-6f1e5c571b06",
+      "fromNodeId": "ba70cfde-43bb-4d10-bd49-7aa3c9c76fa3",
+      "fromPort": "Out",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "644e3d77-1faa-48a4-a711-52fdfa8acdb7",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "267130d3-e0a6-4d25-86bb-32a2a7c16db5",
+      "fromNodeId": "8f5de257-88cf-4403-b4ee-b18342999a95",
+      "fromPort": "Out",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "644e3d77-1faa-48a4-a711-52fdfa8acdb7",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "abc1337d-a3a5-46d9-8570-537a3b9d42b2",
+      "fromNodeId": "9bcdfdc5-fefe-4740-a315-1ce6b9039968",
+      "fromPort": "Out",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "644e3d77-1faa-48a4-a711-52fdfa8acdb7",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "5b0650da-f495-47d3-a636-6e1d6acaf691",
+      "fromNodeId": "ba70cfde-43bb-4d10-bd49-7aa3c9c76fa3",
+      "fromPort": "Fail",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "60add3ef-0163-49ab-8fbf-720d28a99b19",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "c66fe152-74e7-45d1-8908-dee25b1a711c",
+      "fromNodeId": "8f5de257-88cf-4403-b4ee-b18342999a95",
+      "fromPort": "Fail",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "60add3ef-0163-49ab-8fbf-720d28a99b19",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "0a86d9ef-3b51-4d8a-b950-08aa16f8da5c",
+      "fromNodeId": "9bcdfdc5-fefe-4740-a315-1ce6b9039968",
+      "fromPort": "Fail",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "60add3ef-0163-49ab-8fbf-720d28a99b19",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "49ce7c73-f2ae-40fa-80fd-ee555c70bcb0",
+      "fromNodeId": "60add3ef-0163-49ab-8fbf-720d28a99b19",
+      "fromPort": "Out",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "644e3d77-1faa-48a4-a711-52fdfa8acdb7",
+      "toPort": "Fail",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    }
+  ]
+}
