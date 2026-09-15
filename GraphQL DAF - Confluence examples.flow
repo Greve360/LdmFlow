@@ -3,7 +3,6 @@
   "flowId": "1d501e5b-ceca-4dc1-8cb9-fd45ee516149",
   "name": "GraphQL DAF - Confluence examples",
   "description": "Tests GraphQlQueryDaf against three confirmed example queries from confluence.kds.dk/display/DML/Udvalgte\u002BREST-tjenester\u002Bomsat\u002Btil\u002BGraphQL-queries: EJF_Ejerskabsskifte, MAT_MatrikulaerSag and MAT_Ejerlav. Three independent Start nodes - pick one via the designer or ddmflow --start-node.",
-  "globalValues": {},
   "nodes": [
     {
       "id": "7cfff1ee-a7b3-4874-8d29-67c4179aeedd",
@@ -163,8 +162,8 @@
       "name": "ILogger",
       "category": "Module",
       "nodeType": "ILogger",
-      "x": 1298,
-      "y": 417,
+      "x": 1099,
+      "y": 529,
       "width": 190,
       "height": 92,
       "executionMode": "Enabled",
@@ -174,7 +173,7 @@
         "LogTable": ""
       },
       "portPlacements": {
-        "O:Out": "Right"
+        "O:Out": "Top"
       },
       "flippedPortSides": []
     },
