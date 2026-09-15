@@ -3,7 +3,6 @@
   "flowId": "51af7ef8-5805-46d1-8473-496306efafb7",
   "name": "New workflow",
   "description": "per-table auto-create-if-missing \r\n(Generate DDL \u2192 Create Table \u2192 ALTER SCHEMA ... TRANSFER, with the dbo-default-schema assumption called out explicitly), \r\n\r\nthe truncate-before-load behavior, why native format demands exact ANSI/Unicode and spatial-type fidelity, -E for identity preservation, and the explicit caveat that indexes/constraints/triggers aren\u0027t recreated. \r\n\r\nAnyone opening this flow (Workflow \u25B8 Description) now gets the reasoning without asking again.",
-  "globalValues": {},
   "nodes": [
     {
       "id": "812f1634-7efd-4d51-91b9-1873fd0cacd4",
@@ -17,10 +16,10 @@
       "executionMode": "Disabled",
       "settings": {
         "BCPTempFolder": "\u00A4[WorkingFolder]\u00A4",
-        "DestinationConnectionString": "server=db_oisudv001.lifa.dk;database=AGA_CVRHIST;Trusted_Connection=True;MultipleActiveResultSets=True;Pooling=yes;TrustServerCertificate=yes",
-        "DestinationDatabase": "AGA_CVRHIST",
-        "DestinationSchema": "ERST_CVR_NY",
-        "DestinationServer": "db_oisudv001.lifa.dk",
+        "DestinationConnectionString": "\u00A4[RegisterWorkDB]\u00A4",
+        "DestinationDatabase": "RegisterWork",
+        "DestinationSchema": "ERST_CVR",
+        "DestinationServer": "10.10.1.97",
         "SourceConnectionString": "\u00A4[MSSQL_Sandbox]\u00A4",
         "SourceDatabase": "Sandbox",
         "SourceSchema": "ERST_CVR",
@@ -92,7 +91,9 @@
         "Italic": "Nej",
         "Size": "24",
         "Text": "BCP An Entire Schema",
-        "Underline": "Nej"
+        "Underline": "Nej",
+        "HorizontalAlignment": "Left",
+        "VerticalAlignment": "Middle"
       },
       "portPlacements": {},
       "flippedPortSides": []
@@ -365,7 +366,9 @@
         "Italic": "Ja",
         "Size": "16",
         "Text": "S\u00E6t Source/Destination i Start \r\nog K\u00D8R!",
-        "Underline": "Nej"
+        "Underline": "Nej",
+        "HorizontalAlignment": "Left",
+        "VerticalAlignment": "Middle"
       },
       "portPlacements": {},
       "flippedPortSides": []
@@ -420,10 +423,10 @@
       "executionMode": "Enabled",
       "settings": {
         "BCPTempFolder": "\u00A4[WorkingFolder]\u00A4",
-        "DestinationConnectionString": "server=db_oisudv001.lifa.dk;database=AGA_CVRHIST;Trusted_Connection=True;MultipleActiveResultSets=True;Pooling=yes;TrustServerCertificate=yes",
-        "DestinationDatabase": "AGA_CVRHIST",
-        "DestinationSchema": "ERST_CVR_DELTA",
-        "DestinationServer": "db_oisudv001.lifa.dk",
+        "DestinationConnectionString": "\u00A4[RegisterWorkDB]\u00A4",
+        "DestinationDatabase": "RegisterWork",
+        "DestinationSchema": "ERST_CVR_Delta2",
+        "DestinationServer": "10.10.1.97",
         "SourceConnectionString": "\u00A4[MSSQL_SandboxDelta]\u00A4",
         "SourceDatabase": "SandboxDelta",
         "SourceSchema": "ERST_CVR",
