@@ -3,27 +3,7 @@
   "flowId": "6b59092c-28fb-454b-8d04-6006c6c9baa1",
   "name": "Export PG Scema to MSSQL",
   "description": "",
-  "globalValues": {},
   "nodes": [
-    {
-      "id": "4c0ff98e-fd94-49bd-b4ff-892661567c29",
-      "name": "Start DAI01",
-      "category": "Module",
-      "nodeType": "Start",
-      "x": 40.5,
-      "y": 44,
-      "width": 200,
-      "height": 102,
-      "executionMode": "Disabled",
-      "settings": {
-        "DestinationMSSQL": "\u00A4[RegisterWorkDB]\u00A4",
-        "DestinationSchema": "WFS_DAI01_NY",
-        "PostgresSchema": "dai01",
-        "RowLimiter": "limit 10000"
-      },
-      "portPlacements": {},
-      "flippedPortSides": []
-    },
     {
       "id": "83160ff8-63d8-4eab-ad39-2e7235f86ce5",
       "name": "Exit",
@@ -68,8 +48,8 @@
       "name": "Get SQL Fields",
       "category": "Module",
       "nodeType": "GetSqlFields",
-      "x": 505.89506172839515,
-      "y": 223.67901234567773,
+      "x": 852.8950617283951,
+      "y": 440.67901234567773,
       "width": 200,
       "height": 102,
       "executionMode": "Enabled",
@@ -78,8 +58,8 @@
         "DBMS": "Postgres",
         "GeometryOperations": "ST_MakeValid",
         "MakeGeometryBinary": "Yes",
-        "Schema": "\u00A4{PostgresSchema}\u00A4",
-        "Table": "\u00A4{tablename}\u00A4"
+        "Schema": "\u00A4{harvestschema}\u00A4",
+        "Table": "\u00A4{tablename,L}\u00A4"
       },
       "portPlacements": {
         "I:In": "Top",
@@ -92,26 +72,27 @@
       "name": "Loop PG Tables",
       "category": "Module",
       "nodeType": "SqlIterator",
-      "x": 533.5,
-      "y": 42,
+      "x": 534.5,
+      "y": 39,
       "width": 190,
       "height": 92,
       "executionMode": "Enabled",
       "settings": {
-        "ConnectionString": "\u00A4[GrunddataDB]\u00A4",
-        "DBMS": "Postgres",
+        "ConnectionString": "\u00A4[DdmSysDb]\u00A4",
+        "DBMS": "MSSQL",
         "MaxParallelism": "10",
         "Mode": "Parallel",
         "ResultType": "Recordset",
-        "Sql": "select schemaname, tablename from pg_tables where schemaname ilike \u0027\u00A4{PostgresSchema}\u00A4\u0027 order by tablename",
+        "Sql": "select \r\nR.harvestSchema as harvestschema,\r\nR.targetschema as targetschema, \r\nT.TableName as tablename \r\nfrom workflow.MetaRegister R\r\ninner join workflow.MetaTable T on R.RegisterName = T.RegisterName\r\nwhere R.RegisterType = \u0027WFS\u0027\r\nand (R.harvestSchema like \u0027\u00A4{PostgresSchema}\u00A4\u0027 or \u00A4{PostgresSchema,#}\u00A4 = 0)\r\nand R.Active = 1 and T.Active = 1\r\norder by R.targetschema desc, T.TableName ",
         "SqlTimeout": ""
       },
       "portPlacements": {
         "O:Item": "Bottom",
-        "I:LoopBack": "Right"
+        "I:LoopBack": "Bottom"
       },
       "flippedPortSides": [
-        "Top"
+        "Top",
+        "Bottom"
       ]
     },
     {
@@ -119,17 +100,17 @@
       "name": "Display",
       "category": "Module",
       "nodeType": "Display",
-      "x": 463.3950617283955,
-      "y": 378.6790123456775,
+      "x": 788.3950617283955,
+      "y": 718.6790123456775,
       "width": 301,
       "height": 108,
       "executionMode": "Enabled",
       "settings": {
-        "Text": "\u00A4{schemaname}\u00A4.\u00A4{tablename}\u00A4\r\n\u00A4{GeometryColumn}\u00A4"
+        "Text": "\u00A4{harvestSchema}\u00A4.\u00A4{TableName}\u00A4\r\n\u00A4{GeometryColumn}\u00A4"
       },
       "portPlacements": {
         "I:In": "Top",
-        "O:Out": "Bottom"
+        "O:Out": "Left"
       },
       "flippedPortSides": []
     },
@@ -138,19 +119,19 @@
       "name": "Ensure Schema",
       "category": "Module",
       "nodeType": "EnsureSchema",
-      "x": 467.89506172839594,
-      "y": 585.6790123456768,
+      "x": 332.89506172839594,
+      "y": 740.6790123456768,
       "width": 200,
       "height": 102,
       "executionMode": "Enabled",
       "settings": {
         "ConnectionString": "\u00A4{DestinationMSSQL}\u00A4",
         "DBMS": "MSSQL",
-        "SchemaName": "\u00A4{DestinationSchema}\u00A4"
+        "SchemaName": "\u00A4{targetschema}\u00A4"
       },
       "portPlacements": {
-        "I:In": "Top",
-        "O:Success": "Bottom"
+        "I:In": "Right",
+        "O:Success": "Top"
       },
       "flippedPortSides": []
     },
@@ -159,19 +140,19 @@
       "name": "Drop Table (if exists)",
       "category": "Module",
       "nodeType": "DropTableIfExists",
-      "x": 425.39506172839594,
-      "y": 787.6790123456764,
+      "x": 280.39506172839594,
+      "y": 454.67901234567637,
       "width": 200,
       "height": 102,
       "executionMode": "Enabled",
       "settings": {
         "ConnectionString": "\u00A4{DestinationMSSQL}\u00A4",
         "DBMS": "MSSQL",
-        "TableName": "\u00A4{DestinationSchema}\u00A4.\u00A4{tablename}\u00A4"
+        "TableName": "\u00A4{targetschema}\u00A4.\u00A4{TableName}\u00A4"
       },
       "portPlacements": {
-        "I:In": "Top",
-        "O:Out": "Bottom"
+        "I:In": "Bottom",
+        "O:Out": "Top"
       },
       "flippedPortSides": []
     },
@@ -180,50 +161,74 @@
       "name": "OGR2OGR (external)",
       "category": "Module",
       "nodeType": "OGR2OGRExternal",
-      "x": 903,
-      "y": 873,
+      "x": 362,
+      "y": 240,
       "width": 200,
       "height": 102,
       "executionMode": "Enabled",
       "settings": {
-        "AdditionalArguments": "-makevalid -lco SCHEMA=\u00A4{DestinationSchema}\u00A4 -lco \u0022SPATIAL_INDEX=NO\u0022 -lco \u0022GEOMETRY_NAME=Geometri\u0022 -lco \u0022OVERWRITE=YES\u0022 -lco \u0022LAUNDER=NO\u0022 --config MSSQLSPATIAL_USE_GEOMETRY_COLUMNS NO",
+        "AdditionalArguments": "-makevalid -lco SCHEMA=\u00A4{targetschema}\u00A4 -lco \u0022SPATIAL_INDEX=NO\u0022 -lco \u0022GEOMETRY_NAME=Geometri\u0022 -lco \u0022OVERWRITE=YES\u0022 -lco \u0022LAUNDER=NO\u0022 --config MSSQLSPATIAL_USE_GEOMETRY_COLUMNS NO -LCO \u0022SPATIAL_INDEX=NO\u0022",
         "AdditionalEnvironment": "",
         "Destination": "\u00A4[RegisterWorkOGR]\u00A4",
+        "DestinationConnectionString": "",
+        "DestinationTable": "",
         "GeometryType": "",
-        "LayerName": "\u00A4{tablename}\u00A4",
+        "LayerName": "\u00A4{TableName}\u00A4",
         "Mode": "Overwrite",
         "OgrExecutable": "\u00A4[GdalSdkRoot]\u00A4bin\\gdal\\apps\\ogr2ogr.exe",
         "OutputFormat": "MSSQLSpatial",
+        "ReduceNvarCharMax": "",
         "SdkRoot": "\u00A4[GdalSdkRoot]\u00A4",
         "SelectFields": "",
         "Source": "\u00A4[GrunddataOGR]\u00A4",
         "SourceSrs": "",
-        "Sql": "select * from \u00A4{schemaname}\u00A4.\u00A4{tablename}\u00A4 \u00A4{RowLimiter}\u00A4",
+        "Sql": "select * from \u00A4{harvestSchema}\u00A4.\u00A4{TableName}\u00A4 \u00A4{RowLimiter}\u00A4",
         "TargetSrs": "",
         "Where": "",
         "XsdFile": "",
         "XsdTableName": ""
       },
-      "portPlacements": {},
+      "portPlacements": {
+        "O:Success": "Top",
+        "I:In": "Bottom"
+      },
       "flippedPortSides": []
     },
     {
-      "id": "92848128-3238-4b24-9972-4878f3b6d7ce",
-      "name": "Start DAI02",
+      "id": "814546d3-c626-4487-8967-83c83703ae43",
+      "name": "Start ALL GD",
       "category": "Module",
       "nodeType": "Start",
-      "x": 46,
-      "y": 168,
+      "x": 20,
+      "y": 124,
       "width": 200,
       "height": 102,
       "executionMode": "Enabled",
       "settings": {
         "DestinationMSSQL": "\u00A4[RegisterWorkDB]\u00A4",
-        "DestinationSchema": "WFS_DAI02_NY",
-        "PostgresSchema": "dai02",
-        "RowLimiter": "limit 10000"
+        "PostgresSchema": "",
+        "RowLimiter": ""
       },
       "portPlacements": {},
+      "flippedPortSides": []
+    },
+    {
+      "id": "6312de87-26b4-4d6c-b7e4-a5d9f862a960",
+      "name": "Assign Variable",
+      "category": "Module",
+      "nodeType": "AssignVariable",
+      "x": 721,
+      "y": 244,
+      "width": 200,
+      "height": 102,
+      "executionMode": "Enabled",
+      "settings": {
+        "tablename": "/-/_/"
+      },
+      "portPlacements": {
+        "I:In": "Top",
+        "O:Out": "Bottom"
+      },
       "flippedPortSides": []
     }
   ],
@@ -236,31 +241,6 @@
       "fromControlDy": null,
       "toNodeId": "83160ff8-63d8-4eab-ad39-2e7235f86ce5",
       "toPort": "Fail",
-      "toControlDx": null,
-      "toControlDy": null,
-      "waypoints": []
-    },
-    {
-      "id": "0eb4907c-5158-4323-afde-a034e9ce7dce",
-      "fromNodeId": "4c0ff98e-fd94-49bd-b4ff-892661567c29",
-      "fromPort": "Out",
-      "fromControlDx": null,
-      "fromControlDy": null,
-      "toNodeId": "77252a7b-75b6-4083-9598-606e20ed8050",
-      "toPort": "In",
-      "toControlDx": null,
-      "toControlDy": null,
-      "waypoints": [],
-      "directRoute": true
-    },
-    {
-      "id": "0aa3fed7-b8f7-4764-bef3-9fe304b5844a",
-      "fromNodeId": "77252a7b-75b6-4083-9598-606e20ed8050",
-      "fromPort": "Item",
-      "fromControlDx": null,
-      "fromControlDy": null,
-      "toNodeId": "3f1dd131-65c9-44f8-8435-7cf0e4ebd3e4",
-      "toPort": "In",
       "toControlDx": null,
       "toControlDy": null,
       "waypoints": []
@@ -308,18 +288,6 @@
       "fromControlDx": null,
       "fromControlDy": null,
       "toNodeId": "fdb4fe13-c0f6-47fc-97b1-ed64d838f93a",
-      "toPort": "In",
-      "toControlDx": null,
-      "toControlDy": null,
-      "waypoints": []
-    },
-    {
-      "id": "2412a2cf-d086-4ac4-a0bb-95ac01284920",
-      "fromNodeId": "77252a7b-75b6-4083-9598-606e20ed8050",
-      "fromPort": "Done",
-      "fromControlDx": null,
-      "fromControlDy": null,
-      "toNodeId": "83160ff8-63d8-4eab-ad39-2e7235f86ce5",
       "toPort": "In",
       "toControlDx": null,
       "toControlDy": null,
@@ -374,18 +342,6 @@
       "waypoints": []
     },
     {
-      "id": "ff03927c-9c83-424d-9284-760a284e68b4",
-      "fromNodeId": "ecc6931b-7fab-4147-89f0-7749a308ed4a",
-      "fromPort": "Success",
-      "fromControlDx": null,
-      "fromControlDy": null,
-      "toNodeId": "77252a7b-75b6-4083-9598-606e20ed8050",
-      "toPort": "LoopBack",
-      "toControlDx": null,
-      "toControlDy": null,
-      "waypoints": []
-    },
-    {
       "id": "3a73c8d1-b020-4d6b-a8ef-19090c388a01",
       "fromNodeId": "ecc6931b-7fab-4147-89f0-7749a308ed4a",
       "fromPort": "Fail",
@@ -398,12 +354,62 @@
       "waypoints": []
     },
     {
-      "id": "f309c106-bd3a-4d5f-b47a-80fbc3f60bae",
-      "fromNodeId": "92848128-3238-4b24-9972-4878f3b6d7ce",
+      "id": "a7056def-f2bb-4cc1-beab-9c781593e6d3",
+      "fromNodeId": "814546d3-c626-4487-8967-83c83703ae43",
       "fromPort": "Out",
       "fromControlDx": null,
       "fromControlDy": null,
       "toNodeId": "77252a7b-75b6-4083-9598-606e20ed8050",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "cce466bb-5662-407e-a09d-dfb97e5a5acc",
+      "fromNodeId": "ecc6931b-7fab-4147-89f0-7749a308ed4a",
+      "fromPort": "Success",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "77252a7b-75b6-4083-9598-606e20ed8050",
+      "toPort": "LoopBack",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": [],
+      "directRoute": true
+    },
+    {
+      "id": "07e2deb0-eeae-4b1a-97d8-9c0efca945ea",
+      "fromNodeId": "77252a7b-75b6-4083-9598-606e20ed8050",
+      "fromPort": "Done",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "83160ff8-63d8-4eab-ad39-2e7235f86ce5",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": [],
+      "directRoute": true
+    },
+    {
+      "id": "0d26df5a-12e2-4fb9-b8a5-e33f563f694e",
+      "fromNodeId": "77252a7b-75b6-4083-9598-606e20ed8050",
+      "fromPort": "Item",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "6312de87-26b4-4d6c-b7e4-a5d9f862a960",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "c7f5c8f5-fe32-4673-9699-1cd4c75da590",
+      "fromNodeId": "6312de87-26b4-4d6c-b7e4-a5d9f862a960",
+      "fromPort": "Out",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "3f1dd131-65c9-44f8-8435-7cf0e4ebd3e4",
       "toPort": "In",
       "toControlDx": null,
       "toControlDy": null,
