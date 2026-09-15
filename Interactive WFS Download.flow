@@ -3,7 +3,6 @@
   "flowId": "dd209656-8cff-450f-8fbb-f0eb9c4126f3",
   "name": "WFS Downloads",
   "description": "Dette er en beskrivelse",
-  "globalValues": {},
   "nodes": [
     {
       "id": "aa8d92f0-ae89-4ae7-87f9-52b306a5253b",
@@ -14,7 +13,7 @@
       "y": 29.080000000000013,
       "width": 190,
       "height": 92,
-      "executionMode": "Enabled",
+      "executionMode": "Disabled",
       "settings": {
         "Scheduling": "no",
         "SingleTable": "",
@@ -72,8 +71,8 @@
       "width": 212,
       "height": 99,
       "executionMode": "Enabled",
-      "retryAttempts": 3,
-      "retryDelaySeconds": 10,
+      "retryAttempts": 2,
+      "retryDelaySeconds": 2,
       "settings": {
         "AdditionalQueryParameters": "",
         "BBox": "",
@@ -312,7 +311,7 @@
         "MaxParallelism": "20",
         "Mode": "Parallel",
         "ResultType": "Recordset",
-        "Sql": "select R.RegisterName, R.HarvestSchema, T.TableName, R.GetFeatureEndpoint from [workflow].[MetaTable] T \r\n  inner join [workflow].[MetaRegister] R on R.RegisterName = T.RegisterName \r\nwhere (R.RegisterName = \u0027\u00A4{PickedRegister}\u00A4\u0027  or \u0027\u00A4{PickedRegister,U}\u00A4\u0027=\u0027ALL\u0027)\r\n  and R.RegisterType = \u0027WFS\u0027\r\n  and T.Active=1 \r\n  and (T.TableName = \u0027\u00A4{SingleTable}\u00A4\u0027 or \u00A4{SingleTable,#}\u00A4=0)\r\n  order by T.HarvestTimestamp asc",
+        "Sql": "select R.RegisterName, R.HarvestSchema, T.TableName, R.GetFeatureEndpoint from [workflow].[MetaTable] T\r\n  inner join [workflow].[MetaRegister] R on R.RegisterName = T.RegisterName\r\nwhere (R.RegisterName = \u0027\u00A4{PickedRegister}\u00A4\u0027  or \u0027\u00A4{PickedRegister,U}\u00A4\u0027=\u0027ALL\u0027)\r\n  and R.RegisterType = \u0027WFS\u0027\r\n  and T.Active=1\r\n  and (T.TableName = \u0027\u00A4{SingleTable}\u00A4\u0027 or \u00A4{SingleTable,#}\u00A4=0)\r\n  and T.HarvestTimestamp \u003C= DATEADD(HOUR, -23, GETDATE())\r\n  order by T.HarvestTimestamp asc",
         "SqlTimeout": ""
       },
       "portPlacements": {
@@ -574,7 +573,9 @@
         "Italic": "Ja",
         "Size": "32",
         "Text": "WFS Interactive",
-        "Underline": "Nej"
+        "Underline": "Nej",
+        "HorizontalAlignment": "Left",
+        "VerticalAlignment": "Middle"
       },
       "portPlacements": {},
       "flippedPortSides": []
@@ -588,7 +589,7 @@
       "y": 40,
       "width": 190,
       "height": 92,
-      "executionMode": "Disabled",
+      "executionMode": "Enabled",
       "settings": {
         "PickedRegister": "ALL",
         "Scheduling": "no",
