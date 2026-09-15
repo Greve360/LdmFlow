@@ -133,7 +133,8 @@
       "executionMode": "Enabled",
       "settings": {
         "Instructions": "s/^[^:]*://\r\ns/[^a-z0-9_]/_/g\r\ns/_{2,}/_/g\r\ns/^_//; s/_$//",
-        "Source": "\u00A4{tablename,L}\u00A4"
+        "Source": "\u00A4{tablename,L}\u00A4",
+        "OutputVariable": "Edited"
       },
       "portPlacements": {},
       "flippedPortSides": []
@@ -326,16 +327,20 @@
       "name": "Schedule Gate",
       "category": "Module",
       "nodeType": "ScheduleGate",
-      "x": 620.0999999999999,
+      "x": 621.0999999999999,
       "y": 880.1600000000001,
       "width": 200,
       "height": 102,
       "executionMode": "Enabled",
       "settings": {
+        "ConnectionString": "\u00A4[GrunddataDB]\u00A4",
         "Date": "2026-08-25",
-        "Enabled": "\u00A4{Scheduling}\u00A4",
+        "DBMS": "Postgres",
+        "DestinationTableName": "\u00A4{HarvestSchema}\u00A4.\u00A4{Edited}\u00A4",
+        "OnceOnlyEnabled": "\u00A4{ScheduleOnce}\u00A4",
         "RegisterName": "\u00A4{RegisterName}\u00A4",
-        "TableName": "\u00A4{tablename}\u00A4"
+        "TableName": "\u00A4{tablename}\u00A4",
+        "WeeklyEnabled": "\u00A4{ScheduleWeekly}\u00A4"
       },
       "portPlacements": {
         "O:False": "Top"
@@ -592,9 +597,10 @@
       "executionMode": "Enabled",
       "settings": {
         "PickedRegister": "ALL",
-        "Scheduling": "no",
         "SingleTable": "",
-        "WfsErrors": "WFS Fejl:"
+        "WfsErrors": "WFS Fejl:",
+        "ScheduleOnce": "yes",
+        "ScheduleWeekly": "yes"
       },
       "portPlacements": {
         "O:Out": "Bottom"
