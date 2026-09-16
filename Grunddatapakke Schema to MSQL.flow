@@ -48,8 +48,8 @@
       "name": "Get SQL Fields",
       "category": "Module",
       "nodeType": "GetSqlFields",
-      "x": 852.8950617283951,
-      "y": 440.67901234567773,
+      "x": 698.8950617283951,
+      "y": 424.67901234567773,
       "width": 200,
       "height": 102,
       "executionMode": "Enabled",
@@ -83,7 +83,7 @@
         "MaxParallelism": "10",
         "Mode": "Parallel",
         "ResultType": "Recordset",
-        "Sql": "select \r\nR.harvestSchema as harvestschema,\r\nR.targetschema as targetschema, \r\nT.TableName as tablename \r\nfrom workflow.MetaRegister R\r\ninner join workflow.MetaTable T on R.RegisterName = T.RegisterName\r\nwhere R.RegisterType = \u0027WFS\u0027\r\nand (R.harvestSchema like \u0027\u00A4{PostgresSchema}\u00A4\u0027 or \u00A4{PostgresSchema,#}\u00A4 = 0)\r\nand R.Active = 1 and T.Active = 1\r\norder by R.targetschema desc, T.TableName ",
+        "Sql": "select \r\nR.harvestSchema as harvestschema,\r\nR.targetschema as targetschema, \r\nT.TableName as tablename \r\nfrom workflow.MetaRegister R\r\ninner join workflow.MetaTable T on R.RegisterName = T.RegisterName\r\nwhere R.RegisterType = \u0027WFS\u0027\r\nand T.HarvestTimestamp \u003E T.PublishTimestamp\r\nand (R.harvestSchema like \u0027\u00A4{PostgresSchema}\u00A4\u0027 or \u00A4{PostgresSchema,#}\u00A4 = 0)\r\nand R.Active = 1 and T.Active = 1\r\norder by R.targetschema desc, T.TableName ",
         "SqlTimeout": ""
       },
       "portPlacements": {
@@ -100,8 +100,8 @@
       "name": "Display",
       "category": "Module",
       "nodeType": "Display",
-      "x": 788.3950617283955,
-      "y": 718.6790123456775,
+      "x": 695.3950617283955,
+      "y": 610.6790123456775,
       "width": 301,
       "height": 108,
       "executionMode": "Enabled",
@@ -110,7 +110,7 @@
       },
       "portPlacements": {
         "I:In": "Top",
-        "O:Out": "Left"
+        "O:Out": "Bottom"
       },
       "flippedPortSides": []
     },
@@ -119,8 +119,8 @@
       "name": "Ensure Schema",
       "category": "Module",
       "nodeType": "EnsureSchema",
-      "x": 332.89506172839594,
-      "y": 740.6790123456768,
+      "x": 560.895061728396,
+      "y": 832.6790123456768,
       "width": 200,
       "height": 102,
       "executionMode": "Enabled",
@@ -130,18 +130,20 @@
         "SchemaName": "\u00A4{targetschema}\u00A4"
       },
       "portPlacements": {
-        "I:In": "Right",
+        "I:In": "Top",
         "O:Success": "Top"
       },
-      "flippedPortSides": []
+      "flippedPortSides": [
+        "Top"
+      ]
     },
     {
       "id": "975273e1-4cc1-4e30-a024-8dd99a09b6f7",
       "name": "Drop Table (if exists)",
       "category": "Module",
       "nodeType": "DropTableIfExists",
-      "x": 280.39506172839594,
-      "y": 454.67901234567637,
+      "x": 420.39506172839594,
+      "y": 606.6790123456764,
       "width": 200,
       "height": 102,
       "executionMode": "Enabled",
@@ -161,8 +163,8 @@
       "name": "OGR2OGR (external)",
       "category": "Module",
       "nodeType": "OGR2OGRExternal",
-      "x": 362,
-      "y": 240,
+      "x": 414,
+      "y": 424,
       "width": 200,
       "height": 102,
       "executionMode": "Enabled",
@@ -217,8 +219,8 @@
       "name": "Stream Edit",
       "category": "Module",
       "nodeType": "StreamEdit",
-      "x": 727,
-      "y": 247,
+      "x": 683,
+      "y": 253,
       "width": 190,
       "height": 92,
       "executionMode": "Enabled",
@@ -230,6 +232,34 @@
       "portPlacements": {
         "O:Out": "Bottom",
         "I:In": "Top"
+      },
+      "flippedPortSides": []
+    },
+    {
+      "id": "83bc8c75-d392-43fa-9c9a-704845a00014",
+      "name": "Update PublishTimestamp",
+      "category": "Module",
+      "nodeType": "ExecuteSQL",
+      "x": 393,
+      "y": 246,
+      "width": 232,
+      "height": 103,
+      "executionMode": "Enabled",
+      "settings": {
+        "CommandTimeout": "0",
+        "ConnectionString": "\u00A4[DdmSysDb]\u00A4",
+        "DBMS": "MSSQL",
+        "ExecuteEachLine": "False",
+        "FilePath": "",
+        "InTransaction": "False",
+        "MaxRows": "0",
+        "QueryType": "NonQuery",
+        "ResultVariable": "",
+        "SQL": "update workflow.MetaTable \r\nset PublishTimestamp = GetDate()\r\nwhere RegisterName = \u0027\u00A4{RegisterName}\u00A4\u0027 and TableName = \u0027\u00A4{TableName}\u00A4\u0027"
+      },
+      "portPlacements": {
+        "I:In": "Bottom",
+        "O:Success": "Top"
       },
       "flippedPortSides": []
     }
@@ -379,19 +409,6 @@
       "directRoute": true
     },
     {
-      "id": "cce466bb-5662-407e-a09d-dfb97e5a5acc",
-      "fromNodeId": "ecc6931b-7fab-4147-89f0-7749a308ed4a",
-      "fromPort": "Success",
-      "fromControlDx": null,
-      "fromControlDy": null,
-      "toNodeId": "77252a7b-75b6-4083-9598-606e20ed8050",
-      "toPort": "LoopBack",
-      "toControlDx": null,
-      "toControlDy": null,
-      "waypoints": [],
-      "directRoute": true
-    },
-    {
       "id": "07e2deb0-eeae-4b1a-97d8-9c0efca945ea",
       "fromNodeId": "77252a7b-75b6-4083-9598-606e20ed8050",
       "fromPort": "Done",
@@ -424,6 +441,43 @@
       "fromControlDx": null,
       "fromControlDy": null,
       "toNodeId": "3f1dd131-65c9-44f8-8435-7cf0e4ebd3e4",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": [],
+      "directRoute": true
+    },
+    {
+      "id": "6e157c95-a16c-4446-9ffe-ff63fb6b2147",
+      "fromNodeId": "ecc6931b-7fab-4147-89f0-7749a308ed4a",
+      "fromPort": "Success",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "83bc8c75-d392-43fa-9c9a-704845a00014",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "493f466f-77ed-4d02-a473-c0e0c7159302",
+      "fromNodeId": "83bc8c75-d392-43fa-9c9a-704845a00014",
+      "fromPort": "Success",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "77252a7b-75b6-4083-9598-606e20ed8050",
+      "toPort": "LoopBack",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "6f2101cd-c600-4705-ae15-a634b1602970",
+      "fromNodeId": "83bc8c75-d392-43fa-9c9a-704845a00014",
+      "fromPort": "Fail",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "fdb4fe13-c0f6-47fc-97b1-ed64d838f93a",
       "toPort": "In",
       "toControlDx": null,
       "toControlDy": null,
