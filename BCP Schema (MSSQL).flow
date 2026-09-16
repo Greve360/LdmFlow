@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "flowId": "51af7ef8-5805-46d1-8473-496306efafb7",
-  "name": "New workflow",
+  "name": "BCP - Server -\u003E Server",
   "description": "per-table auto-create-if-missing \r\n(Generate DDL \u2192 Create Table \u2192 ALTER SCHEMA ... TRANSFER, with the dbo-default-schema assumption called out explicitly), \r\n\r\nthe truncate-before-load behavior, why native format demands exact ANSI/Unicode and spatial-type fidelity, -E for identity preservation, and the explicit caveat that indexes/constraints/triggers aren\u0027t recreated. \r\n\r\nAnyone opening this flow (Workflow \u25B8 Description) now gets the reasoning without asking again.",
   "nodes": [
     {
@@ -13,7 +13,7 @@
       "y": 263,
       "width": 200,
       "height": 102,
-      "executionMode": "Disabled",
+      "executionMode": "Enabled",
       "settings": {
         "BCPTempFolder": "\u00A4[WorkingFolder]\u00A4",
         "DestinationConnectionString": "\u00A4[RegisterWorkDB]\u00A4",
@@ -64,7 +64,7 @@
         "MaxParallelism": "4",
         "Mode": "Sequential",
         "ResultType": "Recordset",
-        "Sql": "SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = \u0027\u00A4{SourceSchema}\u00A4\u0027 AND TABLE_TYPE = \u0027BASE TABLE\u0027 ORDER BY TABLE_NAME",
+        "Sql": "SELECT \r\nTABLE_NAME \r\nFROM INFORMATION_SCHEMA.TABLES \r\nWHERE TABLE_SCHEMA = \u0027\u00A4{SourceSchema}\u00A4\u0027 \r\nand (TABLE_NAME = \u0027\u00A4{SingleTable}\u00A4\u0027 or \u00A4{SingleTable,#}\u00A4 = 0)\r\nAND TABLE_TYPE = \u0027BASE TABLE\u0027 ORDER BY TABLE_NAME",
         "SqlTimeout": ""
       },
       "portPlacements": {
@@ -79,20 +79,20 @@
       "name": "Text",
       "category": "Module",
       "nodeType": "Text",
-      "x": 63,
-      "y": 37,
-      "width": 295,
-      "height": 94,
+      "x": 56,
+      "y": 24,
+      "width": 541,
+      "height": 85,
       "executionMode": "Enabled",
       "settings": {
         "Bold": "Nej",
         "Color": "Orange",
         "Font": "Segoe UI",
+        "HorizontalAlignment": "Left",
         "Italic": "Nej",
         "Size": "24",
-        "Text": "BCP An Entire Schema",
+        "Text": "BCP An Entire Schema (Trusted connection)",
         "Underline": "Nej",
-        "HorizontalAlignment": "Left",
         "VerticalAlignment": "Middle"
       },
       "portPlacements": {},
@@ -155,8 +155,8 @@
       "name": "Ensure Destination Schema",
       "category": "Module",
       "nodeType": "EnsureSchema",
-      "x": 320,
-      "y": 117,
+      "x": 319,
+      "y": 154,
       "width": 200,
       "height": 102,
       "executionMode": "Enabled",
@@ -420,7 +420,7 @@
       "y": 398,
       "width": 200,
       "height": 102,
-      "executionMode": "Enabled",
+      "executionMode": "Disabled",
       "settings": {
         "BCPTempFolder": "\u00A4[WorkingFolder]\u00A4",
         "DestinationConnectionString": "\u00A4[RegisterWorkDB]\u00A4",
