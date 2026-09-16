@@ -312,7 +312,7 @@
         "MaxParallelism": "20",
         "Mode": "Parallel",
         "ResultType": "Recordset",
-        "Sql": "select R.RegisterName, R.HarvestSchema, T.TableName, R.GetFeatureEndpoint from [workflow].[MetaTable] T\r\n  inner join [workflow].[MetaRegister] R on R.RegisterName = T.RegisterName\r\nwhere (R.RegisterName = \u0027\u00A4{PickedRegister}\u00A4\u0027  or \u0027\u00A4{PickedRegister,U}\u00A4\u0027=\u0027ALL\u0027)\r\n  and R.RegisterType = \u0027WFS\u0027\r\n  and T.Active=1\r\n  and (T.TableName = \u0027\u00A4{SingleTable}\u00A4\u0027 or \u00A4{SingleTable,#}\u00A4=0)\r\n  and T.HarvestTimestamp \u003C= DATEADD(HOUR, -23, GETDATE())\r\n  order by T.HarvestTimestamp asc",
+        "Sql": "select R.RegisterName, R.HarvestSchema, T.TableName, R.GetFeatureEndpoint from [workflow].[MetaTable] T\r\n  inner join [workflow].[MetaRegister] R on R.RegisterName = T.RegisterName\r\nwhere (R.RegisterName = \u0027\u00A4{PickedRegister}\u00A4\u0027  or \u0027\u00A4{PickedRegister,U}\u00A4\u0027=\u0027ALL\u0027)\r\n  and R.RegisterType = \u0027WFS\u0027\r\n  and T.Active=1\r\n  and (T.TableName = \u0027\u00A4{SingleTable}\u00A4\u0027 or \u00A4{SingleTable,#}\u00A4=0)\r\n  and T.HarvestTimestamp \u003C= DATEADD(HOUR, -12, GETDATE())\r\n  order by T.HarvestTimestamp asc",
         "SqlTimeout": ""
       },
       "portPlacements": {
@@ -591,16 +591,16 @@
       "category": "Module",
       "nodeType": "Start",
       "x": 539,
-      "y": 40,
+      "y": 39,
       "width": 190,
       "height": 92,
       "executionMode": "Enabled",
       "settings": {
         "PickedRegister": "ALL",
-        "SingleTable": "",
-        "WfsErrors": "WFS Fejl:",
         "ScheduleOnce": "yes",
-        "ScheduleWeekly": "yes"
+        "ScheduleWeekly": "no",
+        "SingleTable": "",
+        "WfsErrors": "WFS Fejl:"
       },
       "portPlacements": {
         "O:Out": "Bottom"
