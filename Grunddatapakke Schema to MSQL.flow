@@ -73,7 +73,7 @@
       "category": "Module",
       "nodeType": "SqlIterator",
       "x": 534.5,
-      "y": 39,
+      "y": 38,
       "width": 190,
       "height": 92,
       "executionMode": "Enabled",
@@ -83,7 +83,7 @@
         "MaxParallelism": "10",
         "Mode": "Parallel",
         "ResultType": "Recordset",
-        "Sql": "select \r\nR.harvestSchema as harvestschema,\r\nR.targetschema as targetschema, \r\nT.TableName as tablename \r\nfrom workflow.MetaRegister R\r\ninner join workflow.MetaTable T on R.RegisterName = T.RegisterName\r\nwhere R.RegisterType = \u0027WFS\u0027\r\nand T.HarvestTimestamp \u003E T.PublishTimestamp\r\nand (R.harvestSchema like \u0027\u00A4{PostgresSchema}\u00A4\u0027 or \u00A4{PostgresSchema,#}\u00A4 = 0)\r\nand R.Active = 1 and T.Active = 1\r\norder by R.targetschema desc, T.TableName ",
+        "Sql": "select \r\nR.RegisterName as RegisterName,\r\nR.harvestSchema as harvestschema,\r\nR.targetschema as targetschema, \r\nT.TableName as tablename \r\nfrom workflow.MetaRegister R\r\ninner join workflow.MetaTable T on R.RegisterName = T.RegisterName\r\nwhere R.RegisterType = \u0027WFS\u0027\r\nand T.HarvestTimestamp \u003E T.PublishTimestamp\r\nand (R.harvestSchema like \u0027\u00A4{PostgresSchema}\u00A4\u0027 or \u00A4{PostgresSchema,#}\u00A4 = 0)\r\nand R.Active = 1 and T.Active = 1\r\norder by R.targetschema desc, T.TableName ",
         "SqlTimeout": ""
       },
       "portPlacements": {
@@ -208,7 +208,7 @@
       "executionMode": "Enabled",
       "settings": {
         "DestinationMSSQL": "\u00A4[RegisterWorkDB]\u00A4",
-        "PostgresSchema": "",
+        "PostgresSchema": "dai01",
         "RowLimiter": ""
       },
       "portPlacements": {},
