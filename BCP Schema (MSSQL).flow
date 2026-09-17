@@ -10,20 +10,21 @@
       "category": "Module",
       "nodeType": "Start",
       "x": 43,
-      "y": 263,
+      "y": 262,
       "width": 200,
       "height": 102,
       "executionMode": "Enabled",
       "settings": {
         "BCPTempFolder": "\u00A4[WorkingFolder]\u00A4",
-        "DestinationConnectionString": "\u00A4[RegisterWorkDB]\u00A4",
-        "DestinationDatabase": "RegisterWork",
+        "DestinationConnectionString": "server=LdmCprSql01.lifa.dk;database=CVR_HistvNy;Trusted_Connection=True;MultipleActiveResultSets=True;Pooling=yes;TrustServerCertificate=yes;Encrypt=False",
+        "DestinationDatabase": "CVR_HistvNy",
         "DestinationSchema": "ERST_CVR",
-        "DestinationServer": "10.10.1.97",
+        "DestinationServer": "LdmCprSql01.lifa.dk",
         "SourceConnectionString": "\u00A4[MSSQL_Sandbox]\u00A4",
         "SourceDatabase": "Sandbox",
         "SourceSchema": "ERST_CVR",
-        "SourceServer": "10-GM0RZQ8N"
+        "SourceServer": "10-GM0RZQ8N",
+        "SingleTable": ""
       },
       "portPlacements": {},
       "flippedPortSides": []
@@ -33,8 +34,8 @@
       "name": "ILogger",
       "category": "Module",
       "nodeType": "ILogger",
-      "x": 1486,
-      "y": 385,
+      "x": 1512,
+      "y": 481,
       "width": 200,
       "height": 102,
       "executionMode": "Enabled",
@@ -302,8 +303,8 @@
       "name": "Play Sound",
       "category": "Module",
       "nodeType": "PlaySound",
-      "x": 953,
-      "y": 83,
+      "x": 1164,
+      "y": 65,
       "width": 200,
       "height": 102,
       "executionMode": "Enabled",
@@ -338,15 +339,17 @@
       "name": "Firework",
       "category": "Module",
       "nodeType": "Firework",
-      "x": 1210,
-      "y": 105,
+      "x": 1427,
+      "y": 69,
       "width": 200,
       "height": 102,
       "executionMode": "Enabled",
       "settings": {
         "Seconds": "5"
       },
-      "portPlacements": {},
+      "portPlacements": {
+        "O:Out": "Bottom"
+      },
       "flippedPortSides": []
     },
     {
@@ -397,8 +400,8 @@
       "name": "Exit",
       "category": "Module",
       "nodeType": "Exit",
-      "x": 1480,
-      "y": 169,
+      "x": 1531,
+      "y": 254,
       "width": 200,
       "height": 102,
       "executionMode": "Enabled",
@@ -407,7 +410,8 @@
         "ExitMessage": ""
       },
       "portPlacements": {
-        "I:Fail": "Bottom"
+        "I:Fail": "Bottom",
+        "I:In": "Top"
       },
       "flippedPortSides": []
     },
@@ -417,7 +421,7 @@
       "category": "Module",
       "nodeType": "Start",
       "x": 42,
-      "y": 398,
+      "y": 399,
       "width": 200,
       "height": 102,
       "executionMode": "Disabled",
