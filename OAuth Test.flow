@@ -3,7 +3,6 @@
   "flowId": "a4b99df6-acb0-4673-ab96-b8ae1dae17b6",
   "name": "OAuth Test",
   "description": "",
-  "globalValues": {},
   "nodes": [
     {
       "id": "44423f66-f7c5-4a08-8f30-2969f9377f35",
@@ -442,11 +441,11 @@
     },
     {
       "id": "e47e1e46-eaf6-42a1-af0a-1742150f6088",
-      "name": "GetAvailableFileDownloadsDaf",
+      "name": "GetAvailableFileCustomDownloadsDaf",
       "category": "Module",
       "nodeType": "GetAvailableFileDownloadsDaf",
       "x": 372,
-      "y": 52,
+      "y": 51,
       "width": 200,
       "height": 102,
       "executionMode": "Nop",
@@ -454,6 +453,7 @@
         "Clean": "yes",
         "ConnectionString": "\u00A4[DdmSysDb]\u00A4",
         "ContainedFileFormat": "JSON",
+        "ContinueOnError": "Nej",
         "DafFileDownloadUrl": "https://api.datafordeler.dk/FileDownloads/v1.0/GetAvailableCustomFileDownloads",
         "OAuthCertificatePassword": "",
         "OAuthCertificatePath": "",
@@ -462,6 +462,7 @@
         "OAuthMode": "SharedSecret",
         "OAuthTokenUrl": "https://auth.datafordeler.dk/realms/distribution/protocol/openid-connect/token",
         "Register": "",
+        "ResponseType": "Normal",
         "Table": "workflow.DafFiles2",
         "TypeOfData": "Bitemporal",
         "TypeOfDownload": ""
@@ -475,23 +476,25 @@
       "category": "Module",
       "nodeType": "GetAvailableFileDownloadsDaf",
       "x": 688,
-      "y": 48,
+      "y": 47,
       "width": 200,
       "height": 102,
-      "executionMode": "Nop",
+      "executionMode": "Enabled",
       "settings": {
         "Clean": "yes",
         "ConnectionString": "\u00A4[DdmSysDb]\u00A4",
         "ContainedFileFormat": "JSON",
+        "ContinueOnError": "Nej",
         "DafFileDownloadUrl": "https://api.datafordeler.dk/FileDownloads/v2.0/GetAvailableFileDownloads?Register=EJF",
         "OAuthCertificatePassword": "",
         "OAuthCertificatePath": "",
-        "OAuthClientId": "\u00A4[OAuthClient]\u00A4",
-        "OAuthClientSecret": "\u00A4[OAuthSecret]\u00A4",
+        "OAuthClientId": "2dbe92de-0ecb-464f-bcd2-dd73ab955ccd",
+        "OAuthClientSecret": "VeY4Dqp1keqBiQWhkOKeg2xW4pBh5lrh",
         "OAuthMode": "SharedSecret",
         "OAuthTokenUrl": "https://auth.datafordeler.dk/realms/distribution/protocol/openid-connect/token",
         "Register": "",
-        "Table": "workflow.DafFiles2",
+        "ResponseType": "Normal",
+        "Table": "workflow.DafFilesEjfNormal",
         "TypeOfData": "Bitemporal",
         "TypeOfDownload": ""
       },
@@ -916,6 +919,32 @@
       "toControlDx": null,
       "toControlDy": null,
       "waypoints": []
+    },
+    {
+      "id": "92604234-b36f-48d2-ba54-aa614cc356e0",
+      "fromNodeId": "6ef73b72-5f59-448f-aad3-be647b48aee9",
+      "fromPort": "Fail",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "6e8bf30b-c55c-47cf-a08c-d7698810fb56",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": [],
+      "directRoute": true
+    },
+    {
+      "id": "15e38764-ce4f-498c-864c-50787e64e5b2",
+      "fromNodeId": "e47e1e46-eaf6-42a1-af0a-1742150f6088",
+      "fromPort": "Fail",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "6e8bf30b-c55c-47cf-a08c-d7698810fb56",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": [],
+      "directRoute": true
     }
   ]
 }
