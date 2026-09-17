@@ -3,20 +3,21 @@
   "flowId": "558b86de-c16b-47a9-97a8-169cccdc7405",
   "name": "OAuth Test",
   "description": "",
-  "globalValues": {},
   "nodes": [
     {
       "id": "44423f66-f7c5-4a08-8f30-2969f9377f35",
       "name": "Start",
       "category": "Module",
       "nodeType": "Start",
-      "x": 57.400000000000006,
-      "y": 51.08000000000001,
+      "x": 59.400000000000006,
+      "y": 80.08000000000001,
       "width": 200,
       "height": 102,
       "executionMode": "Enabled",
       "settings": {},
-      "portPlacements": {},
+      "portPlacements": {
+        "O:Out": "Bottom"
+      },
       "flippedPortSides": []
     },
     {
@@ -24,8 +25,8 @@
       "name": "Exit",
       "category": "Module",
       "nodeType": "Exit",
-      "x": 1431.9,
-      "y": 866.12,
+      "x": 1447.9,
+      "y": 833.12,
       "width": 200,
       "height": 102,
       "executionMode": "Enabled",
@@ -63,11 +64,11 @@
       "name": "Ejendomsadministrator Med Stamoplysninger",
       "category": "Module",
       "nodeType": "HttpsDownload",
-      "x": 22.400000000000006,
-      "y": 431.6,
+      "x": 27.400000000000006,
+      "y": 558.6,
       "width": 200,
       "height": 102,
-      "executionMode": "Nop",
+      "executionMode": "Enabled",
       "settings": {
         "ContinueOnError": "Nej",
         "Destination": "d:\\Data\\EJF\\EjendomsadministratorMedStamoplysninger.zip",
@@ -80,7 +81,8 @@
         "Password": "",
         "SkipIfFileExists": "Yes",
         "Url": "https://api.datafordeler.dk/FileDownloads/v1.0/GetFile?filename=EJFCustom_V1_EjendomsadministratorMedStamoplysninger_TotalDownload_json_Current_447.zip",
-        "User": ""
+        "User": "",
+        "ApiKey": ""
       },
       "portPlacements": {
         "I:In": "Top"
@@ -92,11 +94,11 @@
       "name": "Ejerskab Med Stamoplysninger",
       "category": "Module",
       "nodeType": "HttpsDownload",
-      "x": 22.400000000000006,
-      "y": 581.4000000000001,
+      "x": 27.400000000000006,
+      "y": 708.4000000000001,
       "width": 200,
       "height": 102,
-      "executionMode": "Nop",
+      "executionMode": "Enabled",
       "settings": {
         "ContinueOnError": "Nej",
         "Destination": "d:\\Data\\EJF\\EjerskabMedStamoplysninger.zip",
@@ -109,7 +111,8 @@
         "Password": "",
         "SkipIfFileExists": "Yes",
         "Url": "https://api.datafordeler.dk/FileDownloads/v1.0/GetFile?filename=EJFCustom_V1_EjerskabMedStamoplysninger_TotalDownload_json_Current_447.zip",
-        "User": ""
+        "User": "",
+        "ApiKey": ""
       },
       "portPlacements": {
         "I:In": "Top"
@@ -121,11 +124,11 @@
       "name": "PersonEllerVirksomhedsAdministrator Med Stamoplysninger",
       "category": "Module",
       "nodeType": "HttpsDownload",
-      "x": 9.400000000000006,
-      "y": 725.7,
+      "x": 14.400000000000006,
+      "y": 852.7,
       "width": 239,
       "height": 155,
-      "executionMode": "Nop",
+      "executionMode": "Enabled",
       "settings": {
         "ContinueOnError": "Nej",
         "Destination": "d:\\Data\\EJF\\PersonEllerVirksomhedsAdministratorMedStamoplysninger.zip",
@@ -138,7 +141,8 @@
         "Password": "",
         "SkipIfFileExists": "Yes",
         "Url": "https://api.datafordeler.dk/FileDownloads/v1.0/GetFile?filename=EJFCustom_V1_PersonEllerVirksomhedsAdministratorMedStamoplysninger_TotalDownload_json_Current_447.zip",
-        "User": ""
+        "User": "",
+        "ApiKey": ""
       },
       "portPlacements": {
         "I:In": "Top"
@@ -150,11 +154,11 @@
       "name": "Import DAF JSON",
       "category": "Module",
       "nodeType": "ImportDafJson",
-      "x": 768.3000000000001,
-      "y": 435.6,
+      "x": 773.3000000000001,
+      "y": 562.6,
       "width": 213,
       "height": 92,
-      "executionMode": "Nop",
+      "executionMode": "Enabled",
       "settings": {
         "CommitEachRow": "No",
         "ConnectionString": "\u00A4[DafDataDB]\u00A4",
@@ -177,11 +181,11 @@
       "name": "Learn DAF JSON",
       "category": "Module",
       "nodeType": "LearnDafJson",
-      "x": 265.20000000000005,
-      "y": 435.6,
+      "x": 270.20000000000005,
+      "y": 562.6,
       "width": 216,
       "height": 92,
-      "executionMode": "Nop",
+      "executionMode": "Enabled",
       "settings": {
         "DafSchema": "\u00A4[WorkingFolder]\u00A4\\Schemas\\EJF.xsd",
         "JsonFile": "d:\\Data\\EJF\\EjendomsadministratorMedStamoplysninger.zip",
@@ -198,11 +202,11 @@
       "name": "Import DAF JSON",
       "category": "Module",
       "nodeType": "ImportDafJson",
-      "x": 768.3000000000001,
-      "y": 587.4000000000001,
+      "x": 773.3000000000001,
+      "y": 714.4000000000001,
       "width": 213,
       "height": 92,
-      "executionMode": "Nop",
+      "executionMode": "Enabled",
       "settings": {
         "CommitEachRow": "No",
         "ConnectionString": "\u00A4[DafDataDB]\u00A4",
@@ -225,11 +229,11 @@
       "name": "Learn DAF JSON",
       "category": "Module",
       "nodeType": "LearnDafJson",
-      "x": 265.20000000000005,
-      "y": 587.4000000000001,
+      "x": 270.20000000000005,
+      "y": 714.4000000000001,
       "width": 216,
       "height": 92,
-      "executionMode": "Nop",
+      "executionMode": "Enabled",
       "settings": {
         "DafSchema": "\u00A4[WorkingFolder]\u00A4\\Schemas\\EJF.xsd",
         "JsonFile": "d:\\Data\\EJF\\EjerskabMedStamoplysninger.zip",
@@ -246,11 +250,11 @@
       "name": "Import DAF JSON",
       "category": "Module",
       "nodeType": "ImportDafJson",
-      "x": 768.3000000000001,
-      "y": 739.2,
+      "x": 773.3000000000001,
+      "y": 866.2,
       "width": 213,
       "height": 92,
-      "executionMode": "Nop",
+      "executionMode": "Enabled",
       "settings": {
         "CommitEachRow": "No",
         "ConnectionString": "\u00A4[DafDataDB]\u00A4",
@@ -273,11 +277,11 @@
       "name": "Learn DAF JSON",
       "category": "Module",
       "nodeType": "LearnDafJson",
-      "x": 265.20000000000005,
-      "y": 739.2,
+      "x": 270.20000000000005,
+      "y": 866.2,
       "width": 216,
       "height": 92,
-      "executionMode": "Nop",
+      "executionMode": "Enabled",
       "settings": {
         "DafSchema": "\u00A4[WorkingFolder]\u00A4\\Schemas\\EJF.xsd",
         "JsonFile": "d:\\Data\\EJF\\PersonEllerVirksomhedsAdministratorMedStamoplysninger.zip",
@@ -294,11 +298,11 @@
       "name": "Update Metadata",
       "category": "Module",
       "nodeType": "UpdateMetadata",
-      "x": 1025.6000000000001,
-      "y": 430.6,
+      "x": 1030.6000000000001,
+      "y": 557.6,
       "width": 200,
       "height": 102,
-      "executionMode": "Nop",
+      "executionMode": "Enabled",
       "settings": {
         "ClearExisting": "No",
         "ConnectionString": "\u00A4[DafDataDB]\u00A4",
@@ -319,11 +323,11 @@
       "name": "Schema \u002B Drop Table",
       "category": "Module",
       "nodeType": "ExecuteSQL",
-      "x": 529,
-      "y": 435.6,
+      "x": 534,
+      "y": 562.6,
       "width": 190,
       "height": 92,
-      "executionMode": "Nop",
+      "executionMode": "Enabled",
       "settings": {
         "CommandTimeout": "0",
         "ConnectionString": "\u00A4[DafDataDB]\u00A4",
@@ -344,11 +348,11 @@
       "name": "Update Metadata",
       "category": "Module",
       "nodeType": "UpdateMetadata",
-      "x": 1025.6000000000001,
-      "y": 734.2,
+      "x": 1030.6000000000001,
+      "y": 861.2,
       "width": 200,
       "height": 102,
-      "executionMode": "Nop",
+      "executionMode": "Enabled",
       "settings": {
         "ClearExisting": "No",
         "ConnectionString": "\u00A4[DafDataDB]\u00A4",
@@ -359,9 +363,7 @@
         "SchemaName": "ejf",
         "TableName": "personellervirksomhedsadministratormedstamoplysninger"
       },
-      "portPlacements": {
-        "O:Out": "Bottom"
-      },
+      "portPlacements": {},
       "flippedPortSides": []
     },
     {
@@ -369,11 +371,11 @@
       "name": "Schema \u002B Drop Table",
       "category": "Module",
       "nodeType": "ExecuteSQL",
-      "x": 529,
-      "y": 739.2,
+      "x": 534,
+      "y": 866.2,
       "width": 190,
       "height": 92,
-      "executionMode": "Nop",
+      "executionMode": "Enabled",
       "settings": {
         "CommandTimeout": "0",
         "ConnectionString": "\u00A4[DafDataDB]\u00A4",
@@ -394,11 +396,11 @@
       "name": "Update Metadata",
       "category": "Module",
       "nodeType": "UpdateMetadata",
-      "x": 1025.6000000000001,
-      "y": 582.4000000000001,
+      "x": 1030.6000000000001,
+      "y": 709.4000000000001,
       "width": 200,
       "height": 102,
-      "executionMode": "Nop",
+      "executionMode": "Enabled",
       "settings": {
         "ClearExisting": "No",
         "ConnectionString": "\u00A4[DafDataDB]\u00A4",
@@ -419,11 +421,11 @@
       "name": "Schema \u002B Drop Table",
       "category": "Module",
       "nodeType": "ExecuteSQL",
-      "x": 529,
-      "y": 587.4000000000001,
+      "x": 534,
+      "y": 714.4000000000001,
       "width": 190,
       "height": 92,
-      "executionMode": "Nop",
+      "executionMode": "Enabled",
       "settings": {
         "CommandTimeout": "0",
         "ConnectionString": "\u00A4[DafDataDB]\u00A4",
@@ -444,8 +446,8 @@
       "name": "GetAvailableFileDownloadsDaf",
       "category": "Module",
       "nodeType": "GetAvailableFileDownloadsDaf",
-      "x": 371,
-      "y": 52,
+      "x": 27,
+      "y": 232,
       "width": 277,
       "height": 106,
       "executionMode": "Enabled",
@@ -468,7 +470,8 @@
         "TypeOfDownload": ""
       },
       "portPlacements": {
-        "O:Out": "Bottom"
+        "O:Out": "Bottom",
+        "I:In": "Top"
       },
       "flippedPortSides": []
     },
@@ -477,8 +480,8 @@
       "name": "Ejendomsadministrator Med Stamoplysninger",
       "category": "Module",
       "nodeType": "HttpsDownload",
-      "x": 35,
-      "y": 239,
+      "x": 31,
+      "y": 400,
       "width": 200,
       "height": 102,
       "executionMode": "Enabled",
@@ -494,7 +497,8 @@
         "Password": "",
         "SkipIfFileExists": "Yes",
         "Url": "https://api.datafordeler.dk/FileDownloads/v1.0/GetFile?filename=EJFCustom_V1_AlternativAdresseBegraenset_TotalDownload_json_Current_452.zip",
-        "User": ""
+        "User": "",
+        "ApiKey": ""
       },
       "portPlacements": {
         "I:In": "Top"
@@ -506,8 +510,8 @@
       "name": "Import DAF JSON",
       "category": "Module",
       "nodeType": "ImportDafJson",
-      "x": 780.9000000000001,
-      "y": 243,
+      "x": 776.9000000000001,
+      "y": 404,
       "width": 213,
       "height": 92,
       "executionMode": "Enabled",
@@ -533,8 +537,8 @@
       "name": "Learn DAF JSON",
       "category": "Module",
       "nodeType": "LearnDafJson",
-      "x": 277.80000000000007,
-      "y": 242.69135802469137,
+      "x": 273.80000000000007,
+      "y": 403.69135802469134,
       "width": 216,
       "height": 92,
       "executionMode": "Enabled",
@@ -554,8 +558,8 @@
       "name": "Update Metadata",
       "category": "Module",
       "nodeType": "UpdateMetadata",
-      "x": 1038.2000000000003,
-      "y": 238,
+      "x": 1034.2000000000003,
+      "y": 399,
       "width": 200,
       "height": 102,
       "executionMode": "Enabled",
@@ -579,8 +583,8 @@
       "name": "Schema \u002B Drop Table",
       "category": "Module",
       "nodeType": "ExecuteSQL",
-      "x": 541.6,
-      "y": 243,
+      "x": 537.6,
+      "y": 404,
       "width": 190,
       "height": 92,
       "executionMode": "Enabled",
@@ -974,18 +978,6 @@
       "waypoints": []
     },
     {
-      "id": "5469a631-a151-4a02-a885-0c8e844ecf3f",
-      "fromNodeId": "54d9d598-a07f-4a5e-a6f1-557fc8db9630",
-      "fromPort": "Out",
-      "fromControlDx": null,
-      "fromControlDy": null,
-      "toNodeId": "63dd07b7-a9d3-4ca9-9d6d-db8ce02a13e8",
-      "toPort": "In",
-      "toControlDx": null,
-      "toControlDy": null,
-      "waypoints": []
-    },
-    {
       "id": "4c97dc63-9642-4e52-9df1-4b3084fc683c",
       "fromNodeId": "e47e1e46-eaf6-42a1-af0a-1742150f6088",
       "fromPort": "Fail",
@@ -1045,19 +1037,6 @@
       "toControlDx": null,
       "toControlDy": null,
       "waypoints": []
-    },
-    {
-      "id": "76cd2aa0-24cf-4b45-845d-1b692d80eacb",
-      "fromNodeId": "e47e1e46-eaf6-42a1-af0a-1742150f6088",
-      "fromPort": "Out",
-      "fromControlDx": null,
-      "fromControlDy": null,
-      "toNodeId": "439fd57e-e5bd-4e89-aa75-8d61f5921d95",
-      "toPort": "In",
-      "toControlDx": null,
-      "toControlDy": null,
-      "waypoints": [],
-      "directRoute": true
     },
     {
       "id": "e289abaf-798b-4a00-b715-c2058aec5779",
@@ -1136,6 +1115,30 @@
       "toControlDy": null,
       "waypoints": [],
       "directRoute": true
+    },
+    {
+      "id": "b7c354f8-848b-4c1c-b40d-e9455637e43c",
+      "fromNodeId": "e47e1e46-eaf6-42a1-af0a-1742150f6088",
+      "fromPort": "Out",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "439fd57e-e5bd-4e89-aa75-8d61f5921d95",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "5ffcda7b-e4de-481a-904e-ed3d1551cdf1",
+      "fromNodeId": "54d9d598-a07f-4a5e-a6f1-557fc8db9630",
+      "fromPort": "Out",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "63dd07b7-a9d3-4ca9-9d6d-db8ce02a13e8",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
     }
   ]
 }
