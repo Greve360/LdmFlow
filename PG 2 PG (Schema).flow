@@ -1,0 +1,137 @@
+{
+  "schemaVersion": 1,
+  "flowId": "a85aa2be-5b5c-4d48-aac3-83571b0d75a1",
+  "name": "PG 2 PG (Schema)",
+  "description": "",
+  "nodes": [
+    {
+      "id": "3617fdca-3a71-45f4-b3d9-70cfe1883acb",
+      "name": "Start",
+      "category": "Module",
+      "nodeType": "Start",
+      "x": 120,
+      "y": 120,
+      "width": 200,
+      "height": 102,
+      "executionMode": "Enabled",
+      "settings": {},
+      "portPlacements": {},
+      "flippedPortSides": []
+    },
+    {
+      "id": "99bd16a9-bb84-40fb-b9b4-4eaa685ea729",
+      "name": "Exit",
+      "category": "Module",
+      "nodeType": "Exit",
+      "x": 1410,
+      "y": 75,
+      "width": 200,
+      "height": 102,
+      "executionMode": "Enabled",
+      "settings": {
+        "ExitCode": "0",
+        "ExitMessage": ""
+      },
+      "portPlacements": {
+        "I:Fail": "Bottom"
+      },
+      "flippedPortSides": []
+    },
+    {
+      "id": "7f453cf9-417e-4325-96da-68585d6404d0",
+      "name": "Clone Pg Schema",
+      "category": "Module",
+      "nodeType": "ClonePgSchema",
+      "x": 512,
+      "y": 168,
+      "width": 570,
+      "height": 129,
+      "executionMode": "Enabled",
+      "settings": {
+        "CommandTimeout": "0",
+        "DestinationConnectionString": "Server=GISPRODPGRE01.lifa.dk;Port=5432;User Id=kfadmin;Password=1ucerneMarkenEt;Database=GeoData",
+        "DestinationSchema": "daf_ds",
+        "Jobs": "4",
+        "NewOwner": "kfadmin",
+        "SourceConnectionString": "\u00A4[DafDataDB]\u00A4",
+        "SourceSchema": "daf_ds"
+      },
+      "portPlacements": {},
+      "flippedPortSides": []
+    },
+    {
+      "id": "6ed0a94a-879c-49aa-9f65-284a65d69c3c",
+      "name": "ILogger",
+      "category": "Module",
+      "nodeType": "ILogger",
+      "x": 1413,
+      "y": 244,
+      "width": 200,
+      "height": 102,
+      "executionMode": "Enabled",
+      "settings": {
+        "ErrorFile": "",
+        "LogTable": "workflow.ILogger",
+        "Registry": "False"
+      },
+      "portPlacements": {
+        "O:Out": "Top"
+      },
+      "flippedPortSides": []
+    }
+  ],
+  "connections": [
+    {
+      "id": "7db4e5b6-9dbd-4ae9-9989-2bc150a17d97",
+      "fromNodeId": "3617fdca-3a71-45f4-b3d9-70cfe1883acb",
+      "fromPort": "Out",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "7f453cf9-417e-4325-96da-68585d6404d0",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": [],
+      "directRoute": true
+    },
+    {
+      "id": "685a010c-b2da-4292-9edb-24c90d0b1547",
+      "fromNodeId": "7f453cf9-417e-4325-96da-68585d6404d0",
+      "fromPort": "Success",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "99bd16a9-bb84-40fb-b9b4-4eaa685ea729",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": [],
+      "directRoute": true
+    },
+    {
+      "id": "d9b606af-fcd4-44a2-ab14-dcf79cff758a",
+      "fromNodeId": "6ed0a94a-879c-49aa-9f65-284a65d69c3c",
+      "fromPort": "Out",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "99bd16a9-bb84-40fb-b9b4-4eaa685ea729",
+      "toPort": "Fail",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": [],
+      "directRoute": true
+    },
+    {
+      "id": "c2e46f38-79ba-4e7f-84f3-cddd6bbb42ff",
+      "fromNodeId": "7f453cf9-417e-4325-96da-68585d6404d0",
+      "fromPort": "Fail",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "6ed0a94a-879c-49aa-9f65-284a65d69c3c",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": [],
+      "directRoute": true
+    }
+  ]
+}
