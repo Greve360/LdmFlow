@@ -1,0 +1,159 @@
+{
+  "schemaVersion": 1,
+  "flowId": "5f1fe222-c256-4a51-94dd-8c3e7f6cc898",
+  "name": "New workflow",
+  "description": "",
+  "nodes": [
+    {
+      "id": "d4c34fa3-eece-42b9-af36-a1c7e2d39497",
+      "name": "Start",
+      "category": "Module",
+      "nodeType": "Start",
+      "x": 120,
+      "y": 120,
+      "width": 200,
+      "height": 102,
+      "executionMode": "Enabled",
+      "settings": {},
+      "portPlacements": {},
+      "flippedPortSides": []
+    },
+    {
+      "id": "e0c32cb3-fc7a-4fc4-91ed-92f18a6a8a51",
+      "name": "Exit",
+      "category": "Module",
+      "nodeType": "Exit",
+      "x": 1552,
+      "y": 88,
+      "width": 200,
+      "height": 102,
+      "executionMode": "Enabled",
+      "settings": {
+        "ExitCode": "0",
+        "ExitMessage": ""
+      },
+      "portPlacements": {
+        "I:Fail": "Bottom"
+      },
+      "flippedPortSides": []
+    },
+    {
+      "id": "ae1c961f-85a6-4d58-8132-796f8f920f44",
+      "name": "ILogger",
+      "category": "Module",
+      "nodeType": "ILogger",
+      "x": 1569,
+      "y": 315,
+      "width": 200,
+      "height": 102,
+      "executionMode": "Enabled",
+      "settings": {
+        "Registry": "False",
+        "ErrorFile": "",
+        "LogTable": ""
+      },
+      "portPlacements": {
+        "O:Out": "Top"
+      },
+      "flippedPortSides": []
+    },
+    {
+      "id": "44cd293b-2b02-466e-92de-cc6d812cacb2",
+      "name": "ArcPython",
+      "category": "Module",
+      "nodeType": "ArcPython",
+      "x": 492,
+      "y": 183,
+      "width": 200,
+      "height": 102,
+      "executionMode": "Enabled",
+      "settings": {
+        "PythonExecutable": "",
+        "Script": "import arcpy\r\nimport csv\r\nimport os\r\nimport pyodbc\r\n\r\ndef check_tables(gdb_path, servicename):\r\n    arcpy.env.workspace = gdb_path\r\n    print(f\u0022Listing features\u0022)\r\n    polygon_tables = arcpy.ListFeatureClasses(\u0022*\u0022, \u0022Polygon\u0022)    \r\n    print(f\u0022  ..done\u0022)\r\n\r\n    arc_err_gdb = r\u0022F:\\\\Data\\\\ArcGIS\\\\LocalSDE.gdb\u0022\r\n\r\n    # Check if any tables exist in the geodatabase\r\n    arcpy.env.workspace = arc_err_gdb\r\n    tables_exist = bool(arcpy.ListTables())\r\n\r\n    # Choose file mode based on table existence\r\n    file_mode = \u0022a\u0022 if tables_exist else \u0022w\u0022\r\n\r\n    # Open the text file for writing\r\n    with open(f\u0022f:\\\\fix_{servicename}_gml.sql\u0022, file_mode) as sql_file:\r\n        for table in polygon_tables:\r\n            try:\r\n                # if table.split(\u0027.\u0027)[-1] != \u0022EstimeretBebygPct\u0022:\r\n                #     print(f\u0022Skipping table (not \u0027EstimeretBebygPct\u0027): {table}\u0022)\r\n                #     continue\r\n\r\n                if \u0022oversvoemerosion\u0022 in table:\r\n                    print(f\u0022Skipping table (contains \u0027oversvoemerosion\u0027): {table}\u0022)\r\n                    continue\r\n\r\n                if \u0022_lulc_map_poly\u0022 in table:  # Known issues with this table\r\n                    print(f\u0022Skipping table (contains \u0027_lulc_map_poly\u0027): {table}\u0022)\r\n                    continue\r\n\r\n                if \u0022vp3e2022_lulc_map_poly\u0022 in table:  # Known issues with this table\r\n                    print(f\u0022Skipping table: {table}\u0022)\r\n                    continue\r\n\r\n                print(f\u0022Testing: {table}\u0022)\r\n                table_wo_schema = table.split(\u0027.\u0027)[-1]\r\n                the_out_table = f\u0022{arc_err_gdb}\\\\{table_wo_schema}_err\u0022\r\n\r\n                if arcpy.Exists(the_out_table):\r\n                    print(f\u0022Skipping {the_out_table}: already exists.\u0022)\r\n                    continue  # or return, depending on your loop/structure\r\n\r\n\r\n                arcpy.management.CheckGeometry(\r\n                    in_features=f\u0022{gdb_path}\\\\{table}\u0022,\r\n                    out_table=the_out_table,\r\n                    validation_method=\u0022ESRI\u0022\r\n                )\r\n                print(f\u0022Tested: {table}\u0022)\r\n            except Exception as e:\r\n                print(f\u0022Exception: {table}: {e}\u0022)\r\n                \r\nif __name__ == \u0022__main__\u0022:\r\n    print(f\u0022Start\u0022)\r\n    check_tables(\u0022F:\\\\Data\\\\ArcGIS\\\\LocalSandbox\\\\SQLServer-localhost-SandboxSDE.sde\u0022, \u0022mat\u0022)\r\n    print(f\u0022Done\u0022)\r\n"
+      },
+      "portPlacements": {},
+      "flippedPortSides": []
+    },
+    {
+      "id": "85414402-8130-4e00-8830-962330d5d67c",
+      "name": "Display",
+      "category": "Module",
+      "nodeType": "Display",
+      "x": 873,
+      "y": 121,
+      "width": 546,
+      "height": 263,
+      "executionMode": "Enabled",
+      "settings": {
+        "Text": "\u00A4{Output}\u00A4\r\n\u00A4{ErrorOutput}\u00A4\r\n\u00A4{ExitCode}\u00A4\r\n\u00A4{Message}\u00A4"
+      },
+      "portPlacements": {},
+      "flippedPortSides": []
+    }
+  ],
+  "connections": [
+    {
+      "id": "2e82bc12-7da2-4983-8bc5-50c6055f630b",
+      "fromNodeId": "ae1c961f-85a6-4d58-8132-796f8f920f44",
+      "fromPort": "Out",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "e0c32cb3-fc7a-4fc4-91ed-92f18a6a8a51",
+      "toPort": "Fail",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": [],
+      "directRoute": true
+    },
+    {
+      "id": "06170f89-e87a-4a71-b06c-028508c4e5af",
+      "fromNodeId": "d4c34fa3-eece-42b9-af36-a1c7e2d39497",
+      "fromPort": "Out",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "44cd293b-2b02-466e-92de-cc6d812cacb2",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": [],
+      "directRoute": true
+    },
+    {
+      "id": "98dfa871-ca63-41ea-9b61-aa7ee322f689",
+      "fromNodeId": "44cd293b-2b02-466e-92de-cc6d812cacb2",
+      "fromPort": "Fail",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "ae1c961f-85a6-4d58-8132-796f8f920f44",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": [],
+      "directRoute": true
+    },
+    {
+      "id": "211b4b67-fb40-4b92-ac2d-faa8db399de5",
+      "fromNodeId": "44cd293b-2b02-466e-92de-cc6d812cacb2",
+      "fromPort": "Success",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "85414402-8130-4e00-8830-962330d5d67c",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "85e1d18b-b693-4a4b-ab3c-31851a74c470",
+      "fromNodeId": "85414402-8130-4e00-8830-962330d5d67c",
+      "fromPort": "Out",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "e0c32cb3-fc7a-4fc4-91ed-92f18a6a8a51",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    }
+  ]
+}
