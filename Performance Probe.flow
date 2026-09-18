@@ -1,0 +1,138 @@
+{
+  "schemaVersion": 1,
+  "flowId": "93eabb97-d229-4772-8211-4bdffc91fffb",
+  "name": "New workflow",
+  "description": "",
+  "nodes": [
+    {
+      "id": "668d71c1-6904-4a24-a89a-a8c89162539d",
+      "name": "Start",
+      "category": "Module",
+      "nodeType": "Start",
+      "x": 32,
+      "y": 105,
+      "width": 200,
+      "height": 102,
+      "executionMode": "Enabled",
+      "settings": {},
+      "portPlacements": {},
+      "flippedPortSides": []
+    },
+    {
+      "id": "65b4ce33-1bfa-40f2-a4a6-d4e897eb9807",
+      "name": "Exit",
+      "category": "Module",
+      "nodeType": "Exit",
+      "x": 682,
+      "y": 145,
+      "width": 200,
+      "height": 102,
+      "executionMode": "Enabled",
+      "settings": {
+        "ExitCode": "0",
+        "ExitMessage": ""
+      },
+      "portPlacements": {
+        "I:Fail": "Bottom"
+      },
+      "flippedPortSides": []
+    },
+    {
+      "id": "b933c9f1-7346-47e9-af91-bb906be07c65",
+      "name": "Performance Probe",
+      "category": "Module",
+      "nodeType": "PerformanceProbe",
+      "x": 310,
+      "y": 262,
+      "width": 200,
+      "height": 102,
+      "executionMode": "Enabled",
+      "settings": {
+        "BulkInsertRowCount": "5000",
+        "BulkInsertRowSizeBytes": "10240",
+        "CommandTimeout": "0",
+        "Folder": "F:\\WorkflowTemp",
+        "Iterations": "100",
+        "LargeFileSizeMb": "5000",
+        "SmallFileCount": "500",
+        "SmallFileSizeKb": "40"
+      },
+      "portPlacements": {},
+      "flippedPortSides": []
+    },
+    {
+      "id": "99476778-7de3-453a-8a04-d755f628ee1f",
+      "name": "ILogger",
+      "category": "Module",
+      "nodeType": "ILogger",
+      "x": 626,
+      "y": 391,
+      "width": 200,
+      "height": 102,
+      "executionMode": "Enabled",
+      "settings": {
+        "Registry": "False",
+        "ErrorFile": "",
+        "LogTable": ""
+      },
+      "portPlacements": {
+        "O:Out": "Top"
+      },
+      "flippedPortSides": []
+    }
+  ],
+  "connections": [
+    {
+      "id": "1e4dedc7-35a7-4e60-88c2-2f7b88d0bb42",
+      "fromNodeId": "99476778-7de3-453a-8a04-d755f628ee1f",
+      "fromPort": "Out",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "65b4ce33-1bfa-40f2-a4a6-d4e897eb9807",
+      "toPort": "Fail",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": [],
+      "directRoute": true
+    },
+    {
+      "id": "fca01bf7-9477-4d42-9401-a2892184c524",
+      "fromNodeId": "b933c9f1-7346-47e9-af91-bb906be07c65",
+      "fromPort": "Fail",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "99476778-7de3-453a-8a04-d755f628ee1f",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": [],
+      "directRoute": true
+    },
+    {
+      "id": "16a28c9a-ded3-4313-b364-4bd8c6dcbb28",
+      "fromNodeId": "668d71c1-6904-4a24-a89a-a8c89162539d",
+      "fromPort": "Out",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "b933c9f1-7346-47e9-af91-bb906be07c65",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": [],
+      "directRoute": true
+    },
+    {
+      "id": "e6614ddd-6901-4349-af8c-316a9f9e5808",
+      "fromNodeId": "b933c9f1-7346-47e9-af91-bb906be07c65",
+      "fromPort": "Out",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "65b4ce33-1bfa-40f2-a4a6-d4e897eb9807",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": [],
+      "directRoute": true
+    }
+  ]
+}
