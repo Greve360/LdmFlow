@@ -62,14 +62,14 @@
       "name": "ArcPython",
       "category": "Module",
       "nodeType": "ArcPython",
-      "x": 492,
-      "y": 183,
+      "x": 570,
+      "y": 231,
       "width": 200,
       "height": 102,
       "executionMode": "Enabled",
       "settings": {
         "PythonExecutable": "",
-        "Script": "import arcpy\r\nimport csv\r\nimport os\r\nimport pyodbc\r\n\r\ndef check_tables(gdb_path, servicename):\r\n    arcpy.env.workspace = gdb_path\r\n    print(f\u0022Listing features\u0022)\r\n    polygon_tables = arcpy.ListFeatureClasses(\u0022*\u0022, \u0022Polygon\u0022)    \r\n    print(f\u0022  ..done\u0022)\r\n\r\n    arc_err_gdb = r\u0022F:\\\\Data\\\\ArcGIS\\\\LocalSDE.gdb\u0022\r\n\r\n    # Check if any tables exist in the geodatabase\r\n    arcpy.env.workspace = arc_err_gdb\r\n    tables_exist = bool(arcpy.ListTables())\r\n\r\n    # Choose file mode based on table existence\r\n    file_mode = \u0022a\u0022 if tables_exist else \u0022w\u0022\r\n\r\n    # Open the text file for writing\r\n    with open(f\u0022f:\\\\fix_{servicename}_gml.sql\u0022, file_mode) as sql_file:\r\n        for table in polygon_tables:\r\n            try:\r\n                # if table.split(\u0027.\u0027)[-1] != \u0022EstimeretBebygPct\u0022:\r\n                #     print(f\u0022Skipping table (not \u0027EstimeretBebygPct\u0027): {table}\u0022)\r\n                #     continue\r\n\r\n                if \u0022oversvoemerosion\u0022 in table:\r\n                    print(f\u0022Skipping table (contains \u0027oversvoemerosion\u0027): {table}\u0022)\r\n                    continue\r\n\r\n                if \u0022_lulc_map_poly\u0022 in table:  # Known issues with this table\r\n                    print(f\u0022Skipping table (contains \u0027_lulc_map_poly\u0027): {table}\u0022)\r\n                    continue\r\n\r\n                if \u0022vp3e2022_lulc_map_poly\u0022 in table:  # Known issues with this table\r\n                    print(f\u0022Skipping table: {table}\u0022)\r\n                    continue\r\n\r\n                print(f\u0022Testing: {table}\u0022)\r\n                table_wo_schema = table.split(\u0027.\u0027)[-1]\r\n                the_out_table = f\u0022{arc_err_gdb}\\\\{table_wo_schema}_err\u0022\r\n\r\n                if arcpy.Exists(the_out_table):\r\n                    print(f\u0022Skipping {the_out_table}: already exists.\u0022)\r\n                    continue  # or return, depending on your loop/structure\r\n\r\n\r\n                arcpy.management.CheckGeometry(\r\n                    in_features=f\u0022{gdb_path}\\\\{table}\u0022,\r\n                    out_table=the_out_table,\r\n                    validation_method=\u0022ESRI\u0022\r\n                )\r\n                print(f\u0022Tested: {table}\u0022)\r\n            except Exception as e:\r\n                print(f\u0022Exception: {table}: {e}\u0022)\r\n                \r\nif __name__ == \u0022__main__\u0022:\r\n    print(f\u0022Start\u0022)\r\n    check_tables(\u0022F:\\\\Data\\\\ArcGIS\\\\LocalSandbox\\\\SQLServer-localhost-SandboxSDE.sde\u0022, \u0022mat\u0022)\r\n    print(f\u0022Done\u0022)\r\n"
+        "Script": "import arcpy\r\nimport csv\r\nimport os\r\nimport pyodbc\r\n\r\ndef check_tables(gdb_path, servicename):\r\n    arcpy.env.workspace = gdb_path\r\n    print(f\u0022Listing features\u0022)\r\n    polygon_tables = arcpy.ListFeatureClasses(\u0022*\u0022, \u0022Polygon\u0022)    \r\n    print(f\u0022  ..done\u0022)\r\n\r\n    arc_err_gdb = r\u0022F:\\\\Data\\\\ArcGIS\\\\LocalSDE.gdb\u0022\r\n\r\n    # Check if any tables exist in the geodatabase\r\n    arcpy.env.workspace = arc_err_gdb\r\n    tables_exist = bool(arcpy.ListTables())\r\n\r\n    # Choose file mode based on table existence\r\n    file_mode = \u0022a\u0022 if tables_exist else \u0022w\u0022\r\n\r\n    # Open the text file for writing\r\n    with open(f\u0022f:\\\\fix_{servicename}_gml.sql\u0022, file_mode) as sql_file:\r\n        for table in polygon_tables:\r\n            try:\r\n                # if table.split(\u0027.\u0027)[-1] != \u0022EstimeretBebygPct\u0022:\r\n                #     print(f\u0022Skipping table (not \u0027EstimeretBebygPct\u0027): {table}\u0022)\r\n                #     continue\r\n\r\n                if \u0022oversvoemerosion\u0022 in table:\r\n                    print(f\u0022Skipping table (contains \u0027oversvoemerosion\u0027): {table}\u0022)\r\n                    continue\r\n\r\n                if \u0022_lulc_map_poly\u0022 in table:  # Known issues with this table\r\n                    print(f\u0022Skipping table (contains \u0027_lulc_map_poly\u0027): {table}\u0022)\r\n                    continue\r\n\r\n                if \u0022vp3e2022_lulc_map_poly\u0022 in table:  # Known issues with this table\r\n                    print(f\u0022Skipping table: {table}\u0022)\r\n                    continue\r\n\r\n                print(f\u0022Testing: {table}\u0022)\r\n                table_wo_schema = table.split(\u0027.\u0027)[-1]\r\n                the_out_table = f\u0022{arc_err_gdb}\\\\{table_wo_schema}_err\u0022\r\n\r\n                if arcpy.Exists(the_out_table):\r\n                    print(f\u0022Skipping {the_out_table}: already exists.\u0022)\r\n                    continue  # or return, depending on your loop/structure\r\n\r\n\r\n                arcpy.management.CheckGeometry(\r\n                    in_features=f\u0022{gdb_path}\\\\{table}\u0022,\r\n                    out_table=the_out_table,\r\n                    validation_method=\u0022ESRI\u0022\r\n                )\r\n                print(f\u0022Tested: {table}\u0022)\r\n                \r\n\r\n                # Anayze results\r\n                retry = True\r\n                while retry:\r\n                    retry = False\r\n\r\n                    with arcpy.da.SearchCursor(the_out_table, [\u0022FEATURE_ID\u0022, \u0022PROBLEM\u0022]) as cursor:\r\n                        for row in cursor: \r\n\r\n                            # Select gml_id from the feature class where ogc_fid matches FEATURE_ID\r\n                            gml_id = None\r\n                            with arcpy.da.SearchCursor(f\u0022{gdb_path}\\\\{table}\u0022, [\u0022ogc_fid\u0022, \u0022gml_id\u0022]) as fc_cursor:\r\n                                for fc_row in fc_cursor:\r\n                                    if fc_row[0] == row[0]:\r\n                                        #retry = True\r\n                                        gml_id = fc_row[1]\r\n                                        print(f\u0022Table: {table}: {row[0]} = {gml_id}, Problem Type: {row[1]}\u0022)\r\n\r\n                                        if \u0022Geometry check successful, but the points of the shape are not in the expected order!\u0022 in row[1]:\r\n                                            #sql_file.write(f\u0022-- harmless? INSERT INTO public.fix_gmlid(servicename, typename, gml_id, postprocess, \\\u0022sequence\\\u0022) VALUES(\u0027plan_total\u0027, \u0027{table_wo_schema}\u0027, \u0027{gml_id}\u0027, \u0027MICROBUFFER2\u0027, 1) ON CONFLICT (servicename, typename, gml_id) DO NOTHING;\\n\u0022)\r\n                                            sql_file.write(f\u0022delete from public.fix_gmlid where servicename = \u0027{servicename}\u0027 and typename = \u0027{table_wo_schema}\u0027 and gml_id = \u0027{gml_id}\u0027;\\n\u0022)\r\n                                        else:\r\n                                            #sql_file.write(f\u0022delete from public.fix_gmlid where servicename = \u0027plan_total\u0027 and typename = \u0027{table_wo_schema}\u0027\\n\u0022)\r\n                                            sql_file.write(f\u0022INSERT INTO public.fix_gmlid(servicename, typename, gml_id, postprocess, \\\u0022sequence\\\u0022) VALUES(\u0027{servicename}\u0027, \u0027{table_wo_schema}\u0027, \u0027{gml_id}\u0027, \u0027MICROBUFFER2\u0027, 1) ON CONFLICT (servicename, typename, gml_id) DO NOTHING;\\n\u0022)\r\n                \r\n                \r\n            except Exception as e:\r\n                print(f\u0022Exception: {table}: {e}\u0022)\r\n                \r\nif __name__ == \u0022__main__\u0022:\r\n    print(f\u0022Start\u0022)\r\n    check_tables(\u0022F:\\\\Data\\\\ArcGIS\\\\LocalSandbox\\\\SQLServer-localhost-SandboxSDE.sde\u0022, \u0022mat\u0022)\r\n    print(f\u0022Done\u0022)\r\n"
       },
       "portPlacements": {},
       "flippedPortSides": []
@@ -81,11 +81,27 @@
       "nodeType": "Display",
       "x": 873,
       "y": 121,
-      "width": 546,
-      "height": 263,
+      "width": 516,
+      "height": 276,
       "executionMode": "Enabled",
       "settings": {
         "Text": "\u00A4{Output}\u00A4\r\n\u00A4{ErrorOutput}\u00A4\r\n\u00A4{ExitCode}\u00A4\r\n\u00A4{Message}\u00A4"
+      },
+      "portPlacements": {},
+      "flippedPortSides": []
+    },
+    {
+      "id": "f6e79e61-c1fd-4f61-b8bc-86e51b9b92b6",
+      "name": "Firework",
+      "category": "Module",
+      "nodeType": "Firework",
+      "x": 363,
+      "y": 168,
+      "width": 200,
+      "height": 102,
+      "executionMode": "Enabled",
+      "settings": {
+        "Seconds": "10"
       },
       "portPlacements": {},
       "flippedPortSides": []
@@ -100,19 +116,6 @@
       "fromControlDy": null,
       "toNodeId": "e0c32cb3-fc7a-4fc4-91ed-92f18a6a8a51",
       "toPort": "Fail",
-      "toControlDx": null,
-      "toControlDy": null,
-      "waypoints": [],
-      "directRoute": true
-    },
-    {
-      "id": "06170f89-e87a-4a71-b06c-028508c4e5af",
-      "fromNodeId": "d4c34fa3-eece-42b9-af36-a1c7e2d39497",
-      "fromPort": "Out",
-      "fromControlDx": null,
-      "fromControlDy": null,
-      "toNodeId": "44cd293b-2b02-466e-92de-cc6d812cacb2",
-      "toPort": "In",
       "toControlDx": null,
       "toControlDy": null,
       "waypoints": [],
@@ -150,6 +153,30 @@
       "fromControlDx": null,
       "fromControlDy": null,
       "toNodeId": "e0c32cb3-fc7a-4fc4-91ed-92f18a6a8a51",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "ee30de92-a9f2-4787-8f1d-a3709e9eaf79",
+      "fromNodeId": "d4c34fa3-eece-42b9-af36-a1c7e2d39497",
+      "fromPort": "Out",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "f6e79e61-c1fd-4f61-b8bc-86e51b9b92b6",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "8bee983a-e64b-4168-b170-0099e90b8174",
+      "fromNodeId": "f6e79e61-c1fd-4f61-b8bc-86e51b9b92b6",
+      "fromPort": "Out",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "44cd293b-2b02-466e-92de-cc6d812cacb2",
       "toPort": "In",
       "toControlDx": null,
       "toControlDy": null,
