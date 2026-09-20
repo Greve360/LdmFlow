@@ -1,0 +1,1377 @@
+{
+  "schemaVersion": 1,
+  "flowId": "9d817cca-e439-4141-98e5-e4e1cd02eb7a",
+  "name": "Kortfordeler - MAT / GeoDKV / VAT",
+  "description": "",
+  "nodes": [
+    {
+      "id": "d4ecd998-a5e7-4d81-bde0-dc7460f67e7a",
+      "name": "Start GeoDK",
+      "category": "Module",
+      "nodeType": "Start",
+      "x": 244.55555555554366,
+      "y": 20.977777777778144,
+      "width": 200,
+      "height": 102,
+      "executionMode": "Disabled",
+      "settings": {
+        "DAF_Schema": "daf_gdk",
+        "KF3_Schema": "kf3_geodkv",
+        "DAF_Register": "GEODKV"
+      },
+      "portPlacements": {
+        "O:Out": "Bottom"
+      },
+      "flippedPortSides": []
+    },
+    {
+      "id": "1ad7d00b-9416-4822-b50e-b30c9d5d5b43",
+      "name": "Exit",
+      "category": "Module",
+      "nodeType": "Exit",
+      "x": 1582.4888888888845,
+      "y": 233.08888888888313,
+      "width": 200,
+      "height": 102,
+      "executionMode": "Enabled",
+      "settings": {
+        "ExitCode": "0",
+        "ExitMessage": ""
+      },
+      "portPlacements": {
+        "I:Fail": "Bottom"
+      },
+      "flippedPortSides": []
+    },
+    {
+      "id": "90c20ee8-3f54-4298-a836-296dbc241144",
+      "name": "ILogger",
+      "category": "Module",
+      "nodeType": "ILogger",
+      "x": 1633.088888888903,
+      "y": 371.31111111110795,
+      "width": 200,
+      "height": 102,
+      "executionMode": "Enabled",
+      "settings": {
+        "Registry": "False",
+        "ErrorFile": "",
+        "LogTable": ""
+      },
+      "portPlacements": {
+        "O:Out": "Top"
+      },
+      "flippedPortSides": []
+    },
+    {
+      "id": "e242ddc4-ad20-4183-a34f-edaedcaa0ea0",
+      "name": "Sql Iterator",
+      "category": "Module",
+      "nodeType": "SqlIterator",
+      "x": 644.977777777775,
+      "y": 417.688888888894,
+      "width": 200,
+      "height": 102,
+      "executionMode": "Enabled",
+      "settings": {
+        "ConnectionString": "\u00A4[DdmSysDB]\u00A4",
+        "DBMS": "MSSQL",
+        "MaxParallelism": "4",
+        "Mode": "Sequential",
+        "ResultType": "Recordset",
+        "Sql": "select tablename from workflow.MetaTable where RegisterName = \u0027\u00A4{DAF_Register}\u00A4\u0027 and Active=1 \r\norder by tablename",
+        "SqlTimeout": ""
+      },
+      "portPlacements": {
+        "O:Item": "Left",
+        "I:LoopBack": "Bottom",
+        "I:In": "Top"
+      },
+      "flippedPortSides": []
+    },
+    {
+      "id": "3b8aa3a6-90eb-403e-a520-4aec8a872e35",
+      "name": "Execute SQL Init",
+      "category": "Module",
+      "nodeType": "ExecuteSQL",
+      "x": 544.1111111111193,
+      "y": 239.28888888887397,
+      "width": 214.31111111111287,
+      "height": 92,
+      "executionMode": "Enabled",
+      "settings": {
+        "CommandTimeout": "0",
+        "ConnectionString": "\u00A4[DafDataDB]\u00A4",
+        "DBMS": "Postgres",
+        "ExecuteEachLine": "False",
+        "FilePath": "",
+        "InTransaction": "False",
+        "MaxRows": "0",
+        "QueryType": "NonQuery",
+        "ResultVariable": "",
+        "SQL": "create schema if not exists \u00A4{KF3_Schema}\u00A4;"
+      },
+      "portPlacements": {
+        "O:Success": "Bottom",
+        "I:In": "Top"
+      },
+      "flippedPortSides": []
+    },
+    {
+      "id": "05052b80-0f6a-4b13-978e-26d09b75cd85",
+      "name": "Copy Current Data",
+      "category": "Module",
+      "nodeType": "ExecuteSQL",
+      "x": 36.44444444444259,
+      "y": 597.1333333333176,
+      "width": 190,
+      "height": 92,
+      "executionMode": "Enabled",
+      "settings": {
+        "CommandTimeout": "0",
+        "ConnectionString": "\u00A4[DafDataDB]\u00A4",
+        "DBMS": "Postgres",
+        "ExecuteEachLine": "False",
+        "FilePath": "",
+        "InTransaction": "False",
+        "MaxRows": "0",
+        "QueryType": "NonQuery",
+        "ResultVariable": "",
+        "SQL": "create table if not exists \u00A4{KF3_Schema}\u00A4.\u00A4{tablename,L}\u00A4 \r\nas select * \r\nfrom \u00A4{DAF_Schema}\u00A4.\u00A4{tablename}\u00A4 \r\nwhere registreringtil is null and virkningtil is null;\r\n\r\nALTER TABLE \u00A4{KF3_Schema}\u00A4.\u00A4{tablename,L}\u00A4 \nADD COLUMN IF NOT EXISTS sys_label public.geometry(Point, 25832);"
+      },
+      "portPlacements": {
+        "O:Success": "Bottom",
+        "I:In": "Top"
+      },
+      "flippedPortSides": [
+        "Top"
+      ]
+    },
+    {
+      "id": "cb2e83bd-04ae-4108-bbe9-829ebe35caff",
+      "name": "Display Layername",
+      "category": "Module",
+      "nodeType": "Display",
+      "x": 98.40000000000198,
+      "y": 304.1111111111151,
+      "width": 276.79999999999336,
+      "height": 105.99999999999983,
+      "executionMode": "Enabled",
+      "settings": {
+        "Text": "\u00A4{KF3_Schema}\u00A4.\u00A4{tablename}\u00A4"
+      },
+      "portPlacements": {
+        "O:Out": "Bottom",
+        "I:In": "Right"
+      },
+      "flippedPortSides": []
+    },
+    {
+      "id": "0f47eae2-1e38-4d05-ace1-b71a670ca628",
+      "name": "Get Featuretype",
+      "category": "Module",
+      "nodeType": "ExecuteSQL",
+      "x": 413.6888888888725,
+      "y": 934.4666666666897,
+      "width": 190,
+      "height": 92,
+      "executionMode": "Enabled",
+      "settings": {
+        "CommandTimeout": "0",
+        "ConnectionString": "\u00A4[DafDataDB]\u00A4",
+        "DBMS": "Postgres",
+        "ExecuteEachLine": "False",
+        "FilePath": "",
+        "InTransaction": "False",
+        "MaxRows": "0",
+        "QueryType": "Scalar",
+        "ResultVariable": "FeatureType",
+        "SQL": "select distinct ST_GeometryType (geometri) from \u00A4{KF3_Schema}\u00A4.\u00A4{tablename}\u00A4"
+      },
+      "portPlacements": {},
+      "flippedPortSides": [
+        "Top",
+        "Right"
+      ]
+    },
+    {
+      "id": "318594c9-f341-47c9-bd1a-d22eea7291d9",
+      "name": "Display FT",
+      "category": "Module",
+      "nodeType": "Display",
+      "x": 623.6222222222366,
+      "y": 940.022222222226,
+      "width": 200,
+      "height": 102,
+      "executionMode": "Enabled",
+      "settings": {
+        "Text": "FT: \u00A4{FeatureType}\u00A4"
+      },
+      "portPlacements": {},
+      "flippedPortSides": []
+    },
+    {
+      "id": "cc251be1-ca96-421a-9adf-a41ee1b99993",
+      "name": "IF ST_MultiLineString",
+      "category": "Module",
+      "nodeType": "IF_Then_Else",
+      "x": 848.2444444444659,
+      "y": 933.4444444444948,
+      "width": 200,
+      "height": 102,
+      "executionMode": "Enabled",
+      "settings": {
+        "Expression": "\u0022\u00A4{FeatureType}\u00A4\u0022 == \u0022ST_MultiLineString\u0022 or \u0022\u00A4{FeatureType}\u00A4\u0022 == \u0022ST_LineString\u0022"
+      },
+      "portPlacements": {
+        "O:True": "Top"
+      },
+      "flippedPortSides": []
+    },
+    {
+      "id": "3f6643c4-129b-4c01-b3c0-0a91456982ea",
+      "name": "Calc Center of Linestring",
+      "category": "Module",
+      "nodeType": "ExecuteSQL",
+      "x": 835.0000000000248,
+      "y": 764.3333333333635,
+      "width": 217.20000000000414,
+      "height": 92,
+      "executionMode": "Enabled",
+      "settings": {
+        "CommandTimeout": "0",
+        "ConnectionString": "\u00A4[DafDataDB]\u00A4",
+        "DBMS": "Postgres",
+        "ExecuteEachLine": "False",
+        "FilePath": "",
+        "InTransaction": "False",
+        "MaxRows": "0",
+        "QueryType": "NonQuery",
+        "ResultVariable": "",
+        "SQL": "ALTER TABLE \u00A4{KF3_Schema}\u00A4.\u00A4{tablename,L}\u00A4 ALTER COLUMN sys_label SET STORAGE MAIN;\r\nUPDATE \u00A4{KF3_Schema}\u00A4.\u00A4{tablename,L}\u00A4 AS t  -- line\r\nSET sys_label = (SELECT ST_Force2D(ST_LineInterpolatePoint(d.geom, 0.5)) \r\n    FROM ST_Dump(ST_CollectionExtract(t.geometri, 2)) AS d WHERE ST_GeometryType(d.geom) = \u0027ST_LineString\u0027 ORDER BY ST_Length(d.geom) DESC LIMIT 1)\r\nWHERE t.geometri IS NOT NULL AND t.sys_label IS NULL;\r\n"
+      },
+      "portPlacements": {
+        "O:Success": "Top",
+        "I:In": "Bottom"
+      },
+      "flippedPortSides": [
+        "Top"
+      ]
+    },
+    {
+      "id": "99123239-30ff-4f2e-9af7-ffc52c16580e",
+      "name": "IF ST_MultiPolygon",
+      "category": "Module",
+      "nodeType": "IF_Then_Else",
+      "x": 1078.2666666666819,
+      "y": 932.1555555555872,
+      "width": 200,
+      "height": 102,
+      "executionMode": "Enabled",
+      "settings": {
+        "Expression": "\u0022\u00A4{FeatureType}\u00A4\u0022 == \u0022ST_MultiPolygon\u0022 or \u0022\u00A4{FeatureType}\u00A4\u0022 == \u0022ST_Polygon\u0022"
+      },
+      "portPlacements": {
+        "O:True": "Top"
+      },
+      "flippedPortSides": []
+    },
+    {
+      "id": "4e53adec-a6f6-421b-96c6-113362aea2ef",
+      "name": "Calc Center of Polygon",
+      "category": "Module",
+      "nodeType": "ExecuteSQL",
+      "x": 1064.2666666666817,
+      "y": 767.3111111111469,
+      "width": 217.20000000000414,
+      "height": 92,
+      "executionMode": "Enabled",
+      "settings": {
+        "CommandTimeout": "0",
+        "ConnectionString": "\u00A4[DafDataDB]\u00A4",
+        "DBMS": "Postgres",
+        "ExecuteEachLine": "False",
+        "FilePath": "",
+        "InTransaction": "False",
+        "MaxRows": "0",
+        "QueryType": "NonQuery",
+        "ResultVariable": "",
+        "SQL": "ALTER TABLE \u00A4{KF3_Schema}\u00A4.\u00A4{tablename,L}\u00A4 ALTER COLUMN sys_label SET STORAGE MAIN;\r\nUPDATE \u00A4{KF3_Schema}\u00A4.\u00A4{tablename,L}\u00A4 AS t  -- poly\r\nSET sys_label = ST_Force2D((ST_MaximumInscribedCircle(t.geometri)).center)\r\nWHERE t.geometri IS NOT NULL AND t.sys_label IS NULL;"
+      },
+      "portPlacements": {
+        "O:Success": "Top",
+        "I:In": "Bottom"
+      },
+      "flippedPortSides": [
+        "Top"
+      ]
+    },
+    {
+      "id": "0dceda53-7dd8-40fa-becd-9c0400c41b53",
+      "name": "IF ST_MultiPoint",
+      "category": "Module",
+      "nodeType": "IF_Then_Else",
+      "x": 1311.4444444444553,
+      "y": 933.1555555555894,
+      "width": 200,
+      "height": 102,
+      "executionMode": "Enabled",
+      "settings": {
+        "Expression": "\u0022\u00A4{FeatureType}\u00A4\u0022 == \u0022ST_MultiPoint\u0022 or \u0022\u00A4{FeatureType}\u00A4\u0022 == \u0022ST_Point\u0022"
+      },
+      "portPlacements": {
+        "O:True": "Top"
+      },
+      "flippedPortSides": []
+    },
+    {
+      "id": "c0de6536-5a9e-42d9-ba15-ce884864f53f",
+      "name": "Display WTF",
+      "category": "Module",
+      "nodeType": "Display",
+      "x": 1622.91111111113,
+      "y": 557.8222222222216,
+      "width": 276.79999999999336,
+      "height": 105.99999999999983,
+      "executionMode": "Enabled",
+      "settings": {
+        "Text": "WTF -\u003E \u00A4{FeatureType}\u00A4"
+      },
+      "portPlacements": {
+        "O:Out": "Left",
+        "I:In": "Bottom"
+      },
+      "flippedPortSides": [
+        "Left"
+      ]
+    },
+    {
+      "id": "c538565c-12ad-4a90-b815-8c930fc30245",
+      "name": "Calc Center of Point",
+      "category": "Module",
+      "nodeType": "ExecuteSQL",
+      "x": 1301.044444444462,
+      "y": 774.3555555555906,
+      "width": 217.20000000000414,
+      "height": 92,
+      "executionMode": "Enabled",
+      "settings": {
+        "CommandTimeout": "0",
+        "ConnectionString": "\u00A4[DafDataDB]\u00A4",
+        "DBMS": "Postgres",
+        "ExecuteEachLine": "False",
+        "FilePath": "",
+        "InTransaction": "False",
+        "MaxRows": "0",
+        "QueryType": "NonQuery",
+        "ResultVariable": "",
+        "SQL": "ALTER TABLE \u00A4{KF3_Schema}\u00A4.\u00A4{tablename,L}\u00A4 ALTER COLUMN sys_label SET STORAGE MAIN;\r\nUPDATE \u00A4{KF3_Schema}\u00A4.\u00A4{tablename,L}\u00A4 AS t -- point\r\nset sys_label = ST_Centroid (ST_Multi (geometri)) \r\nWHERE t.geometri IS NOT null AND t.sys_label IS NULL;"
+      },
+      "portPlacements": {
+        "O:Success": "Top",
+        "I:In": "Bottom"
+      },
+      "flippedPortSides": [
+        "Top"
+      ]
+    },
+    {
+      "id": "f7b8ed31-0481-49d1-91f1-37208b208df5",
+      "name": "Start MAT",
+      "category": "Module",
+      "nodeType": "Start",
+      "x": 443.68888888889126,
+      "y": 24.466666666671333,
+      "width": 200,
+      "height": 102,
+      "executionMode": "Disabled",
+      "settings": {
+        "DAF_Schema": "daf_mat",
+        "KF3_Schema": "kf3_mat",
+        "DAF_Register": "MAT"
+      },
+      "portPlacements": {
+        "O:Out": "Bottom"
+      },
+      "flippedPortSides": []
+    },
+    {
+      "id": "74ae3ada-c59c-4e2c-9fd0-8ad6117c9d1f",
+      "name": "Text",
+      "category": "Module",
+      "nodeType": "Text",
+      "x": 1109.1333333333434,
+      "y": 34.04444444444374,
+      "width": 696.000000000001,
+      "height": 140.79999999999924,
+      "executionMode": "Enabled",
+      "settings": {
+        "Text": "Kortfordeler (KF3)",
+        "Font": "Times New Roman",
+        "Size": "64",
+        "Color": "Orange",
+        "Bold": "Nej",
+        "Italic": "Ja",
+        "Underline": "Nej",
+        "HorizontalAlignment": "Center",
+        "VerticalAlignment": "Middle"
+      },
+      "portPlacements": {},
+      "flippedPortSides": []
+    },
+    {
+      "id": "052d16b7-e5a1-48af-afb4-8991a4139cc9",
+      "name": "Has Geometry Columns",
+      "category": "Module",
+      "nodeType": "HasColumns",
+      "x": 135.99999999999844,
+      "y": 928.7777777777771,
+      "width": 212.22222222222183,
+      "height": 104.77777777777783,
+      "executionMode": "Enabled",
+      "settings": {
+        "Columns": "geometri",
+        "ConnectionString": "\u00A4[DafDataDB]\u00A4",
+        "DBMS": "Postgres",
+        "TableName": "\u00A4{KF3_Schema}\u00A4.\u00A4{tablename,L}\u00A4"
+      },
+      "portPlacements": {
+        "I:In": "Top"
+      },
+      "flippedPortSides": [
+        "Right"
+      ]
+    },
+    {
+      "id": "edd72625-bfc4-4c4d-80c9-c62eb56896fa",
+      "name": "Fix Permissions",
+      "category": "Module",
+      "nodeType": "ExecuteSQL",
+      "x": 1079.777777777797,
+      "y": 332.3333333333329,
+      "width": 190,
+      "height": 92,
+      "executionMode": "Enabled",
+      "settings": {
+        "CommandTimeout": "0",
+        "ConnectionString": "\u00A4[DafDataDB]\u00A4",
+        "DBMS": "Postgres",
+        "ExecuteEachLine": "False",
+        "FilePath": "",
+        "InTransaction": "False",
+        "MaxRows": "0",
+        "QueryType": "NonQuery",
+        "ResultVariable": "",
+        "SQL": "GRANT SELECT ON ALL TABLES IN SCHEMA \u00A4{KF3_Schema}\u00A4 TO kfread;"
+      },
+      "portPlacements": {},
+      "flippedPortSides": []
+    },
+    {
+      "id": "8aa03502-4c7d-4c88-90d8-ede2d2fb7ba0",
+      "name": "Start VAT",
+      "category": "Module",
+      "nodeType": "Start",
+      "x": 26.400000000000432,
+      "y": 1097.7333333333336,
+      "width": 200,
+      "height": 102,
+      "executionMode": "Enabled",
+      "settings": {
+        "DAF_Register": "VAT",
+        "DAF_Schema": "vat3",
+        "KF3_Schema": "vat3"
+      },
+      "portPlacements": {},
+      "flippedPortSides": []
+    },
+    {
+      "id": "cb254574-e44e-4b49-b7b9-8e5028ba783b",
+      "name": "Has Bitomporal TIL",
+      "category": "Module",
+      "nodeType": "HasColumns",
+      "x": 123.55555555555677,
+      "y": 446.1111111111111,
+      "width": 212.22222222222183,
+      "height": 104.77777777777783,
+      "executionMode": "Enabled",
+      "settings": {
+        "Columns": "registreringtil\r\nvirkningtil",
+        "ConnectionString": "\u00A4[DafDataDB]\u00A4",
+        "DBMS": "Postgres",
+        "TableName": "\u00A4{DAF_Schema}\u00A4.\u00A4{tablename}\u00A4"
+      },
+      "portPlacements": {
+        "I:In": "Top",
+        "O:True": "Bottom",
+        "O:False": "Bottom"
+      },
+      "flippedPortSides": [
+        "Right"
+      ]
+    },
+    {
+      "id": "83a5e94d-b03d-480f-952e-0036ed54a8a5",
+      "name": "Copy ALL Data",
+      "category": "Module",
+      "nodeType": "ExecuteSQL",
+      "x": 228.44444444444838,
+      "y": 600.6666666666619,
+      "width": 190,
+      "height": 92,
+      "executionMode": "Enabled",
+      "settings": {
+        "CommandTimeout": "0",
+        "ConnectionString": "\u00A4[DafDataDB]\u00A4",
+        "DBMS": "Postgres",
+        "ExecuteEachLine": "False",
+        "FilePath": "",
+        "InTransaction": "False",
+        "MaxRows": "0",
+        "QueryType": "NonQuery",
+        "ResultVariable": "",
+        "SQL": "create table if not exists \u00A4{KF3_Schema}\u00A4.\u00A4{tablename,L}\u00A4 \r\nas select * \r\nfrom \u00A4{DAF_Schema}\u00A4.\u00A4{tablename}\u00A4;"
+      },
+      "portPlacements": {
+        "O:Success": "Bottom",
+        "I:In": "Top"
+      },
+      "flippedPortSides": [
+        "Top"
+      ]
+    },
+    {
+      "id": "f4e33fc6-ba2e-459b-bc79-95c8adaf5d2a",
+      "name": "Has Table",
+      "category": "Module",
+      "nodeType": "HasTable",
+      "x": 116.55555555555642,
+      "y": 756.222222222222,
+      "width": 200,
+      "height": 102,
+      "executionMode": "Enabled",
+      "settings": {
+        "ConnectionString": "\u00A4[DafDataDB]\u00A4",
+        "DBMS": "Postgres",
+        "TableName": "\u00A4{KF3_Schema}\u00A4.\u00A4{tablename,L}\u00A4"
+      },
+      "portPlacements": {
+        "I:In": "Top",
+        "O:True": "Bottom"
+      },
+      "flippedPortSides": []
+    },
+    {
+      "id": "5acdb63c-88e3-46d2-9448-9c558b536c43",
+      "name": "Calc Center VAT Adresse",
+      "category": "Module",
+      "nodeType": "ExecuteSQL",
+      "x": 252.80000000000007,
+      "y": 1097.6000000000015,
+      "width": 217.20000000000414,
+      "height": 92,
+      "executionMode": "Enabled",
+      "settings": {
+        "CommandTimeout": "0",
+        "ConnectionString": "\u00A4[DafDataDB]\u00A4",
+        "DBMS": "Postgres",
+        "ExecuteEachLine": "False",
+        "FilePath": "",
+        "InTransaction": "False",
+        "MaxRows": "0",
+        "QueryType": "NonQuery",
+        "ResultVariable": "",
+        "SQL": "ALTER TABLE \u00A4{KF3_Schema}\u00A4.v3_adresse ADD COLUMN IF NOT EXISTS sys_label public.geometry(Point, 25832);\r\n\r\nALTER TABLE \u00A4{KF3_Schema}\u00A4.v3_adresse ALTER COLUMN sys_label SET STORAGE MAIN;\r\nUPDATE \u00A4{KF3_Schema}\u00A4.v3_adresse AS t  -- line\r\nSET sys_label = (SELECT ST_Force2D(ST_LineInterpolatePoint(d.geom, 0.5)) \r\n    FROM ST_Dump(ST_CollectionExtract(t.geometri, 2)) AS d WHERE ST_GeometryType(d.geom) = \u0027ST_LineString\u0027 ORDER BY ST_Length(d.geom) DESC LIMIT 1)\r\nWHERE t.geometri IS NOT NULL AND t.sys_label IS NULL;\r\n"
+      },
+      "portPlacements": {},
+      "flippedPortSides": [
+        "Top"
+      ]
+    },
+    {
+      "id": "632ffd65-fbc6-400f-a060-817a03a61fc0",
+      "name": "Calc Center VAT Vejmidte",
+      "category": "Module",
+      "nodeType": "ExecuteSQL",
+      "x": 496.7999999999984,
+      "y": 1102.399999999997,
+      "width": 217.20000000000414,
+      "height": 92,
+      "executionMode": "Enabled",
+      "settings": {
+        "CommandTimeout": "0",
+        "ConnectionString": "\u00A4[DafDataDB]\u00A4",
+        "DBMS": "Postgres",
+        "ExecuteEachLine": "False",
+        "FilePath": "",
+        "InTransaction": "False",
+        "MaxRows": "0",
+        "QueryType": "NonQuery",
+        "ResultVariable": "",
+        "SQL": "ALTER TABLE \u00A4{KF3_Schema}\u00A4.v3_vejmidte ADD COLUMN IF NOT EXISTS sys_label public.geometry(Point, 25832);\r\n\r\nALTER TABLE \u00A4{KF3_Schema}\u00A4.v3_vejmidte ALTER COLUMN sys_label SET STORAGE MAIN;\r\nUPDATE \u00A4{KF3_Schema}\u00A4.v3_vejmidte AS t  -- line\r\nSET sys_label = (SELECT ST_Force2D(ST_LineInterpolatePoint(d.geom, 0.5)) \r\n    FROM ST_Dump(ST_CollectionExtract(t.geometri, 2)) AS d WHERE ST_GeometryType(d.geom) = \u0027ST_LineString\u0027 ORDER BY ST_Length(d.geom) DESC LIMIT 1)\r\nWHERE t.geometri IS NOT NULL AND t.sys_label IS NULL;\r\n"
+      },
+      "portPlacements": {},
+      "flippedPortSides": [
+        "Top"
+      ]
+    },
+    {
+      "id": "454a6693-6f34-4698-af42-8049ae49ac9a",
+      "name": "Calc Center VAT Postdistrikt",
+      "category": "Module",
+      "nodeType": "ExecuteSQL",
+      "x": 740.8000000000008,
+      "y": 1099.200000000005,
+      "width": 234.00000000000364,
+      "height": 92,
+      "executionMode": "Enabled",
+      "settings": {
+        "CommandTimeout": "0",
+        "ConnectionString": "\u00A4[DafDataDB]\u00A4",
+        "DBMS": "Postgres",
+        "ExecuteEachLine": "False",
+        "FilePath": "",
+        "InTransaction": "False",
+        "MaxRows": "0",
+        "QueryType": "NonQuery",
+        "ResultVariable": "",
+        "SQL": "ALTER TABLE \u00A4{KF3_Schema}\u00A4.v3_postdistrikt ADD COLUMN IF NOT EXISTS sys_label public.geometry(Point, 25832);\r\n\r\nALTER TABLE \u00A4{KF3_Schema}\u00A4.v3_postdistrikt ALTER COLUMN sys_label SET STORAGE MAIN;\r\nUPDATE \u00A4{KF3_Schema}\u00A4.v3_postdistrikt AS t  -- poly\r\nSET sys_label = ST_Force2D((ST_MaximumInscribedCircle(t.geometri)).center)\r\nWHERE t.geometri IS NOT NULL AND t.sys_label IS NULL;"
+      },
+      "portPlacements": {},
+      "flippedPortSides": [
+        "Top"
+      ]
+    },
+    {
+      "id": "114b3545-99e3-4e29-bc38-fe514bc0dda7",
+      "name": "Calc Center VAT Vejnanvn",
+      "category": "Module",
+      "nodeType": "ExecuteSQL",
+      "x": 1014.4000000000037,
+      "y": 1098.3999999999949,
+      "width": 234.00000000000364,
+      "height": 92,
+      "executionMode": "Enabled",
+      "settings": {
+        "CommandTimeout": "0",
+        "ConnectionString": "\u00A4[DafDataDB]\u00A4",
+        "DBMS": "Postgres",
+        "ExecuteEachLine": "False",
+        "FilePath": "",
+        "InTransaction": "False",
+        "MaxRows": "0",
+        "QueryType": "NonQuery",
+        "ResultVariable": "",
+        "SQL": "ALTER TABLE \u00A4{KF3_Schema}\u00A4.v3_vejnavn ADD COLUMN IF NOT EXISTS sys_label public.geometry(Point, 25832);\r\n\r\nALTER TABLE \u00A4{KF3_Schema}\u00A4.v3_vejnavn ALTER COLUMN sys_label SET STORAGE MAIN;\r\nUPDATE \u00A4{KF3_Schema}\u00A4.v3_vejnavn AS t -- point\r\nset sys_label = ST_Centroid (ST_Multi (geometri)) \r\nWHERE t.geometri IS NOT null AND t.sys_label IS NULL;"
+      },
+      "portPlacements": {},
+      "flippedPortSides": [
+        "Top"
+      ]
+    },
+    {
+      "id": "4fcacd0d-c5b9-48c5-9d98-b463a05f543f",
+      "name": "Calc Center VAT VejnavnKoor",
+      "category": "Module",
+      "nodeType": "ExecuteSQL",
+      "x": 1282.4000000000042,
+      "y": 1087.999999999996,
+      "width": 234.00000000000364,
+      "height": 92,
+      "executionMode": "Enabled",
+      "settings": {
+        "CommandTimeout": "0",
+        "ConnectionString": "\u00A4[DafDataDB]\u00A4",
+        "DBMS": "Postgres",
+        "ExecuteEachLine": "False",
+        "FilePath": "",
+        "InTransaction": "False",
+        "MaxRows": "0",
+        "QueryType": "NonQuery",
+        "ResultVariable": "",
+        "SQL": "ALTER TABLE \u00A4{KF3_Schema}\u00A4.v3_vejnavnkoor ADD COLUMN IF NOT EXISTS sys_label public.geometry(Point, 25832);\r\n\r\nALTER TABLE \u00A4{KF3_Schema}\u00A4.v3_vejnavnkoor ALTER COLUMN sys_label SET STORAGE MAIN;\r\nUPDATE \u00A4{KF3_Schema}\u00A4.v3_vejnavnkoor AS t -- point\r\nset sys_label = ST_Centroid (ST_Multi (label)) \r\nWHERE t.label IS NOT null AND t.sys_label IS NULL;"
+      },
+      "portPlacements": {},
+      "flippedPortSides": [
+        "Top"
+      ]
+    }
+  ],
+  "connections": [
+    {
+      "id": "544f1bed-b558-4af5-94ea-22eb71421b53",
+      "fromNodeId": "90c20ee8-3f54-4298-a836-296dbc241144",
+      "fromPort": "Out",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "1ad7d00b-9416-4822-b50e-b30c9d5d5b43",
+      "toPort": "Fail",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": [],
+      "directRoute": true
+    },
+    {
+      "id": "ddfc59d7-76bc-42e1-a291-9f5b5c3f1cb4",
+      "fromNodeId": "e242ddc4-ad20-4183-a34f-edaedcaa0ea0",
+      "fromPort": "Fail",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "90c20ee8-3f54-4298-a836-296dbc241144",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": [],
+      "directRoute": true
+    },
+    {
+      "id": "06c59b66-4c5f-49fa-9d0e-d892f6666015",
+      "fromNodeId": "05052b80-0f6a-4b13-978e-26d09b75cd85",
+      "fromPort": "Fail",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "90c20ee8-3f54-4298-a836-296dbc241144",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": [],
+      "directRoute": true
+    },
+    {
+      "id": "d14465ed-2fc9-4ef5-b4ff-b014ee36b089",
+      "fromNodeId": "d4ecd998-a5e7-4d81-bde0-dc7460f67e7a",
+      "fromPort": "Out",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "3b8aa3a6-90eb-403e-a520-4aec8a872e35",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": [],
+      "directRoute": true
+    },
+    {
+      "id": "6c90b0aa-5132-4436-b11a-70d25475ee7d",
+      "fromNodeId": "3b8aa3a6-90eb-403e-a520-4aec8a872e35",
+      "fromPort": "Success",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "e242ddc4-ad20-4183-a34f-edaedcaa0ea0",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "e9945a5d-f38f-4547-970c-59c0a323e599",
+      "fromNodeId": "e242ddc4-ad20-4183-a34f-edaedcaa0ea0",
+      "fromPort": "Item",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "cb2e83bd-04ae-4108-bbe9-829ebe35caff",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": [],
+      "directRoute": true
+    },
+    {
+      "id": "0e1c8b3b-0536-410b-af5d-0125cdc5bb11",
+      "fromNodeId": "3b8aa3a6-90eb-403e-a520-4aec8a872e35",
+      "fromPort": "Fail",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "90c20ee8-3f54-4298-a836-296dbc241144",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": [],
+      "directRoute": true
+    },
+    {
+      "id": "3fd778c8-8006-44aa-aadd-f6f6153aa93d",
+      "fromNodeId": "0f47eae2-1e38-4d05-ace1-b71a670ca628",
+      "fromPort": "Fail",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "90c20ee8-3f54-4298-a836-296dbc241144",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": [],
+      "directRoute": true
+    },
+    {
+      "id": "b6a5c4bf-37af-41b2-be67-4462fc745759",
+      "fromNodeId": "0f47eae2-1e38-4d05-ace1-b71a670ca628",
+      "fromPort": "Success",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "318594c9-f341-47c9-bd1a-d22eea7291d9",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": [],
+      "directRoute": true
+    },
+    {
+      "id": "1814efbc-9a79-4154-bd23-acdbb1c0f67d",
+      "fromNodeId": "318594c9-f341-47c9-bd1a-d22eea7291d9",
+      "fromPort": "Out",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "cc251be1-ca96-421a-9adf-a41ee1b99993",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": [],
+      "directRoute": true
+    },
+    {
+      "id": "2547f6cc-0039-4a1d-b293-fc7d2a0a257a",
+      "fromNodeId": "cc251be1-ca96-421a-9adf-a41ee1b99993",
+      "fromPort": "True",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "3f6643c4-129b-4c01-b3c0-0a91456982ea",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": [],
+      "directRoute": true
+    },
+    {
+      "id": "f663c367-8d0a-44e6-9620-499e9205318c",
+      "fromNodeId": "3f6643c4-129b-4c01-b3c0-0a91456982ea",
+      "fromPort": "Success",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "e242ddc4-ad20-4183-a34f-edaedcaa0ea0",
+      "toPort": "LoopBack",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": [],
+      "directRoute": true
+    },
+    {
+      "id": "e9633e41-9a94-480c-9cdd-2c876021b7b2",
+      "fromNodeId": "cc251be1-ca96-421a-9adf-a41ee1b99993",
+      "fromPort": "False",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "99123239-30ff-4f2e-9af7-ffc52c16580e",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": [],
+      "directRoute": true
+    },
+    {
+      "id": "7b7ce657-5ff0-4f98-a152-796c7c1f2ee6",
+      "fromNodeId": "99123239-30ff-4f2e-9af7-ffc52c16580e",
+      "fromPort": "True",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "4e53adec-a6f6-421b-96c6-113362aea2ef",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": [],
+      "directRoute": true
+    },
+    {
+      "id": "2fcb2c1d-2fcd-4420-a8fe-d713694ccc7a",
+      "fromNodeId": "4e53adec-a6f6-421b-96c6-113362aea2ef",
+      "fromPort": "Success",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "e242ddc4-ad20-4183-a34f-edaedcaa0ea0",
+      "toPort": "LoopBack",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": [],
+      "directRoute": true
+    },
+    {
+      "id": "f3448018-e9ea-4b18-9d83-cc50d29be4e6",
+      "fromNodeId": "99123239-30ff-4f2e-9af7-ffc52c16580e",
+      "fromPort": "False",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "0dceda53-7dd8-40fa-becd-9c0400c41b53",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": [],
+      "directRoute": true
+    },
+    {
+      "id": "5ffd75b1-fafc-4c20-8bf9-ea1037ca0711",
+      "fromNodeId": "0dceda53-7dd8-40fa-becd-9c0400c41b53",
+      "fromPort": "False",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "c0de6536-5a9e-42d9-ba15-ce884864f53f",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": [],
+      "directRoute": true
+    },
+    {
+      "id": "65274f0f-3171-46b1-9c94-6c51715f1737",
+      "fromNodeId": "c0de6536-5a9e-42d9-ba15-ce884864f53f",
+      "fromPort": "Out",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "e242ddc4-ad20-4183-a34f-edaedcaa0ea0",
+      "toPort": "LoopBack",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": [],
+      "directRoute": true
+    },
+    {
+      "id": "85b6eb47-6258-4085-aa6f-0eaa597443c0",
+      "fromNodeId": "3f6643c4-129b-4c01-b3c0-0a91456982ea",
+      "fromPort": "Fail",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "90c20ee8-3f54-4298-a836-296dbc241144",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": [],
+      "directRoute": true
+    },
+    {
+      "id": "5b825102-ca67-48d4-8aed-76be136974c4",
+      "fromNodeId": "4e53adec-a6f6-421b-96c6-113362aea2ef",
+      "fromPort": "Fail",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "90c20ee8-3f54-4298-a836-296dbc241144",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": [],
+      "directRoute": true
+    },
+    {
+      "id": "fbe5f7fd-bd3e-4286-bbc0-7593e9d2bfa1",
+      "fromNodeId": "0dceda53-7dd8-40fa-becd-9c0400c41b53",
+      "fromPort": "True",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "c538565c-12ad-4a90-b815-8c930fc30245",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": [],
+      "directRoute": true
+    },
+    {
+      "id": "bbbbcef1-5511-469a-be54-04de83c387f6",
+      "fromNodeId": "c538565c-12ad-4a90-b815-8c930fc30245",
+      "fromPort": "Fail",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "90c20ee8-3f54-4298-a836-296dbc241144",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": [],
+      "directRoute": true
+    },
+    {
+      "id": "05ab111d-2434-4c16-b745-eff82297ca2c",
+      "fromNodeId": "c538565c-12ad-4a90-b815-8c930fc30245",
+      "fromPort": "Success",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "e242ddc4-ad20-4183-a34f-edaedcaa0ea0",
+      "toPort": "LoopBack",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": [],
+      "directRoute": true
+    },
+    {
+      "id": "2ffa9571-b1d7-4e87-94fb-0cb7575ffcb0",
+      "fromNodeId": "f7b8ed31-0481-49d1-91f1-37208b208df5",
+      "fromPort": "Out",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "3b8aa3a6-90eb-403e-a520-4aec8a872e35",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": [],
+      "directRoute": true
+    },
+    {
+      "id": "d0264094-82fd-4325-a280-e1400fc68153",
+      "fromNodeId": "052d16b7-e5a1-48af-afb4-8991a4139cc9",
+      "fromPort": "True",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "0f47eae2-1e38-4d05-ace1-b71a670ca628",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": [],
+      "directRoute": true
+    },
+    {
+      "id": "8860c534-4564-4d63-b63c-35d286ec7939",
+      "fromNodeId": "052d16b7-e5a1-48af-afb4-8991a4139cc9",
+      "fromPort": "False",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "e242ddc4-ad20-4183-a34f-edaedcaa0ea0",
+      "toPort": "LoopBack",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": [],
+      "directRoute": true
+    },
+    {
+      "id": "f8b6b40f-dc07-4fef-b2a0-ae67ff942e54",
+      "fromNodeId": "e242ddc4-ad20-4183-a34f-edaedcaa0ea0",
+      "fromPort": "Done",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "edd72625-bfc4-4c4d-80c9-c62eb56896fa",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": [],
+      "directRoute": true
+    },
+    {
+      "id": "5b7cb98f-7a23-4fa9-b639-7989e0045f44",
+      "fromNodeId": "edd72625-bfc4-4c4d-80c9-c62eb56896fa",
+      "fromPort": "Success",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "1ad7d00b-9416-4822-b50e-b30c9d5d5b43",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": [],
+      "directRoute": true
+    },
+    {
+      "id": "1de23a28-3519-4bb1-9cbf-f5caa529153c",
+      "fromNodeId": "edd72625-bfc4-4c4d-80c9-c62eb56896fa",
+      "fromPort": "Fail",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "90c20ee8-3f54-4298-a836-296dbc241144",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": [],
+      "directRoute": true
+    },
+    {
+      "id": "84f6fbcf-5fce-4e61-b468-47117c365704",
+      "fromNodeId": "cb2e83bd-04ae-4108-bbe9-829ebe35caff",
+      "fromPort": "Out",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "cb254574-e44e-4b49-b7b9-8e5028ba783b",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": [],
+      "directRoute": true
+    },
+    {
+      "id": "3851f8ad-dc3b-48d7-9736-e83bf3e9ef02",
+      "fromNodeId": "cb254574-e44e-4b49-b7b9-8e5028ba783b",
+      "fromPort": "True",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "05052b80-0f6a-4b13-978e-26d09b75cd85",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": [],
+      "directRoute": true
+    },
+    {
+      "id": "a7271b98-cbe5-4345-9cb0-544718e076ea",
+      "fromNodeId": "052d16b7-e5a1-48af-afb4-8991a4139cc9",
+      "fromPort": "Fail",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "90c20ee8-3f54-4298-a836-296dbc241144",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": [],
+      "directRoute": true
+    },
+    {
+      "id": "896f1452-68b1-4f13-b91a-98035953b41d",
+      "fromNodeId": "cb254574-e44e-4b49-b7b9-8e5028ba783b",
+      "fromPort": "Fail",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "90c20ee8-3f54-4298-a836-296dbc241144",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": [],
+      "directRoute": true
+    },
+    {
+      "id": "a9585495-9b19-4e89-9ce5-c829612c2c52",
+      "fromNodeId": "cb254574-e44e-4b49-b7b9-8e5028ba783b",
+      "fromPort": "False",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "83a5e94d-b03d-480f-952e-0036ed54a8a5",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": [],
+      "directRoute": true
+    },
+    {
+      "id": "1b16c447-06a7-4eff-84c1-3ae8ac5057fc",
+      "fromNodeId": "05052b80-0f6a-4b13-978e-26d09b75cd85",
+      "fromPort": "Success",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "f4e33fc6-ba2e-459b-bc79-95c8adaf5d2a",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": [],
+      "directRoute": true
+    },
+    {
+      "id": "80ad5227-0fdc-469b-be13-636064ebc138",
+      "fromNodeId": "f4e33fc6-ba2e-459b-bc79-95c8adaf5d2a",
+      "fromPort": "True",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "052d16b7-e5a1-48af-afb4-8991a4139cc9",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": [],
+      "directRoute": true
+    },
+    {
+      "id": "4651eb49-134b-4f50-953d-9dc874702ea6",
+      "fromNodeId": "83a5e94d-b03d-480f-952e-0036ed54a8a5",
+      "fromPort": "Success",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "f4e33fc6-ba2e-459b-bc79-95c8adaf5d2a",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": [],
+      "directRoute": true
+    },
+    {
+      "id": "444d13f1-68cc-476a-bb0b-8e85a2a3fee7",
+      "fromNodeId": "f4e33fc6-ba2e-459b-bc79-95c8adaf5d2a",
+      "fromPort": "False",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "e242ddc4-ad20-4183-a34f-edaedcaa0ea0",
+      "toPort": "LoopBack",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": [],
+      "directRoute": true
+    },
+    {
+      "id": "7a8e157e-81e1-4b1c-b632-02c57fb6b17d",
+      "fromNodeId": "f4e33fc6-ba2e-459b-bc79-95c8adaf5d2a",
+      "fromPort": "Fail",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "90c20ee8-3f54-4298-a836-296dbc241144",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": [],
+      "directRoute": true
+    },
+    {
+      "id": "f5bdff72-7f04-4e1e-bf53-33e0bb520aa1",
+      "fromNodeId": "83a5e94d-b03d-480f-952e-0036ed54a8a5",
+      "fromPort": "Fail",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "90c20ee8-3f54-4298-a836-296dbc241144",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": [],
+      "directRoute": true
+    },
+    {
+      "id": "b4b88297-ec01-4611-abe4-bc5755fa78ae",
+      "fromNodeId": "8aa03502-4c7d-4c88-90d8-ede2d2fb7ba0",
+      "fromPort": "Out",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "5acdb63c-88e3-46d2-9448-9c558b536c43",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": [],
+      "directRoute": true
+    },
+    {
+      "id": "c3c59c53-0ca5-41c8-ac9f-0ce40631d147",
+      "fromNodeId": "5acdb63c-88e3-46d2-9448-9c558b536c43",
+      "fromPort": "Fail",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "90c20ee8-3f54-4298-a836-296dbc241144",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": [],
+      "directRoute": true
+    },
+    {
+      "id": "7b900c67-956e-4dc3-adc9-04534158962f",
+      "fromNodeId": "5acdb63c-88e3-46d2-9448-9c558b536c43",
+      "fromPort": "Success",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "632ffd65-fbc6-400f-a060-817a03a61fc0",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": [],
+      "directRoute": true
+    },
+    {
+      "id": "acd67242-0855-4d3d-8bcb-494fabe9a60e",
+      "fromNodeId": "632ffd65-fbc6-400f-a060-817a03a61fc0",
+      "fromPort": "Success",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "454a6693-6f34-4698-af42-8049ae49ac9a",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": [],
+      "directRoute": true
+    },
+    {
+      "id": "e5c4b514-6c90-4cae-a697-7a6fe24dff7e",
+      "fromNodeId": "454a6693-6f34-4698-af42-8049ae49ac9a",
+      "fromPort": "Success",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "114b3545-99e3-4e29-bc38-fe514bc0dda7",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": [],
+      "directRoute": true
+    },
+    {
+      "id": "e5d0956b-382e-4f11-99c2-a4c9bfc8a8f3",
+      "fromNodeId": "114b3545-99e3-4e29-bc38-fe514bc0dda7",
+      "fromPort": "Success",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "4fcacd0d-c5b9-48c5-9d98-b463a05f543f",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": [],
+      "directRoute": true
+    },
+    {
+      "id": "2409d56b-93c1-4a0c-9720-adefb5b0faf4",
+      "fromNodeId": "4fcacd0d-c5b9-48c5-9d98-b463a05f543f",
+      "fromPort": "Fail",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "1ad7d00b-9416-4822-b50e-b30c9d5d5b43",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": [],
+      "directRoute": true
+    },
+    {
+      "id": "dcd90031-731d-4705-9a18-a1efe3ae63c3",
+      "fromNodeId": "632ffd65-fbc6-400f-a060-817a03a61fc0",
+      "fromPort": "Fail",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "90c20ee8-3f54-4298-a836-296dbc241144",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": [],
+      "directRoute": true
+    },
+    {
+      "id": "ab0ff3c7-c56d-40b3-acc5-f96745bc5e3c",
+      "fromNodeId": "454a6693-6f34-4698-af42-8049ae49ac9a",
+      "fromPort": "Fail",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "90c20ee8-3f54-4298-a836-296dbc241144",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": [],
+      "directRoute": true
+    },
+    {
+      "id": "328b81de-5d66-4085-a67a-e5bb651a2f65",
+      "fromNodeId": "114b3545-99e3-4e29-bc38-fe514bc0dda7",
+      "fromPort": "Fail",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "90c20ee8-3f54-4298-a836-296dbc241144",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": [],
+      "directRoute": true
+    },
+    {
+      "id": "1b251b98-cee3-4480-99cb-572bb0db9463",
+      "fromNodeId": "4fcacd0d-c5b9-48c5-9d98-b463a05f543f",
+      "fromPort": "Fail",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "90c20ee8-3f54-4298-a836-296dbc241144",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": [],
+      "directRoute": true
+    },
+    {
+      "id": "02f94554-2880-4dbb-bc0a-d39b4961cab0",
+      "fromNodeId": "4fcacd0d-c5b9-48c5-9d98-b463a05f543f",
+      "fromPort": "Success",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "1ad7d00b-9416-4822-b50e-b30c9d5d5b43",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": [],
+      "directRoute": true
+    }
+  ]
+}
