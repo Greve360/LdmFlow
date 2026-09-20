@@ -3,7 +3,6 @@
   "flowId": "352dd5be-fff7-402f-bdbd-169caf71cb85",
   "name": "DAF - Import GeoPackage",
   "description": "Et lille flow, der downloader nyeste total af Geopackage registre fra Datafordeleren i Postgres\r\n\r\nTestet med:\r\n   DAGI \r\n   FIKSPUNKT (kun de vigtigste tabeller underst\u00F8tter delta)\r\n   GEODKv: OGR2OGR m\u00E5tte have \u0027-DIM  3\u0027  som arguemnt for at overleve delta (WTF)",
-  "globalValues": {},
   "nodes": [
     {
       "id": "6fb1ed8c-e5d8-4a76-99c9-5f9d62ee39a6",
@@ -14,7 +13,7 @@
       "y": 91,
       "width": 190,
       "height": 92,
-      "executionMode": "Enabled",
+      "executionMode": "Disabled",
       "settings": {
         "BiTemporalFields": "id_lokalid, registreringfra, virkningfra",
         "DafDbSchema": "DAF_DAGI",
@@ -98,7 +97,8 @@
         "OAuthClientSecret": "",
         "OAuthCertificatePath": "",
         "OAuthCertificatePassword": "",
-        "ContinueOnError": "Nej"
+        "ContinueOnError": "Nej",
+        "ResponseType": "Normal"
       },
       "portPlacements": {},
       "flippedPortSides": []
@@ -128,7 +128,8 @@
         "OAuthClientId": "",
         "OAuthClientSecret": "",
         "OAuthCertificatePath": "",
-        "OAuthCertificatePassword": ""
+        "OAuthCertificatePassword": "",
+        "ApiKey": ""
       },
       "portPlacements": {
         "O:Out": "Left",
@@ -475,7 +476,8 @@
         "OAuthClientId": "",
         "OAuthClientSecret": "",
         "OAuthCertificatePath": "",
-        "OAuthCertificatePassword": ""
+        "OAuthCertificatePassword": "",
+        "ApiKey": ""
       },
       "portPlacements": {
         "I:In": "Top"
@@ -579,7 +581,10 @@
         "TargetSrs": "",
         "Where": "",
         "XsdFile": "\u00A4[WorkingFolder]\u00A4\\Schemas\\\u00A4{Register}\u00A4.xsd",
-        "XsdTableName": "\u00A4{entityname,L}\u00A4"
+        "XsdTableName": "\u00A4{entityname,L}\u00A4",
+        "DestinationConnectionString": "",
+        "DestinationTable": "",
+        "ReduceNvarCharMax": ""
       },
       "portPlacements": {
         "O:Success": "Left",
@@ -640,7 +645,8 @@
         "OAuthClientId": "",
         "OAuthClientSecret": "",
         "OAuthCertificatePath": "",
-        "OAuthCertificatePassword": ""
+        "OAuthCertificatePassword": "",
+        "ApiKey": ""
       },
       "portPlacements": {
         "O:Out": "Left",
@@ -739,7 +745,10 @@
         "TargetSrs": "",
         "Where": "",
         "XsdFile": "\u00A4[WorkingFolder]\u00A4\\Schemas\\\u00A4{Register}\u00A4.xsd",
-        "XsdTableName": ""
+        "XsdTableName": "",
+        "DestinationConnectionString": "",
+        "DestinationTable": "",
+        "ReduceNvarCharMax": ""
       },
       "portPlacements": {},
       "flippedPortSides": []
@@ -855,15 +864,18 @@
       "height": 92,
       "executionMode": "Enabled",
       "settings": {
-        "AdditionalArguments": "-lco SCHEMA=\u00A4{DafDbSchema,L}\u00A4 -DIM 3",
+        "AdditionalArguments": "-lco SCHEMA=\u00A4{DafDbSchema,L}\u00A4 -DIM 3 -gt 65536 --config PG_USE_COPY YES  -lco SPATIAL_INDEX=NONE",
         "AdditionalEnvironment": "",
         "Destination": "\u00A4[DafDataOGR]\u00A4",
+        "DestinationConnectionString": "",
+        "DestinationTable": "",
         "GeometryType": "PROMOTE_TO_MULTI",
         "LayerName": "\u00A4{entityname,L}\u00A4",
         "Mode": "Overwrite",
-        "OgrExecutable": "\u00A4[SdkRoot]\u00A4bin\\gdal\\apps\\ogr2ogr.exe",
+        "OgrExecutable": "\u00A4[GdalSdkRoot]\u00A4bin\\gdal\\apps\\ogr2ogr.exe",
         "OutputFormat": "PostgreSQL",
-        "SdkRoot": "\u00A4[SdkRoot]\u00A4",
+        "ReduceNvarCharMax": "",
+        "SdkRoot": "\u00A4[GdalSdkRoot]\u00A4",
         "SelectFields": "",
         "Source": "\u00A4{ExtractedFile}\u00A4",
         "SourceSrs": "",
@@ -1112,7 +1124,7 @@
       "y": 640,
       "width": 190,
       "height": 92,
-      "executionMode": "Disabled",
+      "executionMode": "Enabled",
       "settings": {
         "BiTemporalFields": "id_lokalid, registreringfra, virkningfra, status",
         "DafDbSchema": "DAF_MAT",
