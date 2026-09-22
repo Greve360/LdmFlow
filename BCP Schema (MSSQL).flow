@@ -10,16 +10,16 @@
       "category": "Module",
       "nodeType": "Start",
       "x": 34,
-      "y": 170,
+      "y": 168,
       "width": 200,
       "height": 102,
-      "executionMode": "Enabled",
+      "executionMode": "Disabled",
       "settings": {
         "BCPTempFolder": "\u00A4[WorkingFolder]\u00A4",
-        "DestinationConnectionString": "server=LdmCprSql01.lifa.dk;database=CVR_HistvNy;Trusted_Connection=True;MultipleActiveResultSets=True;Pooling=yes;TrustServerCertificate=yes;Encrypt=False",
-        "DestinationDatabase": "CVR_HistvNy",
+        "DestinationConnectionString": "\u00A4[RegisterWorkDB]\u00A4",
+        "DestinationDatabase": "RegisterWork",
         "DestinationSchema": "ERST_CVR",
-        "DestinationServer": "LdmCprSql01.lifa.dk",
+        "DestinationServer": "db-test-dev01.lifa.dk",
         "SingleTable": "",
         "SourceConnectionString": "\u00A4[MSSQL_Sandbox]\u00A4",
         "SourceDatabase": "Sandbox",
@@ -34,8 +34,8 @@
       "name": "ILogger",
       "category": "Module",
       "nodeType": "ILogger",
-      "x": 1450,
-      "y": 495,
+      "x": 1672,
+      "y": 438,
       "width": 200,
       "height": 102,
       "executionMode": "Enabled",
@@ -54,8 +54,8 @@
       "name": "Sql Iterator",
       "category": "Module",
       "nodeType": "SqlIterator",
-      "x": 685,
-      "y": 75,
+      "x": 769,
+      "y": 95,
       "width": 200,
       "height": 102,
       "executionMode": "Enabled",
@@ -104,8 +104,8 @@
       "name": "BCP OUT",
       "category": "Module",
       "nodeType": "BcpOut",
-      "x": 352,
-      "y": 793,
+      "x": 521,
+      "y": 655,
       "width": 200,
       "height": 102,
       "executionMode": "Enabled",
@@ -122,7 +122,7 @@
       },
       "portPlacements": {
         "I:In": "Right",
-        "O:Success": "Top"
+        "O:Success": "Left"
       },
       "flippedPortSides": []
     },
@@ -131,8 +131,8 @@
       "name": "BCP IN",
       "category": "Module",
       "nodeType": "BcpIn",
-      "x": 316,
-      "y": 481,
+      "x": 413,
+      "y": 445,
       "width": 200,
       "height": 102,
       "executionMode": "Enabled",
@@ -156,8 +156,8 @@
       "name": "Ensure Destination Schema",
       "category": "Module",
       "nodeType": "EnsureSchema",
-      "x": 319,
-      "y": 154,
+      "x": 282,
+      "y": 156,
       "width": 200,
       "height": 102,
       "executionMode": "Enabled",
@@ -174,8 +174,8 @@
       "name": "Has Destination Table",
       "category": "Module",
       "nodeType": "HasTable",
-      "x": 668,
-      "y": 342,
+      "x": 788,
+      "y": 248,
       "width": 200,
       "height": 102,
       "executionMode": "Enabled",
@@ -197,8 +197,8 @@
       "name": "Generate DDL",
       "category": "Module",
       "nodeType": "GenerateDDL",
-      "x": 989,
-      "y": 345,
+      "x": 1024,
+      "y": 244,
       "width": 200,
       "height": 102,
       "executionMode": "Enabled",
@@ -219,8 +219,8 @@
       "name": "Create Table (if missing)",
       "category": "Module",
       "nodeType": "ExecuteSQL",
-      "x": 993,
-      "y": 515,
+      "x": 1025,
+      "y": 381,
       "width": 200,
       "height": 102,
       "executionMode": "Enabled",
@@ -247,8 +247,8 @@
       "name": "Move to Destination Schema",
       "category": "Module",
       "nodeType": "ExecuteSQL",
-      "x": 948,
-      "y": 705,
+      "x": 1016,
+      "y": 526,
       "width": 200,
       "height": 102,
       "executionMode": "Enabled",
@@ -275,8 +275,8 @@
       "name": "Truncate Destination Table",
       "category": "Module",
       "nodeType": "ExecuteSQL",
-      "x": 681,
-      "y": 801,
+      "x": 767,
+      "y": 668,
       "width": 200,
       "height": 102,
       "executionMode": "Nop",
@@ -299,29 +299,12 @@
       "flippedPortSides": []
     },
     {
-      "id": "42b44316-7e98-4549-8e5e-e097f4f68c8c",
-      "name": "Play Sound",
-      "category": "Module",
-      "nodeType": "PlaySound",
-      "x": 1168,
-      "y": 60,
-      "width": 200,
-      "height": 102,
-      "executionMode": "Enabled",
-      "settings": {
-        "SoundEffect": "TaDa",
-        "VolumePercent": "200"
-      },
-      "portPlacements": {},
-      "flippedPortSides": []
-    },
-    {
       "id": "313d6439-0755-4235-890a-002fb5bb2728",
       "name": "Display",
       "category": "Module",
       "nodeType": "Display",
-      "x": 256,
-      "y": 643,
+      "x": 164,
+      "y": 645,
       "width": 317,
       "height": 110,
       "executionMode": "Enabled",
@@ -329,26 +312,8 @@
         "Text": "\u00A4{BCPTempFolder}\u00A4\\\u00A4{TABLE_NAME}\u00A4.bcp"
       },
       "portPlacements": {
-        "I:In": "Bottom",
+        "I:In": "Right",
         "O:Out": "Top"
-      },
-      "flippedPortSides": []
-    },
-    {
-      "id": "01c1d160-8fb0-402e-bcbe-46e4bda6f6d3",
-      "name": "Firework",
-      "category": "Module",
-      "nodeType": "Firework",
-      "x": 1444,
-      "y": 76,
-      "width": 200,
-      "height": 102,
-      "executionMode": "Enabled",
-      "settings": {
-        "Seconds": "5"
-      },
-      "portPlacements": {
-        "O:Out": "Bottom"
       },
       "flippedPortSides": []
     },
@@ -381,8 +346,8 @@
       "name": "Delete File",
       "category": "Module",
       "nodeType": "DeleteFile",
-      "x": 322,
-      "y": 323,
+      "x": 534,
+      "y": 258,
       "width": 200,
       "height": 102,
       "executionMode": "Enabled",
@@ -391,7 +356,8 @@
         "Recursive": "No"
       },
       "portPlacements": {
-        "I:In": "Bottom"
+        "I:In": "Bottom",
+        "O:Success": "Top"
       },
       "flippedPortSides": []
     },
@@ -400,8 +366,8 @@
       "name": "Exit",
       "category": "Module",
       "nodeType": "Exit",
-      "x": 1496,
-      "y": 256,
+      "x": 1648,
+      "y": 128,
       "width": 200,
       "height": 102,
       "executionMode": "Enabled",
@@ -410,8 +376,7 @@
         "ExitMessage": ""
       },
       "portPlacements": {
-        "I:Fail": "Bottom",
-        "I:In": "Top"
+        "I:Fail": "Bottom"
       },
       "flippedPortSides": []
     },
@@ -420,8 +385,8 @@
       "name": "Start CVR Delta",
       "category": "Module",
       "nodeType": "Start",
-      "x": 33,
-      "y": 307,
+      "x": 35,
+      "y": 305,
       "width": 200,
       "height": 102,
       "executionMode": "Disabled",
@@ -429,27 +394,14 @@
         "BCPTempFolder": "\u00A4[WorkingFolder]\u00A4",
         "DestinationConnectionString": "\u00A4[RegisterWorkDB]\u00A4",
         "DestinationDatabase": "RegisterWork",
-        "DestinationSchema": "ERST_CVR_Delta2",
-        "DestinationServer": "10.10.1.97",
+        "DestinationSchema": "ERST_CVR_DeltaA",
+        "DestinationServer": "db-test-dev01.lifa.dk",
         "SourceConnectionString": "\u00A4[MSSQL_SandboxDelta]\u00A4",
         "SourceDatabase": "SandboxDelta",
         "SourceSchema": "ERST_CVR",
-        "SourceServer": "10-GM0RZQ8N"
+        "SourceServer": "10-GM0RZQ8N",
+        "SingleTable": ""
       },
-      "portPlacements": {},
-      "flippedPortSides": []
-    },
-    {
-      "id": "796329fc-d56b-4f3f-9188-432849a21dca",
-      "name": "He he",
-      "category": "Module",
-      "nodeType": "Start",
-      "x": 26,
-      "y": 451,
-      "width": 200,
-      "height": 102,
-      "executionMode": "Disabled",
-      "settings": {},
       "portPlacements": {},
       "flippedPortSides": []
     },
@@ -458,22 +410,22 @@
       "name": "Start CVR RI",
       "category": "Module",
       "nodeType": "Start",
-      "x": 27,
-      "y": 588,
+      "x": 516,
+      "y": 923,
       "width": 200,
       "height": 102,
       "executionMode": "Disabled",
       "settings": {
         "BCPTempFolder": "\u00A4[WorkingFolder]\u00A4",
-        "DestinationConnectionString": "server=LdmCprSql01.lifa.dk;database=CVR_HistvNy;Trusted_Connection=True;MultipleActiveResultSets=True;Pooling=yes;TrustServerCertificate=yes;Encrypt=False",
-        "DestinationDatabase": "CVR_HistvNy",
+        "DestinationConnectionString": "\u00A4[RegisterWorkDB]\u00A4",
+        "DestinationDatabase": "RegisterWork",
         "DestinationSchema": "ERST_CVR",
-        "DestinationServer": "LdmCprSql01.lifa.dk",
+        "DestinationServer": "db-test-dev01.lifa.dk",
+        "SingleTable": "",
         "SourceConnectionString": "\u00A4[MSSQL_Sandbox]\u00A4",
         "SourceDatabase": "Sandbox",
         "SourceSchema": "ERST_CVR",
-        "SourceServer": "10-GM0RZQ8N",
-        "SingleTable": ""
+        "SourceServer": "10-GM0RZQ8N"
       },
       "portPlacements": {},
       "flippedPortSides": []
@@ -483,8 +435,8 @@
       "name": "NOP",
       "category": "Module",
       "nodeType": "NOP",
-      "x": 926,
-      "y": 199,
+      "x": 999,
+      "y": 927,
       "width": 200,
       "height": 102,
       "executionMode": "Enabled",
@@ -497,8 +449,8 @@
       "name": "Ensure RI",
       "category": "Module",
       "nodeType": "EnsureRI",
-      "x": 552.4444444444629,
-      "y": 532.1111111111268,
+      "x": 745.4444444444629,
+      "y": 923.1111111111268,
       "width": 200,
       "height": 102,
       "executionMode": "Enabled",
@@ -518,8 +470,8 @@
       "name": "Start CVR Total 2",
       "category": "Module",
       "nodeType": "Start",
-      "x": 31,
-      "y": 723,
+      "x": 40,
+      "y": 458,
       "width": 200,
       "height": 102,
       "executionMode": "Disabled",
@@ -543,8 +495,8 @@
       "name": "Truncate Schema",
       "category": "Module",
       "nodeType": "Start",
-      "x": 39,
-      "y": 861,
+      "x": 1373,
+      "y": 904,
       "width": 200,
       "height": 102,
       "executionMode": "Disabled",
@@ -560,7 +512,9 @@
         "SourceServer": "10-GM0RZQ8N",
         "SingleTable": ""
       },
-      "portPlacements": {},
+      "portPlacements": {
+        "O:Out": "Top"
+      },
       "flippedPortSides": []
     },
     {
@@ -568,8 +522,8 @@
       "name": "Truncate Schema",
       "category": "Module",
       "nodeType": "TruncateSchema",
-      "x": 311,
-      "y": 921,
+      "x": 1372,
+      "y": 724,
       "width": 200,
       "height": 102,
       "executionMode": "Enabled",
@@ -578,6 +532,53 @@
         "ConnectionString": "\u00A4{DestinationConnectionString}\u00A4",
         "DBMS": "MSSQL",
         "Schema": "\u00A4{DestinationSchema}\u00A4"
+      },
+      "portPlacements": {
+        "I:In": "Bottom",
+        "O:Success": "Top"
+      },
+      "flippedPortSides": []
+    },
+    {
+      "id": "4939ced5-3700-47b3-84c1-601929ba997e",
+      "name": "Truncate Schema 2",
+      "category": "Module",
+      "nodeType": "TruncateSchema",
+      "x": 504,
+      "y": 94,
+      "width": 200,
+      "height": 102,
+      "executionMode": "Enabled",
+      "settings": {
+        "CommandTimeout": "0",
+        "ConnectionString": "\u00A4{DestinationConnectionString}\u00A4",
+        "DBMS": "MSSQL",
+        "Schema": "\u00A4{DestinationSchema}\u00A4"
+      },
+      "portPlacements": {},
+      "flippedPortSides": []
+    },
+    {
+      "id": "8a5872e0-139a-4ec1-8031-afa6fbe8eb54",
+      "name": "Start CVR RI Delta",
+      "category": "Module",
+      "nodeType": "Start",
+      "x": 509,
+      "y": 805,
+      "width": 200,
+      "height": 102,
+      "executionMode": "Enabled",
+      "settings": {
+        "BCPTempFolder": "\u00A4[WorkingFolder]\u00A4",
+        "DestinationConnectionString": "\u00A4[RegisterWorkDB]\u00A4",
+        "DestinationDatabase": "RegisterWork",
+        "DestinationSchema": "ERST_CVR_DeltaA",
+        "DestinationServer": "db-test-dev01.lifa.dk",
+        "SingleTable": "",
+        "SourceConnectionString": "\u00A4[MSSQL_SandboxDelta]\u00A4",
+        "SourceDatabase": "Sandbox",
+        "SourceSchema": "ERST_CVR",
+        "SourceServer": "10-GM0RZQ8N"
       },
       "portPlacements": {},
       "flippedPortSides": []
@@ -624,18 +625,6 @@
       "directRoute": true
     },
     {
-      "id": "2b3c4d5e-6f78-4890-abcd-ef0123456702",
-      "fromNodeId": "c2d8f4a1-6e3b-4c9d-8a72-f1b5e9c3d6a2",
-      "fromPort": "Success",
-      "fromControlDx": null,
-      "fromControlDy": null,
-      "toNodeId": "0a1be1b2-306b-48a4-a7b4-725b58a37443",
-      "toPort": "In",
-      "toControlDx": null,
-      "toControlDy": null,
-      "waypoints": []
-    },
-    {
       "id": "3c4d5e6f-7890-4a01-bcde-f01234567803",
       "fromNodeId": "c2d8f4a1-6e3b-4c9d-8a72-f1b5e9c3d6a2",
       "fromPort": "Fail",
@@ -671,7 +660,8 @@
       "toPort": "In",
       "toControlDx": null,
       "toControlDy": null,
-      "waypoints": []
+      "waypoints": [],
+      "directRoute": true
     },
     {
       "id": "7890a1b2-c3d4-4e56-f012-345678901207",
@@ -696,7 +686,8 @@
       "toPort": "In",
       "toControlDx": null,
       "toControlDy": null,
-      "waypoints": []
+      "waypoints": [],
+      "directRoute": true
     },
     {
       "id": "90a1b2c3-4d5e-4078-1234-567890123409",
@@ -788,18 +779,6 @@
       "directRoute": true
     },
     {
-      "id": "11af3932-d137-44a8-aab7-b788ca0c7ac1",
-      "fromNodeId": "0a1be1b2-306b-48a4-a7b4-725b58a37443",
-      "fromPort": "Done",
-      "fromControlDx": null,
-      "fromControlDy": null,
-      "toNodeId": "42b44316-7e98-4549-8e5e-e097f4f68c8c",
-      "toPort": "In",
-      "toControlDx": null,
-      "toControlDy": null,
-      "waypoints": []
-    },
-    {
       "id": "d3803a29-5c4e-4835-a4ac-2462d225d1d9",
       "fromNodeId": "a1c93e2f-6d4b-4a2e-9f31-7c8e5d2b91a4",
       "fromPort": "Success",
@@ -822,19 +801,8 @@
       "toPort": "In",
       "toControlDx": null,
       "toControlDy": null,
-      "waypoints": []
-    },
-    {
-      "id": "cf75df54-acbb-49e3-97d7-f7caa82bb7bb",
-      "fromNodeId": "42b44316-7e98-4549-8e5e-e097f4f68c8c",
-      "fromPort": "Out",
-      "fromControlDx": null,
-      "fromControlDy": null,
-      "toNodeId": "01c1d160-8fb0-402e-bcbe-46e4bda6f6d3",
-      "toPort": "In",
-      "toControlDx": null,
-      "toControlDy": null,
-      "waypoints": []
+      "waypoints": [],
+      "directRoute": true
     },
     {
       "id": "fb7be408-cc0c-46a6-8e2a-3c11593a2da7",
@@ -846,7 +814,8 @@
       "toPort": "In",
       "toControlDx": null,
       "toControlDy": null,
-      "waypoints": []
+      "waypoints": [],
+      "directRoute": true
     },
     {
       "id": "a7ef555c-8468-42bf-bc08-7820c7b6c8bc",
@@ -858,7 +827,8 @@
       "toPort": "In",
       "toControlDx": null,
       "toControlDy": null,
-      "waypoints": []
+      "waypoints": [],
+      "directRoute": true
     },
     {
       "id": "46e3fc9e-a2f0-4d99-9760-00cdd77217a0",
@@ -870,7 +840,8 @@
       "toPort": "LoopBack",
       "toControlDx": null,
       "toControlDy": null,
-      "waypoints": []
+      "waypoints": [],
+      "directRoute": true
     },
     {
       "id": "19438fc5-6f56-4b9b-8a8f-39adb654aabd",
@@ -884,18 +855,6 @@
       "toControlDy": null,
       "waypoints": [],
       "directRoute": true
-    },
-    {
-      "id": "fccf4596-f1ba-4869-9d76-e040ea73ff0f",
-      "fromNodeId": "01c1d160-8fb0-402e-bcbe-46e4bda6f6d3",
-      "fromPort": "Out",
-      "fromControlDx": null,
-      "fromControlDy": null,
-      "toNodeId": "981fb8d7-f477-4775-b2df-035381c143a3",
-      "toPort": "In",
-      "toControlDx": null,
-      "toControlDy": null,
-      "waypoints": []
     },
     {
       "id": "4d826444-321d-4988-85de-91f90d0027c0",
@@ -937,31 +896,6 @@
       "directRoute": true
     },
     {
-      "id": "864b63ee-5246-402e-8965-068d67fd7693",
-      "fromNodeId": "796329fc-d56b-4f3f-9188-432849a21dca",
-      "fromPort": "Out",
-      "fromControlDx": null,
-      "fromControlDy": null,
-      "toNodeId": "42b44316-7e98-4549-8e5e-e097f4f68c8c",
-      "toPort": "In",
-      "toControlDx": null,
-      "toControlDy": null,
-      "waypoints": [],
-      "directRoute": true
-    },
-    {
-      "id": "1175759b-f248-443c-92a3-a296a7a8b1f2",
-      "fromNodeId": "add98d79-edee-491c-9026-58f67129e152",
-      "fromPort": "Out",
-      "fromControlDx": null,
-      "fromControlDy": null,
-      "toNodeId": "42b44316-7e98-4549-8e5e-e097f4f68c8c",
-      "toPort": "In",
-      "toControlDx": null,
-      "toControlDy": null,
-      "waypoints": []
-    },
-    {
       "id": "0cc51002-bbe8-43cf-bd75-ee0f715e00a7",
       "fromNodeId": "58252cf7-dba8-4644-ac42-ae12308f38bf",
       "fromPort": "Out",
@@ -971,7 +905,8 @@
       "toPort": "In",
       "toControlDx": null,
       "toControlDy": null,
-      "waypoints": []
+      "waypoints": [],
+      "directRoute": true
     },
     {
       "id": "854d77ca-2854-437a-bbf1-2c6b380f1058",
@@ -983,7 +918,8 @@
       "toPort": "In",
       "toControlDx": null,
       "toControlDy": null,
-      "waypoints": []
+      "waypoints": [],
+      "directRoute": true
     },
     {
       "id": "d205174c-dca7-4f9f-83bd-79447cfa054e",
@@ -1025,12 +961,12 @@
       "directRoute": true
     },
     {
-      "id": "3c091ac8-49e3-4091-a9da-28070ae61ec3",
+      "id": "4d125d70-167a-4901-a327-975c51f42106",
       "fromNodeId": "0cfa20a8-48da-45ff-aca1-1b9e75f01afb",
-      "fromPort": "Success",
+      "fromPort": "Fail",
       "fromControlDx": null,
       "fromControlDy": null,
-      "toNodeId": "42b44316-7e98-4549-8e5e-e097f4f68c8c",
+      "toNodeId": "3816464b-6b1d-4117-8b48-41ad83e55e4a",
       "toPort": "In",
       "toControlDx": null,
       "toControlDy": null,
@@ -1038,12 +974,89 @@
       "directRoute": true
     },
     {
-      "id": "4d125d70-167a-4901-a327-975c51f42106",
+      "id": "43607a81-847b-41bd-8288-17dcb7f19432",
+      "fromNodeId": "c2d8f4a1-6e3b-4c9d-8a72-f1b5e9c3d6a2",
+      "fromPort": "Success",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "4939ced5-3700-47b3-84c1-601929ba997e",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": [],
+      "directRoute": true
+    },
+    {
+      "id": "ea775e50-0f5c-4001-a612-e6f44451f9b4",
+      "fromNodeId": "4939ced5-3700-47b3-84c1-601929ba997e",
+      "fromPort": "Success",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "0a1be1b2-306b-48a4-a7b4-725b58a37443",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": [],
+      "directRoute": true
+    },
+    {
+      "id": "bdd6b5d4-8d02-41a6-8385-77bf4abf2aa0",
+      "fromNodeId": "0a1be1b2-306b-48a4-a7b4-725b58a37443",
+      "fromPort": "Done",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "981fb8d7-f477-4775-b2df-035381c143a3",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "b3261d01-f0f4-4921-9ad1-b42d67814bd2",
+      "fromNodeId": "add98d79-edee-491c-9026-58f67129e152",
+      "fromPort": "Out",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "981fb8d7-f477-4775-b2df-035381c143a3",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": [],
+      "directRoute": true
+    },
+    {
+      "id": "d6591892-04e7-4f56-840b-14b9d7560d41",
       "fromNodeId": "0cfa20a8-48da-45ff-aca1-1b9e75f01afb",
+      "fromPort": "Success",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "981fb8d7-f477-4775-b2df-035381c143a3",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": [],
+      "directRoute": true
+    },
+    {
+      "id": "0a66c633-af79-4624-8673-d85f5f2729e5",
+      "fromNodeId": "4939ced5-3700-47b3-84c1-601929ba997e",
       "fromPort": "Fail",
       "fromControlDx": null,
       "fromControlDy": null,
       "toNodeId": "3816464b-6b1d-4117-8b48-41ad83e55e4a",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": [],
+      "directRoute": true
+    },
+    {
+      "id": "151ed7c6-2277-4e0c-8996-ec942a283d02",
+      "fromNodeId": "8a5872e0-139a-4ec1-8031-afa6fbe8eb54",
+      "fromPort": "Out",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "d32f920d-ed2d-4758-95c5-cfdeee2c7c10",
       "toPort": "In",
       "toControlDx": null,
       "toControlDy": null,
