@@ -9,18 +9,19 @@
       "name": "Start DAGI",
       "category": "Module",
       "nodeType": "Start",
-      "x": 139.38888888889176,
-      "y": 315.8888888888881,
+      "x": 29.788888888891393,
+      "y": 300.6888888888885,
       "width": 200,
       "height": 102,
-      "executionMode": "Disabled",
+      "executionMode": "Enabled",
       "settings": {
-        "BiTemporalFields": "id_lokalid, registreringfra, virkningfra",
-        "DestinationMSSQL": "\u00A4[RegisterWorkDB]\u00A4",
-        "DestinationSchema": "DAF_DAGI_NY",
+        "BiTemporalFields": "id_lokalid\r\nregistreringfra\r\nvirkningfra",
+        "DestinationMSSQL": "\u00A4[MSSQL_Sandbox]\u00A4",
+        "DestinationSchema": "DAF_DAGI_TEST",
         "PostgresSchema": "daf_dagi",
-        "RowLimiter": "limit 10000",
-        "ReduceNVarcharMax": "id_lokalid, 40, NOT NULL"
+        "ReduceNVarcharMax": "id_lokalid, 40, NOT NULL",
+        "RowLimiter": "",
+        "SingleTable": ""
       },
       "portPlacements": {},
       "flippedPortSides": []
@@ -30,8 +31,8 @@
       "name": "Exit",
       "category": "Module",
       "nodeType": "Exit",
-      "x": 1528.8888888888923,
-      "y": 648.8888888888882,
+      "x": 1031.2888888888904,
+      "y": 48.08888888889129,
       "width": 200,
       "height": 102,
       "executionMode": "Enabled",
@@ -49,8 +50,8 @@
       "name": "ILogger",
       "category": "Module",
       "nodeType": "ILogger",
-      "x": 1464.8888888888923,
-      "y": 842.8888888888878,
+      "x": 1036.0888888888903,
+      "y": 182.88888888888653,
       "width": 200,
       "height": 102,
       "executionMode": "Enabled",
@@ -69,8 +70,8 @@
       "name": "Stream SQL Bulk Copy (BiTemp)",
       "category": "Module",
       "nodeType": "StreamSqlBulkCopy",
-      "x": 716.7839506172878,
-      "y": 1632.067901234566,
+      "x": 537.5839506172879,
+      "y": 1424.067901234566,
       "width": 316,
       "height": 119,
       "executionMode": "Enabled",
@@ -101,8 +102,8 @@
       "name": "Get SQL Fields",
       "category": "Module",
       "nodeType": "GetSqlFields",
-      "x": 600.7839506172867,
-      "y": 522.5679012345659,
+      "x": 541.5839506172856,
+      "y": 440.9679012345631,
       "width": 200,
       "height": 102,
       "executionMode": "Enabled",
@@ -125,8 +126,8 @@
       "name": "Loop PG Tables",
       "category": "Module",
       "nodeType": "SqlIterator",
-      "x": 634.3888888888918,
-      "y": 314.8888888888881,
+      "x": 524.7888888888915,
+      "y": 299.6888888888885,
       "width": 190,
       "height": 92,
       "executionMode": "Enabled",
@@ -152,8 +153,8 @@
       "name": "Display",
       "category": "Module",
       "nodeType": "Display",
-      "x": 499.28395061728685,
-      "y": 697.5679012345656,
+      "x": 495.2839506172864,
+      "y": 595.9679012345712,
       "width": 301,
       "height": 108,
       "executionMode": "Enabled",
@@ -171,8 +172,8 @@
       "name": "Ensure Schema",
       "category": "Module",
       "nodeType": "EnsureSchema",
-      "x": 474.7839506172873,
-      "y": 999.5679012345647,
+      "x": 509.98395061728417,
+      "y": 884.3679012345673,
       "width": 200,
       "height": 102,
       "executionMode": "Enabled",
@@ -192,8 +193,8 @@
       "name": "Has Geomtry Column?",
       "category": "Module",
       "nodeType": "IF_Then_Else",
-      "x": 843.3888888888918,
-      "y": 979.8888888888878,
+      "x": 744.9888888888925,
+      "y": 812.6888888888889,
       "width": 200,
       "height": 102,
       "executionMode": "Enabled",
@@ -213,8 +214,8 @@
       "name": "Start MAT",
       "category": "Module",
       "nodeType": "Start",
-      "x": 139.38888888889176,
-      "y": 452.8888888888882,
+      "x": 29.788888888891393,
+      "y": 437.6888888888885,
       "width": 200,
       "height": 102,
       "executionMode": "Disabled",
@@ -235,8 +236,8 @@
       "name": "Start FIKS",
       "category": "Module",
       "nodeType": "Start",
-      "x": 138.38888888889178,
-      "y": 591.8888888888875,
+      "x": 28.78888888889142,
+      "y": 576.688888888888,
       "width": 200,
       "height": 102,
       "executionMode": "Disabled",
@@ -256,8 +257,8 @@
       "name": "Start DS",
       "category": "Module",
       "nodeType": "Start",
-      "x": 138.38888888889178,
-      "y": 729.888888888888,
+      "x": 28.78888888889142,
+      "y": 714.6888888888884,
       "width": 200,
       "height": 102,
       "executionMode": "Disabled",
@@ -277,8 +278,8 @@
       "name": "Create Index",
       "category": "Module",
       "nodeType": "CreateIndex",
-      "x": 1115.3888888888919,
-      "y": 402.8888888888881,
+      "x": 1005.7888888888922,
+      "y": 387.6888888888885,
       "width": 200,
       "height": 102,
       "executionMode": "Enabled",
@@ -306,8 +307,8 @@
       "name": "Start GEODKV",
       "category": "Module",
       "nodeType": "Start",
-      "x": 138.38888888889178,
-      "y": 867.8888888888878,
+      "x": 28.78888888889142,
+      "y": 852.6888888888882,
       "width": 200,
       "height": 102,
       "executionMode": "Disabled",
@@ -327,8 +328,8 @@
       "name": "Promote MSSQL Geometry 2",
       "category": "Module",
       "nodeType": "PromoteMssqlGeometry",
-      "x": 1114.8888888888919,
-      "y": 904.8888888888878,
+      "x": 1046.888888888892,
+      "y": 876.8888888888873,
       "width": 249,
       "height": 106,
       "executionMode": "Enabled",
@@ -348,35 +349,12 @@
       "flippedPortSides": []
     },
     {
-      "id": "3860385e-b7e0-4fa2-afd6-e148b613ffb8",
-      "name": "Has Columns",
-      "category": "Module",
-      "nodeType": "HasColumns",
-      "x": 1130.8888888888923,
-      "y": 609.8888888888878,
-      "width": 200,
-      "height": 102,
-      "executionMode": "Enabled",
-      "settings": {
-        "Columns": "\u00A4{BiTemporalFields}\u00A4",
-        "ConnectionString": "\u00A4{DestinationMSSQL}\u00A4",
-        "DBMS": "MSSQL",
-        "TableName": "\u00A4{DestinationSchema}\u00A4.\u00A4{tablename}\u00A4"
-      },
-      "portPlacements": {
-        "O:True": "Top",
-        "O:False": "Left",
-        "I:In": "Bottom"
-      },
-      "flippedPortSides": []
-    },
-    {
       "id": "1ae96c01-f081-4e4c-995b-274a4d1e0bde",
       "name": "Stream SQL Bulk Copy (Andre)",
       "category": "Module",
       "nodeType": "StreamSqlBulkCopy",
-      "x": 1349.2839506172886,
-      "y": 1553.567901234566,
+      "x": 987.6839506172853,
+      "y": 1268.7679012345664,
       "width": 316,
       "height": 119,
       "executionMode": "Enabled",
@@ -407,8 +385,8 @@
       "name": "Drop Table (if exists)",
       "category": "Module",
       "nodeType": "DropTableIfExists",
-      "x": 479.2839506172873,
-      "y": 1152.5679012345634,
+      "x": 488.0839506172868,
+      "y": 1052.567901234562,
       "width": 200,
       "height": 102,
       "executionMode": "Enabled",
@@ -428,8 +406,8 @@
       "name": "Is _Delta ?",
       "category": "Module",
       "nodeType": "IF_Then_Else",
-      "x": 481.2839506172873,
-      "y": 875.5679012345649,
+      "x": 530.0839506172947,
+      "y": 738.7679012345718,
       "width": 200,
       "height": 102,
       "executionMode": "Enabled",
@@ -443,31 +421,12 @@
       "flippedPortSides": []
     },
     {
-      "id": "897d2027-a944-4f91-af9e-cf8f60856fa9",
-      "name": "Has BiTemp Fields ?",
-      "category": "Module",
-      "nodeType": "IF_Then_Else",
-      "x": 483.88888888889136,
-      "y": 1317.888888888888,
-      "width": 200,
-      "height": 102,
-      "executionMode": "Enabled",
-      "settings": {
-        "Expression": "\u0022\u00A4{SqlFieldList}\u00A4\u0022 containsall \u0022\u00A4{BiTemporalFields}\u00A4\u0022"
-      },
-      "portPlacements": {
-        "O:True": "Bottom",
-        "I:In": "Top"
-      },
-      "flippedPortSides": []
-    },
-    {
       "id": "2cdcfd83-5462-433d-9cf0-41fc95497ee1",
       "name": "Start BBR",
       "category": "Module",
       "nodeType": "Start",
-      "x": 142.88888888889178,
-      "y": 1013.8888888888878,
+      "x": 33.28888888889142,
+      "y": 998.6888888888882,
       "width": 200,
       "height": 102,
       "executionMode": "Disabled",
@@ -488,8 +447,8 @@
       "name": "Start DAR",
       "category": "Module",
       "nodeType": "Start",
-      "x": 146.88888888889176,
-      "y": 1157.8888888888866,
+      "x": 37.28888888889139,
+      "y": 1142.6888888888868,
       "width": 200,
       "height": 102,
       "executionMode": "Disabled",
@@ -510,8 +469,8 @@
       "name": "Start EBR",
       "category": "Module",
       "nodeType": "Start",
-      "x": 145.88888888889176,
-      "y": 1293.888888888888,
+      "x": 36.28888888889139,
+      "y": 1278.6888888888882,
       "width": 200,
       "height": 102,
       "executionMode": "Disabled",
@@ -532,8 +491,8 @@
       "name": "Start VUR",
       "category": "Module",
       "nodeType": "Start",
-      "x": 144.88888888889176,
-      "y": 1432.888888888888,
+      "x": 35.28888888889139,
+      "y": 1417.6888888888882,
       "width": 200,
       "height": 102,
       "executionMode": "Disabled",
@@ -554,8 +513,8 @@
       "name": "Start EJF",
       "category": "Module",
       "nodeType": "Start",
-      "x": 145.88888888889176,
-      "y": 1565.888888888888,
+      "x": 36.28888888889139,
+      "y": 1550.6888888888882,
       "width": 200,
       "height": 102,
       "executionMode": "Disabled",
@@ -576,11 +535,11 @@
       "name": "Start DAGI Til Claudi",
       "category": "Module",
       "nodeType": "Start",
-      "x": 131,
-      "y": 49,
+      "x": 21.399999999999636,
+      "y": 33.80000000000035,
       "width": 200,
       "height": 102,
-      "executionMode": "Enabled",
+      "executionMode": "Disabled",
       "settings": {
         "BiTemporalFields": "id_lokalid, registreringfra, virkningfra",
         "DestinationMSSQL": "\u00A4[ClaudiDB]\u00A4",
@@ -589,6 +548,92 @@
         "ReduceNVarcharMax": "id_lokalid, 40, NOT NULL",
         "RowLimiter": "",
         "SingleTable": ""
+      },
+      "portPlacements": {},
+      "flippedPortSides": []
+    },
+    {
+      "id": "cac70b6c-91c0-4305-85b5-c1f3e2b36a4a",
+      "name": "Has Columns 2",
+      "category": "Module",
+      "nodeType": "HasColumns",
+      "x": 444.2266824084966,
+      "y": 1202.3459268004701,
+      "width": 200,
+      "height": 102,
+      "executionMode": "Enabled",
+      "settings": {
+        "Columns": "\u00A4{BiTemporalFields}\u00A4",
+        "ConnectionString": "\u00A4[DafDataDB]\u00A4",
+        "DBMS": "Postgres",
+        "TableName": "\u00A4{PostgresSchema}\u00A4.\u00A4{tablename}\u00A4"
+      },
+      "portPlacements": {
+        "O:True": "Bottom",
+        "I:In": "Top"
+      },
+      "flippedPortSides": []
+    },
+    {
+      "id": "3860385e-b7e0-4fa2-afd6-e148b613ffb8",
+      "name": "Has Columns",
+      "category": "Module",
+      "nodeType": "HasColumns",
+      "x": 1021.2888888888926,
+      "y": 594.6888888888882,
+      "width": 200,
+      "height": 102,
+      "executionMode": "Enabled",
+      "settings": {
+        "Columns": "\u00A4{BiTemporalFields}\u00A4",
+        "ConnectionString": "\u00A4{DestinationMSSQL}\u00A4",
+        "DBMS": "MSSQL",
+        "TableName": "\u00A4{DestinationSchema}\u00A4.\u00A4{tablename}\u00A4"
+      },
+      "portPlacements": {
+        "O:True": "Top",
+        "O:False": "Left",
+        "I:In": "Bottom"
+      },
+      "flippedPortSides": []
+    },
+    {
+      "id": "d5191278-6a29-41f2-bd9e-388c809444b1",
+      "name": "Text",
+      "category": "Module",
+      "nodeType": "Text",
+      "x": 365.59999999999934,
+      "y": 28.99999999999997,
+      "width": 538.3999999999993,
+      "height": 87.20000000000047,
+      "executionMode": "Enabled",
+      "settings": {
+        "Text": "PG to MSSQL Stream",
+        "Font": "Segoe UI",
+        "Size": "50",
+        "Color": "Orange",
+        "Bold": "Nej",
+        "Italic": "Ja",
+        "Underline": "Nej",
+        "HorizontalAlignment": "Center",
+        "VerticalAlignment": "Middle"
+      },
+      "portPlacements": {},
+      "flippedPortSides": []
+    },
+    {
+      "id": "2d00c318-76e5-40f7-bf43-52910662de69",
+      "name": "Clock",
+      "category": "Module",
+      "nodeType": "Clock",
+      "x": 564.7999999999804,
+      "y": 139.39999999999796,
+      "width": 120,
+      "height": 120,
+      "executionMode": "Enabled",
+      "settings": {
+        "Style": "Analog",
+        "ShowSeconds": "False"
       },
       "portPlacements": {},
       "flippedPortSides": []
@@ -605,7 +650,8 @@
       "toPort": "Fail",
       "toControlDx": null,
       "toControlDy": null,
-      "waypoints": []
+      "waypoints": [],
+      "directRoute": true
     },
     {
       "id": "94db0455-c355-472e-8229-00314e26bcc0",
@@ -666,7 +712,8 @@
       "toPort": "In",
       "toControlDx": null,
       "toControlDy": null,
-      "waypoints": []
+      "waypoints": [],
+      "directRoute": true
     },
     {
       "id": "14c07aaa-71fe-4165-bc5d-2abbd24332eb",
@@ -690,7 +737,8 @@
       "toPort": "In",
       "toControlDx": null,
       "toControlDy": null,
-      "waypoints": []
+      "waypoints": [],
+      "directRoute": true
     },
     {
       "id": "06093994-e281-4968-94df-0660ca7ca6da",
@@ -706,19 +754,6 @@
       "directRoute": true
     },
     {
-      "id": "abc946e0-fc45-4e36-aaaf-75b3f9037380",
-      "fromNodeId": "1cc4bda9-77af-4b54-8f1e-874f34921473",
-      "fromPort": "False",
-      "fromControlDx": null,
-      "fromControlDy": null,
-      "toNodeId": "77252a7b-75b6-4083-9598-606e20ed8050",
-      "toPort": "LoopBack",
-      "toControlDx": null,
-      "toControlDy": null,
-      "waypoints": [],
-      "directRoute": true
-    },
-    {
       "id": "fa9dd60a-d794-42dd-9dbf-4c8da90c9969",
       "fromNodeId": "c0cbc1eb-8fa5-4d2f-945e-4abbe28ee0ce",
       "fromPort": "Out",
@@ -728,7 +763,8 @@
       "toPort": "In",
       "toControlDx": null,
       "toControlDy": null,
-      "waypoints": []
+      "waypoints": [],
+      "directRoute": true
     },
     {
       "id": "e2666bf7-29b7-4178-80e0-ba48a3ef728d",
@@ -753,7 +789,8 @@
       "toPort": "LoopBack",
       "toControlDx": null,
       "toControlDy": null,
-      "waypoints": []
+      "waypoints": [],
+      "directRoute": true
     },
     {
       "id": "13620108-09ca-44d1-8425-6295f184b2a4",
@@ -791,55 +828,8 @@
       "toPort": "In",
       "toControlDx": null,
       "toControlDy": null,
-      "waypoints": []
-    },
-    {
-      "id": "0565e390-5c1d-48ac-b757-b44fc8fcaf62",
-      "fromNodeId": "97302112-2c39-4604-b1cf-83e5af762385",
-      "fromPort": "Success",
-      "fromControlDx": null,
-      "fromControlDy": null,
-      "toNodeId": "3860385e-b7e0-4fa2-afd6-e148b613ffb8",
-      "toPort": "In",
-      "toControlDx": null,
-      "toControlDy": null,
-      "waypoints": []
-    },
-    {
-      "id": "e72a347e-c022-49ca-9446-fcce86a2de3a",
-      "fromNodeId": "3860385e-b7e0-4fa2-afd6-e148b613ffb8",
-      "fromPort": "True",
-      "fromControlDx": null,
-      "fromControlDy": null,
-      "toNodeId": "1a71cef6-756f-4eff-9884-1720cb7711ff",
-      "toPort": "In",
-      "toControlDx": null,
-      "toControlDy": null,
-      "waypoints": []
-    },
-    {
-      "id": "ebbd64d4-ce01-4b17-8bfb-0c8777b4c1e1",
-      "fromNodeId": "3860385e-b7e0-4fa2-afd6-e148b613ffb8",
-      "fromPort": "False",
-      "fromControlDx": null,
-      "fromControlDy": null,
-      "toNodeId": "77252a7b-75b6-4083-9598-606e20ed8050",
-      "toPort": "LoopBack",
-      "toControlDx": null,
-      "toControlDy": null,
-      "waypoints": []
-    },
-    {
-      "id": "5b73cffa-ff55-4f8e-b051-55a1462d6727",
-      "fromNodeId": "3860385e-b7e0-4fa2-afd6-e148b613ffb8",
-      "fromPort": "Fail",
-      "fromControlDx": null,
-      "fromControlDy": null,
-      "toNodeId": "fdb4fe13-c0f6-47fc-97b1-ed64d838f93a",
-      "toPort": "In",
-      "toControlDx": null,
-      "toControlDy": null,
-      "waypoints": []
+      "waypoints": [],
+      "directRoute": true
     },
     {
       "id": "7dade2d1-68b5-43b9-a484-379ace3c3d41",
@@ -888,7 +878,8 @@
       "toPort": "In",
       "toControlDx": null,
       "toControlDy": null,
-      "waypoints": []
+      "waypoints": [],
+      "directRoute": true
     },
     {
       "id": "60980b6c-4a3a-4972-98ae-2e9af3c4fc21",
@@ -900,7 +891,8 @@
       "toPort": "In",
       "toControlDx": null,
       "toControlDy": null,
-      "waypoints": []
+      "waypoints": [],
+      "directRoute": true
     },
     {
       "id": "baceedde-579b-4325-9a7c-ce3c95fc6f16",
@@ -912,7 +904,8 @@
       "toPort": "In",
       "toControlDx": null,
       "toControlDy": null,
-      "waypoints": []
+      "waypoints": [],
+      "directRoute": true
     },
     {
       "id": "ad8c1ef9-032b-415d-9f0b-725c3dfccfd6",
@@ -924,43 +917,8 @@
       "toPort": "LoopBack",
       "toControlDx": null,
       "toControlDy": null,
-      "waypoints": []
-    },
-    {
-      "id": "c5db30ce-b001-4ec8-9704-e5775b15fdd9",
-      "fromNodeId": "975273e1-4cc1-4e30-a024-8dd99a09b6f7",
-      "fromPort": "Out",
-      "fromControlDx": null,
-      "fromControlDy": null,
-      "toNodeId": "897d2027-a944-4f91-af9e-cf8f60856fa9",
-      "toPort": "In",
-      "toControlDx": null,
-      "toControlDy": null,
-      "waypoints": []
-    },
-    {
-      "id": "d05af342-b8a5-40ed-a05f-6f1a0a525e54",
-      "fromNodeId": "897d2027-a944-4f91-af9e-cf8f60856fa9",
-      "fromPort": "True",
-      "fromControlDx": null,
-      "fromControlDy": null,
-      "toNodeId": "3e561400-7966-4876-8ce9-b9180a1ea458",
-      "toPort": "In",
-      "toControlDx": null,
-      "toControlDy": null,
-      "waypoints": []
-    },
-    {
-      "id": "6190dec4-7974-4310-9bd9-dc1383afe27f",
-      "fromNodeId": "897d2027-a944-4f91-af9e-cf8f60856fa9",
-      "fromPort": "False",
-      "fromControlDx": null,
-      "fromControlDy": null,
-      "toNodeId": "1ae96c01-f081-4e4c-995b-274a4d1e0bde",
-      "toPort": "In",
-      "toControlDx": null,
-      "toControlDy": null,
-      "waypoints": []
+      "waypoints": [],
+      "directRoute": true
     },
     {
       "id": "d6863f8f-d5a9-49a3-b972-97ce6d003812",
@@ -1061,7 +1019,8 @@
       "toPort": "In",
       "toControlDx": null,
       "toControlDy": null,
-      "waypoints": []
+      "waypoints": [],
+      "directRoute": true
     },
     {
       "id": "e1eecdf7-7256-4054-9e8d-cbb6994c5872",
@@ -1073,7 +1032,124 @@
       "toPort": "In",
       "toControlDx": null,
       "toControlDy": null,
+      "waypoints": [],
+      "directRoute": true
+    },
+    {
+      "id": "3631e421-a6da-419d-862d-6679be2aa265",
+      "fromNodeId": "cac70b6c-91c0-4305-85b5-c1f3e2b36a4a",
+      "fromPort": "Fail",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "fdb4fe13-c0f6-47fc-97b1-ed64d838f93a",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": [],
+      "directRoute": true
+    },
+    {
+      "id": "25f77aed-f16c-480f-9f0d-3565fd0be798",
+      "fromNodeId": "cac70b6c-91c0-4305-85b5-c1f3e2b36a4a",
+      "fromPort": "False",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "1ae96c01-f081-4e4c-995b-274a4d1e0bde",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": [],
+      "directRoute": true
+    },
+    {
+      "id": "ac17192e-6e69-42c6-ae43-ce676841824e",
+      "fromNodeId": "cac70b6c-91c0-4305-85b5-c1f3e2b36a4a",
+      "fromPort": "True",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "3e561400-7966-4876-8ce9-b9180a1ea458",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": [],
+      "directRoute": true
+    },
+    {
+      "id": "cf48ef0c-dc74-421c-ac7a-818c6de96953",
+      "fromNodeId": "975273e1-4cc1-4e30-a024-8dd99a09b6f7",
+      "fromPort": "Out",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "cac70b6c-91c0-4305-85b5-c1f3e2b36a4a",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": [],
+      "directRoute": true
+    },
+    {
+      "id": "0565e390-5c1d-48ac-b757-b44fc8fcaf62",
+      "fromNodeId": "97302112-2c39-4604-b1cf-83e5af762385",
+      "fromPort": "Success",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "3860385e-b7e0-4fa2-afd6-e148b613ffb8",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": [],
+      "directRoute": true
+    },
+    {
+      "id": "e72a347e-c022-49ca-9446-fcce86a2de3a",
+      "fromNodeId": "3860385e-b7e0-4fa2-afd6-e148b613ffb8",
+      "fromPort": "True",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "1a71cef6-756f-4eff-9884-1720cb7711ff",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": [],
+      "directRoute": true
+    },
+    {
+      "id": "ebbd64d4-ce01-4b17-8bfb-0c8777b4c1e1",
+      "fromNodeId": "3860385e-b7e0-4fa2-afd6-e148b613ffb8",
+      "fromPort": "False",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "77252a7b-75b6-4083-9598-606e20ed8050",
+      "toPort": "LoopBack",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": [],
+      "directRoute": true
+    },
+    {
+      "id": "5b73cffa-ff55-4f8e-b051-55a1462d6727",
+      "fromNodeId": "3860385e-b7e0-4fa2-afd6-e148b613ffb8",
+      "fromPort": "Fail",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "fdb4fe13-c0f6-47fc-97b1-ed64d838f93a",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
       "waypoints": []
+    },
+    {
+      "id": "54e85854-7ed1-49de-a039-32254dcfc2de",
+      "fromNodeId": "1cc4bda9-77af-4b54-8f1e-874f34921473",
+      "fromPort": "False",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "3860385e-b7e0-4fa2-afd6-e148b613ffb8",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": [],
+      "directRoute": true
     }
   ]
 }
