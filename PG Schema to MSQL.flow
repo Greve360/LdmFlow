@@ -13,7 +13,7 @@
       "y": 300.6888888888885,
       "width": 200,
       "height": 102,
-      "executionMode": "Enabled",
+      "executionMode": "Disabled",
       "settings": {
         "BiTemporalFields": "id_lokalid\r\nregistreringfra\r\nvirkningfra",
         "DestinationMSSQL": "\u00A4[MSSQL_Sandbox]\u00A4",
@@ -70,8 +70,8 @@
       "name": "Stream SQL Bulk Copy (BiTemp)",
       "category": "Module",
       "nodeType": "StreamSqlBulkCopy",
-      "x": 537.5839506172879,
-      "y": 1424.067901234566,
+      "x": 777.5839506172879,
+      "y": 1188.067901234566,
       "width": 316,
       "height": 119,
       "executionMode": "Enabled",
@@ -92,7 +92,6 @@
         "UtcToLocalColumns": "registreringfra, registreringtil, virkningfra, virkningtil"
       },
       "portPlacements": {
-        "I:In": "Top",
         "O:Out": "Top"
       },
       "flippedPortSides": []
@@ -353,8 +352,8 @@
       "name": "Stream SQL Bulk Copy (Andre)",
       "category": "Module",
       "nodeType": "StreamSqlBulkCopy",
-      "x": 987.6839506172853,
-      "y": 1268.7679012345664,
+      "x": 1136.6839506172853,
+      "y": 1354.7679012345664,
       "width": 316,
       "height": 119,
       "executionMode": "Enabled",
@@ -375,7 +374,6 @@
         "UtcToLocalColumns": ""
       },
       "portPlacements": {
-        "I:In": "Top",
         "O:Out": "Top"
       },
       "flippedPortSides": []
@@ -569,8 +567,8 @@
         "TableName": "\u00A4{PostgresSchema}\u00A4.\u00A4{tablename}\u00A4"
       },
       "portPlacements": {
-        "O:True": "Bottom",
-        "I:In": "Top"
+        "I:In": "Top",
+        "O:False": "Bottom"
       },
       "flippedPortSides": []
     },
@@ -633,7 +631,29 @@
       "executionMode": "Enabled",
       "settings": {
         "Style": "Analog",
-        "ShowSeconds": "False"
+        "ShowSeconds": "True"
+      },
+      "portPlacements": {},
+      "flippedPortSides": []
+    },
+    {
+      "id": "89ffb50c-5192-4deb-8205-e164e3291ba6",
+      "name": "Start DAGI Til Claudi",
+      "category": "Module",
+      "nodeType": "Start",
+      "x": 21,
+      "y": 149,
+      "width": 200,
+      "height": 102,
+      "executionMode": "Enabled",
+      "settings": {
+        "BiTemporalFields": "id_lokalid, registreringfra, virkningfra, status",
+        "DestinationMSSQL": "\u00A4[ClaudiDB]\u00A4",
+        "DestinationSchema": "DAF_MAT",
+        "PostgresSchema": "daf_mat",
+        "ReduceNVarcharMax": "id_lokalid, 40, NOT NULL\r\nstatus, 40, NOT NULL",
+        "RowLimiter": "",
+        "SingleTable": ""
       },
       "portPlacements": {},
       "flippedPortSides": []
@@ -1145,6 +1165,19 @@
       "fromControlDx": null,
       "fromControlDy": null,
       "toNodeId": "3860385e-b7e0-4fa2-afd6-e148b613ffb8",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": [],
+      "directRoute": true
+    },
+    {
+      "id": "18841d27-424f-4197-adf0-ad04cebcd8df",
+      "fromNodeId": "89ffb50c-5192-4deb-8205-e164e3291ba6",
+      "fromPort": "Out",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "77252a7b-75b6-4083-9598-606e20ed8050",
       "toPort": "In",
       "toControlDx": null,
       "toControlDy": null,
