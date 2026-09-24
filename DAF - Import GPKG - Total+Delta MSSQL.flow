@@ -1451,14 +1451,14 @@
       "name": "Clock",
       "category": "Module",
       "nodeType": "Clock",
-      "x": 551.200000000006,
-      "y": 338.59999999999667,
+      "x": 573.6000000000065,
+      "y": 370.5999999999964,
       "width": 120,
       "height": 120,
       "executionMode": "Enabled",
       "settings": {
         "ShowSeconds": "True",
-        "Style": "Digital"
+        "Style": "Analog"
       },
       "portPlacements": {},
       "flippedPortSides": []
