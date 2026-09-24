@@ -1520,7 +1520,7 @@
       "category": "Module",
       "nodeType": "ExecuteSQL",
       "x": 872,
-      "y": 542,
+      "y": 543,
       "width": 200,
       "height": 92,
       "executionMode": "Enabled",
@@ -1558,6 +1558,30 @@
       "portPlacements": {
         "O:Plus": "Top"
       },
+      "flippedPortSides": []
+    },
+    {
+      "id": "1bd919f3-7684-4aa8-8cd6-7b27e599a0f9",
+      "name": "Text",
+      "category": "Module",
+      "nodeType": "Text",
+      "x": 23,
+      "y": 10,
+      "width": 246,
+      "height": 52,
+      "executionMode": "Enabled",
+      "settings": {
+        "Bold": "Nej",
+        "Color": "Orange",
+        "Font": "Segoe UI",
+        "HorizontalAlignment": "Center",
+        "Italic": "Ja",
+        "Size": "32",
+        "Text": "Postgres",
+        "Underline": "Nej",
+        "VerticalAlignment": "Middle"
+      },
+      "portPlacements": {},
       "flippedPortSides": []
     }
   ],
