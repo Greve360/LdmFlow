@@ -13,7 +13,7 @@
       "y": 314,
       "width": 200,
       "height": 102,
-      "executionMode": "Enabled",
+      "executionMode": "Disabled",
       "settings": {
         "BCPTempFolder": "\u00A4[WorkingFolder]\u00A4",
         "DestinationConnectionString": "\u00A4[RegisterWorkDB]\u00A4",
@@ -357,22 +357,22 @@
       "name": "Start CVR Delta",
       "category": "Module",
       "nodeType": "Start",
-      "x": 16,
+      "x": 17,
       "y": 451,
       "width": 200,
       "height": 102,
-      "executionMode": "Disabled",
+      "executionMode": "Enabled",
       "settings": {
         "BCPTempFolder": "\u00A4[WorkingFolder]\u00A4",
         "DestinationConnectionString": "\u00A4[RegisterWorkDB]\u00A4",
         "DestinationDatabase": "RegisterWork",
-        "DestinationSchema": "ERST_CVR_DeltaA",
+        "DestinationSchema": "ERST_CVR_DeltaTirsdag",
         "DestinationServer": "db-test-dev01.lifa.dk",
+        "SingleTable": "",
         "SourceConnectionString": "\u00A4[MSSQL_SandboxDelta]\u00A4",
         "SourceDatabase": "SandboxDelta",
         "SourceSchema": "ERST_CVR",
-        "SourceServer": "10-GM0RZQ8N",
-        "SingleTable": ""
+        "SourceServer": "10-GM0RZQ8N"
       },
       "portPlacements": {},
       "flippedPortSides": []
