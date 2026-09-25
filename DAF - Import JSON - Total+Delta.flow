@@ -330,7 +330,7 @@
         "FilePath": "",
         "QueryType": "Scalar",
         "ResultVariable": "TotalCount",
-        "SQL": "select count(*) as TotalCount from [Udv_Kunde3].[dbo].[DafFiles] where generationnumber=\u00A4{DafGeneration}\u00A4 and register = \u0027\u00A4{Register}\u00A4\u0027 and entityName not like \u0027%0000%\u0027 and version = \u00A4{DataVersion}\u00A4 and typeOfDownload = \u0027TotalDownload\u0027",
+        "SQL": "select count(*) as TotalCount from [workflow].[DafFiles] where generationnumber=\u00A4{DafGeneration}\u00A4 and register = \u0027\u00A4{Register}\u00A4\u0027 and entityName not like \u0027%0000%\u0027 and version = \u00A4{DataVersion}\u00A4 and typeOfDownload = \u0027TotalDownload\u0027",
         "MaxRows": "0",
         "CommandTimeout": "0",
         "InTransaction": "False",
@@ -379,7 +379,7 @@
         "MaxParallelism": "4",
         "Mode": "Parallel",
         "ResultType": "Recordset",
-        "Sql": "select entityname, filename\r\nfrom [Udv_Kunde3].[dbo].[DafFiles]\r\nwhere generationnumber = \u00A4{DafGeneration}\u00A4\r\n   and register = \u0027\u00A4{Register}\u00A4\u0027\r\n   and entityName not like \u0027%0000%\u0027\r\n   and version = \u00A4{DataVersion}\u00A4\r\n   and typeOfDownload = \u0027DeltaDownload\u0027\r\n   and containedFileFormat = \u0027\u00A4{ContainedFileFormat}\u00A4\u0027 \r\norder by entityName",
+        "Sql": "select entityname, filename\r\nfrom [workflow].[DafFiles]\r\nwhere generationnumber = \u00A4{DafGeneration}\u00A4\r\n   and register = \u0027\u00A4{Register}\u00A4\u0027\r\n   and entityName not like \u0027%0000%\u0027\r\n   and version = \u00A4{DataVersion}\u00A4\r\n   and typeOfDownload = \u0027DeltaDownload\u0027\r\n   and containedFileFormat = \u0027\u00A4{ContainedFileFormat}\u00A4\u0027 \r\norder by entityName",
         "SqlTimeout": ""
       },
       "portPlacements": {
@@ -405,7 +405,7 @@
         "MaxParallelism": "4",
         "Mode": "Parallel",
         "ResultType": "Recordset",
-        "Sql": "select entityname,\r\nfilename\r\nfrom [Udv_Kunde3].[dbo].[DafFiles]\r\nwhere generationnumber = \u00A4{DafGeneration}\u00A4\r\nand register = \u0027\u00A4{Register}\u00A4\u0027\r\nand entityName not like \u0027%0000%\u0027\r\nand version = \u00A4{DataVersion}\u00A4\r\nand typeOfDownload = \u0027TotalDownload\u0027\r\nand entityname = \u0027Grund\u0027",
+        "Sql": "select entityname,\r\nfilename\r\nfrom [workflow].[DafFiles]\r\nwhere generationnumber = \u00A4{DafGeneration}\u00A4\r\nand register = \u0027\u00A4{Register}\u00A4\u0027\r\nand entityName not like \u0027%0000%\u0027\r\nand version = \u00A4{DataVersion}\u00A4\r\nand typeOfDownload = \u0027TotalDownload\u0027\r\nand entityname = \u0027Grund\u0027",
         "SqlTimeout": ""
       },
       "portPlacements": {
@@ -1443,7 +1443,7 @@
         "MaxRows": "0",
         "QueryType": "Scalar",
         "ResultVariable": "MinGeneration",
-        "SQL": "select min (generationnumber) as MinGen\r\nfrom [dbo].[DafFiles]\r\nwhere register = \u0027\u00A4{Register}\u00A4\u0027\r\nand entityName not like \u0027%0000%\u0027\r\nand version = \u00A4{DataVersion}\u00A4",
+        "SQL": "select min (generationnumber) as MinGen\r\nfrom [workflow].[DafFiles]\r\nwhere register = \u0027\u00A4{Register}\u00A4\u0027\r\nand entityName not like \u0027%0000%\u0027\r\nand version = \u00A4{DataVersion}\u00A4",
         "CommandTimeout": "0",
         "InTransaction": "False",
         "ExecuteEachLine": "False"
