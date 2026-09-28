@@ -576,7 +576,8 @@
         "TargetSrs": "",
         "Where": "",
         "XsdFile": "\u00A4[WorkingFolder]\u00A4\\Schemas\\\u00A4{Register}\u00A4.xsd",
-        "XsdTableName": "\u00A4{entityname,L}\u00A4"
+        "XsdTableName": "\u00A4{entityname,L}\u00A4",
+        "Raw": "No"
       },
       "portPlacements": {
         "O:Success": "Left",
@@ -679,18 +680,19 @@
       "height": 92,
       "executionMode": "Enabled",
       "settings": {
-        "AdditionalArguments": "-lco SCHEMA=\u00A4{DafDbSchema,L}\u00A4 -DIM 3  -lco SPATIAL_INDEX=NO --config MSSQLSPATIAL_USE_BCP YES --config MSSQLSPATIAL_BCP_SIZE 10000",
+        "AdditionalArguments": "-lco SCHEMA=\u00A4{DafDbSchema,L}\u00A4 -lco SPATIAL_INDEX=NO --config MSSQLSPATIAL_USE_BCP YES --config MSSQLSPATIAL_BCP_SIZE 10000",
         "AdditionalEnvironment": "",
         "DBMS": "MSSQL",
         "Destination": "\u00A4{OgrConnection}\u00A4",
         "DestinationConnectionString": "\u00A4{ConnectionString}\u00A4",
         "DestinationTable": "\u00A4{DafDbSchema}\u00A4.\u00A4{entityname,L}\u00A4",
-        "GeometryType": "PROMOTE_TO_MULTI",
+        "GeometryType": "",
         "LayerName": "\u00A4{entityname,L}\u00A4",
         "Mode": "Overwrite",
         "NotNullColumns": "\u00A4{BiTemporalFields}\u00A4",
         "OgrExecutable": "\u00A4[GdalSdkRoot]\u00A4\\bin\\gdal\\apps\\ogr2ogr.exe",
         "OutputFormat": "MSSQLSpatial",
+        "Raw": "No",
         "ReduceNvarCharMax": "\u00A4{ReduceNvarcharMax}\u00A4",
         "SdkRoot": "\u00A4[GdalSdkRoot]\u00A4",
         "SelectFields": "",
@@ -1462,8 +1464,9 @@
       "height": 120,
       "executionMode": "Enabled",
       "settings": {
+        "Mode": "Stopwatch",
         "ShowSeconds": "True",
-        "Style": "Analog"
+        "Style": "Digital"
       },
       "portPlacements": {},
       "flippedPortSides": []
@@ -1531,7 +1534,7 @@
       "y": 439.1999999999952,
       "width": 190,
       "height": 92,
-      "executionMode": "Nop",
+      "executionMode": "Enabled",
       "settings": {
         "CommandTimeout": "0",
         "ConnectionString": "\u00A4{ConnectionString}\u00A4",
@@ -1556,7 +1559,7 @@
       "y": 315.2867984693406,
       "width": 190,
       "height": 92,
-      "executionMode": "Nop",
+      "executionMode": "Enabled",
       "settings": {
         "Columns": "\u00A4{BiTemporalFields}\u00A4",
         "CommandTimeout": "0",
