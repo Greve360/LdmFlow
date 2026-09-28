@@ -511,19 +511,20 @@
       "name": "Start EJF",
       "category": "Module",
       "nodeType": "Start",
-      "x": 36.28888888889139,
+      "x": 37.28888888889139,
       "y": 1550.6888888888882,
       "width": 200,
       "height": 102,
-      "executionMode": "Disabled",
+      "executionMode": "Enabled",
       "settings": {
         "BiTemporalFields": "id_lokalid\r\nregistreringfra\r\nvirkningfra",
-        "DestinationMSSQL": "\u00A4[RegisterWorkDB]\u00A4",
-        "DestinationSchema": "DAF_EJF_NY",
-        "PostgresSchema": "ejf",
+        "DestinationMSSQL": "\u00A4[ClaudiDB]\u00A4",
+        "DestinationSchema": "DAF_EJF",
+        "PostgresSchema": "daf_ejf",
         "ReduceNVarcharMax": "id_lokalid, 40, NOT NULL",
         "RowLimiter": "",
-        "SingleTable": "alternativadressebegraenset"
+        "SingleTable": "handelsoplysninger",
+        "Laundry_RemoveDuplicates": "handelsoplysninger"
       },
       "portPlacements": {},
       "flippedPortSides": []
@@ -631,7 +632,8 @@
       "executionMode": "Enabled",
       "settings": {
         "ShowSeconds": "True",
-        "Style": "Digital"
+        "Style": "Digital",
+        "Mode": "Normal"
       },
       "portPlacements": {},
       "flippedPortSides": []
@@ -645,7 +647,7 @@
       "y": 148,
       "width": 200,
       "height": 102,
-      "executionMode": "Enabled",
+      "executionMode": "Disabled",
       "settings": {
         "BiTemporalFields": "id_lokalid, registreringfra, virkningfra, status",
         "DestinationMSSQL": "\u00A4[ClaudiDB]\u00A4",
