@@ -81,8 +81,8 @@
       "name": "GetAvailableFileDownloadsDaf",
       "category": "Module",
       "nodeType": "GetAvailableFileDownloadsDaf",
-      "x": 429.6666666666667,
-      "y": 63,
+      "x": 428.6666666666667,
+      "y": 64,
       "width": 271,
       "height": 92,
       "executionMode": "Enabled",
@@ -282,13 +282,13 @@
       "name": "First Total / #\u003CMin",
       "category": "Module",
       "nodeType": "IF_Then_Else",
-      "x": 858.2777777777701,
+      "x": 859.2777777777701,
       "y": 641.2444444444403,
       "width": 190,
       "height": 92,
       "executionMode": "Enabled",
       "settings": {
-        "Expression": "\u0022\u00A4{HasTotal}\u00A4\u0022 == \u0022false\u0022 and \u0022\u00A4{DafGeneration}\u00A4\u0022 \u003C \u0022\u00A4{MinGenerationNumber}\u00A4\u0022"
+        "Expression": "\u0022\u00A4{HasTotal}\u00A4\u0022 == \u0022false\u0022 or \u0022\u00A4{DafGeneration}\u00A4\u0022 \u003C \u0022\u00A4{MinGenerationNumber}\u00A4\u0022"
       },
       "portPlacements": {
         "O:False": "Left"
@@ -419,8 +419,8 @@
       "name": "Iterate Delta",
       "category": "Module",
       "nodeType": "SqlIterator",
-      "x": 620.100000000002,
-      "y": 1350.200000000011,
+      "x": 625.100000000002,
+      "y": 1351.200000000011,
       "width": 190,
       "height": 92,
       "executionMode": "Enabled",
@@ -680,19 +680,18 @@
       "height": 92,
       "executionMode": "Enabled",
       "settings": {
-        "AdditionalArguments": "-lco SCHEMA=\u00A4{DafDbSchema,L}\u00A4 -lco SPATIAL_INDEX=NO --config MSSQLSPATIAL_USE_BCP YES --config MSSQLSPATIAL_BCP_SIZE 10000",
+        "AdditionalArguments": "-lco SCHEMA=\u00A4{DafDbSchema,L}\u00A4 -DIM 3  -lco SPATIAL_INDEX=NO",
         "AdditionalEnvironment": "",
         "DBMS": "MSSQL",
         "Destination": "\u00A4{OgrConnection}\u00A4",
         "DestinationConnectionString": "\u00A4{ConnectionString}\u00A4",
         "DestinationTable": "\u00A4{DafDbSchema}\u00A4.\u00A4{entityname,L}\u00A4",
-        "GeometryType": "",
+        "GeometryType": "PROMOTE_TO_MULTI",
         "LayerName": "\u00A4{entityname,L}\u00A4",
         "Mode": "Overwrite",
         "NotNullColumns": "\u00A4{BiTemporalFields}\u00A4",
         "OgrExecutable": "\u00A4[GdalSdkRoot]\u00A4\\bin\\gdal\\apps\\ogr2ogr.exe",
         "OutputFormat": "MSSQLSpatial",
-        "Raw": "No",
         "ReduceNvarCharMax": "\u00A4{ReduceNvarcharMax}\u00A4",
         "SdkRoot": "\u00A4[GdalSdkRoot]\u00A4",
         "SelectFields": "",
@@ -702,7 +701,8 @@
         "TargetSrs": "",
         "Where": "",
         "XsdFile": "\u00A4[WorkingFolder]\u00A4\\Schemas\\\u00A4{Register}\u00A4.xsd",
-        "XsdTableName": ""
+        "XsdTableName": "",
+        "Raw": "No"
       },
       "portPlacements": {
         "O:Success": "Left",
@@ -908,15 +908,15 @@
       "name": "Start MAT",
       "category": "Module",
       "nodeType": "Start",
-      "x": 42.499999999998806,
+      "x": 43.499999999998806,
       "y": 388.0000000000007,
       "width": 190,
       "height": 92,
       "executionMode": "Enabled",
       "settings": {
         "BiTemporalFields": "id_lokalid, registreringfra, virkningfra, status",
-        "ConnectionString": "\u00A4[MSSQL_Sandbox]\u00A4",
-        "ConnectionStringStaging": "\u00A4[MSSQL_SandboxDelta]\u00A4",
+        "ConnectionString": "\u00A4[ClaudiDB]\u00A4",
+        "ConnectionStringStaging": "\u00A4[ClaudiDeltaDB]\u00A4",
         "DafDbSchema": "DAF_MAT",
         "DataVersion": "4",
         "DdmInstrkId": "\u00A4[DdmInstruction]\u00A4",
@@ -981,8 +981,8 @@
       "name": "Count = 0 (Delta) ?",
       "category": "Module",
       "nodeType": "IF_Then_Else",
-      "x": 957.1222222222589,
-      "y": 1120.2444444444473,
+      "x": 906.1222222222589,
+      "y": 1134.2444444444473,
       "width": 190,
       "height": 92,
       "executionMode": "Enabled",
@@ -1301,10 +1301,10 @@
       "name": "Notify DDM Entity",
       "category": "Module",
       "nodeType": "NotifyDdm",
-      "x": 959.5000000000061,
-      "y": 1588.5600000000074,
-      "width": 252,
-      "height": 99,
+      "x": 857.5000000000061,
+      "y": 1532.5600000000074,
+      "width": 190,
+      "height": 92,
       "executionMode": "Enabled",
       "settings": {
         "AliasTable": "ldm.Alias",
@@ -1459,14 +1459,14 @@
       "category": "Module",
       "nodeType": "Clock",
       "x": 573.6000000000065,
-      "y": 370.5999999999964,
+      "y": 369.5999999999964,
       "width": 120,
       "height": 120,
       "executionMode": "Enabled",
       "settings": {
-        "Mode": "Stopwatch",
+        "Mode": "Normal",
         "ShowSeconds": "True",
-        "Style": "Digital"
+        "Style": "Analog"
       },
       "portPlacements": {},
       "flippedPortSides": []
@@ -1534,7 +1534,7 @@
       "y": 439.1999999999952,
       "width": 190,
       "height": 92,
-      "executionMode": "Enabled",
+      "executionMode": "Nop",
       "settings": {
         "CommandTimeout": "0",
         "ConnectionString": "\u00A4{ConnectionString}\u00A4",
@@ -1559,7 +1559,7 @@
       "y": 315.2867984693406,
       "width": 190,
       "height": 92,
-      "executionMode": "Enabled",
+      "executionMode": "Nop",
       "settings": {
         "Columns": "\u00A4{BiTemporalFields}\u00A4",
         "CommandTimeout": "0",
@@ -1575,6 +1575,29 @@
       },
       "portPlacements": {
         "I:In": "Bottom"
+      },
+      "flippedPortSides": []
+    },
+    {
+      "id": "c5464de8-e72e-404d-9a30-4c7dab1b7fad",
+      "name": "Switch Variable",
+      "category": "Module",
+      "nodeType": "SwitchVariable",
+      "x": 1099,
+      "y": 1706,
+      "width": 200,
+      "height": 102,
+      "executionMode": "Nop",
+      "settings": {
+        "Cases": "jordstykke_sekundaerforretning=jordstykkeobjectid\r\nmatrikulaersag_sagsoperation=objectid\r\nsamletfastejendom_sekundaerfor\r\nsamletfastejendom_x_jordstykke",
+        "Default": "Undefined",
+        "IgnoreCase": "Yes",
+        "Input": "\u00A4{entityname,L}\u00A4",
+        "OutputVariable": "AlternateUniqueIndex"
+      },
+      "portPlacements": {
+        "I:In": "Right",
+        "O:Out": "Left"
       },
       "flippedPortSides": []
     }
@@ -2486,19 +2509,6 @@
       "directRoute": true
     },
     {
-      "id": "75fede68-66c8-4557-a45d-82f058338ed8",
-      "fromNodeId": "4c5bea1a-3d55-4e9b-ab0b-3b3e5d959241",
-      "fromPort": "False",
-      "fromControlDx": null,
-      "fromControlDy": null,
-      "toNodeId": "7f348667-d5ba-46e1-88ad-5aae2149347b",
-      "toPort": "In",
-      "toControlDx": null,
-      "toControlDy": null,
-      "waypoints": [],
-      "directRoute": true
-    },
-    {
       "id": "e21b6799-adf2-4be1-9dc9-91e2fb16f017",
       "fromNodeId": "7f348667-d5ba-46e1-88ad-5aae2149347b",
       "fromPort": "Out",
@@ -2980,6 +2990,45 @@
     {
       "id": "9bd75635-8d6c-483f-b224-32c7bfab5d64",
       "fromNodeId": "20e7a2f1-fce1-4320-a162-25bf373a111c",
+      "fromPort": "Fail",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "3ad43875-72dc-4c16-9287-756f5d32fc5d",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": [],
+      "directRoute": true
+    },
+    {
+      "id": "609402ca-9f1d-4ae2-9823-0c19b63fa9e8",
+      "fromNodeId": "4c5bea1a-3d55-4e9b-ab0b-3b3e5d959241",
+      "fromPort": "False",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "c5464de8-e72e-404d-9a30-4c7dab1b7fad",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": [],
+      "directRoute": true
+    },
+    {
+      "id": "8d695100-9352-4aa6-ae4c-ab93d5832803",
+      "fromNodeId": "c5464de8-e72e-404d-9a30-4c7dab1b7fad",
+      "fromPort": "Out",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "7f348667-d5ba-46e1-88ad-5aae2149347b",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": [],
+      "directRoute": true
+    },
+    {
+      "id": "edbdd956-4d9a-40c8-8619-3d8cbc58a1f5",
+      "fromNodeId": "c5464de8-e72e-404d-9a30-4c7dab1b7fad",
       "fromPort": "Fail",
       "fromControlDx": null,
       "fromControlDy": null,
