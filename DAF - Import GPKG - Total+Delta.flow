@@ -564,7 +564,10 @@
         "TargetSrs": "",
         "Where": "",
         "XsdFile": "\u00A4[WorkingFolder]\u00A4\\Schemas\\\u00A4{Register}\u00A4.xsd",
-        "XsdTableName": "\u00A4{entityname,L}\u00A4"
+        "XsdTableName": "\u00A4{entityname,L}\u00A4",
+        "NotNullColumns": "",
+        "DBMS": "MSSQL",
+        "Raw": "No"
       },
       "portPlacements": {
         "O:Success": "Left",
@@ -728,7 +731,10 @@
         "XsdTableName": "",
         "DestinationConnectionString": "",
         "DestinationTable": "",
-        "ReduceNvarCharMax": ""
+        "ReduceNvarCharMax": "",
+        "NotNullColumns": "",
+        "DBMS": "MSSQL",
+        "Raw": "No"
       },
       "portPlacements": {},
       "flippedPortSides": []
@@ -777,7 +783,9 @@
         "DBMS": "Postgres",
         "DeltaTable": "\u00A4{DafDbSchema,L}\u00A4.\u00A4{entityname,L}\u00A4_delta_\u00A4{DafGeneration}\u00A4",
         "KeyColumns": "\u00A4{BiTemporalFields}\u00A4",
-        "TargetTable": "\u00A4{DafDbSchema,L}\u00A4.\u00A4{entityname,L}\u00A4"
+        "TargetTable": "\u00A4{DafDbSchema,L}\u00A4.\u00A4{entityname,L}\u00A4",
+        "TargetConnectionString": "",
+        "DeltaConnectionString": ""
       },
       "portPlacements": {
         "O:Success": "Top",
@@ -863,7 +871,10 @@
         "TargetSrs": "",
         "Where": "",
         "XsdFile": "\u00A4[WorkingFolder]\u00A4\\Schemas\\\u00A4{Register}\u00A4.xsd",
-        "XsdTableName": ""
+        "XsdTableName": "",
+        "NotNullColumns": "",
+        "DBMS": "MSSQL",
+        "Raw": "No"
       },
       "portPlacements": {
         "O:Success": "Bottom"
@@ -951,7 +962,8 @@
         "ConnectionString": "\u00A4[DafDataDB]\u00A4",
         "DBMS": "Postgres",
         "TableName": "\u00A4{DafDbSchema,L}\u00A4.\u00A4{entityname,L}\u00A4",
-        "CommandTimeout": "0"
+        "CommandTimeout": "0",
+        "RemoveIdentity": "False"
       },
       "portPlacements": {
         "I:In": "Top"
@@ -1116,7 +1128,7 @@
         "FamousLastWords": "none",
         "Laundry_RemoveDuplicates": "bygningpaafremmedgrundpunkt\r\njordstykketemaflade\r\nmatrikelsogn\r\nmatrikulaersag\r\nsamletfastejendom\r\ntemalinje",
         "Register": "MAT",
-        "SingleTable": ""
+        "SingleTable": "centroide"
       },
       "portPlacements": {},
       "flippedPortSides": []
@@ -1233,7 +1245,8 @@
         "ConnectionString": "\u00A4[DafDataDB]\u00A4",
         "DBMS": "Postgres",
         "TableName": "\u00A4{DafDbSchema,L}\u00A4.\u00A4{entityname,L}\u00A4",
-        "CommandTimeout": "0"
+        "CommandTimeout": "0",
+        "RemoveIdentity": "False"
       },
       "portPlacements": {
         "O:Out": "Left",
@@ -1580,6 +1593,24 @@
         "Text": "Postgres",
         "Underline": "Nej",
         "VerticalAlignment": "Middle"
+      },
+      "portPlacements": {},
+      "flippedPortSides": []
+    },
+    {
+      "id": "61995b9d-e0b5-472b-b6be-cdb07e0f10a1",
+      "name": "Clock",
+      "category": "Module",
+      "nodeType": "Clock",
+      "x": 337.60000000000036,
+      "y": 511.39999999999895,
+      "width": 120,
+      "height": 120,
+      "executionMode": "Enabled",
+      "settings": {
+        "Mode": "Stopwatch",
+        "Style": "Digital",
+        "ShowSeconds": "True"
       },
       "portPlacements": {},
       "flippedPortSides": []
