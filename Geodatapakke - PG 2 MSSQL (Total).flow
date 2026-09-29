@@ -86,7 +86,7 @@
         "Database": "\u00A4{DestinationDB}\u00A4",
         "FormatFile": "\u00A4{WorkingFolder}\u00A4\\Export\\\u00A4{HarvestSchema}\u00A4_\u00A4{TableName}\u00A4.fmt",
         "InputFile": "\u00A4{WorkingFolder}\u00A4\\Export\\\u00A4{HarvestSchema}\u00A4_\u00A4{TableName}\u00A4.bcp",
-        "Server": "NCC1701R\\MSSQLSERVER2025",
+        "Server": "\u00A4{DestinationServer}\u00A4",
         "Table": "\u00A4{TargetSchema}\u00A4.\u00A4{TableName,L}\u00A4_stage"
       },
       "portPlacements": {
@@ -451,8 +451,9 @@
       "height": 92,
       "executionMode": "Enabled",
       "settings": {
-        "DestinationConnection": "\u00A4[MSSQL_Sandbox]\u00A4",
-        "DestinationDB": "Sandbox",
+        "DestinationConnection": "\u00A4[ClaudiDB]\u00A4",
+        "DestinationDB": "LDM_HoestT",
+        "DestinationServer": "ldmprodsql02.lifa.dk",
         "MissingTables": "",
         "SourceRegister": ""
       },
