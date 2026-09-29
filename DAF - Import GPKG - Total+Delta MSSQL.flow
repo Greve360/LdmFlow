@@ -203,7 +203,7 @@
       },
       "portPlacements": {
         "I:In": "Right",
-        "O:Success": "Top"
+        "O:Success": "Left"
       },
       "flippedPortSides": []
     },
@@ -300,13 +300,12 @@
       "name": "Store Total Generation",
       "category": "Module",
       "nodeType": "StoreVariable",
-      "x": 2067.86559325898,
-      "y": 12.19999999999996,
+      "x": 2093.86559325898,
+      "y": 225.19999999999996,
       "width": 208.34319526627124,
       "height": 95.6686390532538,
       "executionMode": "Enabled",
       "settings": {
-        "Destination": "Local JSON file",
         "_store:0000:Value": "true",
         "_store:0000:StoredName": "HasTotal_\u00A4{Register}\u00A4",
         "_store:0001:Value": "\u00A4{TotalGenerationNumber}\u00A4",
@@ -316,7 +315,8 @@
       },
       "portPlacements": {
         "O:Fail": "Bottom",
-        "O:Out": "Bottom"
+        "O:Out": "Bottom",
+        "I:In": "Top"
       },
       "flippedPortSides": []
     },
@@ -444,8 +444,8 @@
       "name": "HTTPS Download",
       "category": "Module",
       "nodeType": "HttpsDownload",
-      "x": 1363.899999999999,
-      "y": 1803.4600000000114,
+      "x": 1325.899999999999,
+      "y": 1735.4600000000114,
       "width": 199,
       "height": 105,
       "executionMode": "Enabled",
@@ -480,8 +480,8 @@
       "name": "Unzip Delta File",
       "category": "Module",
       "nodeType": "UnZipFile",
-      "x": 1373.999999999993,
-      "y": 1972.1600000000046,
+      "x": 1348.999999999993,
+      "y": 1885.1600000000046,
       "width": 190,
       "height": 92,
       "executionMode": "Enabled",
@@ -503,8 +503,8 @@
       "name": "Delete Delta ZIP",
       "category": "Module",
       "nodeType": "DeleteFile",
-      "x": 1375.1000000000042,
-      "y": 2132.5599999999886,
+      "x": 1361.1000000000042,
+      "y": 2021.5599999999886,
       "width": 190,
       "height": 92,
       "executionMode": "Enabled",
@@ -515,7 +515,7 @@
         "Recursive": "No"
       },
       "portPlacements": {
-        "O:Success": "Left",
+        "O:Success": "Bottom",
         "I:In": "Top"
       },
       "flippedPortSides": [
@@ -549,8 +549,8 @@
       "name": "OGR2OGR (delta)",
       "category": "Module",
       "nodeType": "OGR2OGRExternal",
-      "x": 895.900000000008,
-      "y": 2154.160000000011,
+      "x": 1116.900000000008,
+      "y": 2155.160000000011,
       "width": 190,
       "height": 92,
       "executionMode": "Enabled",
@@ -567,7 +567,8 @@
         "NotNullColumns": "\u00A4{BiTemporalFields}\u00A4",
         "OgrExecutable": "\u00A4[GdalSdkRoot]\u00A4\\bin\\gdal\\apps\\ogr2ogr.exe",
         "OutputFormat": "MSSQLSpatial",
-        "ReduceNvarCharMax": "id_lokalid, 40, NOT NULL",
+        "Raw": "No",
+        "ReduceNvarCharMax": "\u00A4{ReduceNvarcharMax}\u00A4",
         "SdkRoot": "\u00A4[GdalSdkRoot]\u00A4",
         "SelectFields": "",
         "Source": "\u00A4{ExtractedFile}\u00A4",
@@ -576,8 +577,7 @@
         "TargetSrs": "",
         "Where": "",
         "XsdFile": "\u00A4[WorkingFolder]\u00A4\\Schemas\\\u00A4{Register}\u00A4.xsd",
-        "XsdTableName": "\u00A4{entityname,L}\u00A4",
-        "Raw": "No"
+        "XsdTableName": "\u00A4{entityname,L}\u00A4"
       },
       "portPlacements": {
         "O:Success": "Left",
@@ -590,8 +590,8 @@
       "name": "Schema / Index",
       "category": "Module",
       "nodeType": "ExecuteSQL",
-      "x": 1130.700000000005,
-      "y": 2149.3599999999947,
+      "x": 1368.700000000005,
+      "y": 2154.3599999999947,
       "width": 190,
       "height": 92,
       "executionMode": "Enabled",
@@ -609,31 +609,7 @@
       },
       "portPlacements": {
         "O:Success": "Left",
-        "I:In": "Right"
-      },
-      "flippedPortSides": []
-    },
-    {
-      "id": "85dbed79-733f-40a5-8ae1-fef323c22b7b",
-      "name": "Merge DAF Delta",
-      "category": "Module",
-      "nodeType": "MergeDafDelta",
-      "x": 603.500000000002,
-      "y": 1825.6000000000115,
-      "width": 190,
-      "height": 92,
-      "executionMode": "Enabled",
-      "settings": {
-        "DBMS": "MSSQL",
-        "DeltaConnectionString": "\u00A4{ConnectionStringStaging}\u00A4",
-        "DeltaTable": "\u00A4{DafDbSchema,L}\u00A4.\u00A4{entityname,L}\u00A4_delta",
-        "KeyColumns": "\u00A4{BiTemporalFields}\u00A4",
-        "TargetConnectionString": "\u00A4{ConnectionString}\u00A4",
-        "TargetTable": "\u00A4{DafDbSchema,L}\u00A4.\u00A4{entityname,L}\u00A4"
-      },
-      "portPlacements": {
-        "O:Success": "Top",
-        "I:In": "Bottom"
+        "I:In": "Top"
       },
       "flippedPortSides": []
     },
@@ -715,8 +691,8 @@
       "name": "Has Columns",
       "category": "Module",
       "nodeType": "HasColumns",
-      "x": 1369.1999999999948,
-      "y": 1642.9600000000082,
+      "x": 894.1999999999948,
+      "y": 2141.960000000008,
       "width": 190,
       "height": 92,
       "executionMode": "Enabled",
@@ -727,9 +703,9 @@
         "TableName": "\u00A4{DafDbSchema,L}\u00A4.\u00A4{entityname,L}\u00A4"
       },
       "portPlacements": {
-        "O:False": "Left",
-        "O:True": "Bottom",
-        "I:In": "Top"
+        "O:False": "Top",
+        "O:True": "Left",
+        "I:In": "Right"
       },
       "flippedPortSides": [
         "Bottom",
@@ -741,8 +717,8 @@
       "name": "Store Delta Generation",
       "category": "Module",
       "nodeType": "StoreVariable",
-      "x": 1745.797523884879,
-      "y": 1270.9472314872226,
+      "x": 1776.797523884879,
+      "y": 1273.9472314872226,
       "width": 224,
       "height": 94,
       "executionMode": "Enabled",
@@ -837,16 +813,16 @@
       "executionMode": "Disabled",
       "settings": {
         "BiTemporalFields": "id_lokalid, registreringfra, virkningfra",
+        "ConnectionString": "\u00A4[ClaudiDB]\u00A4",
+        "ConnectionStringStaging": "\u00A4[ClaudiDeltaDB]\u00A4",
         "DafDbSchema": "DAF_FIKS",
         "DataVersion": "3",
         "DdmInstrkId": "\u00A4[DdmInstruction]\u00A4",
-        "Laundry_RemoveDuplicates": "hoejdefikspunktdnn",
-        "Register": "FIKSPUNKT",
-        "SingleTable": "",
         "ForceTotal": "",
-        "ConnectionString": "\u00A4[MSSQL_Sandbox]\u00A4",
-        "ConnectionStringStaging": "\u00A4[MSSQL_SandboxDelta]\u00A4",
-        "ReduceNvarcharMax": "id_lokalid, 40, NOT NULL\r\nstatus, 40, NOT NULL"
+        "Laundry_RemoveDuplicates": "hoejdefikspunktdnn",
+        "ReduceNvarcharMax": "id_lokalid, 40, NOT NULL\r\nstatus, 40, NOT NULL",
+        "Register": "FIKSPUNKT",
+        "SingleTable": ""
       },
       "portPlacements": {},
       "flippedPortSides": []
@@ -886,19 +862,19 @@
       "y": 664.0000000000005,
       "width": 190,
       "height": 92,
-      "executionMode": "Disabled",
+      "executionMode": "Enabled",
       "settings": {
         "BiTemporalFields": "id_lokalid, registreringfra, virkningfra",
+        "ConnectionString": "\u00A4[ClaudiDB]\u00A4",
+        "ConnectionStringStaging": "\u00A4[ClaudiDeltaDB]\u00A4",
         "DafDbSchema": "DAF_DS",
-        "DataVersion": "4",
+        "DataVersion": "3",
         "DdmInstrkId": "\u00A4[DdmInstruction]\u00A4",
-        "Laundry_RemoveDuplicates": "",
-        "Register": "DS",
-        "SingleTable": "",
         "ForceTotal": "",
-        "ConnectionString": "\u00A4[MSSQL_Sandbox]\u00A4",
-        "ConnectionStringStaging": "\u00A4[MSSQL_SandboxDelta]\u00A4",
-        "ReduceNvarcharMax": "id_lokalid, 40, NOT NULL\r\nstatus, 40, NOT NULL"
+        "Laundry_RemoveDuplicates": "",
+        "ReduceNvarcharMax": "id_lokalid, 40, NOT NULL\r\nstatus, 40, NOT NULL",
+        "Register": "DS",
+        "SingleTable": ""
       },
       "portPlacements": {},
       "flippedPortSides": []
@@ -912,7 +888,7 @@
       "y": 388.0000000000007,
       "width": 190,
       "height": 92,
-      "executionMode": "Enabled",
+      "executionMode": "Disabled",
       "settings": {
         "BiTemporalFields": "id_lokalid, registreringfra, virkningfra, status",
         "ConnectionString": "\u00A4[ClaudiDB]\u00A4",
@@ -981,8 +957,8 @@
       "name": "Count = 0 (Delta) ?",
       "category": "Module",
       "nodeType": "IF_Then_Else",
-      "x": 906.1222222222589,
-      "y": 1134.2444444444473,
+      "x": 865.1222222222589,
+      "y": 1136.2444444444473,
       "width": 190,
       "height": 92,
       "executionMode": "Enabled",
@@ -1000,15 +976,17 @@
       "name": "Display 4",
       "category": "Module",
       "nodeType": "Display",
-      "x": 1120.300000000014,
-      "y": 1446.0000000000132,
-      "width": 200,
-      "height": 102,
+      "x": 1117.300000000014,
+      "y": 1393.0000000000132,
+      "width": 486,
+      "height": 131,
       "executionMode": "Enabled",
       "settings": {
         "Text": "\u00A4{entityname}\u00A4\r\n\u00A4{filename}\u00A4"
       },
-      "portPlacements": {},
+      "portPlacements": {
+        "O:Out": "Bottom"
+      },
       "flippedPortSides": []
     },
     {
@@ -1078,8 +1056,8 @@
       "name": "Notify parent 3",
       "category": "Module",
       "nodeType": "NotifyParent",
-      "x": 1363.0999999999963,
-      "y": 1500.4000000000065,
+      "x": 1310.0999999999963,
+      "y": 1579.4000000000065,
       "width": 200,
       "height": 102,
       "executionMode": "Enabled",
@@ -1087,7 +1065,8 @@
         "Text": "Delta - \u00A4{entityname}\u00A4"
       },
       "portPlacements": {
-        "O:Out": "Bottom"
+        "O:Out": "Bottom",
+        "I:In": "Top"
       },
       "flippedPortSides": []
     },
@@ -1097,7 +1076,7 @@
       "category": "Module",
       "nodeType": "CreateIndex",
       "x": 609.9000000000005,
-      "y": 1978.1600000000042,
+      "y": 1976.1600000000042,
       "width": 190,
       "height": 92,
       "executionMode": "Enabled",
@@ -1110,7 +1089,7 @@
         "IfNotExists": "True",
         "IndexName": "\u00A4{DafDbSchema,L}\u00A4_\u00A4{entityname,L}\u00A4_delta_key",
         "IndexType": "",
-        "Primary": "True",
+        "Primary": "False",
         "TableName": "\u00A4{DafDbSchema,L}\u00A4.\u00A4{entityname,L}\u00A4_delta",
         "Unique": "False"
       },
@@ -1170,8 +1149,8 @@
       "name": "Notify DDM Total 1.",
       "category": "Module",
       "nodeType": "NotifyDdm",
-      "x": 2053.999999999993,
-      "y": 992.5999999999875,
+      "x": 2060.999999999993,
+      "y": 835.5999999999875,
       "width": 200,
       "height": 102,
       "executionMode": "Enabled",
@@ -1223,8 +1202,8 @@
       "name": "Notify DDM Delta",
       "category": "Module",
       "nodeType": "NotifyDdm",
-      "x": 2058.000000000028,
-      "y": 1290.200000000023,
+      "x": 2067.000000000028,
+      "y": 1288.200000000023,
       "width": 200,
       "height": 102,
       "executionMode": "Enabled",
@@ -1297,32 +1276,6 @@
       "flippedPortSides": []
     },
     {
-      "id": "7f348667-d5ba-46e1-88ad-5aae2149347b",
-      "name": "Notify DDM Entity",
-      "category": "Module",
-      "nodeType": "NotifyDdm",
-      "x": 857.5000000000061,
-      "y": 1532.5600000000074,
-      "width": 190,
-      "height": 92,
-      "executionMode": "Enabled",
-      "settings": {
-        "AliasTable": "ldm.Alias",
-        "CountSomething": "",
-        "Exception": "",
-        "DdmSystemDB": "\u00A4[DdmSysDb]\u00A4",
-        "Message": "Indl\u00E6ste total:  \u00A4{DafDbSchema,L}\u00A4.\u00A4{entityname,L}\u00A4 (\u00A4{DafGeneration}\u00A4) - Ignoreret (indtil videre)",
-        "OriginalInstrkId": "\u00A4{DdmInstrkId}\u00A4",
-        "State": "100"
-      },
-      "portPlacements": {
-        "O:Fail": "Bottom",
-        "O:Out": "Left",
-        "I:In": "Right"
-      },
-      "flippedPortSides": []
-    },
-    {
       "id": "1f8cbb60-13b1-4ed7-8d1e-4d673b8e6540",
       "name": "Text",
       "category": "Module",
@@ -1357,7 +1310,8 @@
       "height": 102,
       "executionMode": "Enabled",
       "settings": {
-        "Minutes": "60"
+        "Minutes": "60",
+        "Prefix": "\u00A4{Register}\u00A4"
       },
       "portPlacements": {
         "O:Plus": "Top"
@@ -1477,7 +1431,7 @@
       "category": "Module",
       "nodeType": "CreateIndex",
       "x": 1289.600000000005,
-      "y": 714.4000000000066,
+      "y": 713.4000000000066,
       "width": 190,
       "height": 92,
       "executionMode": "Enabled",
@@ -1579,25 +1533,102 @@
       "flippedPortSides": []
     },
     {
-      "id": "c5464de8-e72e-404d-9a30-4c7dab1b7fad",
-      "name": "Switch Variable",
+      "id": "85dbed79-733f-40a5-8ae1-fef323c22b7b",
+      "name": "Merge DAF Delta",
       "category": "Module",
-      "nodeType": "SwitchVariable",
-      "x": 1099,
-      "y": 1706,
-      "width": 200,
-      "height": 102,
+      "nodeType": "MergeDafDelta",
+      "x": 609.500000000002,
+      "y": 1835.6000000000115,
+      "width": 190,
+      "height": 92,
       "executionMode": "Nop",
       "settings": {
-        "Cases": "jordstykke_sekundaerforretning=jordstykkeobjectid\r\nmatrikulaersag_sagsoperation=objectid\r\nsamletfastejendom_sekundaerfor\r\nsamletfastejendom_x_jordstykke",
-        "Default": "Undefined",
-        "IgnoreCase": "Yes",
-        "Input": "\u00A4{entityname,L}\u00A4",
-        "OutputVariable": "AlternateUniqueIndex"
+        "DBMS": "MSSQL",
+        "DeltaConnectionString": "\u00A4{ConnectionStringStaging}\u00A4",
+        "DeltaTable": "\u00A4{DafDbSchema,L}\u00A4.\u00A4{entityname,L}\u00A4_delta",
+        "KeyColumns": "\u00A4{BiTemporalFields}\u00A4",
+        "TargetConnectionString": "\u00A4{ConnectionString}\u00A4",
+        "TargetTable": "\u00A4{DafDbSchema,L}\u00A4.\u00A4{entityname,L}\u00A4"
       },
       "portPlacements": {
-        "I:In": "Right",
-        "O:Out": "Left"
+        "O:Success": "Top",
+        "I:In": "Bottom"
+      },
+      "flippedPortSides": []
+    },
+    {
+      "id": "d868b444-d2cb-4727-a157-9251a1961ba5",
+      "name": "Merge DAF Delta",
+      "category": "Module",
+      "nodeType": "MergeDafDelta",
+      "x": 849,
+      "y": 1838,
+      "width": 190,
+      "height": 92,
+      "executionMode": "Nop",
+      "settings": {
+        "DBMS": "MSSQL",
+        "DeltaConnectionString": "\u00A4{ConnectionStringStaging}\u00A4",
+        "DeltaTable": "\u00A4{DafDbSchema,L}\u00A4.\u00A4{entityname,L}\u00A4_delta",
+        "KeyColumns": "",
+        "TargetConnectionString": "\u00A4{ConnectionString}\u00A4",
+        "TargetTable": "\u00A4{DafDbSchema,L}\u00A4.\u00A4{entityname,L}\u00A4"
+      },
+      "portPlacements": {
+        "O:Success": "Top",
+        "I:In": "Bottom"
+      },
+      "flippedPortSides": []
+    },
+    {
+      "id": "badabd84-f6bf-45c5-abf9-53b44c38b281",
+      "name": "Notify Claudi ;-)",
+      "category": "Module",
+      "nodeType": "ExecuteSQL",
+      "x": 1468,
+      "y": 1265,
+      "width": 200,
+      "height": 102,
+      "executionMode": "Enabled",
+      "settings": {
+        "CommandTimeout": "0",
+        "ConnectionString": "\u00A4{ConnectionStringStaging}\u00A4",
+        "DBMS": "MSSQL",
+        "ExecuteEachLine": "False",
+        "FilePath": "",
+        "InTransaction": "False",
+        "MaxRows": "0",
+        "QueryType": "NonQuery",
+        "ResultVariable": "",
+        "SQL": "IF OBJECT_ID(N\u0027\u00A4{DafDbSchema}\u00A4.WorkflowGeneration\u0027, N\u0027U\u0027) IS NULL\nBEGIN\n    CREATE TABLE \u00A4{DafDbSchema}\u00A4.WorkflowGeneration\n    (\n        Generationsnummer int NOT NULL,\n        [timestamp] datetime2(7) NOT NULL\n            CONSTRAINT DF_WorkflowGeneration_Timestamp DEFAULT (SYSDATETIME()),\n\n        CONSTRAINT PK_WorkflowGeneration\n            PRIMARY KEY (generationsnummer)\n    );\nEND;\n\nINSERT INTO \u00A4{DafDbSchema}\u00A4.WorkflowGeneration (GenerationsNummer)\nVALUES (\u00A4{DafGeneration}\u00A4);"
+      },
+      "portPlacements": {},
+      "flippedPortSides": []
+    },
+    {
+      "id": "e872e081-b75d-4423-81ae-bf9d46fb7282",
+      "name": "Notify Claudi ;-)",
+      "category": "Module",
+      "nodeType": "ExecuteSQL",
+      "x": 2084.160023884893,
+      "y": 44.16000000001122,
+      "width": 200,
+      "height": 102,
+      "executionMode": "Enabled",
+      "settings": {
+        "CommandTimeout": "0",
+        "ConnectionString": "\u00A4{ConnectionString}\u00A4",
+        "DBMS": "MSSQL",
+        "ExecuteEachLine": "False",
+        "FilePath": "",
+        "InTransaction": "False",
+        "MaxRows": "0",
+        "QueryType": "NonQuery",
+        "ResultVariable": "",
+        "SQL": "IF OBJECT_ID(N\u0027\u00A4{DafDbSchema}\u00A4.WorkflowGeneration\u0027, N\u0027U\u0027) IS NULL\nBEGIN\n    CREATE TABLE \u00A4{DafDbSchema}\u00A4.WorkflowGeneration\n    (\n        Generationsnummer int NOT NULL,\n        [timestamp] datetime2(7) NOT NULL\n            CONSTRAINT DF_WorkflowGeneration_Timestamp DEFAULT (SYSDATETIME()),\n\n        CONSTRAINT PK_WorkflowGeneration\n            PRIMARY KEY (generationsnummer)\n    );\nEND;\n\nINSERT INTO \u00A4{DafDbSchema}\u00A4.WorkflowGeneration (GenerationsNummer)\nVALUES (\u00A4{TotalGenerationNumber}\u00A4);"
+      },
+      "portPlacements": {
+        "O:Success": "Bottom"
       },
       "flippedPortSides": []
     }
@@ -1705,19 +1736,6 @@
       "fromControlDx": null,
       "fromControlDy": null,
       "toNodeId": "818c44eb-cd6a-41ea-bc0c-8623754badcb",
-      "toPort": "In",
-      "toControlDx": null,
-      "toControlDy": null,
-      "waypoints": [],
-      "directRoute": true
-    },
-    {
-      "id": "5f7df1a6-e6d1-4963-905a-ed52daf69125",
-      "fromNodeId": "edf3a657-154f-4168-8f19-188330624d27",
-      "fromPort": "Done",
-      "fromControlDx": null,
-      "fromControlDy": null,
-      "toNodeId": "e92cee82-5046-457a-96c2-bf4a4f328e00",
       "toPort": "In",
       "toControlDx": null,
       "toControlDy": null,
@@ -1935,31 +1953,6 @@
       "waypoints": []
     },
     {
-      "id": "24cced95-a53b-4d54-9a26-b5ecd53ea967",
-      "fromNodeId": "85dbed79-733f-40a5-8ae1-fef323c22b7b",
-      "fromPort": "Success",
-      "fromControlDx": null,
-      "fromControlDy": null,
-      "toNodeId": "9ff6fe5d-c093-4476-b4d1-7d5d6f6d3dce",
-      "toPort": "In",
-      "toControlDx": null,
-      "toControlDy": null,
-      "waypoints": [],
-      "directRoute": true
-    },
-    {
-      "id": "615c9f1a-ea15-4632-9f36-af7e4b90d16b",
-      "fromNodeId": "85dbed79-733f-40a5-8ae1-fef323c22b7b",
-      "fromPort": "Fail",
-      "fromControlDx": null,
-      "fromControlDy": null,
-      "toNodeId": "3ad43875-72dc-4c16-9287-756f5d32fc5d",
-      "toPort": "In",
-      "toControlDx": null,
-      "toControlDy": null,
-      "waypoints": []
-    },
-    {
       "id": "84ab1eb0-bf08-4514-97ea-b365a8c429bf",
       "fromNodeId": "0d473c99-a6ba-42ef-aee6-eb942c04afe3",
       "fromPort": "Success",
@@ -1979,19 +1972,6 @@
       "fromControlDx": null,
       "fromControlDy": null,
       "toNodeId": "6cfbd657-afdd-4f01-8271-5e7601665e58",
-      "toPort": "In",
-      "toControlDx": null,
-      "toControlDy": null,
-      "waypoints": [],
-      "directRoute": true
-    },
-    {
-      "id": "b3629e70-65cf-40e7-8c02-811b64d413f6",
-      "fromNodeId": "34301e27-f410-4375-b385-1e991796cddc",
-      "fromPort": "Done",
-      "fromControlDx": null,
-      "fromControlDy": null,
-      "toNodeId": "8e5e2037-d3c1-4910-aec1-ffd9ff6b0257",
       "toPort": "In",
       "toControlDx": null,
       "toControlDy": null,
@@ -2022,19 +2002,6 @@
       "toControlDx": null,
       "toControlDy": null,
       "waypoints": []
-    },
-    {
-      "id": "aec0955c-04fc-4177-94e8-205a14b158e6",
-      "fromNodeId": "4c5bea1a-3d55-4e9b-ab0b-3b3e5d959241",
-      "fromPort": "True",
-      "fromControlDx": null,
-      "fromControlDy": null,
-      "toNodeId": "b61993f6-8343-4399-8945-e0dedde44bfd",
-      "toPort": "In",
-      "toControlDx": null,
-      "toControlDy": null,
-      "waypoints": [],
-      "directRoute": true
     },
     {
       "id": "2fb68197-3fe6-42c4-88aa-2c68e0c1b7ce",
@@ -2125,18 +2092,6 @@
       "waypoints": []
     },
     {
-      "id": "4af2eae1-63b4-41d0-b2b4-32deda91c0df",
-      "fromNodeId": "4c5bea1a-3d55-4e9b-ab0b-3b3e5d959241",
-      "fromPort": "Fail",
-      "fromControlDx": null,
-      "fromControlDy": null,
-      "toNodeId": "3ad43875-72dc-4c16-9287-756f5d32fc5d",
-      "toPort": "In",
-      "toControlDx": null,
-      "toControlDy": null,
-      "waypoints": []
-    },
-    {
       "id": "dc0f8ce7-2dcd-4359-a503-4869ebdb5e33",
       "fromNodeId": "34301e27-f410-4375-b385-1e991796cddc",
       "fromPort": "Fail",
@@ -2212,38 +2167,12 @@
       "directRoute": true
     },
     {
-      "id": "40f3812d-7572-4f0f-94ca-1890f83a1aca",
-      "fromNodeId": "06d329a0-2a26-4807-b635-b3d7b32cd829",
-      "fromPort": "Out",
-      "fromControlDx": null,
-      "fromControlDy": null,
-      "toNodeId": "4c5bea1a-3d55-4e9b-ab0b-3b3e5d959241",
-      "toPort": "In",
-      "toControlDx": null,
-      "toControlDy": null,
-      "waypoints": [],
-      "directRoute": true
-    },
-    {
       "id": "fa44d423-d284-4ae4-99e1-2e4d9a2685f1",
       "fromNodeId": "713e0dd4-4ef6-4c13-a5a6-9a94de60d3f4",
       "fromPort": "False",
       "fromControlDx": null,
       "fromControlDy": null,
       "toNodeId": "9e2a7b1e-2d17-4cb9-9550-3f6f3dbd7508",
-      "toPort": "In",
-      "toControlDx": null,
-      "toControlDy": null,
-      "waypoints": [],
-      "directRoute": true
-    },
-    {
-      "id": "e98ccba3-ebc5-40e7-be0d-cb02e288f9cb",
-      "fromNodeId": "2bce4799-2aef-4c2c-9522-935e05e0c016",
-      "fromPort": "Out",
-      "fromControlDx": null,
-      "fromControlDy": null,
-      "toNodeId": "85dbed79-733f-40a5-8ae1-fef323c22b7b",
       "toPort": "In",
       "toControlDx": null,
       "toControlDy": null,
@@ -2498,32 +2427,6 @@
     {
       "id": "7bd4f00f-eb65-4744-b78b-51651f713f4e",
       "fromNodeId": "3c2b48e4-4e3c-43be-b6c8-27bbf7fd66f2",
-      "fromPort": "Fail",
-      "fromControlDx": null,
-      "fromControlDy": null,
-      "toNodeId": "3ad43875-72dc-4c16-9287-756f5d32fc5d",
-      "toPort": "In",
-      "toControlDx": null,
-      "toControlDy": null,
-      "waypoints": [],
-      "directRoute": true
-    },
-    {
-      "id": "e21b6799-adf2-4be1-9dc9-91e2fb16f017",
-      "fromNodeId": "7f348667-d5ba-46e1-88ad-5aae2149347b",
-      "fromPort": "Out",
-      "fromControlDx": null,
-      "fromControlDy": null,
-      "toNodeId": "34301e27-f410-4375-b385-1e991796cddc",
-      "toPort": "LoopBack",
-      "toControlDx": null,
-      "toControlDy": null,
-      "waypoints": [],
-      "directRoute": true
-    },
-    {
-      "id": "6bd64c57-bf0b-4df7-b26d-d4304d68bb31",
-      "fromNodeId": "7f348667-d5ba-46e1-88ad-5aae2149347b",
       "fromPort": "Fail",
       "fromControlDx": null,
       "fromControlDy": null,
@@ -2899,19 +2802,6 @@
       "directRoute": true
     },
     {
-      "id": "a285942b-87c7-4eb0-a0d2-c57ae274a0e1",
-      "fromNodeId": "8edbbab6-41bc-4dac-acc3-7ec83d242b9f",
-      "fromPort": "Success",
-      "fromControlDx": null,
-      "fromControlDy": null,
-      "toNodeId": "20e7a2f1-fce1-4320-a162-25bf373a111c",
-      "toPort": "In",
-      "toControlDx": null,
-      "toControlDy": null,
-      "waypoints": [],
-      "directRoute": true
-    },
-    {
       "id": "c9555552-9e9b-4787-947f-50d363260d7f",
       "fromNodeId": "20e7a2f1-fce1-4320-a162-25bf373a111c",
       "fromPort": "Out",
@@ -2972,7 +2862,8 @@
       "toPort": "In",
       "toControlDx": null,
       "toControlDy": null,
-      "waypoints": []
+      "waypoints": [],
+      "directRoute": true
     },
     {
       "id": "e72f6163-6c78-4655-a78d-7bcb7236546e",
@@ -3001,12 +2892,89 @@
       "directRoute": true
     },
     {
-      "id": "609402ca-9f1d-4ae2-9823-0c19b63fa9e8",
+      "id": "24cced95-a53b-4d54-9a26-b5ecd53ea967",
+      "fromNodeId": "85dbed79-733f-40a5-8ae1-fef323c22b7b",
+      "fromPort": "Success",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "9ff6fe5d-c093-4476-b4d1-7d5d6f6d3dce",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": [],
+      "directRoute": true
+    },
+    {
+      "id": "615c9f1a-ea15-4632-9f36-af7e4b90d16b",
+      "fromNodeId": "85dbed79-733f-40a5-8ae1-fef323c22b7b",
+      "fromPort": "Fail",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "3ad43875-72dc-4c16-9287-756f5d32fc5d",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": []
+    },
+    {
+      "id": "e98ccba3-ebc5-40e7-be0d-cb02e288f9cb",
+      "fromNodeId": "2bce4799-2aef-4c2c-9522-935e05e0c016",
+      "fromPort": "Out",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "85dbed79-733f-40a5-8ae1-fef323c22b7b",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": [],
+      "directRoute": true
+    },
+    {
+      "id": "d2758348-f8bd-4219-bcbb-cbbf6ab08fb2",
+      "fromNodeId": "06d329a0-2a26-4807-b635-b3d7b32cd829",
+      "fromPort": "Out",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "b61993f6-8343-4399-8945-e0dedde44bfd",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": [],
+      "directRoute": true
+    },
+    {
+      "id": "591609c3-8ee4-41c4-87f2-d8a2a13c2157",
+      "fromNodeId": "8edbbab6-41bc-4dac-acc3-7ec83d242b9f",
+      "fromPort": "Success",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "4c5bea1a-3d55-4e9b-ab0b-3b3e5d959241",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": [],
+      "directRoute": true
+    },
+    {
+      "id": "f679c635-ac1e-41ed-af11-44c0bc83cf75",
+      "fromNodeId": "4c5bea1a-3d55-4e9b-ab0b-3b3e5d959241",
+      "fromPort": "True",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "20e7a2f1-fce1-4320-a162-25bf373a111c",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": [],
+      "directRoute": true
+    },
+    {
+      "id": "b240dfab-50a1-443c-b7d3-032c87f84fd7",
       "fromNodeId": "4c5bea1a-3d55-4e9b-ab0b-3b3e5d959241",
       "fromPort": "False",
       "fromControlDx": null,
       "fromControlDy": null,
-      "toNodeId": "c5464de8-e72e-404d-9a30-4c7dab1b7fad",
+      "toNodeId": "d868b444-d2cb-4727-a157-9251a1961ba5",
       "toPort": "In",
       "toControlDx": null,
       "toControlDy": null,
@@ -3014,12 +2982,12 @@
       "directRoute": true
     },
     {
-      "id": "8d695100-9352-4aa6-ae4c-ab93d5832803",
-      "fromNodeId": "c5464de8-e72e-404d-9a30-4c7dab1b7fad",
-      "fromPort": "Out",
+      "id": "f5304226-9e08-4107-88d9-3ac41bff056f",
+      "fromNodeId": "d868b444-d2cb-4727-a157-9251a1961ba5",
+      "fromPort": "Success",
       "fromControlDx": null,
       "fromControlDy": null,
-      "toNodeId": "7f348667-d5ba-46e1-88ad-5aae2149347b",
+      "toNodeId": "9ff6fe5d-c093-4476-b4d1-7d5d6f6d3dce",
       "toPort": "In",
       "toControlDx": null,
       "toControlDy": null,
@@ -3027,8 +2995,86 @@
       "directRoute": true
     },
     {
-      "id": "edbdd956-4d9a-40c8-8619-3d8cbc58a1f5",
-      "fromNodeId": "c5464de8-e72e-404d-9a30-4c7dab1b7fad",
+      "id": "778de17d-d9d4-4a02-9fce-8b2f6215cad4",
+      "fromNodeId": "d868b444-d2cb-4727-a157-9251a1961ba5",
+      "fromPort": "Fail",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "3ad43875-72dc-4c16-9287-756f5d32fc5d",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": [],
+      "directRoute": true
+    },
+    {
+      "id": "99364bd8-8fb8-46ab-b013-a76a11afc4cb",
+      "fromNodeId": "34301e27-f410-4375-b385-1e991796cddc",
+      "fromPort": "Done",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "badabd84-f6bf-45c5-abf9-53b44c38b281",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": [],
+      "directRoute": true
+    },
+    {
+      "id": "1d45d32d-de05-44bf-acbe-6a815a756b94",
+      "fromNodeId": "badabd84-f6bf-45c5-abf9-53b44c38b281",
+      "fromPort": "Success",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "8e5e2037-d3c1-4910-aec1-ffd9ff6b0257",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": [],
+      "directRoute": true
+    },
+    {
+      "id": "be70553d-552a-4ded-abc8-ec8267cd0fc0",
+      "fromNodeId": "badabd84-f6bf-45c5-abf9-53b44c38b281",
+      "fromPort": "Fail",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "3ad43875-72dc-4c16-9287-756f5d32fc5d",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": [],
+      "directRoute": true
+    },
+    {
+      "id": "d435b5bb-c4d3-4fd4-90f7-3443955891d3",
+      "fromNodeId": "edf3a657-154f-4168-8f19-188330624d27",
+      "fromPort": "Done",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "e872e081-b75d-4423-81ae-bf9d46fb7282",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": [],
+      "directRoute": true
+    },
+    {
+      "id": "7c5b40c1-b462-4646-bd93-37dfca970977",
+      "fromNodeId": "e872e081-b75d-4423-81ae-bf9d46fb7282",
+      "fromPort": "Success",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "e92cee82-5046-457a-96c2-bf4a4f328e00",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": [],
+      "directRoute": true
+    },
+    {
+      "id": "e0b58836-7204-477d-9f10-23d030768911",
+      "fromNodeId": "e872e081-b75d-4423-81ae-bf9d46fb7282",
       "fromPort": "Fail",
       "fromControlDx": null,
       "fromControlDy": null,
