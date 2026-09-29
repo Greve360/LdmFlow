@@ -156,8 +156,8 @@
       "name": "Ensure Destination Schema",
       "category": "Module",
       "nodeType": "EnsureSchema",
-      "x": 308,
-      "y": 337,
+      "x": 345,
+      "y": 345,
       "width": 200,
       "height": 102,
       "executionMode": "Enabled",
@@ -357,11 +357,11 @@
       "name": "Start CVR Delta",
       "category": "Module",
       "nodeType": "Start",
-      "x": 17,
-      "y": 451,
+      "x": 16,
+      "y": 420,
       "width": 200,
       "height": 102,
-      "executionMode": "Enabled",
+      "executionMode": "Disabled",
       "settings": {
         "BCPTempFolder": "\u00A4[WorkingFolder]\u00A4",
         "DestinationConnectionString": "\u00A4[RegisterWorkDB]\u00A4",
@@ -382,12 +382,13 @@
       "name": "Ensure RI",
       "category": "Module",
       "nodeType": "EnsureRI",
-      "x": 1280.444444444463,
-      "y": 88.11111111112677,
+      "x": 1311.444444444463,
+      "y": 30.111111111126775,
       "width": 200,
       "height": 102,
       "executionMode": "Enabled",
       "settings": {
+        "CloneIndexes": "Yes",
         "CommandTimeout": "0",
         "DBMS": "MSSQL",
         "DestinationConnectionString": "\u00A4{DestinationConnectionString}\u00A4",
@@ -447,8 +448,8 @@
       "name": "Start CVR Delta RI",
       "category": "Module",
       "nodeType": "Start",
-      "x": 847,
-      "y": 104,
+      "x": 722,
+      "y": 91,
       "width": 200,
       "height": 102,
       "executionMode": "Disabled",
@@ -466,6 +467,83 @@
       },
       "portPlacements": {},
       "flippedPortSides": []
+    },
+    {
+      "id": "d629b9f7-cc04-4434-aa25-a04f0f112468",
+      "name": "Start GDK Total",
+      "category": "Module",
+      "nodeType": "Start",
+      "x": 12,
+      "y": 650,
+      "width": 200,
+      "height": 102,
+      "executionMode": "Disabled",
+      "settings": {
+        "BCPTempFolder": "\u00A4[WorkingFolder]\u00A4",
+        "DestinationConnectionString": "\u00A4[ClaudiDB]\u00A4",
+        "DestinationDatabase": "LDM_HoestT",
+        "DestinationSchema": "DAF_GDK",
+        "DestinationServer": "ldmprodsql02.lifa.dk",
+        "SingleTable": "",
+        "SourceConnectionString": "\u00A4[MSSQL_Sandbox]\u00A4",
+        "SourceDatabase": "Sandbox",
+        "SourceSchema": "daf_gdk",
+        "SourceServer": "10-GM0RZQ8N"
+      },
+      "portPlacements": {},
+      "flippedPortSides": []
+    },
+    {
+      "id": "049e3890-456a-475a-bf91-1e841cb57609",
+      "name": "Start CVR Total",
+      "category": "Module",
+      "nodeType": "Start",
+      "x": 113,
+      "y": 754,
+      "width": 200,
+      "height": 102,
+      "executionMode": "Disabled",
+      "settings": {
+        "BCPTempFolder": "\u00A4[WorkingFolder]\u00A4",
+        "DestinationConnectionString": "\u00A4[ClaudiDeltaDB]\u00A4",
+        "DestinationDatabase": "LDM_HoestD",
+        "DestinationSchema": "DAF_GDK",
+        "DestinationServer": "ldmprodsql02.lifa.dk",
+        "SingleTable": "",
+        "SourceConnectionString": "\u00A4[MSSQL_SandboxDelta]\u00A4",
+        "SourceDatabase": "SandboxDelta",
+        "SourceSchema": "daf_gdk",
+        "SourceServer": "10-GM0RZQ8N"
+      },
+      "portPlacements": {
+        "O:Out": "Top"
+      },
+      "flippedPortSides": []
+    },
+    {
+      "id": "cdb05a6e-7cff-4668-9251-a9119e007863",
+      "name": "Start CVR Total RI",
+      "category": "Module",
+      "nodeType": "Start",
+      "x": 167,
+      "y": 858,
+      "width": 200,
+      "height": 102,
+      "executionMode": "Enabled",
+      "settings": {
+        "BCPTempFolder": "\u00A4[WorkingFolder]\u00A4",
+        "DestinationConnectionString": "\u00A4[ClaudiDB]\u00A4",
+        "DestinationDatabase": "LDM_HoestT",
+        "DestinationSchema": "DAF_GDK",
+        "DestinationServer": "ldmprodsql02.lifa.dk",
+        "SingleTable": "",
+        "SourceConnectionString": "\u00A4[MSSQL_Sandbox]\u00A4",
+        "SourceDatabase": "Sandbox",
+        "SourceSchema": "DAF_GDK",
+        "SourceServer": "10-GM0RZQ8N"
+      },
+      "portPlacements": {},
+      "flippedPortSides": []
     }
   ],
   "connections": [
@@ -479,8 +557,7 @@
       "toPort": "In",
       "toControlDx": null,
       "toControlDy": null,
-      "waypoints": [],
-      "directRoute": true
+      "waypoints": []
     },
     {
       "id": "1f6d3a8e-4c9b-4e2f-8a7d-3b6c9e2f5a1d",
@@ -492,8 +569,7 @@
       "toPort": "In",
       "toControlDx": null,
       "toControlDy": null,
-      "waypoints": [],
-      "directRoute": true
+      "waypoints": []
     },
     {
       "id": "9e4c7b2a-5f8d-4a3e-9c6b-2d7f4a9e3c8b",
@@ -505,8 +581,7 @@
       "toPort": "In",
       "toControlDx": null,
       "toControlDy": null,
-      "waypoints": [],
-      "directRoute": true
+      "waypoints": []
     },
     {
       "id": "3c4d5e6f-7890-4a01-bcde-f01234567803",
@@ -518,8 +593,7 @@
       "toPort": "In",
       "toControlDx": null,
       "toControlDy": null,
-      "waypoints": [],
-      "directRoute": true
+      "waypoints": []
     },
     {
       "id": "4d5e6f78-90a1-4b23-cdef-012345678904",
@@ -557,8 +631,7 @@
       "toPort": "In",
       "toControlDx": null,
       "toControlDy": null,
-      "waypoints": [],
-      "directRoute": true
+      "waypoints": []
     },
     {
       "id": "890a1b2c-3d4e-4f67-0123-456789012308",
@@ -583,8 +656,7 @@
       "toPort": "In",
       "toControlDx": null,
       "toControlDy": null,
-      "waypoints": [],
-      "directRoute": true
+      "waypoints": []
     },
     {
       "id": "0a1b2c3d-4e5f-4189-2345-678901234510",
@@ -724,8 +796,7 @@
       "toPort": "In",
       "toControlDx": null,
       "toControlDy": null,
-      "waypoints": [],
-      "directRoute": true
+      "waypoints": []
     },
     {
       "id": "43607a81-847b-41bd-8288-17dcb7f19432",
@@ -763,8 +834,7 @@
       "toPort": "In",
       "toControlDx": null,
       "toControlDy": null,
-      "waypoints": [],
-      "directRoute": true
+      "waypoints": []
     },
     {
       "id": "4de3603f-6faf-4eb5-a83e-2a74c7fae1cd",
@@ -802,8 +872,7 @@
       "toPort": "In",
       "toControlDx": null,
       "toControlDy": null,
-      "waypoints": [],
-      "directRoute": true
+      "waypoints": []
     },
     {
       "id": "2b9ec37c-cb0a-402f-8a10-8d01a199398f",
@@ -828,7 +897,8 @@
       "toPort": "In",
       "toControlDx": null,
       "toControlDy": null,
-      "waypoints": []
+      "waypoints": [],
+      "directRoute": true
     },
     {
       "id": "e0774fdd-40d9-4d18-8b2c-352d3cb8115f",
@@ -846,6 +916,45 @@
     {
       "id": "c28694ba-93a4-40bb-8238-78c248240545",
       "fromNodeId": "3eb51097-9259-4729-86b0-1ba3d12b4ebf",
+      "fromPort": "Out",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "d32f920d-ed2d-4758-95c5-cfdeee2c7c10",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": [],
+      "directRoute": true
+    },
+    {
+      "id": "62842a9f-a93c-4f66-80e5-5fd1af813189",
+      "fromNodeId": "d629b9f7-cc04-4434-aa25-a04f0f112468",
+      "fromPort": "Out",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "c2d8f4a1-6e3b-4c9d-8a72-f1b5e9c3d6a2",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": [],
+      "directRoute": true
+    },
+    {
+      "id": "7eca9dda-d798-4c5a-8ae7-c3bc7c553e18",
+      "fromNodeId": "049e3890-456a-475a-bf91-1e841cb57609",
+      "fromPort": "Out",
+      "fromControlDx": null,
+      "fromControlDy": null,
+      "toNodeId": "c2d8f4a1-6e3b-4c9d-8a72-f1b5e9c3d6a2",
+      "toPort": "In",
+      "toControlDx": null,
+      "toControlDy": null,
+      "waypoints": [],
+      "directRoute": true
+    },
+    {
+      "id": "c4c4e12b-896c-4fb5-8897-fe7b6119156f",
+      "fromNodeId": "cdb05a6e-7cff-4668-9251-a9119e007863",
       "fromPort": "Out",
       "fromControlDx": null,
       "fromControlDy": null,
