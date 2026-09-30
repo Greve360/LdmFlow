@@ -13,7 +13,7 @@
       "y": 22.413333333333327,
       "width": 190,
       "height": 92,
-      "executionMode": "Enabled",
+      "executionMode": "Disabled",
       "settings": {
         "Force": "true",
         "ScheduleOnce": "yes",
@@ -90,9 +90,11 @@
         "GetFeatureEndpoint": "\u00A4{GetFeatureEndpoint}\u00A4",
         "GetFeatureUrl": "",
         "HttpMethod": "Auto",
+        "MaxParallelPages": "4",
         "MetaRegister": "\u00A4{RegisterName}\u00A4",
         "OutputFolder": "",
         "OutputFormat": "GML2",
+        "Paging": "Auto",
         "PropertyNames": "",
         "RegisterCapabilities": "",
         "ResultType": "",
@@ -101,8 +103,7 @@
         "StartIndex": "",
         "Timeout": "1000",
         "TypeName": "\u00A4{tablename}\u00A4",
-        "Version": "Auto",
-        "Paging": "Auto"
+        "Version": "Auto"
       },
       "portPlacements": {
         "O:Fail": "Top"
@@ -349,7 +350,7 @@
       "y": 29.080000000000013,
       "width": 244,
       "height": 92,
-      "executionMode": "Disabled",
+      "executionMode": "Enabled",
       "settings": {
         "ScheduleOnce": "yes",
         "ScheduleWeekly": "no",
