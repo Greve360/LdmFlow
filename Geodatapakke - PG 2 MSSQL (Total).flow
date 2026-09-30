@@ -452,7 +452,7 @@
       "executionMode": "Enabled",
       "settings": {
         "DestinationConnection": "\u00A4[ClaudiDB]\u00A4",
-        "DestinationDB": "LDM_HoestT",
+        "DestinationDB": "LDM_Hoestet",
         "DestinationServer": "ldmprodsql02.lifa.dk",
         "MissingTables": "",
         "SourceRegister": ""
@@ -523,6 +523,30 @@
         "Italic": "Ja",
         "Underline": "Nej",
         "HorizontalAlignment": "Center",
+        "VerticalAlignment": "Middle"
+      },
+      "portPlacements": {},
+      "flippedPortSides": []
+    },
+    {
+      "id": "6bdf0ff2-5f34-4078-9ff0-b669d454c3de",
+      "name": "Text 2",
+      "category": "Module",
+      "nodeType": "Text",
+      "x": 1080.0000000000014,
+      "y": 28.199999999999932,
+      "width": 287.9999999999985,
+      "height": 61.59999999999957,
+      "executionMode": "Enabled",
+      "settings": {
+        "Bold": "Nej",
+        "Color": "Orange",
+        "Font": "Segoe UI",
+        "HorizontalAlignment": "Center",
+        "Italic": "Ja",
+        "Size": "42",
+        "Text": "PG 2 MSSQL",
+        "Underline": "Nej",
         "VerticalAlignment": "Middle"
       },
       "portPlacements": {},
