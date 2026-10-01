@@ -90,7 +90,7 @@
         "GetFeatureEndpoint": "\u00A4{GetFeatureEndpoint}\u00A4",
         "GetFeatureUrl": "",
         "HttpMethod": "Auto",
-        "MaxParallelPages": "1",
+        "MaxParallelPages": "4",
         "MetaRegister": "\u00A4{RegisterName}\u00A4",
         "OutputFolder": "",
         "OutputFormat": "GML2",
@@ -306,7 +306,7 @@
         "MaxParallelism": "20",
         "Mode": "Parallel",
         "ResultType": "Recordset",
-        "Sql": "select R.RegisterName, R.HarvestSchema, T.TableName, R.GetFeatureEndpoint from [workflow].[MetaTable] T\r\n  inner join [workflow].[MetaRegister] R on R.RegisterName = T.RegisterName\r\nwhere (R.RegisterName = \u0027\u00A4{PickedRegister}\u00A4\u0027  or \u0027\u00A4{PickedRegister,U}\u00A4\u0027=\u0027ALL\u0027)\r\n  and R.RegisterType = \u0027WFS\u0027\r\n  and T.Active=1\r\n  and (T.TableName = \u0027\u00A4{SingleTable}\u00A4\u0027 or \u00A4{SingleTable,#}\u00A4=0)\r\n  and (T.HarvestTimestamp \u003C= DATEADD(HOUR, -12, GETDATE()) or \u0027\u00A4{Force}\u00A4\u0027=\u0027true\u0027)\r\n  order by T.HarvestTimestamp asc\r\n  \t",
+        "Sql": "select R.RegisterName, R.HarvestSchema, T.TableName, R.GetFeatureEndpoint, T.WfsSortBy \r\nfrom [workflow].[MetaTable] T\r\n  inner join [workflow].[MetaRegister] R on R.RegisterName = T.RegisterName\r\nwhere (R.RegisterName = \u0027\u00A4{PickedRegister}\u00A4\u0027  or \u0027\u00A4{PickedRegister,U}\u00A4\u0027=\u0027ALL\u0027)\r\n  and R.RegisterType = \u0027WFS\u0027\r\n  and T.Active=1\r\n  and (T.TableName = \u0027\u00A4{SingleTable}\u00A4\u0027 or \u00A4{SingleTable,#}\u00A4=0)\r\n  and (T.HarvestTimestamp \u003C= DATEADD(HOUR, -12, GETDATE()) or \u0027\u00A4{Force}\u00A4\u0027=\u0027true\u0027)\r\n  order by T.HarvestTimestamp asc\r\n  \t",
         "SqlTimeout": ""
       },
       "portPlacements": {
