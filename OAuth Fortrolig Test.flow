@@ -10,7 +10,7 @@
       "category": "Module",
       "nodeType": "Start",
       "x": 59.400000000000006,
-      "y": 80.08000000000001,
+      "y": 81.08000000000001,
       "width": 200,
       "height": 102,
       "executionMode": "Enabled",
@@ -171,7 +171,8 @@
         "RowLimit": "",
         "SchemaName": "ejf",
         "StartRow": "",
-        "TableName": "ejendomsadministratormedstamoplysninger"
+        "TableName": "ejendomsadministratormedstamoplysninger",
+        "SysTimestamp": "No"
       },
       "portPlacements": {},
       "flippedPortSides": []
@@ -219,7 +220,8 @@
         "RowLimit": "",
         "SchemaName": "ejf",
         "StartRow": "",
-        "TableName": "ejerskabmedstamoplysninger"
+        "TableName": "ejerskabmedstamoplysninger",
+        "SysTimestamp": "No"
       },
       "portPlacements": {},
       "flippedPortSides": []
@@ -267,7 +269,8 @@
         "RowLimit": "",
         "SchemaName": "ejf",
         "StartRow": "",
-        "TableName": "personellervirksomhedsadministratormedstamoplysninger"
+        "TableName": "personellervirksomhedsadministratormedstamoplysninger",
+        "SysTimestamp": "No"
       },
       "portPlacements": {},
       "flippedPortSides": []
@@ -447,7 +450,7 @@
       "category": "Module",
       "nodeType": "GetAvailableFileDownloadsDaf",
       "x": 27,
-      "y": 232,
+      "y": 233,
       "width": 277,
       "height": 106,
       "executionMode": "Enabled",
@@ -527,7 +530,8 @@
         "RowLimit": "",
         "SchemaName": "ejf",
         "StartRow": "",
-        "TableName": "alternativadressebegraenset"
+        "TableName": "alternativadressebegraenset",
+        "SysTimestamp": "No"
       },
       "portPlacements": {},
       "flippedPortSides": []
